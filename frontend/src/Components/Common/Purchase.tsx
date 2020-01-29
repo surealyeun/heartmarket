@@ -1,11 +1,11 @@
 import React from 'react';
-import './Items.css';
+import './Items.scss';
 
 function Purchase() {
     return (
-        <div>
+        <div className="section">
             <div>구매 물품</div>
-            <div className="wrapper">
+            <div className="products">
                 <div className="item"></div>
                 <div className="item"></div>
                 <div className="item"></div>

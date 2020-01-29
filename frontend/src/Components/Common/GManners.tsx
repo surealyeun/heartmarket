@@ -1,10 +1,10 @@
 import React from 'react';
 import './Items.scss';
 
-function Sale() {
+function Purchase() {
     return (
         <div className="section">
-            <div>판매 물품</div>
+            <div>준(작성한) 매너</div>
             <div className="products">
                 <div className="item"></div>
                 <div className="item"></div>
@@ -12,8 +12,7 @@ function Sale() {
                 <div className="item"></div>
             </div>
         </div>
-
     );
 }
 
-export default Sale;
+export default Purchase;
