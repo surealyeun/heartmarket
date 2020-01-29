@@ -1,0 +1,52 @@
+@media screen and (max-width: 767px) {
+  .Nav {
+    text-align: center;
+    background: #f9f4e6;
+
+    .category {
+      width: 100%;
+      height: 55px;
+
+      text-align: center;
+      display: inline-block;
+
+      .img_category {
+        width: 100%;
+        height: 100%;
+        object-fit: scale-down;
+        vertical-align: -30%;
+        -webkit-user-drag: none; 
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 767px) {
+  Nav {
+    margin-top: 10px;
+
+    .div {
+      text-align: center;
+      max-width: 768px;
+      width: 100%;
+      margin: 0 auto;
+      background: #f494ab;
+    }
+
+    .category {
+      width: 100%;
+      height: 55px;
+
+      text-align: center;
+      display: inline-block;
+
+      .img_category {
+        width: 100%;
+        height: 100%;
+        object-fit: scale-down;
+        vertical-align: -30%;
+        -webkit-user-drag: none; 
+      }
+    }
+  }
+}
