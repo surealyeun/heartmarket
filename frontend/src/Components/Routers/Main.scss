@@ -7,9 +7,11 @@
   margin: 0;
 }
 
+
 @media screen and (max-width: 767px) {
   .Main {
-    margin: 10px;
+    //margin: 10px;
+    display: block;
 
     .div_carousel {
       .div_ganji {
@@ -28,7 +30,7 @@
     }
 
     .famous {
-      width: 100%;
+      margin: 10px;
       margin-top: 10px;
       .famous_bundle {
         margin-top: 10px;
@@ -53,10 +55,11 @@
     max-width: 768px;
     width: 100%;
     margin: 0 auto;
+    
     //text-align: center;
 
     .div_carousel {
-      margin: 10px 0px 10px 0px;
+      margin: 0px 0px 10px 0px;
 
       .div_ganji {
         height: 250px;
