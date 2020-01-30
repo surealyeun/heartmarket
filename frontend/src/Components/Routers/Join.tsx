@@ -22,6 +22,7 @@ class Join extends Component {
             sendemail: true
         });
 
+        window.localStorage.setItem('joinemail', this.state.email);
         // 이메일 보내기 axios 요청, return data : 인증번호 
         // 이메일 redux 저장
     }
@@ -55,9 +56,12 @@ class Join extends Component {
                 <div className={this.state.sendemail ? 'send' : 'nope'}>
                 <form>
                     <h3>메일을 확인하고 인증번호를 입력해주세요</h3>
-                    <input type="string" className="certification" placeholder="인증 번호" 
+                    <input type="text" className="certification" placeholder="인증 번호" 
                         onChange={(e) => {this.certValidate(e.target.value)}}/>
-                    <Link to="/join2"><button disabled={!this.state.certValid}>이메일 인증하기</button></Link>
+                    <Link to={{
+                        pathname:"/join/detail",
+                        state: {joinemail: this.state.email}}}
+                    ><button disabled={!this.state.certValid}>이메일 인증하기</button></Link>
                 </form>
                 </div>
             </div>

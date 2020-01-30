@@ -1,3 +1,7 @@
+.more{
+    display: inline-block;
+}
+
 @media screen and (max-width: 767px){
     .item{
         display: inline-block;
@@ -5,7 +9,7 @@
         height: 70px;
         margin: 10px;
         border: solid 1px;
-        border-radius: 35px;
+        // border-radius: 35px;
     }
 }
 
@@ -13,7 +17,7 @@
     .section {
         display: inline-block;
         width: 50%;
-        height: 200px;
+        height: 180px;
     }
     .products {
         width: 100%;
