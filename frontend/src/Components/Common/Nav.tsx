@@ -2,7 +2,7 @@ import React from "react";
 import "./Nav.scss";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Categoryimg from 'C:/Users/multicampus/HeartMarket/frontend/src/Assets/img/그림1.png';
+import Categoryimg from '../../Assets/img/그림1.png';
 
 export default class Nav extends React.Component {
   render() {

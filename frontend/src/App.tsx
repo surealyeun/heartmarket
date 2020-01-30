@@ -4,6 +4,7 @@ import React from 'react';
 // import Button from './Components/Common/Button'
 // import Footer from './Components/Common/Footer'
 import Main from './Components/Routers/Main'
+import SearchResult from "./Components/Routers/SearchResult"
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
 
 
@@ -12,6 +13,7 @@ const App: React.FC = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Main} ></Route>
+        <Route path="/search" component={SearchResult}></Route>
         <Redirect path="*" to="/"></Redirect>
       </Switch>
     </BrowserRouter>
