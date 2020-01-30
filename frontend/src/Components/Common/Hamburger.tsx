@@ -4,9 +4,9 @@ import Moveable from "react-moveable";
 
 function Hamburger(){
 
-    const ss = () => {
+    // const ss = () => {
         
-    };
+    // };
 
     return(
         <div className="Hamburger">

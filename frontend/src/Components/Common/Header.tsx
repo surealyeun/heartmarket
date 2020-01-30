@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.scss";
-import logo from "C:/Users/multicampus/HeartMarket/frontend/src/Assets/img/두근마켓.png";
-import logo2 from "C:/Users/multicampus/HeartMarket/frontend/src/Assets/img/두근마켓2.png";
+import logo from "../img/두근마켓.png";
+import logo2 from "../img/두근마켓2.png";
 
 import { Link } from "react-router-dom";
 

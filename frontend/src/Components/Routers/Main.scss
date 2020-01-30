@@ -13,35 +13,23 @@
     //margin: 10px;
     display: block;
 
-    .div_carousel {
-      .div_ganji {
-        height: 180px;
-        text-align: center;
-
-        .ganji {
-          width: 100%;
-          height: 100%;
-          object-fit: fill;
-          vertical-align: -30%;
-          -webkit-user-drag: none;
-          background: black;
-        }
-      }
-    }
-
     .famous {
       margin: 10px;
-      margin-top: 10px;
+      margin-top: 30px;
+
       .famous_bundle {
-        margin-top: 10px;
+        margin-top: 20px;
         display: flex;
         justify-content: space-between;
-        height: 50px;
+        height: 130px;
+        
         .div_famous {
-          width: 18%;
+          width: 23%;
           height: 100%;
-          background: #ffbaa2;
+          background: #f9f4e6;
           display: inline-block;
+          border-radius: 5px;
+          border: 1px solid gray;
         }
       }
     }
@@ -58,36 +46,22 @@
     
     //text-align: center;
 
-    .div_carousel {
-      margin: 0px 0px 10px 0px;
-
-      .div_ganji {
-        height: 250px;
-        text-align: center;
-
-        .ganji {
-          width: 100%;
-          height: 100%;
-          object-fit: fill;
-          vertical-align: -30%;
-          -webkit-user-drag: none;
-          background: black;
-        }
-      }
-    }
-
     .famous {
       width: 100%;
       margin-bottom: 10px;
+      margin-top: 40px;
       .famous_bundle {
-        margin-top: 10px;
+        margin-top: 20px;
         display: flex;
         justify-content: space-between;
+   
         .div_famous {
-          width: 18%;
-          height: 50px;
-          background: #ffbaa2;
+          width: 23%;
+          height: 200px;
+          background: #f9f4e6;
           display: inline-block;
+          border-radius: 5px;
+          border: 1px solid gray;
         }
       }
     }
