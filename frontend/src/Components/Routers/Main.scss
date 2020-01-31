@@ -1,21 +1,26 @@
 @charset "UTF-8";
-@font-face { font-family: 'yg-jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face {
+  font-family: "yg-jalnan";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 
 body {
-  font-family: 'yg-jalnan';
+  font-family: "yg-jalnan";
   //word-break: keep-all;
   margin: 0;
 }
-
 
 @media screen and (max-width: 767px) {
   .Main {
     //margin: 10px;
     display: block;
 
-    text-align: center;
-    .famous_text{
-      font-family: 'yg-jalnan';
+    //
+    .famous_text {text-align: center;
+      font-family: "yg-jalnan";
     }
 
     .famous {
@@ -25,33 +30,24 @@ body {
       .famous_bundle {
         margin-top: 20px;
         display: flex;
-        justify-content: space-between;
-        height: 130px;
-        
-        .div_famous {
-          width: 23%;
-          height: 100%;
-          background: #f9f4e6;
-          display: inline-block;
-          border-radius: 5px;
-          border: 1px solid gray;
-        }
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: space-around;
+        justify-content: space-around;
       }
     }
   }
 }
 
-// https://nuli.navercorp.com/sharing/blog/post/1132728
 
 @media screen and (min-width: 768px) {
   .Main {
     max-width: 768px;
     width: 100%;
     margin: 0 auto;
-    
-    //text-align: center;
-    .famous_text{
-      font-family: 'yg-jalnan';
+
+    .famous_text {
+      font-family: "yg-jalnan";
     }
 
     .famous {
@@ -60,17 +56,11 @@ body {
       margin-top: 40px;
       .famous_bundle {
         margin-top: 20px;
-        display: flex;
-        justify-content: space-between;
-   
-        .div_famous {
-          width: 23%;
-          height: 200px;
-          background: #f9f4e6;
-          display: inline-block;
-          border-radius: 5px;
-          border: 1px solid gray;
-        }
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: 20px;
+        grid-row-gap: 10px;
+        grid-auto-rows: minmax(100px, auto);
       }
     }
   }
