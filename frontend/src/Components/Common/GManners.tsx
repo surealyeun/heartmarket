@@ -8,8 +8,6 @@ function Purchase() {
             <div className="products">
                 <div className="item"></div>
                 <div className="item"></div>
-                <div className="item"></div>
-                <div className="item"></div>
             </div>
         </div>
     );
