@@ -7,7 +7,7 @@
   margin: 0;
 }
 
-.Searchitems {
+.items {
   width: 100%;
   margin-top: 10px;
 }
@@ -26,8 +26,6 @@
   display: flex;
   margin: 24px;
   flex-wrap: wrap;
-  align-content: space-around;
-  justify-content: space-between;
 }
 
 @media screen and (max-width: 767px) {
