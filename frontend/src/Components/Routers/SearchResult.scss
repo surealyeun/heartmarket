@@ -16,46 +16,50 @@
   @extend .items;
 }
 
-@mixin set-container($t_col) {
-  display: grid;
-  margin: 20px;
-  grid-row-gap: 24px;
-  grid-column-gap: 24px;
-  justify-items: center;
-  grid-template-columns: $t_col;
-}
-.container {
-  &_filter {
-    @include set-container(repeat(7, 1fr));
-  }
+.filter_area {
+  border-radius: 5%;
 }
 
-@media screen and (max-width: 500px) {
+
+
+@mixin set-container() {
+  display: flex;
+  margin: 24px;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 767px) {
   .Main {
-    margin: 10px;
-    .items_container {
-      @include set-container(repeat(2, 1fr));
+    display: block;
+    .container {
+      &_items {
+        @include set-container();
+      }
+      &_filter {
+        @include set-container()
+      }
+    }
+    .items_header {
+      display: flex;
+      justify-content: center; 
     }
   }
 }
-
-@media screen and (max-width: 767px) and (min-width: 501px) {
-  .Main {
-    margin: 10px;
-    .items_container {
-      @include set-container(repeat(3, 1fr));
-    }
-  }
-}
-// https://nuli.navercorp.com/sharing/blog/post/1132728
 
 @media screen and (min-width: 768px) {
   .Main {
     max-width: 768px;
     width: 100%;
     margin: 0 auto;
-    .items_container {
-      @include set-container(repeat(3, 1fr));
+    .container {
+      &_items {
+        @include set-container();
+      }
+      &_filter {
+        @include set-container();
+      }
     }
   }
 }

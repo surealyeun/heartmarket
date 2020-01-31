@@ -44,7 +44,6 @@ function Main() {
             <div className="div_famous"></div>
             <div className="div_famous"></div>
             <div className="div_famous"></div>
-            <div className="div_famous"></div>
           </div>
         </div>
       </div>
