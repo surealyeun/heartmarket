@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 import "./Login.scss";
 
@@ -18,18 +19,38 @@ class Login extends Component {
             password: "",
             islog: window.localStorage.getItem("log") === "true" ? true : false
         };
-        console.log(window.localStorage.getItem("log"));
     }
 
     handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        window.localStorage.setItem("useremail", this.state.email);
-        window.localStorage.setItem("userpw", this.state.password);
-        window.localStorage.setItem("log", "true");
-        console.log(window.localStorage.getItem("useremail"));
-        this.setState({
-            islog: true
-        });
+        if(this.state.email && this.state.password){
+            
+            axios({
+                method: 'get',
+                url: 'http://70.12.247.48:8080/login',
+                params: {
+                    email: this.state.email,
+                    password: this.state.password
+                }
+            }).then(res => {
+                // console.log(res.data);
+                window.localStorage.setItem("useremail", this.state.email);
+                window.localStorage.setItem("userpw", this.state.password);
+                window.localStorage.setItem("log", "true");
+                this.setState({
+                    islog: true
+                });    
+            }).catch(error => {
+                // console.log(error);
+                this.setState({
+                    islog: false
+                });
+                alert('아이디와 비밀번호를 확인해주세요.');
+            })
+            e.preventDefault();
+        }else{
+            e.preventDefault();
+        }
+
     };
 
     handleEmail = (email: string) => {
@@ -54,7 +75,7 @@ class Login extends Component {
     render() {
         return (
             <div className="login">
-                <h3><span>근</span>처를 <span>두</span>리번 <span>두</span>리번</h3>
+                <h3><span>두</span>리번 <span>두</span>리번 <span>근</span>처에</h3>
                 <h1>두근 마켓</h1>
                 <h2 className={this.state.islog ? "" : "log"}>
                     {window.localStorage.getItem("useremail")}님<br/>안녕하세요.
@@ -81,7 +102,7 @@ class Login extends Component {
                         onChange={e => this.handlePW(e.target.value)}
                     ></input>
                     <br></br>
-                    <button className="btn-login">로그인</button>
+                    <button type="submit" className="btn-login">로그인</button>
                     <Link to="/join">
                         <button className="btn-join">회원가입</button>
                     </Link>
