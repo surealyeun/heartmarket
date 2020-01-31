@@ -1,35 +1,35 @@
-@font-face { font-family: 'yg-jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-weight: normal; font-style: normal; }
+// @font-face { font-family: 'yg-jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-weight: normal; font-style: normal; }
 
-body{
-    font-family: 'yg-jalnan';
-}
+// body{
+//     font-family: 'yg-jalnan';
+// }
 
-.wrapper{
-    display: grid;
-    grid-template-columns: [img] 28% [info] 40% [blank] 5% [attack] 27%;
-    grid-gap: 0;
-    grid-auto-rows: minmax(10px, auto);
-}
+// .wrapper{
+//     display: grid;
+//     grid-template-columns: [img] 28% [info] 40% [blank] 5% [attack] 27%;
+//     grid-gap: 0;
+//     grid-auto-rows: minmax(10px, auto);
+// }
 
-.profile-img{
-    width: 100px;
-    margin-top: 15px;
-}
+// .profile-img{
+//     width: 100px;
+//     margin-top: 15px;
+// }
 
-.profile-img-wrapper{
-    text-align: center;
-}
+// .profile-img-wrapper{
+//     text-align: center;
+// }
 
-.info {
-    margin-top: 40px;
-}
+// .info {
+//     margin-top: 40px;
+// }
 
-.heart-img {
-    width: 80px;
-}
+// .heart-img {
+//     width: 80px;
+// }
 
-.attack{
-    text-align: center;
-}
+// .attack{
+//     text-align: center;
+// }
 
 

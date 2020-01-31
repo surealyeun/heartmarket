@@ -1,5 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+// import Header from './Components/Common/Header'
+// import Nav from './Components/Common/Nav'
+// import Button from './Components/Common/Button'
+// import Footer from './Components/Common/Footer'
+import Main from './Components/Routers/Main'
+import SearchResult from "./Components/Routers/SearchResult"
+import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
+
 
 import Login from './Components/Routers/Login';
 import Join from './Components/Routers/Join';
@@ -11,12 +18,17 @@ function App() {
   return (
     <div>
       <BrowserRouter>
+      <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/join" component={Join} exact/>
+        <Route path="/join" component={Join} />
         <Route path="/mypage" component={Mypage} />
         <Route path="/join/detail" component={JoinDetail} />
         <Route path="/joinsuc" component={JoinSuccess} />
-      </BrowserRouter>
+        <Route path="/" exact component={Main} ></Route>
+        <Route path="/search" component={SearchResult}></Route>
+        <Redirect path="*" to="/"></Redirect>
+      </Switch>
+    </BrowserRouter>
     </div>
   );
 }

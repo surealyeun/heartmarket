@@ -1,0 +1,109 @@
+@font-face {
+  font-family: "yg-jalnan";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: "yg-jalnan";
+  word-break: keep-all;
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .Famous {
+    // width: 100%;
+    // height: 100%;
+    width: auto;
+    height: 150px;
+    background: white;
+    margin-bottom: 10px;
+    // text-align: center;
+    border-radius: 5px;
+    border: 1px solid lightgrey;
+    .div_famous {
+      .img_famous {
+        //background-color: white;
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 1px solid lightgrey;
+      }
+
+      .p_famous {
+        padding-top: 2px;
+        .title_famous {
+          font-size: 10px;
+          padding-left: 5px;
+          padding-right: 5px;
+          overflow: hidden;
+          font-family: "yg-jalnan";
+          color: black;
+        }
+        .money_famous,
+        .address_famous {
+          font-size: 10px;
+          padding-left: 5px;
+          padding-right: 5px;
+          overflow: hidden;
+          font-family: "GmarketSansMedium";
+          color: darkslategrey;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .Famous {
+    .div_famous {
+      width: 100%;
+      height: 190px;
+      background: white;
+      display: inline-block;
+      border-radius: 5px;
+      border: 1px solid lightgrey;
+      .img_famous {
+        background-color: white;
+        width: 100%;
+        height: 130px;
+        object-fit: cover;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 1px solid lightgrey;
+      }
+
+      .p_famous {
+        padding-top: 4px;
+        .title_famous {
+          font-size: 12px;
+          padding-left: 5px;
+          padding-right: 5px;
+          overflow: -moz-hidden-unscrollable;
+          font-family: "yg-jalnan";
+          color: black;
+        }
+        .money_famous,
+        .address_famous {
+          font-size: 10px;
+          padding-left: 5px;
+          padding-right: 5px;
+          overflow: hidden;
+          font-family: "GmarketSansMedium";
+          color: darkslategrey;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}
