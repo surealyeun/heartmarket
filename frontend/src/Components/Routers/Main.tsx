@@ -5,7 +5,7 @@ import "react-multi-carousel/lib/styles.css";
 
 import Header from "../Common/Header";
 import Nav from "../Common/Nav";
-import Button from "../Common/Button";
+import PenButton from "../Common/PenButton";
 import Footer from "../Common/Footer";
 import Hamburger from "../Common/Hamburger";
 import Ganji from "../Main/Ganji";
@@ -49,7 +49,7 @@ function Main() {
       </div>
       </div>
       <Hamburger></Hamburger>
-      <Button></Button>
+      <PenButton></PenButton>
       <Footer></Footer>
     </>
   );
