@@ -11,12 +11,14 @@
   .Ganji {
     margin: 0 10px 0 10px;
     display: block;
-
+    
     .div_carousel {
 
       .div_ganji {
         height: 180px;
         text-align: center;
+        
+        //border: 1px solid lightgray;
 
         .ganji {
           width: 100%;
@@ -47,7 +49,7 @@
       .div_ganji {
         height: 250px;
         text-align: center;
-
+        //border: 1px solid lightgray;
         .ganji {
           width: 100%;
           height: 100%;

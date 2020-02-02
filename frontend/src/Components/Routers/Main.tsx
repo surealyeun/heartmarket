@@ -7,7 +7,6 @@ import Header from "../Common/Header";
 import Nav from "../Common/Nav";
 import PenButton from "../Common/PenButton";
 import Footer from "../Common/Footer";
-import Hamburger from "../Common/Hamburger";
 import Ganji from "../Main/Ganji";
 import Famous from "../Main/Famous";
 import { makeStyles } from "@material-ui/core/styles";
@@ -98,7 +97,6 @@ function Main() {
         </div>
       </div>
       </div>
-      <Hamburger></Hamburger>
       <PenButton></PenButton>
       <Footer></Footer>
     </>

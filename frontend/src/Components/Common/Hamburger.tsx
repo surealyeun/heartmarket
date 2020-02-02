@@ -1,16 +1,31 @@
-import React from "react";
+import React, {useState} from "react";
 import "./Hamburger.scss";
 
-function Hamburger(){
+function Hamburger() {
 
+    const [visible, setVisible] = useState(false);
 
-    // const ss = () => {
-        
-    // };
+    const onclick = () =>{
+        setVisible(!visible);
+    };
 
-    return(
+    return (
+        //const {visible} = this.useState;
         <div className="Hamburger">
-            {/* <div className="box_hambuger" onClick={ss}></div> */}
+            <button type="button" id="menu" onClick={onclick}>
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div className={`${visible && 'hambuger_box'}`} id="hambuger_box">
+                {!visible ? "": (<button type="button" className="bnt_close" onClick={onclick}> 
+                    <img
+                        alt="close"
+                        src="https://image.flaticon.com/icons/svg/458/458595.svg"
+                    ></img>
+                </button>)}
+                
+            </div>
         </div>
     );
 }

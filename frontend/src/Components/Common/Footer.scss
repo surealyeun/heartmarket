@@ -1,5 +1,6 @@
 @media screen and (max-width: 767px) {
   .Footer {
+    margin-top: 10px;
     flex-shrink: 0;
     //text-align: center;
     background-color: #365367;
@@ -17,6 +18,7 @@
 @media screen and (min-width: 768px) {
 
   .Footer {
+    margin-top: 10px;
     flex-shrink: 0;
     background-color: #f9f4e6;
     color: #365367;
