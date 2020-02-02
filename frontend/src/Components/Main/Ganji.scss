@@ -9,11 +9,11 @@
 
 @media screen and (max-width: 767px) {
   .Ganji {
-    margin: 10px;
+    margin: 0 10px 0 10px;
     display: block;
 
     .div_carousel {
-      //border-top: 1px solid gray;
+
       .div_ganji {
         height: 180px;
         text-align: center;
@@ -39,11 +39,10 @@
     max-width: 768px;
     width: 100%;
     margin: 0 auto;
-    
-    //text-align: center;
+    margin-top: 0;
 
     .div_carousel {
-      margin: 10px 0px 10px 0px;
+      margin: 5px 0px 0px 0px;
 
       .div_ganji {
         height: 250px;

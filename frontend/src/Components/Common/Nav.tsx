@@ -2,19 +2,33 @@ import React, { useState } from "react";
 import "./Nav.scss";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import Categoryimg1 from "../img/cate1.png";
-import Categoryimg2 from "../img/cate2.png";
-import Categoryimg3 from "../img/cate3.png";
-import Categoryimg4 from "../img/cate4.png";
-import Categoryimg5 from "../img/cate5.png";
-import Categoryimg6 from "../img/cate6.png";
-import Categoryimg7 from "../img/cate7.png";
-import Categoryimg8 from "../img/cate8.png";
-import Categoryimg9 from "../img/cate9.png";
-import Categoryimg10 from "../img/cate10.png";
-import Categoryimg11 from "../img/cate11.png";
-import Categoryimg12 from "../img/cate12.png";
-import Categoryimg13 from "../img/cate13.png";
+import Categoryimg1 from "../img/cate1-2.png";
+import Categoryimg2 from "../img/cate2-2.png";
+import Categoryimg3 from "../img/cate3-2.png";
+import Categoryimg4 from "../img/cate4-2.png";
+import Categoryimg5 from "../img/cate5-5.png";
+import Categoryimg6 from "../img/cate6-2.png";
+import Categoryimg7 from "../img/cate7-1.png";
+import Categoryimg8 from "../img/cate8-1.png";
+import Categoryimg9 from "../img/cate9-4.png";
+import Categoryimg10 from "../img/cate10-1.png";
+import Categoryimg11 from "../img/cate11-1.png";
+import Categoryimg12 from "../img/cate12-1.png";
+import Categoryimg13 from "../img/cate13-1.png";
+
+import Categorytxt1 from "../img/cate1-txt.png";
+import Categorytxt2 from "../img/cate2-txt.png";
+import Categorytxt3 from "../img/cate3-1-txt.png";
+import Categorytxt4 from "../img/cate4-txt.png";
+import Categorytxt5 from "../img/cate5-txt.png";
+import Categorytxt6 from "../img/cate6-1-txt.png";
+import Categorytxt7 from "../img/cate7-txt.png";
+import Categorytxt8 from "../img/cate8-txt.png";
+import Categorytxt9 from "../img/cate9-txt.png";
+import Categorytxt10 from "../img/cate10-txt.png";
+import Categorytxt11 from "../img/cate11-txt.png";
+import Categorytxt12 from "../img/cate12-txt.png";
+import Categorytxt13 from "../img/cate13-txt.png";
 
 
 import Button from "@material-ui/core/Button";
@@ -65,6 +79,12 @@ function Nav() {
               alt=""
               src={Categoryimg1}
             ></img>
+            <img id='1'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt1}
+            ></img>
           </Button>
           <Button className="category">
             <img id='2'
@@ -72,6 +92,12 @@ function Nav() {
               onMouseDown={mousedown} onMouseUp={mouseup}
               alt=""
               src={Categoryimg2}
+            ></img>
+            <img id='2'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt2}
             ></img>
           </Button>
           <Button className="category">
@@ -81,6 +107,12 @@ function Nav() {
               alt=""
               src={Categoryimg3}
             ></img>
+            <img id='3'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt3}
+            ></img>
           </Button>
           <Button className="category">
             <img id='4'
@@ -88,6 +120,12 @@ function Nav() {
               onMouseDown={mousedown} onMouseUp={mouseup}
               alt=""
               src={Categoryimg4}
+            ></img>
+            <img id='4'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt4}
             ></img>
           </Button>
           <Button className="category">
@@ -97,6 +135,12 @@ function Nav() {
               alt=""
               src={Categoryimg5}
             ></img>
+            <img id='5'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt5}
+            ></img>
           </Button>
           <Button className="category">
             <img id='6'
@@ -104,6 +148,12 @@ function Nav() {
               onMouseDown={mousedown} onMouseUp={mouseup}
               alt=""
               src={Categoryimg6}
+            ></img>
+            <img id='6'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt6}
             ></img>
           </Button>
           <Button className="category">
@@ -113,6 +163,12 @@ function Nav() {
               alt=""
               src={Categoryimg7}
             ></img>
+            <img id='7'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt7}
+            ></img>
           </Button>
           <Button className="category">
             <img id='8'
@@ -120,6 +176,12 @@ function Nav() {
               onMouseDown={mousedown} onMouseUp={mouseup}
               alt=""
               src={Categoryimg8}
+            ></img>
+            <img id='8'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt8}
             ></img>
           </Button>
           <Button className="category">
@@ -129,6 +191,12 @@ function Nav() {
               alt=""
               src={Categoryimg9}
             ></img>
+            <img id='9'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt9}
+            ></img>
           </Button>
           <Button className="category">
             <img id='10'
@@ -136,6 +204,12 @@ function Nav() {
               onMouseDown={mousedown} onMouseUp={mouseup}
               alt=""
               src={Categoryimg10}
+            ></img>
+            <img id='10'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt10}
             ></img>
           </Button>
           <Button className="category">
@@ -145,6 +219,12 @@ function Nav() {
               alt=""
               src={Categoryimg11}
             ></img>
+            <img id='11'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt11}
+            ></img>
           </Button>
           <Button className="category">
             <img id='12'
@@ -153,6 +233,12 @@ function Nav() {
               alt=""
               src={Categoryimg12}
             ></img>
+            <img id='12'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt12}
+            ></img>
           </Button>
           <Button className="category">
             <img id='13'
@@ -160,6 +246,12 @@ function Nav() {
               onMouseDown={mousedown} onMouseUp={mouseup}
               alt=""
               src={Categoryimg13}
+            ></img>
+            <img id='13'
+              className="img_category1"
+              onMouseDown={mousedown} onMouseUp={mouseup}
+              alt=""
+              src={Categorytxt13}
             ></img>
           </Button>
         </Carousel>

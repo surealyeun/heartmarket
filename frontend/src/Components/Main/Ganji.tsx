@@ -3,8 +3,8 @@ import "./Ganji.scss";
 
 import Carousel from "react-multi-carousel";
 import Ganji1 from "../img/Ganji1-1.png";
-import Ganji2 from "../img/Ganji2-2.png";
-import Ganji3 from "../img/Ganji3.png";
+import Ganji2 from "../img/Ganji2-4.png";
+import Ganji3 from "../img/Ganji3-6.png";
 
 function Ganji() {
 
