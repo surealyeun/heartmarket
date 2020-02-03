@@ -35,10 +35,9 @@
 }
 
 // https://nuli.navercorp.com/sharing/blog/post/1132728
-
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 959px)  {
   .Ganji {
-    max-width: 768px;
+    max-width: 960px;
     width: 100%;
     margin: 0 auto;
     margin-top: 0;
@@ -48,6 +47,35 @@
 
       .div_ganji {
         height: 250px;
+        text-align: center;
+        //border: 1px solid lightgray;
+        .ganji {
+          width: 100%;
+          height: 100%;
+          object-fit: fill;
+          vertical-align: -30%;
+          -webkit-user-drag: none;
+          background: black;
+        }
+      }
+    }
+  }
+}
+
+
+
+@media screen and (min-width: 960px) {
+  .Ganji {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 0;
+
+    .div_carousel {
+      margin: 5px 0px 0px 0px;
+
+      .div_ganji {
+        height: 300px;
         text-align: center;
         //border: 1px solid lightgray;
         .ganji {

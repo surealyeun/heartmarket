@@ -7,7 +7,7 @@
     color: #f9f4e6;
     height: 100px;
 
-    .text_footer {
+    &.text_footer {
       padding-top: 20px;
       padding-left: 10px;
       font-size: 12px;
@@ -15,8 +15,7 @@
   }
 }
 
-@media screen and (min-width: 768px) {
-
+@media screen and (min-width: 768px) and (max-width: 959px)  {
   .Footer {
     margin-top: 10px;
     flex-shrink: 0;
@@ -26,6 +25,29 @@
 
     .text_footer {
       max-width: 768px;
+      width: 100%;
+      margin: 0 auto;
+      position: relative;
+
+      padding-top: 20px;
+      padding-left: 10px;
+      font-size: 12px;
+    }
+  }
+}
+
+
+@media screen and (min-width: 960px) {
+
+  .Footer {
+    margin-top: 10px;
+    flex-shrink: 0;
+    background-color: #f9f4e6;
+    color: #365367;
+    height: 100px;
+
+    .text_footer {
+      max-width: 960px;
       width: 100%;
       margin: 0 auto;
       position: relative;

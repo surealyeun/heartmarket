@@ -1,0 +1,37 @@
+// @media screen and (max-width: 767px) {
+  .TopButton {
+    .img_button {
+      width: 45px;
+      height: 45px;
+      z-index: 20;
+      position: fixed;
+      bottom: 5%;
+      right: calc(50% - 22.5px);
+      object-fit: fill;
+      border-radius: 20px;
+      //filter: invert(100%);
+    }
+  }
+// }
+
+// @media screen and (min-width: 768px) {
+//   .TopButton {
+//     max-width: 768px;
+//     width: 100%;
+//     margin: 0 auto;
+//     position: relative;
+
+//     .img_button {
+//         //background: #f494ab;
+//         width: 40px;
+//         height: 40px;
+//         z-index: 20;
+//         position: fixed;
+//         bottom: 5%;
+//         right: calc(50% - 20px);
+//         object-fit: fill;
+//         border-radius: 20px;
+//         //border: 1px solid lightgrey;
+//       }
+//   }
+// }

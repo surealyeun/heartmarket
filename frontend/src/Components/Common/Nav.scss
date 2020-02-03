@@ -36,10 +36,9 @@
 
     }
   }
-
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 959px)  {
   nav {
     margin-top: 10px;
 
@@ -69,6 +68,43 @@
         display: block;
         width: 80%;
         height: 45px;
+        object-fit: fill;
+        -webkit-user-drag: none;
+      }
+
+    }
+  }
+}
+
+@media screen and (min-width: 960px) {
+  nav {
+    margin-top: 15px;
+
+    .div {
+      text-align: center;
+      max-width: 960px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .category {
+
+      .img_category1{display: none};
+      .img_category {
+        width: 80%;
+        height: 55px;
+        object-fit: fill;
+        -webkit-user-drag: none;
+      }
+
+    }
+
+    .category:hover{
+      .img_category{display: none;}
+      .img_category1{
+        display: block;
+        width: 80%;
+        height: 55px;
         object-fit: fill;
         -webkit-user-drag: none;
       }
