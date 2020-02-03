@@ -1,21 +1,21 @@
-// @media screen and (min-width: 768px){
-//     .mypage{
-//         width: 80%;
-//         margin: 0 auto;
-//     }
+.mypage {
+    @media screen and (min-width: 768px) {
+        width: 80%;
+        margin: 0 auto;
+    }
 
-// }
+    @media screen and (max-width: 767px) {
+    }
 
-// @media screen and (max-width: 767px){
-    
-// }
+    .products-section {
+        display: inline;
+    }
 
-// .products-section{
-//     display: inline;
-// }
-
-// hr{
-//     height: 2px;
-//     border: thin solid #f494ab;
-//     background-color: #f494ab;
-// }
+    hr {
+        height: 2px;
+        width: 90%;
+        margin: 10px auto;
+        border: thin solid #f494ab;
+        background-color: #f494ab;
+    }
+}

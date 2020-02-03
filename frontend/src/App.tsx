@@ -20,7 +20,7 @@ function App() {
       <BrowserRouter>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/join" component={Join} />
+        <Route path="/join" component={Join} exact/>
         <Route path="/mypage" component={Mypage} />
         <Route path="/join/detail" component={JoinDetail} />
         <Route path="/joinsuc" component={JoinSuccess} />

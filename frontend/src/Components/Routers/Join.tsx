@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 import './Join.scss';
 
@@ -8,7 +9,7 @@ class Join extends Component {
         email: '',
         sendemail: false,
         cert: '111',
-        certValid: false
+        certValid: false,
     }
 
     inputemail = (email: string) => {
@@ -22,13 +23,28 @@ class Join extends Component {
             sendemail: true
         });
 
-        window.localStorage.setItem('joinemail', this.state.email);
+        axios({
+            method: "get",
+            url: "http://13.125.55.96:8080/mail",
+                params: {
+                    email: this.state.email,
+                }
+        }).then(res => {
+            console.log(res.data.data);
+            this.setState({
+                sendemail: true,
+                cert: res.data.data
+            });
+        }).catch(err => {
+            alert('인증메일 전송에 실패했습니다. 이메일을 확인해주세요.');
+        })
+
         // 이메일 보내기 axios 요청, return data : 인증번호 
-        // 이메일 redux 저장
+        // 이메일 redux 저장 -> props로 전달
     }
 
     certValidate = (certification: string) => {
-        if(certification.match(this.state.cert)){
+        if(this.state.cert == certification){
             this.setState({
                 certValid: true
             });
@@ -45,7 +61,9 @@ class Join extends Component {
 
     render(){
         return(
+            <div className="big">
             <div className="join">
+                <h2 className="join-dg">두근 마켓</h2>
                 <h1>회원가입</h1>
                 <form onSubmit={this.handle}>
                     <h3>이메일을 입력하고 두근마켓을 시작하세요.</h3>
@@ -53,7 +71,9 @@ class Join extends Component {
                         onChange={(e) => {this.inputemail(e.target.value)}}/>
                     <button type="button" className="btn-joinpage" onClick={this.sendemail}>이메일로 시작하기</button>
                 </form>
-                <div className={this.state.sendemail ? 'send' : 'nope'}>
+
+                {this.state.sendemail ?
+                <div>
                 <br></br>
                 <form>
                     <h3>메일을 확인하고 인증번호를 입력해주세요.</h3>
@@ -61,10 +81,15 @@ class Join extends Component {
                         onChange={(e) => {this.certValidate(e.target.value)}}/>
                     <Link to={{
                         pathname:"/join/detail",
-                        state: {joinemail: this.state.email}}}
-                    ><button className="btn-joinpage" disabled={!this.state.certValid}>이메일 인증하기</button></Link>
+                        state: {joinemail: this.state.email}}}>
+                    <button type="button" className="btn-joinpage" disabled={!this.state.certValid}>이메일 인증하기</button></Link>
                 </form>
                 </div>
+                
+                :
+                <div></div>
+                }
+            </div>
             </div>
         );
     };

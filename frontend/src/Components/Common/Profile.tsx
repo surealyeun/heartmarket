@@ -3,7 +3,7 @@ import './Profile.scss';
 
 function Profile() {
     return (
-        <div className="wrapper">
+        <div className="profile">
             <div className="profile-img-wrapper">
                 <img className="profile-img" alt="profile" 
                 src="https://image.flaticon.com/icons/svg/2471/2471392.svg"></img>

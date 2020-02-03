@@ -4,7 +4,7 @@ import './Items.scss';
 function Purchase() {
     return (
         <div className="section">
-            <div>준(작성한) 매너</div>
+            <h3>준(작성한) 매너</h3>
             <div className="products">
                 <div className="item"></div>
                 <div className="item"></div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Mypage.scss';
 
+import Header from '../Common/Header';
 import Profile from '../Common/Profile';
 import Sale from '../Common/Sale';
 import Purchase from '../Common/Purchase';
@@ -10,6 +11,7 @@ import GManners from '../Common/GManners';
 function Mypage() {
     return (
         <div className="mypage">
+            <Header />
             <Profile/>
             <hr></hr>
             <div className="products-section">
