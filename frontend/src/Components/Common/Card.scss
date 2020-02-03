@@ -1,14 +1,34 @@
-.card {
+@mixin Card_img_attr($height) {
+  height: $height;
+  .img_body {
+    width: 100%;
+    height: $height;
+  }
+}
+
+.Card {
   border-radius: 5%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 150px;
-  margin-right: 34px;
-  margin-bottom: 40px;
-  .card_img {
+  flex-grow: 1 1 1;
+  //Mobile
+  @media screen and (max-width: 767px) {
+    width: 150px;
+    margin-bottom: 20px;
+  }
+  .Card_img {
     position: relative;
-    .img_body {
-      width: 100%;
+    // Mobile
+    @media screen and (max-width: 767px) {
+      @include Card_img_attr(130px)
+    }
+    //Web-1
+    @media screen and (min-width: 768px) and (max-width: 959px) {
+      @include Card_img_attr(160px)
+    }
+    //Web-2
+    @media screen and (min-width: 960px) {
+      @include Card_img_attr(200px)
     }
     .img_heart {
       position: absolute;
@@ -20,7 +40,7 @@
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   }
-  .card_header {
+  .Card_header {
     margin: 3px 10px;
     .avatar {
       vertical-align: middle;
@@ -29,15 +49,24 @@
       width: 15%;
       border-radius: 50%;
     }
-    .card_nick {
+    .Card_nick {
       margin-left: 18%;
       font-size: 13px;
     }
+    @media screen and (min-width: 960px) {
+      .Card_nick {
+        margin-left: 18%;
+        font-size: 20px;
+      }
+    }
   }
-  .card_container {
-    padding: 2px 16px;
-    .line {
-      border: solid 0.5px gray;
+  .line {
+    border: solid 0.5px gray;
+  }
+  .Card_container {
+    margin: 6px;
+    p {
+      font-family: "GmarketSansMedium";
     }
   }
 }
