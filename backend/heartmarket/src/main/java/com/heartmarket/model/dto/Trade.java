@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-//@ToString
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
@@ -36,7 +36,7 @@ import lombok.ToString;
 @Table(name="trade")
 public class Trade {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer tradeNo;
 	
 	String tradeCategory;
@@ -48,9 +48,9 @@ public class Trade {
 	String productPrice;
 	String tradeDate;
 	
-	@OneToMany(mappedBy = "cTrade")
-	List<Cart> tCart;
-	
+//	@OneToMany(mappedBy = "cTrade")
+//	List<Cart> tCart;
+//	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "user_no",insertable = false, updatable = false)
 	@ToString.Exclude

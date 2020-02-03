@@ -3,6 +3,7 @@ package com.heartmarket.model.service;
 import java.util.List;
 
 import com.heartmarket.model.dto.User;
+import com.heartmarket.util.ResultMap;
 
 public interface UserService {
 	public boolean login(String email,String password);
@@ -12,4 +13,5 @@ public interface UserService {
 	public void update(User user);
 	public void delete(User user);
 	public int searchCount();
+	public ResultMap<User> duplicatedByEmail(String email);
 }
