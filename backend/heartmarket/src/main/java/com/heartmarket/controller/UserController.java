@@ -1,12 +1,9 @@
 package com.heartmarket.controller;
 
-import java.lang.management.MemoryType;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.heartmarket.model.dto.Area;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
-import com.heartmarket.model.service.EmailSenderImpl;
+import com.heartmarket.model.service.EmailServiceImpl;
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
 
@@ -40,7 +37,7 @@ public class UserController {
 	@Autowired
 	AreaService as;
 	@Autowired
-	EmailSenderImpl ms;
+	EmailServiceImpl ms;
 	
 	@RequestMapping(value = "/login", method=RequestMethod.GET)
 	public ResponseEntity<Object> loginUser(@RequestParam String email, @RequestParam String password){
@@ -121,7 +118,10 @@ public class UserController {
 	@RequestMapping(value = "/mail", method = RequestMethod.GET)
 	public ResponseEntity<Object> sendmail(@RequestParam String email) throws Exception {
 		try {
-			int key = ms.sendMail(email);
+			Random r = new Random();
+			int key = r.nextInt(4589362)+49311;
+			ms.sendMail(email,key);
+			System.out.println(key);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			resultMap.put("state", "OK");
 			resultMap.put("data", key);
