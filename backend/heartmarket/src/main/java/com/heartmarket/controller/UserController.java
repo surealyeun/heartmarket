@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
 import com.heartmarket.model.service.EmailSenderImpl;
 import com.heartmarket.model.service.UserService;
+import com.heartmarket.util.ResultMap;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,6 +63,12 @@ public class UserController {
 			e.printStackTrace();
 			throw e;
 		}
+	}
+	
+	@RequestMapping(value = "/user/{email}", method=RequestMethod.GET)
+	public ResponseEntity<Object> findOne(@PathVariable String email){
+		log.trace(email, "findByEmail");
+		return new ResponseEntity<Object>(us.duplicatedByEmail(email),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/signUp", method=RequestMethod.GET)
@@ -111,7 +119,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/mail", method = RequestMethod.GET)
-	public ResponseEntity<Object> sendmail(@RequestParam String email) {
+	public ResponseEntity<Object> sendmail(@RequestParam String email) throws Exception {
 		try {
 			int key = ms.sendMail(email);
 			Map<String, Object> resultMap = new HashMap<String, Object>();

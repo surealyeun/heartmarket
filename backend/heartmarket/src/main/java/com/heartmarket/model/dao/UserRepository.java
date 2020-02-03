@@ -11,8 +11,9 @@ import com.heartmarket.model.dto.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 
 	User findByEmail(String email);
-//	@Query(value = "select * from user where email=:email", nativeQuery = true)
-//	User findByEmail(@Param("email") String email);
+
+	//	@Query(value = "select * from user where email=:email", nativeQuery = true)
+	//User findByEmail(@Param("email") String email);
 	User findTop1ByOrderByUserNoDesc();
 	
 }

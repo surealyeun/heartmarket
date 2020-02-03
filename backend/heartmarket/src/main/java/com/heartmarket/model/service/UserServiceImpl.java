@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.heartmarket.model.dao.UserRepository;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.util.ResultMap;
 
 @Service
 @Transactional
@@ -40,6 +41,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User searchEmail(String email) {
 		return this.ur.findByEmail(email);
+	}
+	
+	public ResultMap<User> duplicatedByEmail(String email) {
+		try {
+			User tUser = ur.findByEmail(email);
+			if(tUser == null) {
+				return new ResultMap<User>("SUCCESS", "Not Duplicated", null);
+			}
+			return new ResultMap<User>("Fail", "Duplicated", tUser);
+		}catch(Exception e) {
+			throw e;
+		}
 	}
 
 	// 사용자 탈퇴
