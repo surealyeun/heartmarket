@@ -1,3 +1,7 @@
+@font-face { font-family: 'BBTreeGL'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_nine_@1.1/BBTreeGL.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'locus_sangsang'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/locus_sangsang.woff') format('woff'); font-weight: normal; font-style: normal; }
+@font-face { font-family: 'NanumSquareRound'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff'); font-weight: normal; font-style: normal; }
+
 .join, .join-detail {
     width: 80%;
     text-align: center;
@@ -43,6 +47,12 @@
         font-family: "yg-jalnan";
     }
 
+    p{
+        font-family: "NanumSquareRound";
+        color: #ee5d5d;
+        margin: 5px auto;
+    }
+
     @media screen and (max-width: 767px) {
         margin: 100px auto;
 
@@ -76,7 +86,7 @@
         }
 
         .btn-joinpage {
-            width: 100%;
+            width: 97%;
             background-color: #f494ab;
         }
     }

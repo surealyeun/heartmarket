@@ -87,7 +87,6 @@ class JoinDetail extends Component {
         return (
             <div className="big">
             <div className="join-detail">
-                <h2 className="join-dg">두근 마켓</h2>
                 <h1>회원가입</h1>
                 <h3>기본 회원정보를 입력하세요.</h3>
                 <br />
