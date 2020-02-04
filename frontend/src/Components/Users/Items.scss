@@ -1,4 +1,56 @@
 @font-face { font-family: 'yg-jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-weight: normal; font-style: normal; }
+.like-section,
+.manners-section,
+.section{
+    text-align: center;
+    h3{
+        font-family: 'yg-jalnan';
+    }
+
+    div{
+        font-family: 'yg-jalnan';
+    }
+    img {
+        width: 100%;
+        height: 100%;
+    }
+
+    @media screen and (max-width: 767px) {
+        .item {
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            border: solid 1px;
+            // border-radius: 35px;
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        display: inline-block;
+        width: 100%;
+        height: 180px;
+
+        .products {
+            width: 100%;
+            height: 95%;
+        }
+        .item {
+            display: inline-block;
+            width: 190px;
+            height: 190px;
+            margin: 10px 1.5%;
+            border: solid 1px;
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
 
 .section {
     text-align: center;
@@ -38,6 +90,7 @@
         display: inline-block;
         width: 50%;
         height: 180px;
+        text-align: center;
 
         .products {
             width: 100%;
@@ -55,3 +108,4 @@
         }
     }
 }
+

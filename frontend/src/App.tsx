@@ -13,6 +13,7 @@ import Join from './Components/Routers/Join';
 import Mypage from './Components/Routers/Mypage';
 import JoinDetail from './Components/Routers/JoinDetail';
 import JoinSuccess from './Components/Routers/JoinSuccess'; 
+import UpdateUser from './Components/Routers/UpdateUser';
 
 function App() {
   return (
@@ -21,9 +22,11 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/join" component={Join} exact/>
-        <Route path="/mypage" component={Mypage} />
+        <Route path="/mypage" component={Mypage} exact/>
         <Route path="/join/detail" component={JoinDetail} />
         <Route path="/joinsuc" component={JoinSuccess} />
+        <Route path="/mypage/update" component={UpdateUser}/>
+
         <Route path="/" exact component={Main} ></Route>
         <Route path="/search" component={SearchResult}></Route>
         <Redirect path="*" to="/"></Redirect>

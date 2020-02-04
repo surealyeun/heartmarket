@@ -7,7 +7,7 @@ import "./Join.scss";
 class Join extends Component {
     state = {
         email: "",
-        sendemail: false,
+        isSendemail: false,
         isNew: false,
         cert: "111",
         certValid: false
@@ -31,11 +31,12 @@ class Join extends Component {
             .then(res => {
                 if(res.data.state === 'Fail'){
                     this.setState({
-                        isNew: true
+                        isNew: true,
+                        isSendemail: false
                     })
                 }else{
                     this.setState({
-                        sendemail: true
+                        isSendemail: true
                     });
     
                     axios({
@@ -48,7 +49,7 @@ class Join extends Component {
                         .then(res => {
                             console.log(res.data.data);
                             this.setState({
-                                sendemail: true,
+                                isSendemail: true,
                                 cert: res.data.data
                             });
                         })
@@ -65,6 +66,12 @@ class Join extends Component {
         // 이메일 보내기 axios 요청, return data : 인증번호
         // 이메일 redux 저장 -> props로 전달
     };
+
+    keysendmail = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (e.key === 'Enter') {
+            this.sendemail();
+          }
+    }
 
     certValidate = (certification: string) => {
         if (this.state.cert == certification) {
@@ -83,7 +90,7 @@ class Join extends Component {
             <div className="big">
                 <div className="join">
                     <h1>회원가입</h1>
-                    <form>
+                    <div>
                         <h3>이메일을 입력하고 두근마켓을 시작하세요.</h3>
                         {this.state.isNew ? <p>이미 가입된 이메일입니다.</p> : <></>}
                         <input
@@ -94,11 +101,12 @@ class Join extends Component {
                                 this.inputemail(e.target.value);
                             }}
                         />
-                        <button type="button" className="btn-joinpage" onClick={this.sendemail}>
+                        <button type="button" className="btn-joinpage" onClick={this.sendemail}
+                            onKeyPress={this.keysendmail}>
                             이메일로 시작하기
                         </button>
-                    </form>
-                    {this.state.sendemail ? (
+                    </div>
+                    {this.state.isSendemail ? (
                         <div>
                             <br></br>
                             <form>

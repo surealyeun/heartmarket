@@ -25,7 +25,8 @@ class JoinDetail extends Component {
     nicknameValid = (nickname: string) => {
         if (nickname.length < 9) {
             this.setState({
-                isnnValid: true
+                isnnValid: true,
+                nickname: nickname
             });
         } else {
             this.setState({

@@ -1,7 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import './Profile.scss';
 
 function Profile() {
+    const user = JSON.parse(window.localStorage.getItem('user') || '{}');
+    
     return (
         <div className="profile">
             <div className="profile-img-wrapper">
@@ -9,7 +12,9 @@ function Profile() {
                 src="https://image.flaticon.com/icons/svg/2471/2471392.svg"></img>
             </div>
             <div className="info">
-                <div>{window.localStorage.getItem('useremail')}님<br/>동네 설정</div>
+                <div>{user.nickname}님<br/>
+                <Link to="/mypage/update"><button>정보 수정</button></Link>
+            </div>
             </div>
             <div></div>
             <div className="attack">

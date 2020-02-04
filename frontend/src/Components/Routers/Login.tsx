@@ -32,9 +32,10 @@ class Login extends Component {
                 }
             })
                 .then(res => {
-                    // console.log(res.data);
-                    window.localStorage.setItem("useremail", this.state.email);
-                    window.localStorage.setItem("userpw", this.state.password);
+                    console.log(res.data.data);
+                    window.localStorage.setItem('user', JSON.stringify(res.data.data));
+                    // window.localStorage.setItem("useremail", this.state.email);
+                    // window.localStorage.setItem("userpw", this.state.password);
                     window.localStorage.setItem("log", "true");
                     this.setState({
                         islog: true
@@ -84,7 +85,7 @@ class Login extends Component {
                 {this.state.islog ? (
                     <div>
                         <h2>
-                            {window.localStorage.getItem("useremail")}님<br />
+                            {this.state.email}님<br />
                             안녕하세요.
                         </h2>
                         <div>

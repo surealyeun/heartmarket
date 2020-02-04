@@ -3,6 +3,7 @@
 @font-face { font-family: 'NanumSquareRound'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff'); font-weight: normal; font-style: normal; }
 
 .join, .join-detail {
+    
     width: 80%;
     text-align: center;
 
@@ -38,7 +39,7 @@
 
     h3 {
         color: #6b6b6b;
-        font-family: "yg-jalnan";
+        font-family: 'NanumSquareRound';
         margin: 0 auto;
     }
 
@@ -59,6 +60,7 @@
         input[type="text"],
         input[type="email"],
         input[type="password"] {
+            font-family: 'NanumSquareRound';
             /* color: white; */
             font-size: medium;
             height: auto;
@@ -73,6 +75,7 @@
         }
 
         button {
+            font-family: 'NanumSquareRound';
             border: none;
             border-radius: 4px;
             height: 45px;
@@ -97,6 +100,7 @@
         input[type="text"],
         input[type="email"],
         input[type="password"] {
+            font-family: 'NanumSquareRound';
             /* color: white; */
             font-size: medium;
             height: auto;
@@ -111,6 +115,7 @@
         }
 
         button {
+            font-family: 'NanumSquareRound';
             border: none;
             border-radius: 4px;
             height: 40px;
