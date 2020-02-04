@@ -12,12 +12,14 @@
       position: fixed;
       bottom: 5%;
       right: 40px;
+      cursor: pointer;
     }
 
     .img_button:hover{
       transition: 0.7s;
       transition-timing-function: ease-in-out;
       transform: scale(1.4);
+      cursor: pointer;
     }
   }
 }
@@ -37,12 +39,14 @@
       position: fixed;
       bottom: 6%;
       right: calc(50% - 350px);
+      cursor: pointer;
     }
 
     .img_button:hover{
       transition: 0.7s;
       transition-timing-function: ease-in-out;
       transform: scale(1.4);
+      cursor: pointer;
     }
   }
 }
@@ -60,13 +64,17 @@
       z-index: 1000;
       position: fixed;
       bottom: 6%;
-      right: calc(50% - 350px);
+      right: calc(50% - 450px);
+      cursor: pointer;
+      // border: 2px solid black;
+      // border-radius: 26px;
     }
 
     .img_button:hover{
       transition: 0.7s;
       transition-timing-function: ease-in-out;
       transform: scale(1.4);
+      cursor: pointer;
     }
   }
 }

@@ -30,6 +30,8 @@ import Categorytxt11 from "../img/cate11-txt.png";
 import Categorytxt12 from "../img/cate12-txt.png";
 import Categorytxt13 from "../img/cate13-txt.png";
 
+
+
 import Button from "@material-ui/core/Button";
 
 function Nav() {

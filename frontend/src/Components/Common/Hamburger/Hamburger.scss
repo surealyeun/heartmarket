@@ -1,6 +1,90 @@
+@font-face {
+  font-family: "yg-jalnan";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.Hamburger {
+
+  .hr_1 {
+    position: absolute;
+    top: 190px;
+    width: 100%;
+    border: 0.5px solid #f9f4e6;
+  }
+  .hr_2 {
+    position: absolute;
+    top: 270px;
+    width: 100%;
+    border: 0.5px solid #f9f4e6;
+  }
+  .hr_3 {
+    position: absolute;
+    top: 330px;
+    //width: 100%;
+    //border: 0.5px solid #f9f4e6;
+  }
+
+  .hambuger_profile {
+    width: 100%;
+    position: absolute;
+    top: 30px;
+  }
+
+  .hambuger_gauge {
+    width: 100%;
+    position: absolute;
+    top: 200px;
+  }
+
+  .btn1{
+    width: 45%;
+    position: absolute;
+    top: 285px;
+    height: 35px;
+    margin-left: 3%;
+    background: #f9f4e6;
+    font-family: "GmarketSansMedium";
+    border-radius: 10px;
+    color: #365367;
+    //filter: invert(30%);
+    padding-top: 15px;
+    cursor: pointer;
+  }
+
+  .btn2{
+    width: 45%;
+    position: absolute;
+    top: 285px;
+    height: 35px;
+    margin-left: 52%;
+    background: #5D90B3;
+    color: #f9f4e6;
+    font-family: "GmarketSansMedium";
+    border-radius: 10px;
+    //filter: invert(30%);
+    padding-top: 15px;  
+    cursor: pointer;
+  }
+
+  .hambuger_zzim{
+    width: 100%;
+    position: absolute;
+    top: 350px;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .Hamburger {
-
     #menu {
       position: absolute;
       top: 20px;
@@ -9,6 +93,7 @@
       margin-left: 5px;
       background: transparent;
       border: none;
+      cursor: pointer;
     }
     #menu > span {
       display: block;
@@ -33,20 +118,6 @@
       transition-delay: 0.2s;
     }
 
-    .hambuger_box {
-      background: #375368;
-      width: 300px;
-      height: 100%;
-      position: fixed;
-      z-index: 2000;
-      top: 0px;
-      //visibility: hidden;
-      left: -300px;
-      transform: translate(299px);
-      transition: 0.5s;
-      transition-timing-function: ease-in-out;
-    }
-
     .hambuger_sub {
       background: #000;
       opacity: 50%;
@@ -55,28 +126,39 @@
       position: fixed;
       z-index: 1500;
       top: 0px;
-      //visibility: hidden;
-      //left: -300px;
-      //transform: translate(299px);
       transform: perspective(100%);
       transition: 0.5s;
       transition-timing-function: ease-in-out;
     }
 
-    .bnt_close {
+    .hambuger_box {
+      text-align: center;
+      background: #375368;
+      width: 300px;
+      height: 100%;
       position: fixed;
-      width: 30px;
-      margin-top: 15px;
-      margin-left: 110px;
-      background: transparent;
-      border: none;
+      z-index: 2000;
+      top: 0px;
+      left: -300px;
+      transform: translate(299px);
+      transition: 0.5s;
+      transition-timing-function: ease-in-out;
+
+      .bnt_close {
+        position: absolute;
+        width: 30px;
+        top: 15px;
+        left: 15px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
     }
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 959px)  {
- 
-  .Hamburger{
+@media screen and (min-width: 768px) and (max-width: 959px) {
+  .Hamburger {
     text-align: left;
     #menu {
       position: absolute;
@@ -85,8 +167,9 @@
       top: 10px;
       background: transparent;
       border: none;
+      cursor: pointer;
     }
-  
+
     #menu > span {
       display: block;
       width: 100%;
@@ -96,7 +179,7 @@
       border-radius: 10px;
       transition: all 0.5s;
     }
-  
+
     #menu > .on:nth-child(1) {
       transform: translateY(1px) rotate(225deg);
       transition-delay: 0.2s;
@@ -111,7 +194,9 @@
     }
 
     //.hambuger_box1{visibility: hidden};
+    //text-align: center;
     .hambuger_box {
+      text-align: center;
       background: #375368;
       width: 300px;
       height: 100%;
@@ -125,31 +210,32 @@
       transition: 0.5s;
       transition-timing-function: ease-in-out;
     }
-  
-    .bnt_close{
+
+    .bnt_close {
       position: fixed;
       left: 260px;
       width: 30px;
       top: 15px;
       background: transparent;
       border: none;
+      cursor: pointer;
     }
   }
 }
 
-@media screen and (min-width: 960px)  {
- 
-  .Hamburger{
+@media screen and (min-width: 960px) {
+  .Hamburger {
     text-align: left;
     #menu {
       position: absolute;
       width: 30px;
       margin-top: 22px;
-      top:10px;
+      top: 10px;
       background: transparent;
       border: none;
+      cursor: pointer;
     }
-  
+
     #menu > span {
       display: block;
       width: 100%;
@@ -159,7 +245,7 @@
       border-radius: 10px;
       transition: all 0.5s;
     }
-  
+
     #menu > .on:nth-child(1) {
       transform: translateY(1px) rotate(225deg);
       transition-delay: 0.2s;
@@ -174,7 +260,9 @@
     }
 
     //.hambuger_box1{visibility: hidden};
+    //text-align: center;
     .hambuger_box {
+      text-align: center;
       background: #375368;
       width: 300px;
       height: 100%;
@@ -188,14 +276,15 @@
       transition: 0.5s;
       transition-timing-function: ease-in-out;
     }
-  
-    .bnt_close{
+
+    .bnt_close {
       position: fixed;
       left: 260px;
       width: 30px;
       top: 15px;
       background: transparent;
       border: none;
+      cursor: pointer;
     }
   }
 }

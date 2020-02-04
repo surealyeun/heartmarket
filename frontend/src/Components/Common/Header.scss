@@ -1,12 +1,6 @@
 @charset "UTF-8";
 @import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
 
-* {
-  font-family: "NanumBarunGothic", sans-serif;
-  word-break: keep-all;
-  margin: 0;
-}
-
 *:focus {
   outline: none;
 }
@@ -50,7 +44,7 @@
       height: 31px;
       background: #f9f4e6;
       border: 2px solid #f9f4e6;
-      
+      cursor: pointer;
       padding : 0;
 
       .img_search {
@@ -101,12 +95,15 @@
     }
 
     .btn_search {
-      vertical-align: 75%;
+      position: absolute;
+      left: calc(50% + 223px);
+      top:24px;
       width: 30px;
-      height: 31.09px;
+      height: 30px;
       background: #f593ac;
       border: 2px solid #f593ac;
       padding: 0;
+      cursor: pointer;
 
       .img_search {
         vertical-align: -10%;
@@ -150,18 +147,22 @@
       //padding-right: 5px;
       width: 400px;
       height: 30px;
-      vertical-align: 18px;
+      vertical-align: 20px;
       display: inline-block;
       border: 2px solid #f593ac;
     }
 
     .btn_search {
-      vertical-align: 75%;
+      position: absolute;
+      left: calc(50% + 240px);
+      top : 31px;
+      z-index: 10px;
       width: 35px;
-      height: 36px;
+      height: 34px;
       background: #f593ac;
       border: 2px solid #f593ac;
       padding: 0;
+      cursor: pointer;
 
       .img_search {
         padding-top: 1px;

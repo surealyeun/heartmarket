@@ -4,7 +4,7 @@ import logo from "../img/두근마켓3.png";
 import logo2 from "../img/두근마켓2.png";
 
 import { Link } from "react-router-dom";
-import Hamburger from "../Common/Hamburger";
+import Hamburger from "../Common/Hamburger/Hamburger";
 
 function Header() {
   return (

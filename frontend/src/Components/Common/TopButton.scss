@@ -1,37 +1,62 @@
-// @media screen and (max-width: 767px) {
+@media screen and (max-width: 767px) {
+
   .TopButton {
+    width: 100%;
+    position: relative;
+
     .img_button {
-      width: 45px;
-      height: 45px;
+      //background: #f494ab;
+      width: 50px;
+      height: 50px;
       z-index: 20;
       position: fixed;
-      bottom: 5%;
-      right: calc(50% - 22.5px);
-      object-fit: fill;
-      border-radius: 20px;
-      //filter: invert(100%);
+      bottom: calc(6% + 70px);
+      right: 40px;
+      cursor: pointer;
     }
+
   }
-// }
+}
 
-// @media screen and (min-width: 768px) {
-//   .TopButton {
-//     max-width: 768px;
-//     width: 100%;
-//     margin: 0 auto;
-//     position: relative;
+@media screen and (min-width: 768px) and (max-width: 959px)  {
+  .TopButton {
+    max-width: 768px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
 
-//     .img_button {
-//         //background: #f494ab;
-//         width: 40px;
-//         height: 40px;
-//         z-index: 20;
-//         position: fixed;
-//         bottom: 5%;
-//         right: calc(50% - 20px);
-//         object-fit: fill;
-//         border-radius: 20px;
-//         //border: 1px solid lightgrey;
-//       }
-//   }
-// }
+    .img_button {
+      //background: #f494ab;
+      width: 50px;
+      height: 50px;
+      z-index: 1000;
+      position: fixed;
+      bottom: calc(6% + 70px);
+      right: calc(50% - 350px);
+      cursor: pointer;
+    }
+
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .TopButton {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+
+    .img_button {
+      width: 50px;
+      height: 50px;
+      z-index: 1000;
+      position: fixed;
+      bottom: calc(6% + 70px);
+      right: calc(50% - 450px);
+      cursor: pointer;
+      // border: 2px solid black;
+      // border-radius: 26px;
+    }
+
+  }
+}
