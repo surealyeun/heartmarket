@@ -80,4 +80,6 @@ public class TradeController {
 	public ResponseEntity<Object> updateTrade(@RequestBody Trade trade){
 		return new ResponseEntity<Object>(ts.updateTrade(trade), HttpStatus.OK);
 	}
+	
+	
 }
