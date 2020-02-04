@@ -14,5 +14,7 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 	// 메인페이지에서 게시글 하나를 선택 했을 때 사용
 	Trade findByTradeNo(Integer tradeNo);
 	
+	List<Trade> findAllByTradeArea(String tradeArea);
+	
 	
 }

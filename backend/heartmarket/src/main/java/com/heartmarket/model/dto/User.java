@@ -2,6 +2,7 @@ package com.heartmarket.model.dto;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -69,7 +70,7 @@ public class User {
 	}
 
 
-	@OneToMany(mappedBy = "aUser",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "aUser",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	List<Area> uArea;
 	
 //	@OneToOne(mappedBy = "cUser")
