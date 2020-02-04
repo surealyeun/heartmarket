@@ -24,8 +24,6 @@ public class TradeController {
 	
 	@Autowired
 	TradeService ts;
-
-	
 	
 	@RequestMapping(value = "/trade/list", method = RequestMethod.GET)
 	public ResponseEntity<Object> findAll(){

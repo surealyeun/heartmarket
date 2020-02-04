@@ -5,12 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,11 +33,11 @@ import com.heartmarket.util.ResultMap;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping(name = "/")
 @Slf4j
 @CrossOrigin("*")
 public class UserController {
 
+	private static final String salt = "heartmarker@$encode";
 	@Autowired
 	UserService us;
 	@Autowired
@@ -39,12 +45,12 @@ public class UserController {
 	@Autowired
 	EmailServiceImpl ms;
 	
-	@RequestMapping(value = "/login", method=RequestMethod.GET)
-	public ResponseEntity<Object> loginUser(@RequestParam String email, @RequestParam String password){
+	@GetMapping("/user/login")
+	public ResponseEntity<Object> loginUser(@RequestParam String email, @RequestParam String password
+			,HttpServletResponse response){
 		log.trace("loginUser");
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			
 			if(us.login(email,password)) {
 				User tUser = us.searchEmail(email);
 				resultMap.put("state", "OK");		
@@ -68,7 +74,7 @@ public class UserController {
 		return new ResponseEntity<Object>(us.duplicatedByEmail(email),HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/signUp", method=RequestMethod.GET)
+	@RequestMapping(value = "/user/signUp", method=RequestMethod.GET)
 	public ResponseEntity<Object> signUp(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
@@ -82,6 +88,7 @@ public class UserController {
 			int count = us.searchCount();
 			 
 			if(user==null) {
+				password = BCrypt.hashpw(password, salt);
 				user = new User(count, email, password, profileImg, nickname, "user");
 				us.signUp(user);
 				as.insertArea(new Area(address, user));
@@ -100,11 +107,12 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "/area", method = RequestMethod.GET) 
-	public ResponseEntity<Object> searchArea(@RequestParam String address){
+	@RequestMapping(value = "/user/area", method = RequestMethod.GET) 
+	public ResponseEntity<Object> searchArea(HttpServletRequest request,@RequestParam String address){
 		try {
 			List<Area> area = as.searchAreaByAddress(address);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
+			
 			resultMap.put("status", "OK");
 			resultMap.put("data", area);
 			return new ResponseEntity<Object>(resultMap, HttpStatus.OK);
@@ -115,7 +123,7 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "/mail", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/mail", method = RequestMethod.GET)
 	public ResponseEntity<Object> sendmail(@RequestParam String email) throws Exception {
 		try {
 			Random r = new Random();
@@ -132,7 +140,7 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "/updateUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/user/updateUser", method = RequestMethod.GET)
 	public ResponseEntity<Object> updateUser(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
