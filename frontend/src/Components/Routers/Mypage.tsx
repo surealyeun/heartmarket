@@ -2,12 +2,11 @@ import React from "react";
 import "./Mypage.scss";
 
 import Header from "../Common/Header";
-import Profile from "../users/Profile";
+import Profile from "../users/MypageProfile";
 import Sale from "../users/Sale";
 import Purchase from "../users/Purchase";
-import RManners from "../users/RManners";
-import GManners from "../users/GManners";
 import Like from '../users/Like';
+import Footer from '../Common/Footer';
 
 function Mypage() {
 
@@ -21,13 +20,16 @@ function Mypage() {
             </div>
             <hr></hr>
             <div className="products-section">
-                <Sale />
-                <Purchase />
+                <div className="sale-section">
+                    <Sale />
+                </div>
+                <div className="purchase-section">
+                    <Purchase />
+                </div>
             </div>
-            <hr></hr>
-            <div className="manners-section">
-                <RManners />
-            </div>
+            <br/>
+            <br/>
+            <Footer />
         </div>
     );
 }

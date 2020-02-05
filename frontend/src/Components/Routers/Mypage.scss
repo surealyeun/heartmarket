@@ -1,15 +1,25 @@
 .mypage {
+    
     @media screen and (min-width: 768px) {
         width: 80%;
-        margin: 0 auto;
+        margin: 0 auto ;
+        
+        .products-section {
+            width: 100%;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
     }
 
     @media screen and (max-width: 767px) {
+        
+        .products-section {
+            width: 100%;
+            // height: 500px;
+            // display: inline-block;
+        }
     }
 
-    .products-section {
-        display: inline;
-    }
 
     hr {
         height: 2px;

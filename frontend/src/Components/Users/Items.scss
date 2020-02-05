@@ -1,18 +1,78 @@
 @font-face { font-family: 'yg-jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-weight: normal; font-style: normal; }
-.like-section,
-.manners-section,
-.section{
+.like-section{
     text-align: center;
+    // width: 80%;
+
+    .item{
+        position: relative;
+    }
+
+    h2{
+        font-family: 'NanumSquareRound';
+    }
+
     h3{
+        color: #365367;
         font-family: 'yg-jalnan';
     }
 
     div{
         font-family: 'yg-jalnan';
     }
+
     img {
         width: 100%;
         height: 100%;
+        position: inherit;
+    }
+
+    
+    .img-back{
+        background-color: rgba(0, 0, 0, 0.342);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top:0;
+        // display: none;
+        color: white;
+        p{
+            font-family: 'NanumSquareRound';
+            // vertical-align: text-bottom;
+        }
+    }
+
+    .like-more-wrapper{
+        position: relative;
+        margin: 15px 0;
+    }
+
+    .like-more{
+        position: absolute;
+        border: 0;
+        right: 10%;
+        background-color: rgba(255, 255, 255, 0);
+        h3{
+            font-family: 'NanumSquareRound';
+        }
+    }
+
+    .btn-more {
+        position: absolute;
+        text-align: center;
+        top: calc(50% - 40px);
+        left: calc(50% - 40px);
+        width: 80px;
+        height: 80px;
+        border: 0;
+        border-radius: 40px;
+        background-color: white;
+        color: white;
+        h3{
+            // font-size: 20px;
+            text-align: center;
+            font-family: 'NanumSquareRound';
+            font-weight: 10;
+        }
     }
 
     @media screen and (max-width: 767px) {
@@ -21,8 +81,8 @@
             width: 150px;
             height: 150px;
             margin: 10px;
-            border: solid 1px;
-            // border-radius: 35px;
+            // border: solid 1px;
+            border-radius: 5%;
             overflow: hidden;
             align-items: center;
             justify-content: center;
@@ -34,6 +94,13 @@
         width: 100%;
         height: 180px;
 
+        // .like{
+        //     background-color: #f9f4e6;
+        //     text-align: center;
+        //     width: 100%;
+        //     padding: 10px 0;
+        // }    
+
         .products {
             width: 100%;
             height: 95%;
@@ -42,8 +109,9 @@
             display: inline-block;
             width: 190px;
             height: 190px;
-            margin: 10px 1.5%;
-            border: solid 1px;
+            margin: 5px 1%;
+            border-radius: 5%;
+            // border: solid 1px;
             overflow: hidden;
             align-items: center;
             justify-content: center;
@@ -51,11 +119,25 @@
     }
 }
 
+.sale{
+    margin-bottom: 20px;
+}
 
-.section {
+.sale-section, .purchase-section {
     text-align: center;
+    display: inline-block;
+    margin: 0;
+
+    .products{
+        display: inline-block;
+    }
+
+    .item{
+        position: relative;
+    }
     
     h3{
+        color: #365367;
         font-family: 'yg-jalnan';
     }
 
@@ -67,22 +149,86 @@
         display: inline-block;
     }
 
-    img {
+    img{
+        position: relative;
         width: 100%;
         height: 100%;
     }
 
+    .btn-more {
+        position: absolute;
+        text-align: center;
+        top: calc(50% - 40px);
+        left: calc(50% - 40px);
+        width: 80px;
+        height: 80px;
+        border: 0;
+        border-radius: 40px;
+        background-color: #365367;
+        color: white;
+        h3{
+            // font-size: 20px;
+            position: absolute;
+            text-align: center;
+            font-family: 'NanumSquareRound';
+            font-weight: 10;
+        }
+    }
+
+    .item-img {
+        // display: none;
+        z-index: 1;
+    }
+
+    .product-more-wrapper{
+        position: relative;
+        height: 40px;
+        display: block;
+        // text-align: center;
+        
+    }
+
+
     @media screen and (max-width: 767px) {
+        text-align: center;
+        margin: 0 auto;
+
         .item {
             display: inline-block;
             width: 150px;
             height: 150px;
             margin: 10px;
-            border: solid 1px;
-            // border-radius: 35px;
+            // border: solid 1px;
+            border-radius: 5%;
             overflow: hidden;
             align-items: center;
             justify-content: center;
+        }
+
+        .sale-more, .purchase-more{
+            // position: relative;
+            border: 0;
+            background-color: white;
+            h3{
+                position: absolute;
+                right: 12%;
+                font-family: 'NanumSquareRound';
+            }
+        }
+
+        .item-manners{
+            background-color: rgba(0, 0, 0, 0.3);
+            position: absolute;
+            width: 100%;
+            height: 15%;
+            bottom: 0;
+            right: 0;
+            z-index: 2;
+            h3{
+                // font-family: 'NanumSquareRound';
+                font-size: 0.9em;
+                color: #f494ab;
+            }
         }
     }
 
@@ -100,12 +246,49 @@
             display: inline-block;
             width: 190px;
             height: 190px;
-            margin: 10px 1.5%;
-            border: solid 1px;
+            margin: 5px 1.5%;
+            // border: solid 1px;
+            border-radius: 5%;
             overflow: hidden;
             align-items: center;
             justify-content: center;
         }
+
+        .item-manners{
+            background-color: rgba(0, 0, 0, 0.3);
+            position: absolute;
+            width: 100%;
+            height: 15%;
+            bottom: 1px;
+            right: 0;
+            z-index: 2;
+            h3{
+                // font-family: 'NanumSquareRound';
+                color: #f494ab;
+            }
+        }
+
+        .sale-more{
+            // position: relative;
+            border: 0;
+            background-color: white;
+            
+            h3{
+                position: absolute;
+                font-family: 'NanumSquareRound';
+                right: 10%;
+            }
+        }
+        .purchase-more{
+            // position: relative;
+            border: 0;
+            background-color: white;
+            
+            h3{
+                position: absolute;
+                font-family: 'NanumSquareRound';
+                right: 10%;
+            }
+        }
     }
 }
-

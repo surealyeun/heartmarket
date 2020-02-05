@@ -3,20 +3,18 @@ import "./UpdateUser.scss";
 
 class UpdateUser extends Component {
     user = JSON.parse(window.localStorage.getItem("user") || "{}");
-
-    componentDidMount() {
-        console.log(this.props);
-    }
-
+    
     goback = () => {
         // this.props.history.goback();
+        window.history.back();
     };
 
     render() {
         // console.log(this.user);
         return (
+            <div className="big">
             <div className="updateuser">
-                <h1>프로필 변경</h1>
+                <h1>프로필 수정</h1>
                 <div className="profile-img-wrapper">
                     <img
                         className="profile-img"
@@ -39,6 +37,16 @@ class UpdateUser extends Component {
                 <div className='section'>
                     <h3>우리 동네</h3>
                     <p>적어도 한개의 동네가 등록돼야해요</p>
+                    <>
+                            <input
+                                type="text"
+                                className="input-address"
+                                value="{this.user.uarea[0].address}"
+                            />
+                            <input type="button" className="btn-du" value="x"></input>
+                            <input type="text" className="input-address" />
+                            <input type="button" className="btn-du" value="+"></input>
+                        </>
                     {/* {this.user.uarea.length === 1 ? (
                         <>
                             <input
@@ -69,6 +77,7 @@ class UpdateUser extends Component {
                 </div>
                 {/* 마이페이지로 돌아가도록 */}
                 <button className="btn-update" onClick={this.goback}>수정 완료</button>
+            </div>
             </div>
         );
     }

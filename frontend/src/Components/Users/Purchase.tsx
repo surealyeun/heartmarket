@@ -3,8 +3,8 @@ import "./Items.scss";
 
 function Purchase() {
     return (
-        <div className="section">
-            <h3>구매 물품</h3>
+        <div className="purchase">
+            <h3>구매 상품</h3>
             <div className="products">
                 <div className="item">
                     <img
@@ -30,6 +30,11 @@ function Purchase() {
                         alt="item1"
                     />
                 </div>
+                <div className="product-more-wrapper">
+                <button className="purchase-more">
+                    <h3>+ 구매 상품 더보기</h3>
+                </button>
+            </div>
             </div>
         </div>
     );

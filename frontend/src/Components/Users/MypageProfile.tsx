@@ -13,7 +13,7 @@ function Profile() {
             </div>
             <div className="info">
                 <div>{user.nickname}님<br/>
-                <Link to="/mypage/update"><button>정보 수정</button></Link>
+                <Link to="/mypage/update"><button>프로필 수정</button></Link>
             </div>
             </div>
             <div></div>
