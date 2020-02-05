@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dao.TradeRepository;
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.util.ResultMap;
@@ -18,6 +19,9 @@ public class TradeServiceImpl implements TradeService{
 
 	@Autowired
 	TradeRepository tr;
+	
+	@Autowired
+	TradeImgRepository tir;
 
 	// 모든 자료 조회
 	@Transactional

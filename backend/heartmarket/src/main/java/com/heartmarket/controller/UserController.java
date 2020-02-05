@@ -125,6 +125,7 @@ public class UserController {
 		}
 	}
 	
+	// 이메일 보내기
 	@RequestMapping(value = "/user/mail", method = RequestMethod.GET)
 	public ResponseEntity<Object> sendmail(@RequestParam String email) throws Exception {
 		try {
@@ -142,7 +143,8 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "/user/updateUser", method = RequestMethod.GET)
+	// 유저 수정
+	@RequestMapping(value = "/user/updateUser", method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateUser(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
