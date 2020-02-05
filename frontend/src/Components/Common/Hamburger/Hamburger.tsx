@@ -14,9 +14,9 @@ function Hamburger() {
     setTab(false);
   };
 
-  const onTabclick = (e:any) => {
+  const onTabclick = (e: any) => {
     //alert(e.target.id);
-    if(e.target.id === "tabmyinfo") setTab(false);
+    if (e.target.id === "tabmyinfo") setTab(false);
     else setTab(true);
   }
 
@@ -33,53 +33,55 @@ function Hamburger() {
           {!visible ? (
             ""
           ) : (
-            <div>
-              <div className="hambuger_profile">
-                <MainProfile></MainProfile>
-              </div>
-              {login ? ( //로그인 했을 때 - 변수 바꾸기
-                ""
-              ) : (
-                <div className="hambuger_background">
-                  {tab ? ( //채팅을 선택했을때 - 변수 바꾸기
-                    <div>
-                      <div id="tabmyinfo" className="hambuger_tabbtn hambuger_tapcheck" onClick={onTabclick}>내정보</div>
-                      <div id="tabchat" className="hambuger_tabbtn hambuger_chat" onClick={onTabclick}>채팅</div>
-                    </div>
-                  ) : (
-                    <div>
-                      <div id="tabmyinfo" className="hambuger_tabbtn" onClick={onTabclick}>내정보</div>
-                      <div id="tabchat" className="hambuger_tabbtn hambuger_chat hambuger_tapcheck" onClick={onTabclick}>채팅</div>
-                      <div className="hambuger_gauge">
-                        <Gauge></Gauge>
-                      </div>
-                      <div className="hambuger_zzim">
-                        <HamZzim></HamZzim>
-                      </div>
-                      <div className="hambuger_godetail">
-                        <p>판매상품</p>
-                        <p>구매상품</p>
-                        <p>공지하기</p>
-                        <p>건의하기</p>
-                      </div>
-                      <div>
-                      <hr className="hr_1"></hr>
-                      <hr></hr>
-                      <hr></hr>
+              <div>
+                <div className="hambuger_profile">
+                  <MainProfile></MainProfile>
+                </div>
+                {login ? ( //로그인 했을 때 - 변수 바꾸기
+                  ""
+                ) : (
+                    <div className="hambuger_background">
+                      {tab ? ( //채팅을 선택했을때 - 변수 바꾸기
+                        <div>
+                          <div id="tabmyinfo" className="hambuger_tabbtn hambuger_tapcheck" onClick={onTabclick}>내정보</div>
+                          <div id="tabchat" className="hambuger_tabbtn hambuger_chat" onClick={onTabclick}>채팅</div>
                         </div>
+                      ) : (
+                          <div>
+                            <div id="tabmyinfo" className="hambuger_tabbtn" onClick={onTabclick}>내정보</div>
+                            <div id="tabchat" className="hambuger_tabbtn hambuger_chat hambuger_tapcheck" onClick={onTabclick}>채팅</div>
+
+                            <div className="hambuger_myinfo">
+                              <div className="hambuger_gauge">
+                                <Gauge></Gauge>
+                              </div>
+                              <div className="hambuger_zzim">
+                                <HamZzim></HamZzim>
+                              </div>
+                              <div className="hambuger_godetail">
+                                <p>판매상품</p>
+                                <p>구매상품</p>
+                                <p>공지하기</p>
+                                <p>건의하기</p>
+                              </div>
+                              <div>
+                                <hr className="hr_1"></hr>
+                                <hr className="hr_2"></hr>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                     </div>
                   )}
-                </div>
-              )}
 
-              <button type="button" className="bnt_close" onClick={onclick}>
-                <img
-                  alt="close"
-                  src="https://image.flaticon.com/icons/svg/458/458595.svg"
-                ></img>
-              </button>
-            </div>
-          )}
+                <button type="button" className="bnt_close" onClick={onclick}>
+                  <img
+                    alt="close"
+                    src="https://image.flaticon.com/icons/svg/458/458595.svg"
+                  ></img>
+                </button>
+              </div>
+            )}
         </div>
       </div>
     </div>
