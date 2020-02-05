@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.heartmarket.model.dto.Area;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
+import com.heartmarket.model.service.EmailService;
 import com.heartmarket.model.service.EmailServiceImpl;
+import com.heartmarket.model.service.JwtService;
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
 
@@ -37,28 +39,32 @@ import lombok.extern.slf4j.Slf4j;
 @CrossOrigin("*")
 public class UserController {
 
-	private static final String salt = "heartmarker@$encode";
 	@Autowired
 	UserService us;
 	@Autowired
 	AreaService as;
 	@Autowired
-	EmailSenderImpl ms;
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public ResponseEntity<Object> loginUser(@RequestParam String email, @RequestParam String password) {
+	EmailService ms;
+	@Autowired
+	JwtService jwts;
+	
+	
+	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
+	public ResponseEntity<Object> loginUser(HttpServletRequest req,@RequestParam String email, @RequestParam String password) throws Exception {
 		log.trace("loginUser");
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-
 			if (us.login(email, password)) {
 				User tUser = us.searchEmail(email);
+				String token = jwts.makeJwt(tUser);
 				resultMap.put("state", "OK");
 				resultMap.put("data", tUser);
+				resultMap.put("token", token);
 				return new ResponseEntity<Object>(resultMap, HttpStatus.OK);
 			} else {
 				resultMap.put("state", "FAIL");
 				resultMap.put("data", "LOGIN_FAIL");
+				resultMap.put("token", null);
 				return new ResponseEntity<Object>(resultMap, HttpStatus.NOT_ACCEPTABLE);
 			}
 		} catch (Exception e) {
@@ -87,12 +93,12 @@ public class UserController {
 			User user = us.searchEmail(email);
 			// count는 유저번호를 위한 변수로 Area 삽입시 DB적용이 되지 않기 때문에 필요로한 변수이다.
 			int count = us.searchCount();
-			 
+			System.out.println("카운트 : "+count);
 			if(user==null) {
-				password = BCrypt.hashpw(password, salt);
-				user = new User(count, email, password, profileImg, nickname, "user");
+				password = BCrypt.hashpw(password, BCrypt.gensalt());
+				user = new User(email, password, profileImg, nickname, "ROLE_USER");
 				us.signUp(user);
-				as.insertArea(new Area(address, user));
+				as.insertArea(address,count);
 				resultMap.put("state", "OK");
 				resultMap.put("data", "SUCCESS");
 				return new ResponseEntity<Object>(resultMap, HttpStatus.OK);

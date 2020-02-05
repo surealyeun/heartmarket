@@ -9,12 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +20,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 //@ToString
 @EqualsAndHashCode
@@ -32,12 +29,13 @@ import lombok.ToString;
 @Entity
 @Table(name="user")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,property = "userNo")
-public class User {
+public class User{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer userNo;
 	
 	String email;
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	String password;
 	String profileImg;
 	String nickname;
@@ -68,9 +66,8 @@ public class User {
 		this.nickname = nickname;
 		this.userPermission = userPermission;
 	}
-
-
-	@OneToMany(mappedBy = "aUser",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	
+	@OneToMany(mappedBy = "aUser",fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	List<Area> uArea;
 	
 //	@OneToOne(mappedBy = "cUser")

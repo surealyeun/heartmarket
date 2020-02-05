@@ -16,12 +16,15 @@ public class AreaServiceImpl implements AreaService{
 	AreaRepository ar;
 	
 	@Override
-	public void insertArea(Area area) {
+	public void insertArea(String address,int userNo) {
 		try {
-			List<Area> all = ar.findByaUserUserNo(area.getAUser().getUserNo());
+			List<Area> all = ar.findByaUserUserNo(userNo);
+			int count = ar.findTop1ByOrderByAreaNoDesc().getAreaNo();
+			ar.resortAreaNo(count);
 			if(all.size() > 2 ) {
 				throw new Exception("지정할 수 있는 동네 갯수 2개를 초과했습니다.");
 			}else {
+				Area area = new Area(address);
 				ar.save(area);
 			}
 		} catch (Exception e) {

@@ -37,17 +37,13 @@ public class Area {
 	
 	String address;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name="user_no",insertable = false, updatable = false)
 	@ToString.Exclude
-	@JsonBackReference
 	User aUser;
+	
 	
 	public Area(String address) {
 		this.address = address;
-	}
-	public Area(String address,User aUser) {
-		this.address = address;
-		this.aUser = aUser;
 	}
 }

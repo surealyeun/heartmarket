@@ -1,5 +1,6 @@
 package com.heartmarket.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -42,14 +43,19 @@ public class TradeController {
 		
 		// 유저 지역 정보 가져오기
 		User tUser = us.searchEmail(email);
-		String pArea = tUser.getUArea().get(0).getAddress();
 		
-		// 지역 기반 모든 게시물 조회
-		List<Trade> tList = ts.findAllByAddr(pArea);
-		if(tList == null) {
+		if(tUser == null) {
 			return new ResponseEntity<Object>(new ResultMap<Trade>("SUCCESS", "현재 지역에 상품이 없어요 ㅠㅠ", null), HttpStatus.OK);
+		}else {
+			String location = new String();
+			List<Trade> tList = new ArrayList<Trade>();
+			for (int i = 0; i < tUser.getUArea().size(); i++) {
+				String pArea = tUser.getUArea().get(i).getAddress();
+				location += pArea+",";
+				tList.addAll(ts.findAllByAddr(pArea));
+			}
+			return new ResponseEntity<Object>(new ResultMap<List<Trade>>("SUCCESS", location +  "에 해당하는 게시글 조회 완료", tList), HttpStatus.OK);
 		}
-		return new ResponseEntity<Object>(new ResultMap<List<Trade>>("SUCCESS", pArea +  "에 해당하는 게시글 조회 완료", tList), HttpStatus.OK);
 	}
 	
 	// 게시글 1개만 조회
