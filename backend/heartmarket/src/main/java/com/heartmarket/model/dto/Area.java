@@ -1,5 +1,6 @@
 package com.heartmarket.model.dto;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,8 +37,8 @@ public class Area {
 	
 	String address;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_no")
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="user_no",insertable = false, updatable = false)
 	@ToString.Exclude
 	@JsonBackReference
 	User aUser;

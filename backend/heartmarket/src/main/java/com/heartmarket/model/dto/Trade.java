@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +20,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -34,6 +38,7 @@ import lombok.ToString;
 @Getter @Setter
 @Entity
 @Table(name="trade")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,property = "tradeNo")
 public class Trade {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,19 +62,20 @@ public class Trade {
 	@JsonBackReference
 	User tUser;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "buyer_no",insertable = false, updatable = false)
+	@ToString.Exclude
+	@JsonBackReference
+	User bUser;
+	
 	@OneToOne(mappedBy = "mTrade")
 	@ToString.Exclude
 	@JsonManagedReference
 	Manner tManner;
 	
-	@OneToMany(mappedBy = "tiTrade")
-	@ToString.Exclude
+	@OneToMany(mappedBy = "tiTrade", fetch = FetchType.LAZY)
+	@ToString.Exclude 
 	@JsonManagedReference
 	List<TradeImg> tTradeImg;
-	
-	@OneToOne(mappedBy = "bTrade")
-	@ToString.Exclude
-	@JsonManagedReference
-	Buyer tBuyer;
 	
 }
