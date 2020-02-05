@@ -5,12 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,11 +33,11 @@ import com.heartmarket.util.ResultMap;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
-@RequestMapping(name = "/")
 @Slf4j
 @CrossOrigin("*")
 public class UserController {
 
+	private static final String salt = "heartmarker@$encode";
 	@Autowired
 	UserService us;
 	@Autowired
@@ -68,18 +74,22 @@ public class UserController {
 		log.trace(email, "findByEmail");
 		return new ResponseEntity<Object>(us.duplicatedByEmail(email), HttpStatus.OK);
 	}
-
-	@RequestMapping(value = "/signUp", method = RequestMethod.GET)
-	public ResponseEntity<Object> signUp(@RequestParam String email, @RequestParam String password,
-			@RequestParam String nickname, @RequestParam String profileImg, @RequestParam String address) {
+	
+	@RequestMapping(value = "/user/signUp", method=RequestMethod.GET)
+	public ResponseEntity<Object> signUp(@RequestParam String email,
+			@RequestParam String password,
+			@RequestParam String nickname,
+			@RequestParam String profileImg,
+			@RequestParam String address) {
 		log.trace("signUp_User");
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			User user = us.searchEmail(email);
 			// count는 유저번호를 위한 변수로 Area 삽입시 DB적용이 되지 않기 때문에 필요로한 변수이다.
 			int count = us.searchCount();
-
-			if (user == null) {
+			 
+			if(user==null) {
+				password = BCrypt.hashpw(password, salt);
 				user = new User(count, email, password, profileImg, nickname, "user");
 				us.signUp(user);
 				as.insertArea(new Area(address, user));
@@ -97,12 +107,13 @@ public class UserController {
 			throw e;
 		}
 	}
-
-	@RequestMapping(value = "/area", method = RequestMethod.GET)
-	public ResponseEntity<Object> searchArea(@RequestParam String address) {
+	
+	@RequestMapping(value = "/user/area", method = RequestMethod.GET) 
+	public ResponseEntity<Object> searchArea(HttpServletRequest request,@RequestParam String address){
 		try {
 			List<Area> area = as.searchAreaByAddress(address);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
+			
 			resultMap.put("status", "OK");
 			resultMap.put("data", area);
 			return new ResponseEntity<Object>(resultMap, HttpStatus.OK);
@@ -112,8 +123,8 @@ public class UserController {
 			throw e;
 		}
 	}
-
-	@RequestMapping(value = "/mail", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/user/mail", method = RequestMethod.GET)
 	public ResponseEntity<Object> sendmail(@RequestParam String email) throws Exception {
 		try {
 			Random r = new Random();
@@ -129,11 +140,14 @@ public class UserController {
 			throw e;
 		}
 	}
-
-	@RequestMapping(value = "/updateUser", method = RequestMethod.GET)
-	public ResponseEntity<Object> updateUser(@RequestParam String email, @RequestParam String password,
-			@RequestParam String nickname, @RequestParam String profileImg, @RequestParam String addrNo,
-			@RequestParam String address) {
+	
+	@RequestMapping(value = "/user/updateUser", method = RequestMethod.GET)
+	public ResponseEntity<Object> updateUser(@RequestParam String email,
+			@RequestParam String password,
+			@RequestParam String nickname,
+			@RequestParam String profileImg,
+			@RequestParam String addrNo,
+			@RequestParam String address){
 		try {
 			User user = us.searchEmail(email);
 			List<Area> area = user.getUArea();

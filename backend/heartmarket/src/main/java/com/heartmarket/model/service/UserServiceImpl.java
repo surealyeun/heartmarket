@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import com.heartmarket.model.dao.UserRepository;
@@ -25,7 +27,8 @@ public class UserServiceImpl implements UserService {
 			if (loginUser == null) {
 				throw new Exception("가입되지 않은 이메일입니다.");
 			} else {
-				if (loginUser.getPassword().equals(password)) {
+				if (BCrypt.checkpw(password, loginUser.getPassword())) {
+//				if (loginUser.getPassword().equals(password)) {
 					return true;
 				} else {
 					throw new Exception("비밀번호가 틀렸습니다.");

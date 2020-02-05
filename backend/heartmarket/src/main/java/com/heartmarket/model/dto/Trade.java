@@ -46,7 +46,6 @@ public class Trade {
 	
 	String tradeCategory;
 	String tradeTitle;
-//	Integer userNo;
 	String productName;
 	String tradeArea;
 	String productInfo;
@@ -61,6 +60,12 @@ public class Trade {
 	@ToString.Exclude
 	@JsonBackReference
 	User tUser;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "buyer_no",insertable = false, updatable = false)
+	@ToString.Exclude
+	@JsonBackReference
+	User bUser;
 	
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "buyer_no",insertable = false, updatable = false)
