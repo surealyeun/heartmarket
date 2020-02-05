@@ -11,7 +11,7 @@ function MainProfile() {
       ></img>
       <p className="profile_name">다니다니</p>
       <p className="profile_number">#14332</p>
-      <p className="profile_edit">프로필 수정</p>
+      <p className="profile_edit">마이페이지</p>
       <p className="profile_logout">로그아웃</p>
     </div>
   );

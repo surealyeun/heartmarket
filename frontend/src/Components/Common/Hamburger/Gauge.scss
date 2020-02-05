@@ -1,53 +1,42 @@
 @font-face {
-    font-family: "yg-jalnan";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.Gauge {
+  .heart_title {
+    position: absolute;
+    font-family: "NanumSquareRound";
+    margin-top: 11px;
+    color: #365367;
+    margin-left: 16px;
+    font-weight: bolder;
   }
-  @font-face {
-    font-family: "GmarketSansMedium";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-      format("woff");
-    font-weight: normal;
-    font-style: normal;
+
+  .heart_index {
+    position: absolute;
+    font-weight: bolder;
+    font-family: "NanumSquareRound";
+    color: #365367;
+    margin-left: 190px;
+    margin-top: 11px;
   }
 
-  .Gauge{
-    .heart_title{
-       position: absolute;
-       //display: inline-block;
-        font-family: "GmarketSansMedium";
-        color: #f9f4e6;
-        //text-align: left;
-        margin-left: 16px;
-        margin-top: 6px;
-    }
-
-    .heart_index{
-        position: absolute;
-        //display: inline-block;
-        font-family: "GmarketSansMedium";
-        color: #f9f4e6;
-        //text-align: right;
-        margin-left: 190px;
-        margin-top: 6px;
-    }
-
-    .heart_img{
-      position: absolute;
-      width: 25px;
-      height: 25px;
-      margin-left:110px;
-      margin-top: 2px;
-    }
-
-    .progress{
-      position: absolute;
-        width: 90%;
-        margin-left: 15px;
-        margin-top: calc(13%);
-        //height: 30px;10
-        //margin-top: 5px;
-    }
+  .heart_img {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    margin-left: 110px;
+    margin-top: 7px;
   }
+
+  .progress {
+    position: absolute;
+    width: 90%;
+    margin-left: 15px;
+    margin-top: calc(15%);
+  }
+}

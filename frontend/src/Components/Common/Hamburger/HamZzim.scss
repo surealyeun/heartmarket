@@ -1,36 +1,109 @@
 @font-face {
-  font-family: "yg-jalnan";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "GmarketSansMedium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
     format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 .HamZzim {
+  margin-top: 10px;
   .zzim_title {
     position: absolute;
-    //display: inline-block;
-    font-family: "GmarketSansMedium";
-    color: #f9f4e6;
-    //text-align: left;
+    font-family: "NanumSquareRound";
+    color: #365367;
     margin-left: 16px;
-    margin-top: 6px;
+    margin-top: 2px;
+    font-weight: bolder;
   }
 
-  .heart_index {
+  .zzim_plus {
     position: absolute;
-    //display: inline-block;
-    font-family: "GmarketSansMedium";
-    color: #f9f4e6;
-    //text-align: right;
-    margin-left: 190px;
-    margin-top: 6px;
+    font-family: "NanumSquareRound";
+    color: #365367;
+    margin-left: 220px;
+    margin-top: 2px;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+
+  .div_Zzim {
+    margin-top: 34px;
+    position: absolute;
+    width: calc(100% - 10px);
+    height: 80px;
+    text-align: center;
+    margin-left: 7px;
+
+    .zzim_item {
+      width: calc(100% - 5px);
+      cursor: pointer;
+
+      .img_zzim {
+        width: calc(100%);
+        height: 130px;
+        object-fit: cover;
+        -ms-user-select: none;
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      .zzim_itemtitle {
+        text-align: left;
+        margin-left: 1px;
+        width: 100%;
+        height: 20px;
+        font-family: "NanumSquareRound";
+        color: #000;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        font-size: 13px;
+        font-weight: bolder;
+      }
+
+      .zzim_price {
+        visibility: hidden;
+        position: absolute;
+        font-size: 40px;
+      }
+    }
+
+    .zzim_item:hover{
+
+      .img_zzim {
+        opacity: 50%;
+      }
+
+      .zzim_price {
+        visibility: visible;
+        color: #365367;
+        text-shadow: 0 0 1px #000;
+        font-size: 20px;
+        top: calc(50% - 25px);
+        text-align: center;
+        word-wrap: break-word;
+        text-align: center;
+        margin-left: 2px;
+        width: 90%;
+        height: 20px;
+        font-family: "NanumSquareRound";
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        font-weight: bolder;
+        -ms-user-select: none;
+        -moz-user-select: -moz-none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+      }
+    }
   }
 }

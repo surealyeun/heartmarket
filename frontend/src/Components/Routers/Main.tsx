@@ -101,6 +101,7 @@ function Main() {
               {sales.map(sale => (
                 <Famous
                   key={sale.id}
+                  id={sale.id}
                   img={sale.img}
                   title={sale.title}
                   address={sale.address}
