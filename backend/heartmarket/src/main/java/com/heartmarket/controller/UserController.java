@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.heartmarket.model.dto.Area;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
+import com.heartmarket.model.service.EmailService;
 import com.heartmarket.model.service.EmailServiceImpl;
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
@@ -43,7 +44,7 @@ public class UserController {
 	@Autowired
 	AreaService as;
 	@Autowired
-	EmailSenderImpl ms;
+	EmailService ms;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ResponseEntity<Object> loginUser(@RequestParam String email, @RequestParam String password) {
