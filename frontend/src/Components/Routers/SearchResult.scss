@@ -1,65 +1,64 @@
-@charset "UTF-8";
-@import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
+// @charset "UTF-8";
+// @import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
 
-* {
-  font-family: "moonspam", sans-serif;
-  word-break: keep-all;
-  margin: 0;
-}
+// * {
+//   font-family: "moonspam", sans-serif;
+//   word-break: keep-all;
+//   margin: 0;
+// }
+// .items {
+//   width: 100%;
+//   margin-top: 10px;
+// }
 
-.items {
-  width: 100%;
-  margin-top: 10px;
-}
+// .filter_items {
+//   @extend .items;
+// }
 
-.filter_items {
-  @extend .items;
-}
-
-.filter_area {
-  border-radius: 5%;
-}
-
+// .filter_area {
+//   border-radius: 5%;
+// }
 
 
-@mixin set-container() {
-  display: flex;
-  margin: 24px;
-  flex-wrap: wrap;
-  align-content: space-around;
-  justify-content: space-between;
-}
 
-@media screen and (max-width: 767px) {
-  .Main {
-    display: block;
-    .container {
-      &_items {
-        @include set-container();
-      }
-      &_filter {
-        @include set-container()
-      }
-    }
-    .items_header {
-      display: flex;
-      justify-content: center; 
-    }
-  }
-}
+// @mixin set-container() {
+//   display: flex;
+//   margin: 24px;
+//   flex-wrap: wrap;
+//   align-content: space-around;
+//   justify-content: space-between;
+// }
 
-@media screen and (min-width: 768px) {
-  .Main {
-    max-width: 768px;
-    width: 100%;
-    margin: 0 auto;
-    .container {
-      &_items {
-        @include set-container();
-      }
-      &_filter {
-        @include set-container();
-      }
-    }
-  }
-}
+// @media screen and (max-width: 767px) {
+//   .Main {
+//     display: block;
+//     .container {
+//       &_items {
+//         @include set-container();
+//       }
+//       &_filter {
+//         @include set-container()
+//       }
+//     }
+//     .items_header {
+//       display: flex;
+//       justify-content: center; 
+//     }
+//   }
+// }
+
+// @media screen and (min-width: 768px) {
+//   .Main {
+//     max-width: 768px;
+//     width: 100%;
+//     margin: 0 auto;
+//     .container {
+//       &_items {
+//         @include set-container();
+//       }
+//       &_filter {
+//         @include set-container();
+//       }
+//     }
+//   }
+// }
