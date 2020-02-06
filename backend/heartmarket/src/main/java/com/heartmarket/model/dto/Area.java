@@ -1,6 +1,7 @@
 package com.heartmarket.model.dto;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,17 +38,13 @@ public class Area {
 	
 	String address;
 	
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="user_no",insertable = false, updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinColumn(name="user_no",insertable = false, updatable = false, nullable = false)
 	@ToString.Exclude
-	@JsonBackReference
 	User aUser;
+	
 	
 	public Area(String address) {
 		this.address = address;
-	}
-	public Area(String address,User aUser) {
-		this.address = address;
-		this.aUser = aUser;
 	}
 }

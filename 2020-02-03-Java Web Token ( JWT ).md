@@ -102,3 +102,12 @@ HMACSHA256(
 
 [SignWith 메서드 deprecated ](https://stackoverflow.com/questions/40252903/static-secret-as-byte-key-or-string)
 
+
+
+#### 구현시 참조
+
+[SpringSecurity 간단한 설정과 예제](https://galid1.tistory.com/576)
+
+[JWT생성 및 검증](https://charlie-choi.tistory.com/211)
+
+[Jwt 구현 기초](https://hyojun123.github.io/2018/07/17/JWT2/)

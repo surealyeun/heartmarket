@@ -1,11 +1,17 @@
 package com.heartmarket.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 //import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +21,7 @@ import com.heartmarket.util.ResultMap;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService , UserDetailsService{
 
 	@Autowired
 	private UserRepository ur;
@@ -107,8 +113,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int searchCount() {
 		User user = ur.findTop1ByOrderByUserNoDesc();
-		System.out.println(user.getUserNo());
+		ur.resortUserNo(user.getUserNo());
 		int result = user.getUserNo()+1;
 		return result;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = ur.findByEmail(email);
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority(user.getUserPermission()));
+		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
 	}
 }

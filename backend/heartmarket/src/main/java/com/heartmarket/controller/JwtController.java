@@ -10,25 +10,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.heartmarket.model.service.JwtService;
 
-@RestController
-@CrossOrigin("*")
+// JWT 테스트를 위한 컨트롤러 미사용
+//@RestController
+//@CrossOrigin("*")
 public class JwtController {
-	@Autowired
-	private JwtService jwtService;
-	
-	@PostMapping("/jwt/create")
-	public String createJwt(HttpServletRequest req) throws Exception {
-//		System.out.println(jwtService.makeJwt(req));
-		return jwtService.makeJwt(req);
-	}
-	 @GetMapping("/jwt/auth")
-     public boolean authToken(HttpServletRequest res) throws Exception {
-         String jwt = res.getParameter("jwt");
-
-         if(jwt == null) {
-             return false;
-         }else {
-             return jwtService.checkJwt(jwt);
-         }
-     }
+	/*
+	 * @Autowired private JwtService jwtService;
+	 * 
+	 * @PostMapping("/jwt/create") public String createJwt(HttpServletRequest req)
+	 * throws Exception { return jwtService.makeJwt(req); }
+	 * 
+	 * @GetMapping("/jwt/auth") public boolean authToken(HttpServletRequest res)
+	 * throws Exception { String jwt = res.getParameter("jwt");
+	 * 
+	 * if(jwt == null) { return false; }else { return jwtService.checkJwt(jwt); } }
+	 */
 }
