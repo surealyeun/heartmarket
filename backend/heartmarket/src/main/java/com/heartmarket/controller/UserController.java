@@ -22,12 +22,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.heartmarket.model.dto.Area;
+import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
 import com.heartmarket.model.service.EmailService;
 import com.heartmarket.model.service.EmailServiceImpl;
+import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
 
@@ -45,6 +48,10 @@ public class UserController {
 	AreaService as;
 	@Autowired
 	EmailService ms;
+	@Autowired
+	ImgService is;
+	
+	private ResultMap<TradeImg> rm;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ResponseEntity<Object> loginUser(@RequestParam String email, @RequestParam String password) {
@@ -76,12 +83,15 @@ public class UserController {
 		return new ResponseEntity<Object>(us.duplicatedByEmail(email), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/user/signUp", method=RequestMethod.GET)
+	// 회원가입
+	@RequestMapping(value = "/user/signUp", method=RequestMethod.POST)
 	public ResponseEntity<Object> signUp(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
-			@RequestParam String profileImg,
-			@RequestParam String address) {
+//			@RequestParam String profileImg,
+			@RequestParam  MultipartFile profile,
+			@RequestParam String address,
+			 HttpServletRequest req) throws Exception {
 		log.trace("signUp_User");
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -91,7 +101,9 @@ public class UserController {
 			 
 			if(user==null) {
 				password = BCrypt.hashpw(password, salt);
-				user = new User(count, email, password, profileImg, nickname, "user");
+				rm = is.uploadFile(profile, req);
+//				user = new User(count, email, password, profileImg, nickname, "user");
+				user = new User(count, email, password, rm.getData().getOrgImg(), nickname, "user");
 				us.signUp(user);
 				as.insertArea(new Area(address, user));
 				resultMap.put("state", "OK");

@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,22 +33,24 @@ public class ImageController {
 	String uploadPath = "C:\\Users\\multicampus\\Desktop\\ssafy\\Sub3-webmobile\\HeartMarket\\backend\\heartmarket\\src\\main\\webapp";
 	
 	@RequestMapping(value = "/img/upload", method = RequestMethod.POST)
-	public ResponseEntity<Object> uploadFile(@RequestParam MultipartFile file) throws IOException, Exception{
+	public ResponseEntity<Object> uploadFile(@RequestParam MultipartFile file, HttpServletRequest req) throws IOException, Exception{
 		
 		String imgUploadPath = uploadPath + File.separator + "img";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 
+		String tPath = req.getSession().getServletContext().getRealPath("/");
+		System.out.println("tPath : " + tPath);
 		String fileName = null;
 		
 		System.out.println(imgUploadPath);
 		System.out.println("1 : " + ymdPath);
-		
+			
 		int fileIndex = file.getOriginalFilename().lastIndexOf('.')+1;
 		String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex, file.getOriginalFilename().length());
-		
+		System.out.println("fileExtension : " + fileExtension);
 		TradeImg tmp = new TradeImg();
 		
-		if(!((fileExtension=="jpg") || (fileExtension=="gif") || (fileExtension == "png"))) {
+		if(!((fileExtension.equals("jpg") || (fileExtension.equals("gif")) || (fileExtension.equals("png"))))) {
 			return new ResponseEntity<Object>(new ResultMap<Object>("FAIL", "업로드 파일 형식이 다릅니다.", null), HttpStatus.NOT_FOUND);
 		}
 		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {

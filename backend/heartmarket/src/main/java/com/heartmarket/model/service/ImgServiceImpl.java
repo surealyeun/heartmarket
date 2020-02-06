@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +23,11 @@ public class ImgServiceImpl implements ImgService {
 
 	@Autowired
 	TradeImgRepository tr;
-
-	private String uploadPath = "C:\\Users\\multicampus\\Desktop\\ssafy\\Sub3-webmobile\\HeartMarket\\backend\\heartmarket\\src\\main\\webapp";
 	
 	// 단일 이미지 업로드 ( 프로필 )
 	@Override
-	public ResultMap<Object> uploadFile(MultipartFile file) throws IOException, Exception{
+	public ResultMap<TradeImg> uploadFile(MultipartFile file, HttpServletRequest req) throws IOException, Exception{
+		String uploadPath = req.getSession().getServletContext().getRealPath("/");
 		
 		String imgUploadPath = uploadPath + File.separator + "img";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
@@ -42,7 +43,7 @@ public class ImgServiceImpl implements ImgService {
 		TradeImg tmp = new TradeImg();
 		
 		if(!((fileExtension=="jpg") || (fileExtension=="gif") || (fileExtension == "png"))) {
-			return new ResultMap<Object>("FAIL", "업로드 파일 형식이 다릅니다.", null);
+			return new ResultMap<TradeImg>("FAIL", "업로드 파일 형식이 다릅니다.", null);
 		}
 		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
@@ -53,7 +54,7 @@ public class ImgServiceImpl implements ImgService {
 			tmp.setOrgImg(fileName);
 			tmp.setStoredImg(fileName);
 		}
-		return new ResultMap<Object>("SUCCESS", "파일 업로드 성공.", tmp);	
+		return new ResultMap<TradeImg>("SUCCESS", "파일 업로드 성공.", tmp);	
 	}
 	
 	// 다중 이미지 업로드 ( 게시글 )
