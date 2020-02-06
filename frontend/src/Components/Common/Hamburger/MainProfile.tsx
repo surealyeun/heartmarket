@@ -16,6 +16,8 @@ class MainProfile extends Component {
     };
   }
 
+  user = JSON.parse(window.localStorage.getItem('user') || '{}');
+
   render() {
     const {islog} = this.state;
     return (
@@ -38,7 +40,7 @@ class MainProfile extends Component {
               src="https://image.flaticon.com/icons/svg/660/660611.svg"
             ></img>
             <p className="profile_name">
-              {window.localStorage.getItem("userid")}
+              {this.user.nickname}
             </p>
             <p className="profile_number">
               {window.localStorage.getItem("usernumber")}
