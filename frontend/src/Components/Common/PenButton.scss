@@ -1,0 +1,80 @@
+@media screen and (max-width: 767px) {
+
+  .PenButton {
+    width: 100%;
+    position: relative;
+
+    .img_button {
+      //background: #f494ab;
+      width: 50px;
+      height: 50px;
+      z-index: 20;
+      position: fixed;
+      bottom: 5%;
+      right: 40px;
+      cursor: pointer;
+    }
+
+    .img_button:hover{
+      transition: 0.7s;
+      transition-timing-function: ease-in-out;
+      transform: scale(1.4);
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 959px)  {
+  .PenButton {
+    max-width: 768px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+
+    .img_button {
+      //background: #f494ab;
+      width: 50px;
+      height: 50px;
+      z-index: 1000;
+      position: fixed;
+      bottom: 6%;
+      right: calc(50% - 350px);
+      cursor: pointer;
+    }
+
+    .img_button:hover{
+      transition: 0.7s;
+      transition-timing-function: ease-in-out;
+      transform: scale(1.4);
+      cursor: pointer;
+    }
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .PenButton {
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+
+    .img_button {
+      width: 50px;
+      height: 50px;
+      z-index: 1000;
+      position: fixed;
+      bottom: 6%;
+      right: calc(50% - 450px);
+      cursor: pointer;
+      // border: 2px solid black;
+      // border-radius: 26px;
+    }
+
+    .img_button:hover{
+      transition: 0.7s;
+      transition-timing-function: ease-in-out;
+      transform: scale(1.4);
+      cursor: pointer;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+<<<<<<< HEAD
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -10,3 +11,8 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+=======
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+>>>>>>> 575187abc5afbfd9c4aa0db7eb7915541abf80e9
