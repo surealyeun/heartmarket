@@ -39,7 +39,8 @@ public class User implements Serializable{
 	@Column(name = "user_no")
 	int userNo;
 	
-	String email;
+
+	String email; 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	String password;
 	@Column(name = "profile_img")
