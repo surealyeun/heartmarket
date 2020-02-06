@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 import "./Items.scss";
 
 function Purchase() {
@@ -31,9 +32,9 @@ function Purchase() {
                     />
                 </div>
                 <div className="product-more-wrapper">
-                <button className="purchase-more">
+                <Link to="/purchase"><button className="purchase-more">
                     <h3>+ 구매 상품 더보기</h3>
-                </button>
+                </button></Link>
             </div>
             </div>
         </div>
