@@ -17,10 +17,10 @@ class MainProfile extends Component {
   }
 
   render() {
-    const islog = this.state;
+    const {islog} = this.state;
     return (
       <div className="Main_Profile">
-        {islog ? (
+        {!islog ? (
           <>
             <p className="profile_infotext">로그인이 필요한 서비스 입니다.</p>
             <Link to={{ pathname: "/login" }}>
