@@ -8,7 +8,7 @@ function PenButton() {
   const GoWritePage = () => {
     if (window.localStorage.getItem("log") === "true") {
       //로그인이 되어있으면
-      history.push("/join");
+      history.push("/write");
     } else {
       //로그인이 안되어있으면
       history.push("/login");
