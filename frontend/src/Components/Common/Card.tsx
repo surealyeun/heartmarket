@@ -3,11 +3,12 @@ import "./Card.scss";
 
 interface Item {
   id: number;
+  albumId?: number;
   title: string;
-  src: string;
+  url: string;
   alt?: string;
-  address: string;
-  money: number;
+  address?: string;
+  money?: number;
 }
 
 function Card(props:Item) {
@@ -27,7 +28,7 @@ function Card(props:Item) {
       <div className="Card_img">
         <img
           className="img_body"
-          src={props.src}
+          src={props.url}
           alt={props.alt}
         ></img>
         <img
