@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import "./Items.scss";
 
 function Sale() {
+    //
     return (
         <div className="sale">
             <h3>판매 상품</h3>
