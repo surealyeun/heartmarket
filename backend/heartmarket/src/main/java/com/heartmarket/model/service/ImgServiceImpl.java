@@ -37,15 +37,16 @@ public class ImgServiceImpl implements ImgService {
 		System.out.println(imgUploadPath);
 		System.out.println(ymdPath);
 		
-		int fileIndex = file.getOriginalFilename().lastIndexOf('.')+1;
-		String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex, file.getOriginalFilename().length());
-		
 		TradeImg tmp = new TradeImg();
-		
-		if(!((fileExtension=="jpg") || (fileExtension=="gif") || (fileExtension == "png"))) {
-			return new ResultMap<TradeImg>("FAIL", "업로드 파일 형식이 다릅니다.", null);
-		}
-		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+//		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+		if(!(file == null) ){
+			int fileIndex = file.getOriginalFilename().lastIndexOf('.')+1;
+			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex, file.getOriginalFilename().length());
+			System.out.println("File name : " +file.getOriginalFilename());
+			
+			if(!((fileExtension.equals("jpg") || (fileExtension.equals("gif") || (fileExtension.equals("png")))))) {
+				return new ResultMap<TradeImg>("FAIL", "업로드 파일 형식이 다릅니다.", null);
+			}
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
 			tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);

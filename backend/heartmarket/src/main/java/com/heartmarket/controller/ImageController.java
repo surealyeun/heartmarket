@@ -33,7 +33,7 @@ public class ImageController {
 	String uploadPath = "C:\\Users\\multicampus\\Desktop\\ssafy\\Sub3-webmobile\\HeartMarket\\backend\\heartmarket\\src\\main\\webapp";
 	
 	@RequestMapping(value = "/img/upload", method = RequestMethod.POST)
-	public ResponseEntity<Object> uploadFile(@RequestParam MultipartFile file, HttpServletRequest req) throws IOException, Exception{
+	public ResponseEntity<Object> uploadFile(@RequestParam(value = "profile") MultipartFile file, HttpServletRequest req) throws IOException, Exception{
 		
 		String imgUploadPath = uploadPath + File.separator + "img";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
