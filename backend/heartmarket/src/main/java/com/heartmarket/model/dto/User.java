@@ -67,7 +67,7 @@ public class User{
 		this.userPermission = userPermission;
 	}
 	
-	@OneToMany(mappedBy = "aUser",fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "aUser",fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	List<Area> uArea;
 	
 //	@OneToOne(mappedBy = "cUser")

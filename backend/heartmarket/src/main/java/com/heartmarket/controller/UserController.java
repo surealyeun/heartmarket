@@ -1,5 +1,6 @@
 package com.heartmarket.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -97,8 +98,13 @@ public class UserController {
 			if(user==null) {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
 				user = new User(email, password, profileImg, nickname, "ROLE_USER");
+				Area area = new Area(address);
+				area.setAUser(user);
+				List<Area> uArea = new ArrayList<Area>();
+				uArea.add(area);
+				user.setUArea(uArea);
 				us.signUp(user);
-				as.insertArea(address,count);
+//				as.insertArea(address,count);
 				resultMap.put("state", "OK");
 				resultMap.put("data", "SUCCESS");
 				return new ResponseEntity<Object>(resultMap, HttpStatus.OK);
