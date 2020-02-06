@@ -31,14 +31,12 @@ import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
 import com.heartmarket.model.service.EmailService;
 import com.heartmarket.model.service.EmailServiceImpl;
-<<<<<<< backend/heartmarket/src/main/java/com/heartmarket/controller/UserController.java
 import com.heartmarket.model.service.JwtService;
-=======
 import com.heartmarket.model.service.ImgService;
->>>>>>> backend/heartmarket/src/main/java/com/heartmarket/controller/UserController.java
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -96,8 +94,7 @@ public class UserController {
 	public ResponseEntity<Object> signUp(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
-//			@RequestParam String profileImg,
-			@RequestParam  MultipartFile profile,
+			@RequestParam(required = false)  MultipartFile profile,
 			@RequestParam String address,
 			 HttpServletRequest req) throws Exception {
 		log.trace("signUp_User");
@@ -109,17 +106,9 @@ public class UserController {
 			System.out.println("카운트 : "+count);
 			if(user==null) {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
-				user = new User(email, password, profileImg, nickname, "ROLE_USER");
-				Area area = new Area(address);
-				area.setAUser(user);
-				List<Area> uArea = new ArrayList<Area>();
-				uArea.add(area);
-				user.setUArea(uArea);
 				rm = is.uploadFile(profile, req);
-//				user = new User(count, email, password, profileImg, nickname, "user");
-				user = new User(count, email, password, rm.getData().getOrgImg(), nickname, "user");
-				us.signUp(user);
-//				as.insertArea(address,count);
+				user = new User(email, password, rm.getData().getOrgImg(), nickname, "ROLE_USER");
+				us.signUp(user,address);
 				resultMap.put("state", "OK");
 				resultMap.put("data", "SUCCESS");
 				return new ResponseEntity<Object>(resultMap, HttpStatus.OK);

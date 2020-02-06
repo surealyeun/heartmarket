@@ -23,43 +23,48 @@ public class ImgServiceImpl implements ImgService {
 
 	@Autowired
 	TradeImgRepository tr;
-	
+
 	// 단일 이미지 업로드 ( 프로필 )
 	@Override
-	public ResultMap<TradeImg> uploadFile(MultipartFile file, HttpServletRequest req) throws IOException, Exception{
+	public ResultMap<TradeImg> uploadFile(MultipartFile file, HttpServletRequest req) throws IOException, Exception {
 		String uploadPath = req.getSession().getServletContext().getRealPath("/");
-		
+
 		String imgUploadPath = uploadPath + File.separator + "img";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 
 		String fileName = null;
-		
+
 		System.out.println(imgUploadPath);
 		System.out.println(ymdPath);
-		
-		int fileIndex = file.getOriginalFilename().lastIndexOf('.')+1;
-		String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex, file.getOriginalFilename().length());
-		
+
 		TradeImg tmp = new TradeImg();
-		
-		if(!((fileExtension=="jpg") || (fileExtension=="gif") || (fileExtension == "png"))) {
-			return new ResultMap<TradeImg>("FAIL", "업로드 파일 형식이 다릅니다.", null);
-		}
-		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-			tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
-			tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
-		}else {
+
+		if (file != null) {
+			int fileIndex = file.getOriginalFilename().lastIndexOf('.') + 1;
+			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex,
+					file.getOriginalFilename().length());
+
+			if (!((fileExtension.equals("jpg")) || (fileExtension.equals("gif")) || (fileExtension.equals("png")))) {
+				return new ResultMap<TradeImg>("FAIL", "업로드 파일 형식이 다릅니다.", null);
+			}
+			if (file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+				fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(),
+						ymdPath);
+				tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
+				tmp.setStoredImg(
+						File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+			}
+		} else {
 			fileName = File.separatorChar + "images" + File.separator + "none.png";
 			tmp.setOrgImg(fileName);
 			tmp.setStoredImg(fileName);
 		}
-		return new ResultMap<TradeImg>("SUCCESS", "파일 업로드 성공.", tmp);	
+		return new ResultMap<TradeImg>("SUCCESS", "파일 업로드 성공.", tmp);
 	}
-	
+
 	// 다중 이미지 업로드 ( 게시글 )
 	@Override
-	public List<TradeImg> uploadFiles(MultipartFile[] files){
+	public List<TradeImg> uploadFiles(MultipartFile[] files) {
 		return null;
 	}
 }

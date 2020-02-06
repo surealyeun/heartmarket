@@ -15,6 +15,8 @@ public class AreaServiceImpl implements AreaService{
 	@Autowired
 	AreaRepository ar;
 	
+	
+	// 부모의 연관관계 삽입을 성공하여 현재 미사용
 	@Override
 	public void insertArea(String address,int userNo) {
 		try {
