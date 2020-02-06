@@ -38,7 +38,7 @@ public class MainController {
 	
 	@GetMapping("/view")
 	public String goView(Model mv) {
-		TradeImg tmg = tr.findById(2).orElse(null);
+		TradeImg tmg = tr.findById(8).orElse(null);
 		System.out.println(tmg.getOrgImg());
 		mv.addAttribute("goods", tmg);
 		return "view";
