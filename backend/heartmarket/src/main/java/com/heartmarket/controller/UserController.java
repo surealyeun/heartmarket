@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
@@ -30,7 +29,6 @@ import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
 import com.heartmarket.model.service.EmailService;
-import com.heartmarket.model.service.EmailServiceImpl;
 import com.heartmarket.model.service.JwtService;
 import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.UserService;
@@ -94,27 +92,23 @@ public class UserController {
 			@RequestParam String password,
 			@RequestParam String nickname,
 //			@RequestParam String profileImg,
-			@RequestParam  MultipartFile profile,
+			@RequestParam(required = false)  MultipartFile profile,
 			@RequestParam String address,
 			 HttpServletRequest req) throws Exception {
 		log.trace("signUp_User");
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			User user = us.searchEmail(email);
+			User user = us.searchEmail(email); 
 			// count는 유저번호를 위한 변수로 Area 삽입시 DB적용이 되지 않기 때문에 필요로한 변수이다.
 			int count = us.searchCount();
 			System.out.println("카운트 : "+count);
 			if(user==null) {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
-//				user = new User(email, password, profileImg, nickname, "ROLE_USER");
-				Area area = new Area(address);
-				area.setAUser(user);
-				List<Area> uArea = new ArrayList<Area>();
-				uArea.add(area);
-				user.setUArea(uArea);
+				System.out.println("profile " + profile);
 				rm = is.uploadFile(profile, req);
 //				user = new User(count, email, password, profileImg, nickname, "user");
-				user = new User(email, password, rm.getData().getOrgImg(), nickname, "ROLE_USER");
+				user = new User(email, password, rm.getData().getOrgImg() == null ? null : rm.getData().getOrgImg(), nickname, "ROLE_USER");
+				
 				us.signUp(user);
 //				as.insertArea(address,count);
 				resultMap.put("state", "OK");
@@ -171,9 +165,11 @@ public class UserController {
 	public ResponseEntity<Object> updateUser(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
-			@RequestParam String profileImg,
+//			@RequestParam String profileImg,
+			@RequestParam MultipartFile profile,
 			@RequestParam String addrNo,
-			@RequestParam String address){
+			@RequestParam String address,
+			HttpServletRequest req) throws Exception{
 		try {
 			User user = us.searchEmail(email);
 			List<Area> area = user.getUArea();
@@ -183,9 +179,12 @@ public class UserController {
 					as.updateArea(area2);
 				}
 			}
+			
+			rm = is.uploadFile(profile, req);
+			
 			user.setPassword(password);
 			user.setNickname(nickname);
-			user.setProfileImg(profileImg);
+			user.setProfileImg(rm.getData().getOrgImg());
 			us.update(user);
 			user = us.searchEmail(email);
 			Map<String, Object> resultMap = new HashMap<String, Object>();

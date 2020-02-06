@@ -13,5 +13,5 @@ import com.heartmarket.util.ResultMap;
 public interface ImgService {
 	
 	public ResultMap<TradeImg> uploadFile(MultipartFile file, HttpServletRequest req)  throws IOException, Exception;
-	public List<TradeImg> uploadFiles(MultipartFile[] files);
+	public List<TradeImg> uploadFiles(List<MultipartFile> files);
 }

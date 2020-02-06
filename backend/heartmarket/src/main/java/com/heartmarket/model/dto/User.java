@@ -21,7 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//@ToString
+//@ToString 
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,11 +30,14 @@ import lombok.Setter;
 @Table(name="user")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,property = "userNo")
 public class User{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@Column(name="user_no") 
 	Integer userNo;
 	
-	String email;
+
+	String email; 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	String password;
 	String profileImg;
