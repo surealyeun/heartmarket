@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
@@ -30,7 +29,6 @@ import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
 import com.heartmarket.model.service.EmailService;
-import com.heartmarket.model.service.EmailServiceImpl;
 import com.heartmarket.model.service.JwtService;
 import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.UserService;

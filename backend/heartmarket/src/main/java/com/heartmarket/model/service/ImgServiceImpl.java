@@ -60,7 +60,7 @@ public class ImgServiceImpl implements ImgService {
 	
 	// 다중 이미지 업로드 ( 게시글 )
 	@Override
-	public List<TradeImg> uploadFiles(MultipartFile[] files){
+	public List<TradeImg> uploadFiles(List<MultipartFile> files){
 		return null;
 	}
 }

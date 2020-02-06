@@ -2,6 +2,7 @@ package com.heartmarket.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,40 @@ public class ImageController {
 	@RequestMapping(value = "/img/upload", method = RequestMethod.POST)
 	public ResponseEntity<Object> uploadFile(@RequestParam(value = "profile") MultipartFile file, HttpServletRequest req) throws IOException, Exception{
 		
+		String imgUploadPath = uploadPath + File.separator + "img";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+
+		String tPath = req.getSession().getServletContext().getRealPath("/");
+		System.out.println("tPath : " + tPath);
+		String fileName = null;
+		
+		System.out.println(imgUploadPath);
+		System.out.println("1 : " + ymdPath);
+			
+		int fileIndex = file.getOriginalFilename().lastIndexOf('.')+1;
+		String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex, file.getOriginalFilename().length());
+		System.out.println("fileExtension : " + fileExtension);
+		TradeImg tmp = new TradeImg();
+		
+		if(!((fileExtension.equals("jpg") || (fileExtension.equals("gif")) || (fileExtension.equals("png"))))) {
+			return new ResponseEntity<Object>(new ResultMap<Object>("FAIL", "업로드 파일 형식이 다릅니다.", null), HttpStatus.NOT_FOUND);
+		}
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+			tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
+			tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		}else {
+			fileName = File.separatorChar + "images" + File.separator + "none.png";
+			tmp.setOrgImg(fileName);
+			tmp.setStoredImg(fileName);
+		}
+		
+		tr.save(tmp);
+		return new ResponseEntity<Object>(tmp, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/img/uploads/")
+	public ResponseEntity<Object> uploadFiles(@RequestParam List<MultipartFile> files, HttpServletRequest req){
 		String imgUploadPath = uploadPath + File.separator + "img";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 
