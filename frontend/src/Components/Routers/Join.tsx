@@ -74,7 +74,7 @@ class Join extends Component {
     }
 
     certValidate = (certification: string) => {
-        if (this.state.cert == certification) {
+        if (this.state.cert === certification) {
             this.setState({
                 certValid: true
             });
