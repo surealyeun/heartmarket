@@ -41,7 +41,7 @@ class Join extends Component {
     
                     axios({
                         method: "get",
-                        url: "http://13.125.55.96:8080/mail",
+                        url: "http://13.125.55.96:8080/user/mail",
                         params: {
                             email: this.state.email
                         }

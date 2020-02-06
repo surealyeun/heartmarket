@@ -81,7 +81,7 @@ class UpdateUser extends Component {
                             <input type="text" className="input-address" />
                             <input type="button" className="btn-du" value="+"></input>
                         </> */}
-                        {/* {this.user.uarea.length === 1 ? (
+                        {this.user.uarea.length === 1 ? (
                         <>
                             <input
                                 type="text"
@@ -107,7 +107,7 @@ class UpdateUser extends Component {
                             />
                             <input type="button" className="btn-du" value="x"></input>
                         </>
-                    )} */}
+                    )}
                     </div>
                     {/* 마이페이지로 돌아가도록 */}
                     <button className="btn-update" onClick={this.goback}>

@@ -65,14 +65,14 @@ class JoinDetail extends Component {
 
     handleOnClick = () => {
         axios({
-            method: "get",
-            url: "http://13.125.55.96:8080/signUp",
+            method: "post",
+            url: "http://13.125.55.96:8080/user/signUp",
             params: {
                 address: this.state.address,
                 email: this.state.email,
                 nickname: this.state.nickname,
                 password: this.state.password,
-                profileImg: "img.png"
+                
             }
         })
             .then(res => {

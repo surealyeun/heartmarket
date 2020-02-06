@@ -25,7 +25,7 @@ class Login extends Component {
         if (this.state.email && this.state.password) {
             axios({
                 method: "get",
-                url: "http://13.125.55.96:8080/login",
+                url: "http://13.125.55.96:8080/user/login",
                 params: {
                     email: this.state.email,
                     password: this.state.password
