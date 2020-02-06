@@ -29,7 +29,7 @@ import lombok.ToString;
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,property = "imgNo")
 public class TradeImg {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	int imgNo;
 	
 	@ManyToOne(fetch = FetchType.EAGER) 
@@ -37,7 +37,9 @@ public class TradeImg {
 	@ToString.Exclude
 	Trade tiTrade;
 	
-	String productImg; // 이미지 주소
+//	String productImg; // 이미지 주소
+	String orgImg;
+	String storedImg;
 	
 
 }

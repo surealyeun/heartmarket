@@ -67,12 +67,6 @@ public class Trade {
 	@JsonBackReference
 	User bUser;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "buyer_no",insertable = false, updatable = false)
-	@ToString.Exclude
-	@JsonBackReference
-	User bUser;
-	
 	@OneToOne(mappedBy = "mTrade")
 	@ToString.Exclude
 	@JsonManagedReference
