@@ -25,6 +25,49 @@
     border-radius: 30px;
   }
 
+  .profile_infotext{
+    font-family: "NanumSquareRound";
+    color: #f9f4e6;
+    position: absolute;
+    width: 100%;
+    top: 38px;
+    font-size: 18px;
+  }
+
+  .profile_login{
+    background: #f9f4e6;
+    color: #375368;
+    width: 50%;
+    top: 95px;
+    font-size: 20px;
+    font-weight: bolder;
+    left:25%;
+    height: 35px;
+    padding-top: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .profile_signup:hover, .profile_login:hover{
+    color: #1c3242;
+    border: 2px solid #1c3242; 
+    opacity: 90%;
+  }
+
+  .profile_signup {
+    background: #f9f4e6;
+    color: #375368;
+    width: 50%;
+    top: 155px;
+    font-size: 20px;
+    font-weight: bolder;
+    left:25%;
+    height: 36px;
+    padding-top: 6px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
   .profile_name {
     font-family: "yg-jalnan";
     color: #f9f4e6;
