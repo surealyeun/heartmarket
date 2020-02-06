@@ -31,11 +31,8 @@ import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
 import com.heartmarket.model.service.EmailService;
 import com.heartmarket.model.service.EmailServiceImpl;
-<<<<<<< backend/heartmarket/src/main/java/com/heartmarket/controller/UserController.java
 import com.heartmarket.model.service.JwtService;
-=======
 import com.heartmarket.model.service.ImgService;
->>>>>>> backend/heartmarket/src/main/java/com/heartmarket/controller/UserController.java
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
 
@@ -109,7 +106,7 @@ public class UserController {
 			System.out.println("카운트 : "+count);
 			if(user==null) {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
-				user = new User(email, password, profileImg, nickname, "ROLE_USER");
+//				user = new User(email, password, profileImg, nickname, "ROLE_USER");
 				Area area = new Area(address);
 				area.setAUser(user);
 				List<Area> uArea = new ArrayList<Area>();
