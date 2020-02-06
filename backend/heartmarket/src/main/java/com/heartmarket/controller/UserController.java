@@ -114,7 +114,7 @@ public class UserController {
 				user.setUArea(uArea);
 				rm = is.uploadFile(profile, req);
 //				user = new User(count, email, password, profileImg, nickname, "user");
-				user = new User(count, email, password, rm.getData().getOrgImg(), nickname, "user");
+				user = new User(email, password, rm.getData().getOrgImg(), nickname, "ROLE_USER");
 				us.signUp(user);
 //				as.insertArea(address,count);
 				resultMap.put("state", "OK");
