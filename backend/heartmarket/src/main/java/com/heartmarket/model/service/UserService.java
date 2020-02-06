@@ -9,7 +9,7 @@ public interface UserService {
 	public boolean login(String email,String password);
 	public User searchEmail(String email);
 	public List<User> searchAll();
-	public void signUp(User user);
+	public void signUp(User user,String address);
 	public void update(User user);
 	public void delete(User user);
 	public int searchCount();

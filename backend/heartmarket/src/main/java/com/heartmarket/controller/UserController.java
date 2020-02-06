@@ -34,6 +34,7 @@ import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -91,7 +92,6 @@ public class UserController {
 	public ResponseEntity<Object> signUp(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
-//			@RequestParam String profileImg,
 			@RequestParam(required = false)  MultipartFile profile,
 			@RequestParam String address,
 			 HttpServletRequest req) throws Exception {
@@ -104,12 +104,10 @@ public class UserController {
 			System.out.println("카운트 : "+count);
 			if(user==null) {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
-				System.out.println("profile " + profile);
 				rm = is.uploadFile(profile, req);
 //				user = new User(count, email, password, profileImg, nickname, "user");
 				user = new User(email, password, rm.getData().getOrgImg() == null ? null : rm.getData().getOrgImg(), nickname, "ROLE_USER");
-				
-				us.signUp(user);
+				us.signUp(user,address);
 //				as.insertArea(address,count);
 				resultMap.put("state", "OK");
 				resultMap.put("data", "SUCCESS");

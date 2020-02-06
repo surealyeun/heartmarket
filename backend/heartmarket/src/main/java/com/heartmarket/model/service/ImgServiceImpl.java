@@ -23,17 +23,17 @@ public class ImgServiceImpl implements ImgService {
 
 	@Autowired
 	TradeImgRepository tr;
-	
+
 	// 단일 이미지 업로드 ( 프로필 )
 	@Override
-	public ResultMap<TradeImg> uploadFile(MultipartFile file, HttpServletRequest req) throws IOException, Exception{
+	public ResultMap<TradeImg> uploadFile(MultipartFile file, HttpServletRequest req) throws IOException, Exception {
 		String uploadPath = req.getSession().getServletContext().getRealPath("/");
-		
+
 		String imgUploadPath = uploadPath + File.separator + "img";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 
 		String fileName = null;
-		
+
 		System.out.println(imgUploadPath);
 		System.out.println(ymdPath);
 		
@@ -55,9 +55,9 @@ public class ImgServiceImpl implements ImgService {
 			tmp.setOrgImg(fileName);
 			tmp.setStoredImg(fileName);
 		}
-		return new ResultMap<TradeImg>("SUCCESS", "파일 업로드 성공.", tmp);	
+		return new ResultMap<TradeImg>("SUCCESS", "파일 업로드 성공.", tmp);
 	}
-	
+
 	// 다중 이미지 업로드 ( 게시글 )
 	@Override
 	public List<TradeImg> uploadFiles(List<MultipartFile> files){

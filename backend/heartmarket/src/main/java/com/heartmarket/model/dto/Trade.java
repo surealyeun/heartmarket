@@ -1,5 +1,6 @@
 package com.heartmarket.model.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -36,22 +38,29 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Getter @Setter
 @Entity
 @Table(name="trade")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,property = "tradeNo")
-public class Trade {
+public class Trade implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "trade_no")
 	Integer tradeNo;
 	
+	@Column(name = "trade_category")
 	String tradeCategory;
+	@Column(name = "trade_title")
 	String tradeTitle;
+	@Column(name = "product_name")
 	String productName;
+	@Column(name = "trade_area")
 	String tradeArea;
+	@Column(name = "product_info")
 	String productInfo;
+	@Column(name = "product_price")
 	String productPrice;
+	@Column(name = "trade_date")
 	String tradeDate;
 	
 //	@OneToMany(mappedBy = "cTrade")
@@ -69,10 +78,12 @@ public class Trade {
 	
 	@OneToOne(mappedBy = "mTrade")
 	@ToString.Exclude
+	@Transient
 	Manner tManner;
 	
 	@OneToMany(mappedBy = "tiTrade", fetch = FetchType.LAZY)
-	@ToString.Exclude 
+	@ToString.Exclude
+	@Transient
 	List<TradeImg> tTradeImg;
 	
 }
