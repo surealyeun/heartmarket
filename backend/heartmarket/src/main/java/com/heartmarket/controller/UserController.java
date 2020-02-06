@@ -23,13 +23,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.heartmarket.model.dto.Area;
+import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
 import com.heartmarket.model.service.EmailService;
 import com.heartmarket.model.service.EmailServiceImpl;
+<<<<<<< backend/heartmarket/src/main/java/com/heartmarket/controller/UserController.java
 import com.heartmarket.model.service.JwtService;
+=======
+import com.heartmarket.model.service.ImgService;
+>>>>>>> backend/heartmarket/src/main/java/com/heartmarket/controller/UserController.java
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
 
@@ -48,7 +54,10 @@ public class UserController {
 	EmailService ms;
 	@Autowired
 	JwtService jwts;
+	@Autowired
+	ImgService is;
 	
+	private ResultMap<TradeImg> rm;
 	
 	@RequestMapping(value = "/user/login", method = RequestMethod.GET)
 	public ResponseEntity<Object> loginUser(HttpServletRequest req,@RequestParam String email, @RequestParam String password) throws Exception {
@@ -82,12 +91,15 @@ public class UserController {
 		return new ResponseEntity<Object>(us.duplicatedByEmail(email), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/user/signUp", method=RequestMethod.GET)
+	// 회원가입
+	@RequestMapping(value = "/user/signUp", method=RequestMethod.POST)
 	public ResponseEntity<Object> signUp(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
-			@RequestParam String profileImg,
-			@RequestParam String address) {
+//			@RequestParam String profileImg,
+			@RequestParam  MultipartFile profile,
+			@RequestParam String address,
+			 HttpServletRequest req) throws Exception {
 		log.trace("signUp_User");
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -103,6 +115,9 @@ public class UserController {
 				List<Area> uArea = new ArrayList<Area>();
 				uArea.add(area);
 				user.setUArea(uArea);
+				rm = is.uploadFile(profile, req);
+//				user = new User(count, email, password, profileImg, nickname, "user");
+				user = new User(count, email, password, rm.getData().getOrgImg(), nickname, "user");
 				us.signUp(user);
 //				as.insertArea(address,count);
 				resultMap.put("state", "OK");
@@ -136,6 +151,7 @@ public class UserController {
 		}
 	}
 	
+	// 이메일 보내기
 	@RequestMapping(value = "/user/mail", method = RequestMethod.GET)
 	public ResponseEntity<Object> sendmail(@RequestParam String email) throws Exception {
 		try {
@@ -153,7 +169,8 @@ public class UserController {
 		}
 	}
 	
-	@RequestMapping(value = "/user/updateUser", method = RequestMethod.GET)
+	// 유저 수정
+	@RequestMapping(value = "/user/updateUser", method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateUser(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
