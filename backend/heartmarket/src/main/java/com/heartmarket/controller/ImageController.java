@@ -13,7 +13,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,9 +73,9 @@ public class ImageController {
 		tr.save(tmp);
 		return new ResponseEntity<Object>(tmp, HttpStatus.OK);
 	}
-	 
+	
 	@RequestMapping(value = "/img/uploads", method = RequestMethod.POST)
-	public ResponseEntity<Object> uploadFiles(@RequestBody List<MultipartFile> files,HttpServletRequest req) throws IOException, Exception{
+	public ResponseEntity<Object> uploadFiles(@RequestParam /*List<MultipartFile>*/MultipartFile[] files,HttpServletRequest req) throws IOException, Exception{
 		String imgUploadPath = uploadPath + File.separator + "img";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 

@@ -42,8 +42,8 @@ public class Area implements Serializable{
 	
 	String address;
 	
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
-	@JoinColumn(name="user_no",insertable = false,updatable = false)
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="user_no")
 	@ToString.Exclude
 	User aUser;
 

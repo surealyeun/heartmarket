@@ -127,14 +127,11 @@ public class UserController {
 	}
 	@ApiOperation(value = "지역 정보 조회를 위한 테스트 기능")
 	@RequestMapping(value = "/user/area", method = RequestMethod.GET) 
-	public ResponseEntity<Object> searchArea(HttpServletRequest request,@RequestParam String address,@RequestParam int userNo){
+	public ResponseEntity<Object> searchArea(HttpServletRequest request,@RequestParam String address){
 		try {
 			List<Area> area = as.searchAreaByAddress(address);
-			for (Area area2 : area) {
-				area2.setAddress(address);
-				as.updateArea(area2);
-			}
 			Map<String, Object> resultMap = new HashMap<String, Object>();
+			
 			resultMap.put("status", "OK");
 			resultMap.put("data", area);
 			return new ResponseEntity<Object>(resultMap, HttpStatus.OK);
