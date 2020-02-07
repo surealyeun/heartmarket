@@ -90,6 +90,7 @@ public class UserController {
 	}
 	
 	// 회원가입
+	@ApiOperation(value = "회원가입 기능 (User <-> Area 연쇄 저장) ")
 	@RequestMapping(value = "/user/signUp", method=RequestMethod.POST)
 	public ResponseEntity<Object> signUp(@RequestParam String email,
 			@RequestParam String password,
