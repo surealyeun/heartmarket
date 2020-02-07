@@ -35,6 +35,7 @@ import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -81,6 +82,7 @@ public class UserController {
 	}
 
 	// Email 중복 조회
+	@ApiOperation(value = "회원가입시 입력된 이메일의 중복 여부 확인")
 	@RequestMapping(value = "/user/{email}", method = RequestMethod.GET)
 	public ResponseEntity<Object> findOne(@PathVariable String email) {
 		log.trace(email, "findByEmail");
@@ -123,13 +125,16 @@ public class UserController {
 			throw e;
 		}
 	}
-	
+	@ApiOperation(value = "지역 정보 조회를 위한 테스트 기능")
 	@RequestMapping(value = "/user/area", method = RequestMethod.GET) 
-	public ResponseEntity<Object> searchArea(HttpServletRequest request,@RequestParam String address){
+	public ResponseEntity<Object> searchArea(HttpServletRequest request,@RequestParam String address,@RequestParam int userNo){
 		try {
 			List<Area> area = as.searchAreaByAddress(address);
+			for (Area area2 : area) {
+				area2.setAddress(address);
+				as.updateArea(area2);
+			}
 			Map<String, Object> resultMap = new HashMap<String, Object>();
-			
 			resultMap.put("status", "OK");
 			resultMap.put("data", area);
 			return new ResponseEntity<Object>(resultMap, HttpStatus.OK);
@@ -141,6 +146,7 @@ public class UserController {
 	}
 	
 	// 이메일 보내기
+	@ApiOperation(value = "회원가입시 중복 여부 확인 결과를 통해 인증 키 를 메일로 보내는 기능")
 	@RequestMapping(value = "/user/mail", method = RequestMethod.GET)
 	public ResponseEntity<Object> sendmail(@RequestParam String email) throws Exception {
 		try {
@@ -165,26 +171,24 @@ public class UserController {
 			@RequestParam String nickname,
 //			@RequestParam String profileImg,
 			@RequestParam MultipartFile profile,
-			@RequestParam String addrNo,
 			@RequestParam String address,
 			HttpServletRequest req) throws Exception{
 		try {
 			User user = us.searchEmail(email);
 			List<Area> area = user.getUArea();
 			for (Area area2 : area) {
-				if (area2.getAreaNo() == Integer.parseInt(addrNo)) {
+				if (area2.getAUser().getUserNo() == user.getUserNo()) {
 					area2.setAddress(address);
 					as.updateArea(area2);
 				}
 			}
 			
 			rm = is.uploadFile(profile, req);
-			
+			password = BCrypt.hashpw(password, BCrypt.gensalt());
 			user.setPassword(password);
 			user.setNickname(nickname);
 			user.setProfileImg(rm.getData().getOrgImg());
 			us.update(user);
-			user = us.searchEmail(email);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			resultMap.put("state", "OK");
 			resultMap.put("data", user);
