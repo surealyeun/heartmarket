@@ -2,7 +2,9 @@ package com.heartmarket.model.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,10 +26,7 @@ public class ImgServiceImpl implements ImgService {
 	@Autowired
 	TradeImgRepository tr;
 
-	// 단일 이미지 업로드 ( 프로필 )
-	@Override
-	public ResultMap<TradeImg> uploadFile(MultipartFile file, HttpServletRequest req) throws IOException, Exception {
-		String uploadPath = req.getSession().getServletContext().getRealPath("/");
+	public TradeImg upload(MultipartFile file, String uploadPath) throws IOException, Exception {
 
 		String imgUploadPath = uploadPath + File.separator + "img";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
@@ -36,31 +35,95 @@ public class ImgServiceImpl implements ImgService {
 
 		System.out.println(imgUploadPath);
 		System.out.println(ymdPath);
-		
+
 		TradeImg tmp = new TradeImg();
-//		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-		if(!(file == null) ){
-			int fileIndex = file.getOriginalFilename().lastIndexOf('.')+1;
-			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex, file.getOriginalFilename().length());
-			System.out.println("File name : " +file.getOriginalFilename());
-			
-			if(!((fileExtension.equals("jpg") || (fileExtension.equals("gif") || (fileExtension.equals("png")))))) {
-				return new ResultMap<TradeImg>("FAIL", "업로드 파일 형식이 다릅니다.", null);
+		if (!(file == null)) {
+			int fileIndex = file.getOriginalFilename().lastIndexOf('.') + 1;
+			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex,
+					file.getOriginalFilename().length());
+			System.out.println("File name : " + file.getOriginalFilename());
+
+			if (!((fileExtension.equals("jpg") || (fileExtension.equals("gif") || (fileExtension.equals("png")))))) {
+				return null;
 			}
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
-			tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
-		}else {
+			tmp.setStoredImg(
+					File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+		} else {
 			fileName = File.separatorChar + "images" + File.separator + "none.png";
 			tmp.setOrgImg(fileName);
 			tmp.setStoredImg(fileName);
 		}
-		return new ResultMap<TradeImg>("SUCCESS", "파일 업로드 성공.", tmp);
+		return tmp;
 	}
 
-	// 다중 이미지 업로드 ( 게시글 )
 	@Override
-	public List<TradeImg> uploadFiles(List<MultipartFile> files){
-		return null;
+	public ResultMap<TradeImg> uploadFile(MultipartFile file, String path) throws Exception{
+		try {
+			TradeImg tig = upload(file, path);
+//			if(tig.getOrgImg().endsWith("none.png") || tig.getStoredImg().endsWith("none.png")) {
+//				return new ResultMap<TradeImg>("FAIL", "업로드 할 파일이 없습니다.", null);
+//			}
+			return new ResultMap<TradeImg>("SUCCESS", "파일 업로드 완료", tig);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
+	
+	@Override
+	public ResultMap<List<TradeImg>> uploadFiles(MultipartFile[] files, String path) throws Exception{
+		List<TradeImg> tList= Arrays.asList(files)
+				.stream()
+				.map(file -> {
+					try {
+						return upload(file, path);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						return null;
+					}
+				})
+				.collect(Collectors.toList());
+		
+		return new ResultMap<List<TradeImg>>("SUCCESS", "파일 업로드 완료", tList);
+	}
+
+
+	// 단일 이미지 업로드 ( 프로필 )
+	/*
+	 * @Override public ResultMap<TradeImg> uploadFile(MultipartFile file,
+	 * HttpServletRequest req) throws IOException, Exception { String uploadPath =
+	 * req.getSession().getServletContext().getRealPath("/");
+	 * 
+	 * String imgUploadPath = uploadPath + File.separator + "img"; String ymdPath =
+	 * UploadFileUtils.calcPath(imgUploadPath);
+	 * 
+	 * String fileName = null;
+	 * 
+	 * System.out.println(imgUploadPath); System.out.println(ymdPath);
+	 * 
+	 * TradeImg tmp = new TradeImg(); if (!(file == null)) { int fileIndex =
+	 * file.getOriginalFilename().lastIndexOf('.') + 1; String fileExtension =
+	 * file.getOriginalFilename().toLowerCase().substring(fileIndex,
+	 * file.getOriginalFilename().length()); System.out.println("File name : " +
+	 * file.getOriginalFilename());
+	 * 
+	 * if (!((fileExtension.equals("jpg") || (fileExtension.equals("gif") ||
+	 * (fileExtension.equals("png")))))) { return new ResultMap<TradeImg>("FAIL",
+	 * "업로드 파일 형식이 다릅니다.", null); } fileName =
+	 * UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(),
+	 * file.getBytes(), ymdPath); tmp.setOrgImg(File.separator + "img" + ymdPath +
+	 * File.separator + fileName); tmp.setStoredImg( File.separator + "img" +
+	 * ymdPath + File.separator + "s" + File.separator + "s_" + fileName); } else {
+	 * fileName = File.separatorChar + "images" + File.separator + "none.png";
+	 * tmp.setOrgImg(fileName); tmp.setStoredImg(fileName); } return new
+	 * ResultMap<TradeImg>("SUCCESS", "파일 업로드 성공.", tmp); }
+	 * 
+	 * // 다중 이미지 업로드 ( 게시글 )
+	 * 
+	 * @Override public List<TradeImg> uploadFiles(MultipartFile[] files) { return
+	 * null; }
+	 */
 }

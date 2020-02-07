@@ -104,7 +104,7 @@ public class UserController {
 			System.out.println("카운트 : "+count);
 			if(user==null) {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
-				rm = is.uploadFile(profile, req);
+				rm = is.uploadFile(profile, req.getSession().getServletContext().getRealPath("/"));
 //				user = new User(count, email, password, profileImg, nickname, "user");
 				user = new User(email, password, rm.getData().getOrgImg() == null ? null : rm.getData().getOrgImg(), nickname, "ROLE_USER");
 				us.signUp(user,address);
@@ -163,7 +163,6 @@ public class UserController {
 	public ResponseEntity<Object> updateUser(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
-//			@RequestParam String profileImg,
 			@RequestParam MultipartFile profile,
 			@RequestParam String addrNo,
 			@RequestParam String address,
@@ -178,7 +177,7 @@ public class UserController {
 				}
 			}
 			
-			rm = is.uploadFile(profile, req);
+			rm = is.uploadFile(profile, req.getSession().getServletContext().getRealPath("/"));
 			
 			user.setPassword(password);
 			user.setNickname(nickname);

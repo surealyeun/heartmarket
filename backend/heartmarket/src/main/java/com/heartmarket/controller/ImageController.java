@@ -36,6 +36,9 @@ public class ImageController {
 	@Autowired
 	ImgService is;
 	
+	private ResultMap<TradeImg> rm;
+	private ResultMap<List<TradeImg>> rms;
+	
 //	@Resource(name = "uploadPath")
 	String uploadPath = "C:\\Users\\multicampus\\Desktop\\ssafy\\Sub3-webmobile\\HeartMarket\\backend\\heartmarket\\src\\main\\webapp";
 	
@@ -114,8 +117,46 @@ public class ImageController {
 			
 			fList.add(tmp);
 		}
-	
+		System.out.println("size : " + fList.size());
 		tr.saveAll(fList);
+//		return new ResponseEntity<Object>(new ResultMap<TradeImg>("SUCCESS", "다중 파일 업로드", fList), HttpStatus.OK);
 		return new ResponseEntity<Object>(fList, HttpStatus.OK);
+
+	}
+	
+	@RequestMapping(value = "/file", method = RequestMethod.POST)
+	public ResponseEntity<Object> testUpload(@RequestParam(required = false) MultipartFile file, HttpServletRequest req) throws Exception{
+		String uploadPath = req.getSession().getServletContext().getRealPath("/");
+		try {
+			rm = is.uploadFile(file, uploadPath);
+			if(rm.getData() != null) {
+				tr.save(rm.getData());
+				return new ResponseEntity<Object>(rm, HttpStatus.OK);
+			}
+			else
+				return new ResponseEntity<Object>(rm, HttpStatus.NOT_ACCEPTABLE);
+				
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	@RequestMapping(value = "/files", method = RequestMethod.POST)
+	public ResponseEntity<Object> testUpload(@RequestParam(required = false) MultipartFile[] files, HttpServletRequest req) throws Exception{
+		String uploadPath = req.getSession().getServletContext().getRealPath("/");
+		try {
+			rms = is.uploadFiles(files, uploadPath);
+			if(rms.getData() != null) {
+				tr.saveAll(rms.getData());
+				return new ResponseEntity<Object>(rms, HttpStatus.OK);
+			}
+			else
+				return new ResponseEntity<Object>(rms, HttpStatus.NOT_ACCEPTABLE);
+				
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 }
