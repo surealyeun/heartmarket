@@ -178,8 +178,9 @@ public class UserController {
 					as.updateArea(area2);
 				}
 			}
-			
-			rm = is.uploadFile(profile, req.getSession().getServletContext().getRealPath("/"));
+			System.out.println("시작 주소 : " +req.getPathInfo());
+//			rm = is.uploadFile(profile, req.getSession().getServletContext().getRealPath("/"));
+			rm = is.uploadFile(profile, "/home/ubuntu");
 			password = BCrypt.hashpw(password, BCrypt.gensalt());
 			user.setPassword(password);
 			user.setNickname(nickname);
