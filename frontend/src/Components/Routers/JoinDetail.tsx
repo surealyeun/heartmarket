@@ -18,7 +18,7 @@ class JoinDetail extends Component {
             ...this.state,
             isnnValid: false,
             email: props.history.location.state.joinemail
-            // email: window.localStorage.getItem('joinemail')
+            // email: window.sessionStorage.getItem('joinemail')
         };
     }
 
@@ -72,6 +72,7 @@ class JoinDetail extends Component {
                 email: this.state.email,
                 nickname: this.state.nickname,
                 password: this.state.password,
+                
             }
         })
             .then(res => {

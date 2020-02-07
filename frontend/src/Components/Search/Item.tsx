@@ -1,11 +1,26 @@
-import React from "react"
+import React from "react";
+import { User } from "../../lib/api";
 
-function Item() {
-    return(
-        <div>
+interface ItemProps {
+  loadingPost: boolean;
+  post: any;
+}
 
-        </div>
-    )
+function Item({ loadingPost, post }: ItemProps) {
+  return (
+    <div>
+      <section>
+        <h1>포스트</h1>
+        {loadingPost && "로딩 중..."}
+        {!loadingPost && post && (
+          <div>
+            <h3>{post.title}</h3>
+            <h3>{post.body}</h3>
+          </div>
+        )}
+      </section>
+    </div>
+  );
 }
 
 export default Item;
