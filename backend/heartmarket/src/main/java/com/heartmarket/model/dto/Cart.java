@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -31,20 +36,21 @@ import lombok.ToString;
 @Entity
 @Getter @Setter
 @Table(name="cart")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,property = "cartNo")
 public class Cart implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cart_no")
 	int cartNo;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
 	@JoinColumn(name="user_no")
 	@ToString.Exclude
-	@JsonBackReference
+	@JsonIgnoreProperties
 	User cUser;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="trade_no", insertable = false, updatable = false)
+	@ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
+	@JoinColumn(name="trade_no")
 	@ToString.Exclude
 	@JsonBackReference
 	Trade cTrade;
