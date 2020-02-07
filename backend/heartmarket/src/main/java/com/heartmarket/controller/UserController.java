@@ -162,6 +162,7 @@ public class UserController {
 	}
 	
 	// 유저 수정
+	@ApiOperation(value = "회원 수정관련 기능")
 	@RequestMapping(value = "/user/updateUser", method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateUser(@RequestParam String email,
 			@RequestParam String password,
