@@ -46,6 +46,12 @@ public class TradeImg implements Serializable{
 	String orgImg;
 	@Column(name = "stored_img")
 	String storedImg;
+	@Override
+	public String toString() {
+		return "TradeImg [imgNo=" + imgNo + ", orgImg=" + orgImg + ", storedImg=" + storedImg
+				+ "]";
+	}
+	
 	
 
 }

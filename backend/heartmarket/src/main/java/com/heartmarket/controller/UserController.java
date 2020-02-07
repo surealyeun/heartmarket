@@ -106,7 +106,7 @@ public class UserController {
 			System.out.println("카운트 : "+count);
 			if(user==null) {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
-				rm = is.uploadFile(profile, req);
+				rm = is.uploadFile(profile, req.getSession().getServletContext().getRealPath("/"));
 //				user = new User(count, email, password, profileImg, nickname, "user");
 				user = new User(email, password, rm.getData().getOrgImg() == null ? null : rm.getData().getOrgImg(), nickname, "ROLE_USER");
 				us.signUp(user,address);
@@ -179,7 +179,7 @@ public class UserController {
 				}
 			}
 			
-			rm = is.uploadFile(profile, req);
+			rm = is.uploadFile(profile, req.getSession().getServletContext().getRealPath("/"));
 			password = BCrypt.hashpw(password, BCrypt.gensalt());
 			user.setPassword(password);
 			user.setNickname(nickname);

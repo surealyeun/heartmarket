@@ -11,7 +11,10 @@ import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.util.ResultMap;
 
 public interface ImgService {
-	
-	public ResultMap<TradeImg> uploadFile(MultipartFile file, HttpServletRequest req)  throws IOException, Exception;
-	public List<TradeImg> uploadFiles(List<MultipartFile> files);
+
+	public ResultMap<TradeImg> uploadFile(MultipartFile file, String path) throws IOException, Exception;
+
+	public ResultMap<List<TradeImg>> uploadFiles(MultipartFile[] files, String path) throws Exception;
+//	public ResultMap<TradeImg> test1(MultipartFile file, String path) throws Exception;
+//	public ResultMap<List<TradeImg>> test2(MultipartFile[] files, String path) throws Exception;
 }
