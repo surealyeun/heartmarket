@@ -166,8 +166,7 @@ public class UserController {
 	public ResponseEntity<Object> updateUser(@RequestParam String email,
 			@RequestParam String password,
 			@RequestParam String nickname,
-//			@RequestParam String profileImg,
-			@RequestParam MultipartFile profile,
+			@RequestParam(required = false) MultipartFile profile,
 			@RequestParam String address,
 			HttpServletRequest req) throws Exception{
 		try {
