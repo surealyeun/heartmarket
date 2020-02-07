@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.service.MannerService;
 import com.heartmarket.model.service.TradeService;
 import com.heartmarket.model.service.TradeServiceImpl;
 import com.heartmarket.model.service.UserService;
@@ -35,6 +36,9 @@ public class TradeController {
 	
 	@Autowired
 	UserService us;
+	
+	@Autowired
+	MannerService ms;
 
 	
 	// 게시글 전체 목록 조회 & 지역 기반으로 조회
@@ -87,5 +91,10 @@ public class TradeController {
 		return new ResponseEntity<Object>(ts.updateTrade(trade), HttpStatus.OK);
 	}
 	
+	// 매너 평가
+	@RequestMapping(value = "/manner", method = RequestMethod.POST)
+	public ResponseEntity<Object> evalManner(@RequestParam int val, @RequestParam int userNo){
+		return new ResponseEntity<Object>(ms.evalueUser(val, userNo), HttpStatus.OK);
+	}
 	
 }

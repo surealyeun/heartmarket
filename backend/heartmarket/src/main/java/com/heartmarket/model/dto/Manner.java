@@ -27,24 +27,18 @@ import lombok.ToString;
 @Table(name = "manner")
 public class Manner implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "manner_no")
 	int mannerNo;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "user_no")
 	@ToString.Exclude
 	User mUser;
 	
-	@OneToOne
-	@JoinColumn(name ="trade_no")
-	@ToString.Exclude
-	Trade mTrade;
-	
-	@Column(name = "manner_point")
-	int mannerPoint;
-	String user_type;
-	@Column(name = "manner_type")
-	String mannerType;
+	double plusGauge;
+	double normalGauge;
+	double minusGauge;
+	double heartGauge;
 	
 }
