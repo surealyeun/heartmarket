@@ -1,6 +1,9 @@
 package com.heartmarket.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.websocket.server.PathParam;
@@ -15,13 +18,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.heartmarket.model.dto.Trade;
+import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.TradeService;
 import com.heartmarket.model.service.TradeServiceImpl;
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
+import com.heartmarket.util.UploadFileUtils;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -35,6 +42,11 @@ public class TradeController {
 	
 	@Autowired
 	UserService us;
+	
+	@Autowired
+	ImgService is;
+	
+	private ResultMap<List<TradeImg>> rms;
 
 	
 	// 게시글 전체 목록 조회 & 지역 기반으로 조회
@@ -68,10 +80,53 @@ public class TradeController {
 	
 	// 게시글 추가
 	@ApiOperation(value = "게시글 추가")
-	@RequestMapping(value = "/trade/add", method = RequestMethod.POST)
-	public ResponseEntity<Object> addTrade(@RequestBody Trade trade){
-		return new ResponseEntity<Object>(ts.addTrade(trade), HttpStatus.OK);
+	@RequestMapping(value = "/trade/add", method = RequestMethod.POST,consumes = "multipart/form-data")
+	public ResponseEntity<Object> addTrade(@RequestParam String tradeTitle,@RequestParam String tradeCategory,
+			@RequestParam String productName,@RequestParam String productPrice,@RequestParam int userNo,
+			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception{
+		Date date = new Date();
+		SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = transeFormat.format(date);
+		Trade trade = new Trade(tradeCategory, tradeTitle, productName, tradeArea, productInfo, productPrice, time);
+		String imgUploadPath = "/home/ubuntu/img";
+		rms = is.uploadFiles(files,imgUploadPath+File.separator+"trade");
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		
+		String fileName = null;
+		String tPath = "/home/ubuntu";
+		
+		List<TradeImg> fList = new ArrayList<>();
+		System.out.println("파일 길이 : "+files.length);
+		if(files == null) {
+			return new ResponseEntity<Object>(fList,HttpStatus.NOT_ACCEPTABLE);
+		}
+		for (MultipartFile file : files) {
+			int fileIndex = file.getOriginalFilename().lastIndexOf('.')+1;
+			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex,file.getOriginalFilename().length());
+			TradeImg tmp = new TradeImg();
+			
+			if(!((fileExtension.equals("jpg") || (fileExtension.equals("gif")) || (fileExtension.equals("png"))))) {
+				return new ResponseEntity<Object>(new ResultMap<Object>("FAIL", "업로드 파일 형식이 다릅니다.", null), HttpStatus.NOT_FOUND);
+			}
+			if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+				fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
+				tmp.setOrgImg(File.separator + "trade" + File.separator + fileName);
+				tmp.setStoredImg(File.separator + "trade" + File.separator + "store" +  fileName);
+			}else {
+				fileName = File.separatorChar + "trade" + File.separator + "none.png";
+				tmp.setOrgImg(fileName);
+				tmp.setStoredImg(fileName);
+			}
+			
+			fList.add(tmp);
+		}
+		return new ResponseEntity<Object>(ts.addTrade(trade,fList,userNo), HttpStatus.OK);
 	}
+//	@ApiOperation(value = "게시글 추가")
+//	@RequestMapping(value = "/trade/add", method = RequestMethod.POST)
+//	public ResponseEntity<Object> addTrade(@RequestBody Trade trade){
+//		return new ResponseEntity<Object>(ts.addTrade(trade), HttpStatus.OK);
+//	}
 	
 	// 게시글 삭제
 	@ApiOperation(value = "게시글 삭제")

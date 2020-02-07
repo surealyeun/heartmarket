@@ -63,6 +63,7 @@ public class UserController {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			if (us.login(email, password)) {
 				User tUser = us.searchEmail(email);
+				tUser.setPassword(password);
 				String token = jwts.makeJwt(tUser);
 				resultMap.put("state", "OK");
 				resultMap.put("data", tUser);

@@ -26,6 +26,8 @@ import com.heartmarket.model.service.ImgService;
 import com.heartmarket.util.ResultMap;
 import com.heartmarket.util.UploadFileUtils;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @CrossOrigin("*")
 public class ImageController {
@@ -142,9 +144,11 @@ public class ImageController {
 		}
 	}
 	
-	@RequestMapping(value = "/files", method = RequestMethod.POST)
+	@ApiOperation(value = "파일 이미지 여러개 올리기")
+	@RequestMapping(value = "/files", method = RequestMethod.POST, consumes = "multipart/form-data")
 	public ResponseEntity<Object> testUpload(@RequestParam(required = false) MultipartFile[] files, HttpServletRequest req) throws Exception{
-		String uploadPath = req.getSession().getServletContext().getRealPath("/");
+//		String uploadPath = req.getSession().getServletContext().getRealPath("/");
+		String uploadPath = "/home/ubuntu";
 		try {
 			rms = is.uploadFiles(files, uploadPath);
 			if(rms.getData() != null) {

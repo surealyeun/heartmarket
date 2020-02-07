@@ -63,16 +63,29 @@ public class Trade implements Serializable{
 	@Column(name = "trade_date")
 	String tradeDate;
 	
-//	@OneToMany(mappedBy = "cTrade")
+	
+public Trade(String tradeCategory, String tradeTitle, String productName, String tradeArea, String productInfo,
+			String productPrice, String tradeDate) {
+		super();
+		this.tradeCategory = tradeCategory;
+		this.tradeTitle = tradeTitle;
+		this.productName = productName;
+		this.tradeArea = tradeArea;
+		this.productInfo = productInfo;
+		this.productPrice = productPrice;
+		this.tradeDate = tradeDate;
+	}
+
+	//	@OneToMany(mappedBy = "cTrade")
 //	List<Cart> tCart;
 //	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "user_no",insertable = false, updatable = false)
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "user_no")
 	@ToString.Exclude
 	User tUser;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "buyer_no",insertable = false, updatable = false)
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "buyer_no")
 	@ToString.Exclude
 	User bUser;
 	
@@ -83,7 +96,7 @@ public class Trade implements Serializable{
 	
 	@OneToMany(mappedBy = "tiTrade", fetch = FetchType.LAZY)
 	@ToString.Exclude
-	@Transient
+//	@Transient
 	List<TradeImg> tTradeImg;
 	
 }

@@ -32,7 +32,7 @@ public class UploadFileUtils {
 		File image = new File(imgPath + File.separator + newFileName);
 
 		// 원본 파일과 같은 경로의 하위에 "s" 폴더를 생성하여 썸네일을 저장
-		File thumbnail = new File(imgPath + File.separator + "s" + File.separator + thumbFileName);
+		File thumbnail = new File(imgPath + File.separator + "store" + File.separator + thumbFileName);
 
 		if (image.exists()) {
 			
