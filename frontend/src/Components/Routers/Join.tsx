@@ -23,22 +23,22 @@ class Join extends Component {
     sendemail = () => {
         axios({
             method: "get",
-            url: "http://13.125.55.96:8080/user/"+this.state.email,
+            url: "http://13.125.55.96:8080/user/" + this.state.email
             // params: {
             //     email: this.state.email
             // }
         })
             .then(res => {
-                if(res.data.state === 'Fail'){
+                if (res.data.state === "Fail") {
                     this.setState({
                         isNew: true,
                         isSendemail: false
-                    })
-                }else{
+                    });
+                } else {
                     this.setState({
                         isSendemail: true
                     });
-    
+
                     axios({
                         method: "get",
                         url: "http://13.125.55.96:8080/user/mail",
@@ -57,24 +57,21 @@ class Join extends Component {
                             alert("인증메일 전송에 실패했습니다. 이메일을 확인해주세요.");
                         });
                 }
-
             })
-            .catch(err => {
-               
-            });
+            .catch(err => {});
 
         // 이메일 보내기 axios 요청, return data : 인증번호
         // 이메일 redux 저장 -> props로 전달
     };
 
     keysendmail = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-        if (e.key === 'Enter') {
+        if (e.key === "Enter") {
             this.sendemail();
-          }
-    }
+        }
+    };
 
     certValidate = (certification: string) => {
-        if (this.state.cert === certification) {
+        if (this.state.cert.toString() === certification.toString()) {
             this.setState({
                 certValid: true
             });
@@ -101,8 +98,12 @@ class Join extends Component {
                                 this.inputemail(e.target.value);
                             }}
                         />
-                        <button type="button" className="btn-joinpage" onClick={this.sendemail}
-                            onKeyPress={this.keysendmail}>
+                        <button
+                            type="button"
+                            className="btn-joinpage"
+                            onClick={this.sendemail}
+                            onKeyPress={this.keysendmail}
+                        >
                             이메일로 시작하기
                         </button>
                     </div>
