@@ -13,14 +13,11 @@ import Join from './Components/Routers/Join';
 import Mypage from './Components/Routers/Mypage';
 import JoinDetail from './Components/Routers/JoinDetail';
 import JoinSuccess from './Components/Routers/JoinSuccess'; 
-<<<<<<< HEAD
 import test from './Components/Routers/test'
-=======
 import UpdateUser from './Components/Routers/UpdateUser';
 import Sale from './Components/Routers/SaleMore';
 import Purchase from './Components/Routers/PurchaseMore';
 import UserProfile from './Components/Routers/UserProfile';
->>>>>>> 7d2d35815190b92c22551149aa0028842c2120c6
 
 function App() {
   return (
