@@ -16,6 +16,7 @@ import JoinSuccess from './Components/Routers/JoinSuccess';
 import UpdateUser from './Components/Routers/UpdateUser';
 import Sale from './Components/Routers/SaleMore';
 import Purchase from './Components/Routers/PurchaseMore';
+import UserProfile from './Components/Routers/UserProfile';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/mypage/update" component={UpdateUser}/>
         <Route path="/sale" component={Sale}/>
         <Route path="/purchase" component={Purchase} />
+        <Route path="/user/:user" component={UserProfile} />
 
         <Route path="/" exact component={Main} ></Route>
         <Route path="/search" component={SearchResult}></Route>

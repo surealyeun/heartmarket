@@ -17,7 +17,7 @@ class Login extends Component {
         this.state = {
             email: "",
             password: "",
-            islog: window.localStorage.getItem("log") === "true" ? true : false
+            islog: window.sessionStorage.getItem("log") === "true" ? true : false
         };
     }
 
@@ -33,10 +33,10 @@ class Login extends Component {
             })
                 .then(res => {
                     console.log(res.data.data);
-                    window.localStorage.setItem('user', JSON.stringify(res.data.data));
-                    // window.localStorage.setItem("useremail", this.state.email);
-                    // window.localStorage.setItem("userpw", this.state.password);
-                    window.localStorage.setItem("log", "true");
+                    window.sessionStorage.setItem('user', JSON.stringify(res.data.data));
+                    window.sessionStorage.setItem("usernickname", res.data.data.nickname);
+                    // window.sessionStorage.setItem("userpw", this.state.password);
+                    window.sessionStorage.setItem("log", "true");
                     this.setState({
                         islog: true
                     });
@@ -67,7 +67,7 @@ class Login extends Component {
     };
 
     logout = () => {
-        window.localStorage.clear();
+        window.sessionStorage.clear();
         this.setState({
             islog: false
         });
@@ -85,11 +85,14 @@ class Login extends Component {
                 {this.state.islog ? (
                     <div>
                         <h2>
-                            {this.state.email}님<br />
+                            {sessionStorage.getItem('usernickname')}님<br />
                             안녕하세요.
                         </h2>
                         <div>
                             <button onClick={this.logout}>로그아웃</button>
+                            <Link to="/">
+                                <button>main</button>
+                            </Link>
                             <Link to="/mypage">
                                 <button>my page</button>
                             </Link>
