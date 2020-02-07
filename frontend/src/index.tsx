@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
@@ -16,3 +17,14 @@ ReactDOM.render(
   </Provider>,
   document.getElementById("root")
 );
+=======
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+serviceWorker.unregister();
+>>>>>>> 7d2d35815190b92c22551149aa0028842c2120c6

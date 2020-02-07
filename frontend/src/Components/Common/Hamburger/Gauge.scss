@@ -1,0 +1,42 @@
+@font-face {
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.Gauge {
+  .heart_title {
+    position: absolute;
+    font-family: "NanumSquareRound";
+    margin-top: 11px;
+    color: #365367;
+    margin-left: 16px;
+    font-weight: bolder;
+  }
+
+  .heart_index {
+    position: absolute;
+    font-weight: bolder;
+    font-family: "NanumSquareRound";
+    color: #365367;
+    margin-left: 190px;
+    margin-top: 11px;
+  }
+
+  .heart_img {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    margin-left: 110px;
+    margin-top: 7px;
+  }
+
+  .progress {
+    position: absolute;
+    width: 90%;
+    margin-left: 15px;
+    margin-top: calc(15%);
+  }
+}

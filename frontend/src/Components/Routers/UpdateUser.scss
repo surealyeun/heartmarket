@@ -1,0 +1,220 @@
+.big {
+    overflow-y: auto;
+}
+
+.updateuser {
+    margin: auto;
+    text-align: center;
+
+    .section, .profile-img-wrapper {
+        display: inline-block;
+    }
+
+    .pro-img{
+        overflow: hidden;
+    }
+    
+    input[type="file"] {
+        display: inline-block;
+    }
+
+    h3 {
+        font-family: "NanumSquareRound";
+    }
+
+    p {
+        font-family: "NanumSquareRound";
+        font-size: small;
+        color: #6d6d6d;
+    }
+
+    .btn-updatenick {
+        width: 100px;
+        height: 40px;
+    }
+
+    .profile-img {
+        position: relative;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+        width: 120px;
+        height: 120px;
+    }
+
+    @media screen and (max-width: 767px) {
+        margin-top: 20px;
+
+        img {
+            width: 120px;
+            height: 120px;
+            border-radius: 60px;
+            border: solid 4px #f494abad;
+            margin: 20px;
+        }
+
+        h1 {
+            font-family: "yg-jalnan";
+            font-size: 45px;
+            color: #365367;
+        }
+
+        input[type="text"] {
+            font-family: "NanumSquareRound";
+            /* color: white; */
+            font-size: medium;
+            height: 40px;
+            color: rgb(71, 71, 71);
+            line-height: normal;
+            padding: 0 1em;
+            // margin-left: 5px;
+            margin-bottom: 10px;
+            background-color: #4242421a;
+            border: none;
+        }
+
+        .input-nickname {
+            width: 160px;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .input-address {
+            width: 160px;
+            border-radius: 4px 0 0 4px;
+        }
+
+        input[type="button"] {
+            font-family: "NanumSquareRound";
+            border: none;
+            border-radius: 0 4px 4px 0;
+            width: 40px;
+            height: 40px;
+            padding: 0.5em 0.5em;
+            margin-top: 20px;
+            margin-right: 5px;
+            font-size: medium;
+            background-color: #365367;
+            color: white;
+        }
+
+        button {
+            font-family: "NanumSquareRound";
+            border: none;
+            border-radius: 0 4px 4px 0;
+            height: 40px;
+            // width: 46%;
+            padding: 0.5em 0.5em;
+            margin: 20px 0;
+            font-size: medium;
+            background-color: #365367;
+            color: white;
+        }
+        .btn-update {
+            width: 290px;
+            background-color: #f494ab;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+
+        .btn-updatenick {
+            border-radius: 0 4px 4px 0;
+            margin-top: 5px;
+        }
+
+        .btn-updateprofile {
+            margin: 0;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        margin-top: 70px;
+        width: 60%;
+
+        .section {
+            height: 120px;
+        }
+
+        img {
+            width: 180px;
+            height: 180px;
+            border-radius: 90px;
+            border: solid 4px #f494abad;
+            margin: 20px;
+        }
+
+        h1 {
+            font-family: "yg-jalnan";
+            font-size: 60px;
+            color: #365367;
+        }
+
+        input[type="text"] {
+            font-family: "NanumSquareRound";
+            /* color: white; */
+            font-size: medium;
+            height: 40px;
+            color: rgb(71, 71, 71);
+            line-height: normal;
+            padding: 0 1em;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            background-color: #4242421a;
+            border: none;
+        }
+
+        .input-nickname {
+            width: 130px;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .input-address {
+            width: 130px;
+            border-radius: 4px 0 0 4px;
+        }
+
+        input[type="button"] {
+            font-family: "NanumSquareRound";
+            border: none;
+            border-radius: 0 4px 4px 0;
+            width: 40px;
+            height: 40px;
+            padding: 0.5em 0.5em;
+            margin-top: 20px;
+            margin-right: 5px;
+            font-size: medium;
+            background-color: #365367;
+            color: white;
+        }
+
+        button {
+            font-family: "NanumSquareRound";
+            border: none;
+
+            // height: auto;
+            // width: 21%;
+            padding: 0.5em 0.5em;
+            margin: 20px 0;
+            font-size: medium;
+            background-color: #365367;
+            color: white;
+        }
+
+        .btn-update {
+            width: 130px;
+            background-color: #f494ab;
+            border-radius: 4px;
+            // margin-right: 10px;
+            margin: 10px 0;
+        }
+
+        .btn-updatenick {
+            border-radius: 0 4px 4px 0;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-updateprofile {
+            margin: 0;
+        }
+    }
+}

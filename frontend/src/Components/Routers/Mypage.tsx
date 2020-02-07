@@ -1,28 +1,38 @@
-import React from 'react';
-import './Mypage.scss';
+import React from "react";
+import "./Mypage.scss";
 
-import Profile from '../Common/Profile';
-import Sale from '../Common/Sale';
-import Purchase from '../Common/Purchase';
-import RManners from '../Common/RManners';
-import GManners from '../Common/GManners';
+import Header from "../Common/Header";
+import Profile from "../users/MypageProfile";
+import Sale from "../users/Sale";
+import Purchase from "../users/Purchase";
+import Like from "../users/Like";
+import Footer from "../Common/Footer";
 
 function Mypage() {
     return (
-        <div className="mypage">
-            <Profile/>
-            <hr></hr>
-            <div className="products-section">
-            <Sale />
-            <Purchase />
+        <>
+            <Header />
+            <div className="mypage">
+                <Profile />
+                <hr />
+                <div className="like-section">
+                    <Like />
+                </div>
+                <hr></hr>
+                <div className="products-section">
+                    <div className="sale-section">
+                        <Sale />
+                    </div>
+                    <div className="purchase-section">
+                        <Purchase />
+                    </div>
+                </div>
+                <br />
+                <br />
             </div>
-            <div className="manners-section">
-            <hr></hr>
-            <RManners />
-            <GManners />
-            </div>
-        </div>
-    )
+            <Footer />
+        </>
+    );
 }
 
 export default Mypage;

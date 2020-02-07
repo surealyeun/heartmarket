@@ -2,22 +2,18 @@ import React from "react";
 import "./Famous.scss";
 
 interface sale {
-    key:number;
-    img:string;
-    title:string;
-    money:string;
-    address:string;
+  id: number;
+  img: string;
+  title: string;
+  money: string;
+  address: string;
 }
 
-function Famous({key,img,title,money,address}:sale) {
+function Famous({ id, img, title, money, address }: sale) {
   return (
     <div className="Famous">
       <div className="div_famous">
-        <img
-          className="img_famous"
-          alt=""
-          src={img}
-        ></img>
+        <img key={id} className="img_famous" alt="" src={img}></img>
         <div className="p_famous">
           <p className="title_famous">{title}</p>
           <p className="money_famous">#{money}원</p>

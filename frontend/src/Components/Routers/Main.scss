@@ -7,6 +7,7 @@
   font-style: normal;
 }
 
+<<<<<<< HEAD
 body {
   font-family: "yg-jalnan";
   //word-break: keep-all;
@@ -16,6 +17,10 @@ body {
   .Main {
     //margin: 10px;
     //margin-top: 65px;
+=======
+@media screen and (max-width: 767px) {
+  .Main {
+>>>>>>> 7d2d35815190b92c22551149aa0028842c2120c6
     display: block;
     //
     .famous_text {
@@ -30,25 +35,42 @@ body {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+<<<<<<< HEAD
         //align-content: space-between;
+=======
+>>>>>>> 7d2d35815190b92c22551149aa0028842c2120c6
         justify-content: space-evenly;
       }
     }
   }
 }
+<<<<<<< HEAD
 @media screen and (min-width: 768px) and (max-width: 959px) {
+=======
+
+@media screen and (min-width: 768px) and (max-width: 959px)  {
+>>>>>>> 7d2d35815190b92c22551149aa0028842c2120c6
   .Main {
     //width: 100%;
     //width: 100%;
     margin: 0 auto;
     max-width: 768px;
     margin-top: 0;
+<<<<<<< HEAD
     .divMain {
+=======
+
+    .divMain{
+>>>>>>> 7d2d35815190b92c22551149aa0028842c2120c6
       width: 100%;
     }
     .famous_text {
       font-family: "yg-jalnan";
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7d2d35815190b92c22551149aa0028842c2120c6
     .famous {
       width: 100%;
       margin-bottom: 10px;
@@ -64,6 +86,10 @@ body {
     }
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7d2d35815190b92c22551149aa0028842c2120c6
 @media screen and (min-width: 960px) {
   .Main {
     //width: 100%;
@@ -71,10 +97,20 @@ body {
     margin: 0 auto;
     max-width: 960px;
     margin-top: 0;
+<<<<<<< HEAD
     .divMain {
       //margin: 0 auto;
 
       width: 100%;
+=======
+
+    .divMain{
+      
+      //margin: 0 auto;
+      
+      width: 100%;
+      
+>>>>>>> 7d2d35815190b92c22551149aa0028842c2120c6
     }
     .famous_text {
       font-family: "yg-jalnan";
