@@ -1,27 +1,41 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
 import Item from "../Components/Search/Item";
-import { getPostThunk, getUserThunk } from "../modules/searchItems";
-import { RootState } from '../modules'
+import { getPostThunk } from "../modules/post";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { RootState } from "../modules";
+
+import React, { Component } from "react";
 
 interface Props {
-    getPost: typeof getPostThunk,
-    getUsers: typeof getUserThunk,
-    post: 
+  loadingPost: any;
+  post: any;
+  PostActions: typeof getPostThunk;
 }
 
-interface State {}
-
 class ItemContainer extends Component<Props> {
-
+  componentDidMount() {
+    const { PostActions } = this.props
+    PostActions(1)
+  }
   render() {
-    return <Item loadingPost={} loadingUsers={} post={} users={} />;
+    const { loadingPost, post } = this.props
+    return (
+      <div>
+        <Item
+          post={post}
+          loadingPost={loadingPost}
+        ></Item>
+      </div>
+    );
   }
 }
 
 export default connect(
-    ({ search: RootState }) => ({
-        post: search.post,
-        
-    })
+  ({ post }: RootState) => ({
+    loadingPost: post.loading.GET_POST,
+    post: post.post
+  }),
+  dispatch => ({
+    PostActions: bindActionCreators(getPostThunk, dispatch)
+  })
 )(ItemContainer);

@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const url:string = 'https://jsonplaceholder.typicode.com/'
-export async function getPost(id:number) {
+export async function getPost(id?:number) {
     const response = await axios.get<Post>(url+`posts/${id}`)
     return response.data
 }
