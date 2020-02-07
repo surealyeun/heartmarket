@@ -16,6 +16,13 @@ class MainProfile extends Component {
     };
   }
 
+  logout = () => {
+    window.localStorage.clear();
+    this.setState({
+      islog:false
+    })
+  }
+
   user = JSON.parse(window.localStorage.getItem('user') || '{}');
 
   render() {
@@ -48,9 +55,9 @@ class MainProfile extends Component {
             <Link to={{ pathname: "/Mypage" }}>
               <p className="profile_edit">마이페이지</p>
             </Link>
-            <Link to={{ pathname: "/" }}>
-              <p className="profile_logout">로그아웃</p>
-            </Link>
+            
+              <p className="profile_logout" onClick={this.logout}>로그아웃</p>
+            
           </>
         )}
       </div>

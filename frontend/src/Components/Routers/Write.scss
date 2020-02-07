@@ -1,0 +1,96 @@
+.Write {
+  .write_input {
+    width: 100%;
+    height: 30px;
+    margin-top: 20px;
+  }
+
+  .textarea {
+    width: 100%;
+    padding-top: 10px;
+    padding-left: 10px;
+    height: 300px;
+  }
+
+  .half {
+    width: 45%;
+  }
+
+  .half2 {
+    width: 45%;
+    margin-left: 1.5%;
+    height: 38px;
+  }
+
+  .filebox label {
+    display: inline-block;
+    padding: 0.5em 0.75em;
+    color: #365367;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #f49fab;
+    cursor: pointer;
+    border: 1px solid #f49fab;
+    border-bottom-color: #f49fab;
+    border-radius: 0.25em;
+    font-weight: bolder;
+  }
+  .filebox input[type="file"] {
+    /* 파일 필드 숨기기 */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .Write {
+    .write_input {
+      width: 91%;
+      height: 30px;
+      margin-top: 20px;
+      margin-left: 4.5%;
+    }
+
+    .textarea {
+      width: 90%;
+      padding-top: 10px;
+      padding-left: 10px;
+      height: 300px;
+    }
+
+    .half {
+      width: 45%;
+    }
+
+    .half2 {
+      width: 45%;
+      margin-left: 1.5%;
+      height: 38px;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 959px) {
+  .Write {
+    max-width: 768px;
+    margin-top: 10px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .Write {
+    max-width: 960px;
+    margin-top: 10px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}

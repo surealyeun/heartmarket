@@ -38,11 +38,11 @@ function Nav() {
   const responsive = {
     Desktop: {
       breakpoint: { max: 4000, min: 767 },
-      items: 10
+      items: 10,
     },
     mobile: {
       breakpoint: { max: 768, min: 0 },
-      items: 8
+      items: 8,
     }
   };
 
@@ -70,7 +70,9 @@ function Nav() {
   return (
     <nav className="Nav">
       <div className="div">
-        <Carousel arrows={false} infinite={false} responsive={responsive}>
+        <Carousel arrows={false} infinite={false} responsive={responsive}  swipeable={false}
+  draggable
+  slidesToSlide={1}>
           <Button className="category">
             <img id='1'
               className="img_category"
