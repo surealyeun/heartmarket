@@ -1,3 +1,9 @@
+  /////////////////////////////////////////////////////////
+  //                                                     //
+  //                   여기 수정할 차례                   //
+  //                                                     //
+  /////////////////////////////////////////////////////////
+
 @media screen and (max-width: 767px) {
 
   .TopButton {
@@ -5,7 +11,6 @@
     position: relative;
 
     .img_button {
-      //background: #f494ab;
       width: 50px;
       height: 50px;
       z-index: 20;
@@ -26,7 +31,6 @@
     position: relative;
 
     .img_button {
-      //background: #f494ab;
       width: 50px;
       height: 50px;
       z-index: 1000;
@@ -54,8 +58,6 @@
       bottom: calc(6% + 70px);
       right: calc(50% - 450px);
       cursor: pointer;
-      // border: 2px solid black;
-      // border-radius: 26px;
     }
 
   }

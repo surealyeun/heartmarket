@@ -18,7 +18,7 @@ class Hamburger extends Component {
 
     this.state = {
       visible: false,
-      login: window.localStorage.getItem("log") === "true"? true : false,
+      login: window.sessionStorage.getItem("log") === "true"? true : false,
       //login: true,
       tab: false
     };
@@ -94,7 +94,6 @@ class Hamburger extends Component {
                               </div>
                               <div>
                                 <hr className="hr_1"></hr>
-                                <hr className="hr_2"></hr>
                               </div>
                             </div>
                           </div>

@@ -1,35 +1,36 @@
 @font-face {
   font-family: "NanumSquareRound";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
-    format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 .HamZzim {
-  margin-top: 10px;
-  .zzim_title {
-    position: absolute;
+  margin-top: 12px;
+
+  .zzim_title,
+  .zzim_plus,
+  .zzim_price,
+  .zzim_itemtitle {
     font-family: "NanumSquareRound";
-    color: #365367;
-    margin-left: 16px;
-    margin-top: 2px;
     font-weight: bolder;
+    color: #365367;
+  }
+
+  .zzim_title, .zzim_plus, .div_Zzim, .zzim_price{
+    position: absolute;
+  }
+  .zzim_title {
+    margin-left: 16px;
   }
 
   .zzim_plus {
-    position: absolute;
-    font-family: "NanumSquareRound";
-    color: #365367;
     margin-left: 220px;
-    margin-top: 2px;
-    font-weight: bolder;
     cursor: pointer;
   }
 
   .div_Zzim {
     margin-top: 34px;
-    position: absolute;
     width: calc(100% - 10px);
     height: 80px;
     text-align: center;
@@ -43,11 +44,7 @@
         width: calc(100%);
         height: 130px;
         object-fit: cover;
-        -ms-user-select: none;
-        -moz-user-select: -moz-none;
-        -khtml-user-select: none;
-        -webkit-user-select: none;
-        user-select: none;
+        -webkit-user-drag: none;
       }
 
       .zzim_itemtitle {
@@ -55,49 +52,36 @@
         margin-left: 1px;
         width: 100%;
         height: 20px;
-        font-family: "NanumSquareRound";
         color: #000;
-        text-overflow: ellipsis;
+        font-size: 13px;
+
+        //글자 잘린 부분 ...으로 표시
         word-wrap: break-word;
         display: -webkit-box;
-        -webkit-line-clamp: 1;
+        -webkit-line-clamp: 1; //한 줄만 표시
         -webkit-box-orient: vertical;
-        font-size: 13px;
-        font-weight: bolder;
       }
 
       .zzim_price {
         visibility: hidden;
-        position: absolute;
-        font-size: 40px;
       }
     }
 
-    .zzim_item:hover{
-
+    .zzim_item:hover {
       .img_zzim {
         opacity: 50%;
       }
 
       .zzim_price {
         visibility: visible;
-        color: #365367;
         text-shadow: 0 0 1px #000;
+        text-overflow: ellipsis;
         font-size: 20px;
-        top: calc(50% - 25px);
-        text-align: center;
-        word-wrap: break-word;
-        text-align: center;
+        top: calc(50% - 30px);
         margin-left: 2px;
         width: 90%;
-        height: 20px;
-        font-family: "NanumSquareRound";
-        text-overflow: ellipsis;
-        word-wrap: break-word;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        font-weight: bolder;
+
+        //텍스트 드래그 막는 속성
         -ms-user-select: none;
         -moz-user-select: -moz-none;
         -khtml-user-select: none;

@@ -1,17 +1,21 @@
 @font-face {
   font-family: "yg-jalnan";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
-    format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "GmarketSansMedium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-    format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
+
+/////////////////////////////////////////////////////////
+//                                                     //
+//                   여기 수정할 차례                   //
+//                                                     //
+/////////////////////////////////////////////////////////
 
 .Famous {
   font-family: "yg-jalnan";
@@ -22,7 +26,6 @@
 @media screen and (max-width: 767px) {
   .Famous {
     width: 150px;
-    //height: 150px;
     background: white;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -86,7 +89,6 @@
           font-size: 12px;
           padding-left: 5px;
           padding-right: 5px;
-          //overflow: -moz-hidden-unscrollable;
           font-family: "yg-jalnan";
           color: black;
         }

@@ -5,16 +5,48 @@
   outline: none;
 }
 
+.Header{
+  .Logo1 {
+    display: none;
+  }
+
+  .Logo2 {
+    vertical-align: -20%;
+    width: 100px;
+    height: 50px;
+    object-fit: cover;
+    display: inline-block;
+  }
+
+  .input_search {
+    padding-left: 5px;
+    padding-right: 28px;
+    margin-left: 7px;
+    width: calc(100% - 60px);
+    height: 25px;
+    vertical-align: 120%;
+    border: 2px solid white;
+  }
+
+  .btn_search {
+    position: absolute;
+    cursor: pointer;
+
+    .img_search {
+      width: 20px;
+      object-fit: fill;
+    }
+  }
+
+}
+
 @media screen and (max-width: 767px) {
   .Header {
-    display: block;
-    //background: #f9f4e6;
-    //background: #facdd9;
     background: #f494ab;
-    width: 100%;
-
     text-align: center;
+
     .Logo1 {
+      display: initial;
       margin-top: 5px;
       width: 100px;
       height: 50px;
@@ -26,31 +58,16 @@
       display: none;
     }
 
-    .input_search {
-      padding-left: 5px;
-      padding-right: 28px;
-      margin-left: 7px;
-      width: calc(100% - 60px);
-      height: 25px;
-      vertical-align: 120%;
-      border: 2px solid white;
-    }
-
     .btn_search {
-      position: absolute;
       right: 9px;
       vertical-align: 90%;
       width: 30px;
       height: 31px;
       background: #f9f4e6;
       border: 2px solid #f9f4e6;
-      cursor: pointer;
-      padding : 0;
 
       .img_search {
         padding-top: 1px;
-        width: 20px;
-        object-fit: fill;
         filter: invert(40%);
       }
     }
@@ -59,7 +76,7 @@
 
 @media screen and (min-width: 768px) and (max-width: 959px)  {
   .Header {
-    padding-top: 5px;
+    margin-top: 15px;
 
     .div {
       margin-top: 5px;
@@ -69,7 +86,7 @@
       text-align: center;
     }
 
-    margin-top: 10px;
+    
     .Logo1 {
       display: none;
     }
@@ -83,45 +100,36 @@
     }
 
     .input_search {
-      margin-top: 0;
       margin-left: 25px;
-      padding-left: 5px;
       padding-right: 5px;
       width: 370px;
-      height: 25px;
       vertical-align: 17px;
       display: inline-block;
       border: 2px solid #f593ac;
     }
 
     .btn_search {
-      position: absolute;
       left: calc(50% + 223px);
       top:24px;
       width: 30px;
       height: 30px;
       background: #f593ac;
       border: 2px solid #f593ac;
-      padding: 0;
-      cursor: pointer;
 
       .img_search {
         vertical-align: -10%;
-        width: 20px;
-        object-fit: fill;
         filter: invert(100%);
       }
     }
+    
   }
 }
 
 @media screen and (min-width: 960px) {
   .Header {
     padding-top: 20px;
-    //padding-bottom: 5px;
 
     .div {
-      //margin-top: 5px;
       max-width: 960px;
       width: 100%;
       margin: 0 auto;
@@ -141,10 +149,8 @@
     }
 
     .input_search {
-      margin-top: 0;
       margin-left: 25px;
       padding-left: 5px;
-      //padding-right: 5px;
       width: 400px;
       height: 30px;
       vertical-align: 20px;
@@ -153,23 +159,17 @@
     }
 
     .btn_search {
-      position: absolute;
-      left: calc(50% + 240px);
+      left: calc(50% + 255px);
       top : 31px;
       z-index: 10px;
       width: 35px;
-      height: 34px;
+      height: 35px;
       background: #f593ac;
       border: 2px solid #f593ac;
-      padding: 0;
-      cursor: pointer;
 
       .img_search {
         padding-top: 1px;
-        //vertical-align: -10%;
         vertical-align: -1px;
-        width: 20px;
-        object-fit: fill;
         filter: invert(100%);
       }
     }

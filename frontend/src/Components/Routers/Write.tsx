@@ -12,7 +12,7 @@ import TopButton from "../Common/TopButton";
 import Footer from "../Common/Footer";
 
 class Write extends Component {
-  user = JSON.parse(window.localStorage.getItem("user") || "{}");
+  user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
   state = {
     title: "",

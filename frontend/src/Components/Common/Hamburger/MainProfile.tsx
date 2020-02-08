@@ -12,21 +12,22 @@ class MainProfile extends Component {
     super(props);
 
     this.state = {
-      islog: window.localStorage.getItem("log") === "true" ? true : false
+      islog: window.sessionStorage.getItem("log") === "true" ? true : false
     };
   }
 
   logout = () => {
-    window.localStorage.clear();
+    window.sessionStorage.clear();
     this.setState({
       islog:false
     })
   }
 
-  user = JSON.parse(window.localStorage.getItem('user') || '{}');
+  user = JSON.parse(window.sessionStorage.getItem('user') || '{}');
 
   render() {
     const {islog} = this.state;
+    console.log(this.user);
     return (
       <div className="Main_Profile">
         {!islog ? (
@@ -50,7 +51,7 @@ class MainProfile extends Component {
               {this.user.nickname}
             </p>
             <p className="profile_number">
-              {window.localStorage.getItem("usernumber")}
+            #{this.user.userNo}
             </p>
             <Link to={{ pathname: "/Mypage" }}>
               <p className="profile_edit">마이페이지</p>
