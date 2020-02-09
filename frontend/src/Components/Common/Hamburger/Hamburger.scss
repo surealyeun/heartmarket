@@ -104,7 +104,7 @@
     cursor: pointer;
   }
 
-  .hambuger_chat {
+  .hambuger_alarm {
     margin-left: calc(50%);
   }
 
@@ -149,6 +149,33 @@
       width: 93%;
       left: 10px;
     }
+  }
+
+  .hambuger_prealarm{
+    margin-top: 50px;
+    height: calc(100% - 40px);
+    width: 100%;
+    position: absolute;
+    
+    .pp1{
+      position: absolute;
+      text-align: left;
+      left: 5%;
+    }
+
+    .ppp{
+      color: #365367;
+      position: absolute;
+      text-align: right;
+      right: 5%;
+      margin-top: 2px;
+      cursor: pointer;
+    }
+
+    .prealarm_bundle{
+      margin-top: 40px;
+    }
+    
   }
 }
 

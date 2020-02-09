@@ -27,7 +27,7 @@ class MainProfile extends Component {
 
   render() {
     const {islog} = this.state;
-    console.log(this.user);
+
     return (
       <div className="Main_Profile">
         {!islog ? (

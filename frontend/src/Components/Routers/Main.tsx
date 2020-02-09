@@ -90,9 +90,9 @@ function Main() {
   ];
   return (
     <>
+      <Header></Header>
+      <Nav></Nav>
       <div className="Main">
-        <Header></Header>
-        <Nav></Nav>
         <div className={classes.root}>
           <Ganji></Ganji>
           <div className="famous">
