@@ -24,7 +24,6 @@ function Header() {
           ></img>
         </button>
       </div>
-
     </header>
   );
 }

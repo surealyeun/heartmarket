@@ -1,10 +1,19 @@
 .AlarmList {
   input[type="checkbox"] {
     position: absolute;
-    margin-top: 5px;
+    margin-top: 10px;
+
+      width: 15px;
+      height: 15px;
+      background: white;
+      cursor: pointer;
+    
   }
   .alarm_item {
-    margin-left: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    margin-left: 25px;
     .alarmlist_img {
       position: absolute;
       margin-top: 2.5px;
@@ -12,12 +21,26 @@
       height: 40px;
       border-radius: 20px;
     }
+    .readcheck{
+      color:rgb(204, 203, 203);
+    }
+    p{
+      margin-left: 50px;
+      display: inline;
+    }
+    .aaa{
+      margin-left: 50px;
+      margin-top: 3px;
+    }
+    .bbb{
+      margin-top: 7px;
+    }
   }
 }
 
 @media screen and (max-width: 767px) {
-//   .AlarmList {
-//   }
+  // .AlarmList {
+  // }
 }
 
 @media screen and (min-width: 768px) and (max-width: 959px) {

@@ -19,14 +19,14 @@ class MainProfile extends Component {
   logout = () => {
     window.sessionStorage.clear();
     this.setState({
-      islog:false
+      islog: false
     })
   }
 
   user = JSON.parse(window.sessionStorage.getItem('user') || '{}');
 
   render() {
-    const {islog} = this.state;
+    const { islog } = this.state;
 
     return (
       <div className="Main_Profile">
@@ -41,26 +41,24 @@ class MainProfile extends Component {
             </Link>
           </>
         ) : (
-          <>
-            <img
-              className="profile_img"
-              alt="프로필 이미지"
-              src="https://image.flaticon.com/icons/svg/660/660611.svg"
-            ></img>
-            <p className="profile_name">
-              {this.user.nickname}
-            </p>
-            <p className="profile_number">
-            #{this.user.userNo}
-            </p>
-            <Link to={{ pathname: "/Mypage" }}>
-              <p className="profile_edit">마이페이지</p>
-            </Link>
-            
+            <>
+              <img
+                className="profile_img"
+                alt="프로필 이미지"
+                src="https://image.flaticon.com/icons/svg/660/660611.svg"
+              ></img>
+              <p className="profile_name">
+                {this.user.nickname}
+              </p>
+              <p className="profile_number">
+                #{this.user.userNo}
+              </p>
+              <Link to={{ pathname: "/Mypage" }}>
+                <p className="profile_edit">마이페이지</p>
+              </Link>
               <p className="profile_logout" onClick={this.logout}>로그아웃</p>
-            
-          </>
-        )}
+            </>
+          )}
       </div>
     );
   }

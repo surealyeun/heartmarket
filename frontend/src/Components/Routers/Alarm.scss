@@ -54,11 +54,34 @@
       background: white;
       cursor: pointer;
     }
-    div {
+    .alarm_readall, .alarm_deleteall {
       position: absolute;
       margin-left: 25px;
-      background: #facdd9;
-      margin-top: 1.5px;
+      background: #365367;
+      color: white;
+      vertical-align: center;
+      padding-top: 3px;
+      padding-right: 5px;
+      padding-left: 5px;
+      height: 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .alarm_readall{
+      margin-left: 68px;
+      padding-top: 0px;
+      height: 23px;
+    }
+
+    select {
+      font-family: "NanumSquareRound";
+      position: absolute;
+      width: 100px;
+      height: 24px;
+      right: 10px;
+      cursor: pointer;
     }
   }
 }
@@ -100,6 +123,12 @@
         right: calc(50% - 375px);
       }
     }
+
+    .alarm_check{
+      select{
+      right: calc(50% - 383px);
+      }
+    }
   }
 }
 @media screen and (min-width: 960px) {
@@ -123,6 +152,12 @@
       }
       .alarm_send {
         right: calc(50% - 470px);
+      }
+    }
+
+    .alarm_check{
+      select{
+      right: calc(50% - 480px);
       }
     }
   }
