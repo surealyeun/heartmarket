@@ -1,24 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import Header from './Components/Common/Header'
+// import Nav from './Components/Common/Nav'
+// import Button from './Components/Common/Button'
+// import Footer from './Components/Common/Footer'
+import Main from './Components/Routers/Main'
+import Write from './Components/Routers/Write'
+import Alarm from './Components/Routers/Alarm'
 
-const App: React.FC = () => {
+import SearchResult from "./Components/Routers/SearchResult"
+import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
+
+
+import Login from './Components/Routers/Login';
+import Join from './Components/Routers/Join';
+import Mypage from './Components/Routers/Mypage';
+import JoinDetail from './Components/Routers/JoinDetail';
+import JoinSuccess from './Components/Routers/JoinSuccess'; 
+import test from './Components/Routers/test'
+import UpdateUser from './Components/Routers/UpdateUser';
+import Sale from './Components/Routers/SaleMore';
+import Purchase from './Components/Routers/PurchaseMore';
+import UserProfile from './Components/Routers/UserProfile';
+
+function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <BrowserRouter>
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/join" component={Join} exact/>
+        <Route path="/mypage" component={Mypage} exact/>
+        <Route path="/join/detail" component={JoinDetail} />
+        <Route path="/joinsuc" component={JoinSuccess} />
+        <Route path="/mypage/update" component={UpdateUser}/>
+        <Route path="/sale" component={Sale}/>
+        <Route path="/purchase" component={Purchase} />
+        <Route path="/user/:user" component={UserProfile} />
+
+        <Route path="/" exact component={Main} ></Route>
+        <Route path="/alarm" component={Alarm}></Route>
+        <Route path="/write" component={Write} />
+
+        <Route path="/search" component={SearchResult}></Route>
+        <Route path="/test" component={test}></Route>
+        <Redirect path="*" to="/"></Redirect>
+      </Switch>
+    </BrowserRouter>
     </div>
   );
 }

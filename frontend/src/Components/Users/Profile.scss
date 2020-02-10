@@ -1,0 +1,37 @@
+@font-face { font-family: 'yg-jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-weight: normal; font-style: normal; }
+
+.profile{
+    
+    
+    display: grid;
+    grid-template-columns: [img] 28% [info] 40% [blank] 5% [attack] 27%;
+    grid-gap: 0;
+    grid-auto-rows: minmax(10px, auto);
+    
+    div{
+        font-family: 'yg-jalnan';
+    }
+
+    .profile-img{
+        width: 80px;
+        margin-top: 15px;
+    }
+    
+    .profile-img-wrapper{
+        text-align: center;
+    }
+    
+    .info {
+        margin-top: 40px;
+    }
+    
+    .heart-img {
+        width: 60px;
+    }
+    
+    .attack{
+        text-align: center;
+    }
+}    
+
+
