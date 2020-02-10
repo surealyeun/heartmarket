@@ -14,7 +14,7 @@
 - 카테고리 : trade_category
 - 거래글제목 : trade_title
 - 유저번호(FK) : user_no
-- 카트번호(FK): cart_no
+- 카트번호(FK): cart_no          // 필요없음
 - 상품명 : product_name
 - 상품설명 : product_info
 - 상품 가격 : product_price

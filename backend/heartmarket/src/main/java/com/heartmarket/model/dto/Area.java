@@ -1,5 +1,9 @@
 package com.heartmarket.model.dto;
 
+import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.apache.commons.lang3.builder.ToStringExclude;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
@@ -22,31 +28,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 //@ToString
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Getter @Setter
 @Table(name = "area")
 @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,property = "areaNo")
-public class Area {
+public class Area implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "area_no")
 	int areaNo;
 	
 	String address;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="user_no")
 	@ToString.Exclude
-	@JsonBackReference
 	User aUser;
-	
+
 	public Area(String address) {
+		super();
 		this.address = address;
 	}
-	public Area(String address,User aUser) {
-		this.address = address;
-		this.aUser = aUser;
-	}
+	
 }

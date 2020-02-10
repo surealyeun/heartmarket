@@ -1,9 +1,11 @@
 package com.heartmarket.model.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,15 +26,15 @@ import lombok.Setter;
 import lombok.ToString;
 
 //@ToString(exclude = {"cUser", "cTrade"})
-@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Getter @Setter
 @Table(name="cart")
-public class Cart {
+public class Cart implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "cart_no")
 	int cartNo;
 	
 	@OneToOne

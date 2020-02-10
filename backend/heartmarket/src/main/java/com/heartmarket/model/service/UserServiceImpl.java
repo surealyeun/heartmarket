@@ -1,21 +1,37 @@
 package com.heartmarket.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.transaction.Transactional;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+//import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import com.heartmarket.model.dao.AreaRepository;
 import com.heartmarket.model.dao.UserRepository;
+import com.heartmarket.model.dto.Area;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.util.ResultMap;
 
 @Service
-@Transactional
-public class UserServiceImpl implements UserService {
-
+public class UserServiceImpl implements UserService , UserDetailsService{
+	
 	@Autowired
 	private UserRepository ur;
+	@Autowired
+	private AreaRepository ar;
 
 	@Override
 	public boolean login(String email,String password) {
@@ -24,7 +40,8 @@ public class UserServiceImpl implements UserService {
 			if (loginUser == null) {
 				throw new Exception("가입되지 않은 이메일입니다.");
 			} else {
-				if (loginUser.getPassword().equals(password)) {
+				if (BCrypt.checkpw(password, loginUser.getPassword())) {
+//				if (loginUser.getPassword().equals(password)) {
 					return true;
 				} else {
 					throw new Exception("비밀번호가 틀렸습니다.");
@@ -40,6 +57,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User searchEmail(String email) {
 		return this.ur.findByEmail(email);
+	}
+	
+	public ResultMap<User> duplicatedByEmail(String email) {
+		try {
+			User tUser = ur.findByEmail(email);
+			if(tUser == null) {
+				return new ResultMap<User>("SUCCESS", "Not Duplicated", null);
+			}
+			return new ResultMap<User>("Fail", "Duplicated", tUser);
+		}catch(Exception e) {
+			throw e;
+		}
 	}
 
 	// 사용자 탈퇴
@@ -63,11 +92,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	// 사용자 등록 (회원가입)
-	public void signUp(User user) {
+	public void signUp(User user,String address) {
 		try {
 			User joinUser = ur.findByEmail(user.getEmail());
 			if(joinUser==null) {
-				this.ur.save(user);
+				//받아온 주소값으로 area를 만들고 조인된 부모값을 할당 
+				Area area = new Area(address);
+				area.setAUser(user);
+				List<Area> areas = new ArrayList<Area>();
+				areas.add(area);
+				//area를 부모의 자식으로 할당  즉, 연관관계 양방향의 참조를 연결시켜주는
+				user.setUArea(areas);
+				// auto_incerement 수정
+				ar.resortAreaNo(ar.findTop1ByOrderByAreaNoDesc().getAreaNo());
+				ur.save(user);
 			}else {
 				throw new Exception("이미 존재하는 이메일 입니다.");
 			}
@@ -91,8 +129,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int searchCount() {
 		User user = ur.findTop1ByOrderByUserNoDesc();
-		System.out.println(user.getUserNo());
+		ur.resortUserNo(user.getUserNo());
 		int result = user.getUserNo()+1;
 		return result;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = ur.findByEmail(email);
+		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority(user.getUserPermission()));
+		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
 	}
 }
