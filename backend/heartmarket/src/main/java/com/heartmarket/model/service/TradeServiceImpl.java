@@ -58,6 +58,9 @@ public class TradeServiceImpl implements TradeService{
 		try {
 			User user = ur.findByUserNo(userNo);
 			System.out.println("유우저 :" + user.getUserNo());
+			for (TradeImg tradeImg : fList) {
+				tradeImg.setTiTrade(trade);
+			}
 			trade.setTUser(user);
 			trade.setTTradeImg(fList);
 			tr.save(trade);

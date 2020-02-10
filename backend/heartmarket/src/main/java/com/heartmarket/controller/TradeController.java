@@ -80,7 +80,7 @@ public class TradeController {
 	
 	// 게시글 추가
 	@ApiOperation(value = "게시글 추가")
-	@RequestMapping(value = "/trade/add", method = RequestMethod.POST,consumes = "multipart/form-data")
+	@RequestMapping(value = "/trade/add", method = RequestMethod.POST)
 	public ResponseEntity<Object> addTrade(@RequestParam String tradeTitle,@RequestParam String tradeCategory,
 			@RequestParam String productName,@RequestParam String productPrice,@RequestParam int userNo,
 			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception{
@@ -88,39 +88,15 @@ public class TradeController {
 		SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = transeFormat.format(date);
 		Trade trade = new Trade(tradeCategory, tradeTitle, productName, tradeArea, productInfo, productPrice, time);
-		String imgUploadPath = "/home/ubuntu/img";
-		rms = is.uploadFiles(files,imgUploadPath+File.separator+"trade");
-		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
-		
-		String fileName = null;
-		String tPath = "/home/ubuntu";
-		
-		List<TradeImg> fList = new ArrayList<>();
-		System.out.println("파일 길이 : "+files.length);
-		if(files == null) {
-			return new ResponseEntity<Object>(fList,HttpStatus.NOT_ACCEPTABLE);
+		String imgUploadPath = "/home/ubuntu";
+		rms = is.uploadFiles(files,imgUploadPath,"trade");
+		if(rms.getData() != null) {
+			List<TradeImg> fList = rms.getData();
+			ts.addTrade(trade,fList,userNo);
+			return new ResponseEntity<Object>(rms, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Object>(rms,HttpStatus.NOT_ACCEPTABLE);
 		}
-		for (MultipartFile file : files) {
-			int fileIndex = file.getOriginalFilename().lastIndexOf('.')+1;
-			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex,file.getOriginalFilename().length());
-			TradeImg tmp = new TradeImg();
-			
-			if(!((fileExtension.equals("jpg") || (fileExtension.equals("gif")) || (fileExtension.equals("png"))))) {
-				return new ResponseEntity<Object>(new ResultMap<Object>("FAIL", "업로드 파일 형식이 다릅니다.", null), HttpStatus.NOT_FOUND);
-			}
-			if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
-				fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-				tmp.setOrgImg(File.separator + "trade" + File.separator + fileName);
-				tmp.setStoredImg(File.separator + "trade" + File.separator + "store" +  fileName);
-			}else {
-				fileName = File.separatorChar + "trade" + File.separator + "none.png";
-				tmp.setOrgImg(fileName);
-				tmp.setStoredImg(fileName);
-			}
-			
-			fList.add(tmp);
-		}
-		return new ResponseEntity<Object>(ts.addTrade(trade,fList,userNo), HttpStatus.OK);
 	}
 //	@ApiOperation(value = "게시글 추가")
 //	@RequestMapping(value = "/trade/add", method = RequestMethod.POST)

@@ -94,7 +94,7 @@ public Trade(String tradeCategory, String tradeTitle, String productName, String
 	@Transient
 	Manner tManner;
 	
-	@OneToMany(mappedBy = "tiTrade", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "tiTrade", fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	@ToString.Exclude
 //	@Transient
 	List<TradeImg> tTradeImg;

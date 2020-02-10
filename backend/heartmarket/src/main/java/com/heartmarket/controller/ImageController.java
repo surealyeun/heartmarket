@@ -68,11 +68,11 @@ public class ImageController {
 		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
-			tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+//			tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		}else {
 			fileName = File.separatorChar + "images" + File.separator + "none.png";
 			tmp.setOrgImg(fileName);
-			tmp.setStoredImg(fileName);
+//			tmp.setStoredImg(fileName);
 		}
 		
 		tr.save(tmp);
@@ -84,6 +84,7 @@ public class ImageController {
 		String imgUploadPath = uploadPath + File.separator + "img";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 
+		//Context root를 불러오는 부분
 		String tPath = req.getSession().getServletContext().getRealPath("/");
 		System.out.println("tPath : " + tPath);
 		String fileName = null;
@@ -110,11 +111,11 @@ public class ImageController {
 			if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 				fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 				tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
-				tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+//				tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 			}else {
 				fileName = File.separatorChar + "images" + File.separator + "none.png";
 				tmp.setOrgImg(fileName);
-				tmp.setStoredImg(fileName);
+//				tmp.setStoredImg(fileName);
 			}
 			
 			fList.add(tmp);
@@ -130,7 +131,7 @@ public class ImageController {
 	public ResponseEntity<Object> testUpload(@RequestParam(required = false) MultipartFile file, HttpServletRequest req) throws Exception{
 		String uploadPath = req.getSession().getServletContext().getRealPath("/");
 		try {
-			rm = is.uploadFile(file, uploadPath);
+			rm = is.uploadFile(file, uploadPath,"profile");
 			if(rm.getData() != null) {
 				tr.save(rm.getData());
 				return new ResponseEntity<Object>(rm, HttpStatus.OK);
@@ -150,7 +151,7 @@ public class ImageController {
 //		String uploadPath = req.getSession().getServletContext().getRealPath("/");
 		String uploadPath = "/home/ubuntu";
 		try {
-			rms = is.uploadFiles(files, uploadPath);
+			rms = is.uploadFiles(files, uploadPath, "profile");
 			if(rms.getData() != null) {
 				tr.saveAll(rms.getData());
 				return new ResponseEntity<Object>(rms, HttpStatus.OK);
