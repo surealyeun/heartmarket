@@ -27,7 +27,7 @@ import lombok.ToString;
 @Table(name = "manner")
 public class Manner implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "manner_no")
 	int mannerNo;
 	
