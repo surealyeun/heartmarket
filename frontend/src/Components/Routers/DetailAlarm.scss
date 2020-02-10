@@ -7,7 +7,62 @@
 }
 
 .DetailAlarm {
-    
+  *{font-family: "NanumSquareRound";}
+  .display{
+    height: 85px;
+    width: 100%;
+    position: relative;
+  }
+  .alarm_people{
+    position: absolute;
+    font-size: 18px;
+    margin-top: 5px;
+  }
+  .rec_pos1{
+    margin-top: 55px;
+  }
+  .rec_pos2{
+    margin-top: 50px;
+  }
+  .background{
+    position: absolute;
+    font-size: 18px;
+    width: 200px;
+    height: 30px;
+    background: #facdd9a6;
+    border-radius: 4px;
+    margin-left: 90px;
+    text-align: left;
+    padding-left: 10px;
+    padding-top:10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .detailalarm_btn{
+    z-index: 5;
+    //position: absolute;
+    display: inline-block;
+    text-align: center;
+    width: 200px;
+    height: 35px;
+    border-radius: 5px;
+    //background: #f9f4e6;
+    //color: #365367;
+    background: #365367;
+    color: #f9f4e6;
+    font-weight: bolder;
+    font-size: 20px;
+    margin-top: 3px;
+    padding-top: 10px;
+    padding-right: 2.5px;
+    padding-left: 2.5px;
+    cursor: pointer;
+  }
+
+  .pos_left{
+    margin-left: 20px;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -21,7 +76,7 @@
 @media screen and (min-width: 768px) and (max-width: 959px) {
   .DetailAlarm {
     max-width: 768px;
-    width: 100%;
+    //width: 100%;
     margin: 0 auto;
     margin-top: 15px;
   }
@@ -30,8 +85,8 @@
 @media screen and (min-width: 960px) {
   .DetailAlarm {
     max-width: 960px;
-    width: 100%;
+    //width: 100%;
     margin: 0 auto;
-    margin-top: 10px;
+    margin-top: 15px;
   }
 }

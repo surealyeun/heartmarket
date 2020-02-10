@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./AlarmList.scss";
 //import PreAlarm from "./PreAlarm";
 
+
 interface alarm {
   alarmid: number;
   img: string;
