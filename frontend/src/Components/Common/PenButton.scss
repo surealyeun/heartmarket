@@ -1,0 +1,45 @@
+.PenButton {
+  .img_button {
+    width: 50px;
+    height: 50px;
+    z-index: 20;
+    position: fixed;
+    bottom: 5%;
+    right: 40px;
+    cursor: pointer;
+  }
+
+  .img_button:hover {
+    transition: 0.7s;
+    transition-timing-function: ease-in-out;
+    transform: scale(1.4);
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  // .PenButton {
+  // }
+}
+
+@media screen and (min-width: 768px) and (max-width: 959px) {
+  .PenButton {
+    max-width: 768px;
+    margin: 0 auto;
+
+    .img_button {
+      right: calc(50% - 350px);
+    }
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .PenButton {
+    max-width: 960px;
+    margin: 0 auto;
+
+    .img_button {
+      right: calc(50% - 450px);
+    }
+  }
+}

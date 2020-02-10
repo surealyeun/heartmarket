@@ -1,5 +1,8 @@
 package com.heartmarket.model.dto;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,13 +22,13 @@ import lombok.ToString;
 //@ToString(exclude = {"mUser", "mTrade"})
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Getter @Setter
 @Table(name = "manner")
-public class Manner {
+public class Manner implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "manner_no")
 	int mannerNo;
 	
 	@ManyToOne
@@ -38,8 +41,10 @@ public class Manner {
 	@ToString.Exclude
 	Trade mTrade;
 	
+	@Column(name = "manner_point")
 	int mannerPoint;
 	String user_type;
+	@Column(name = "manner_type")
 	String mannerType;
 	
 }
