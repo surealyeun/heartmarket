@@ -1,27 +1,25 @@
 import axios from 'axios'
 
-const url:string = 'https://jsonplaceholder.typicode.com/'
-export async function getPost(id?:number) {
-    const response = await axios.get<Post>(url+`posts/${id}`)
+const url:string = "http://70.12.246.87:8080/trade/search/area?"
+export async function getPost(id: number) {
+    const response = await axios.get<Post>(url+`no=${id}&email=join@test.com`)
     return response.data
 }
 
 export interface Post {
-    userId: number,
-    id: number,
-    title: string,
-    body: string
+    data: PostItem[];
 }
-
-export async function getUsers(id?:number) {
-    const response = await axios.get<User>(url+'users')
-    return response.data
-}
-
-export interface User {
-    id: number,
-    name: string,
-    username: string,
-    email: string,
-    address: {}
+export interface PostItem {
+    tradeNo:       number;
+    tradeCategory: string;
+    tradeTitle:    string;
+    productName:   string;
+    tradeArea:     string;
+    productInfo:   string;
+    productPrice:  string;
+    tradeDate:     Date;
+    ttradeImg:     string;
+    // buser:         User | null;
+    // tuser:         User | number;
+    tmanner:       null;
 }

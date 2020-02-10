@@ -2,85 +2,10 @@ import React, { Component } from "react";
 import Header from "../Common/Header";
 import Nav from "../Common/Nav";
 import "./SearchResult.scss";
-import Card from "../Common/Card";
 import FilterButton from "../Common/FilterButton";
-import axios from "axios";
+import SearchResultContainer from "../../containers/Search/SearchResultContainer";
 
-interface Props {}
-
-interface InnerItems {
-  albumId: number;
-  id: number;
-  title: string;
-  url: string;
-  thumbnailUrl: string;
-}
-
-interface State {
-  start: number;
-  end: number;
-  allItems: InnerItems[];
-  viewItems: InnerItems[];
-}
-
-class SearchResult extends Component<Props, State> {
-  state: State = {
-    start: 0,
-    end: 5,
-    allItems: [],
-    viewItems: []
-  };
-  constructor(props: any) {
-    super(props);
-    const url = "https://jsonplaceholder.typicode.com/photos";
-    const { start, end } = this.state;
-    axios.get(url).then(result => {
-      const res = result.data.slice(0, 20);
-      const sliceRes = res.slice(start, end);
-      this.setState(
-        ({ allItems, viewItems }) => ({
-          allItems: allItems.concat(res),
-          viewItems: viewItems.concat(sliceRes)
-        }),
-        () => {
-          // console.log(this.state);
-        }
-      );
-    });
-  }
-  componentDidMount() {
-    // this.getNotes();
-    window.addEventListener("scroll", this.handleScroll);
-  }
-  componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
-  }
-  handleScroll = () => {
-    const { innerHeight } = window;
-    const { scrollHeight } = document.body;
-    const scrollTop =
-      (document.documentElement && document.documentElement.scrollTop) ||
-      document.body.scrollTop;
-    if (scrollHeight - innerHeight - scrollTop < 100) {
-      const { start, end } = this.state;
-      console.log("almost bottom of this browser");
-      this.setState({ start: start + 5, end: end + 5 });
-      this.setState(
-        prevState => {
-          const addItems = prevState.allItems.slice(
-            prevState.start,
-            prevState.end
-          );
-          return {
-            viewItems: prevState.viewItems.concat(addItems)
-          };
-        },
-        () => {
-          console.log(this.state);
-        }
-      );
-    }
-  };
+class SearchResult extends Component {
   filters = [
     {
       id: 1,
@@ -104,7 +29,6 @@ class SearchResult extends Component<Props, State> {
     }
   ];
   render() {
-    const { viewItems } = this.state;
     return (
       <>
         <Header></Header>
@@ -124,11 +48,7 @@ class SearchResult extends Component<Props, State> {
           </div>
           <div className="SearchResult_items">
             <h4 className="SearchResult_items_header">두근 마켓 검색 결과</h4>
-            <div className="SearchResult_items_container">
-              {viewItems.map(item => {
-                return <Card key={item.id} {...item} />;
-              })}
-            </div>
+            <SearchResultContainer />
           </div>
         </div>
       </>
