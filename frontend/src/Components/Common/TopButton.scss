@@ -7,8 +7,6 @@
 @media screen and (max-width: 767px) {
 
   .TopButton {
-    width: 100%;
-    position: relative;
 
     .img_button {
       width: 50px;
@@ -25,10 +23,6 @@
 
 @media screen and (min-width: 768px) and (max-width: 959px)  {
   .TopButton {
-    max-width: 768px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
 
     .img_button {
       width: 50px;
@@ -43,12 +37,8 @@
   }
 }
 
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 960px) and (max-width: 1149px)  {
   .TopButton {
-    max-width: 960px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
 
     .img_button {
       width: 50px;
@@ -59,6 +49,20 @@
       right: calc(50% - 450px);
       cursor: pointer;
     }
+  }
+}
 
+@media screen and (min-width: 1150px) {
+  .TopButton {
+
+    .img_button {
+      width: 50px;
+      height: 50px;
+      z-index: 1000;
+      position: fixed;
+      bottom: calc(6% + 70px);
+      right: calc(50% - 560px);
+      cursor: pointer;
+    }
   }
 }
