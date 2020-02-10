@@ -1,5 +1,5 @@
 import React from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./AlarmList.scss";
 //import PreAlarm from "./PreAlarm";
 
@@ -70,20 +70,24 @@ class AlarmList extends React.Component<alarm> {
           readOnly
         ></input>
         <div className="alarm_item">
-          <img
-            className="alarmlist_img"
-            alt="profile"
-            src={this.state.img}
-          ></img>
-          <div>
-            <div className="send_btn">답장하기</div>
+          <div className="send_btn">답장하기</div>
+          <Link to={{
+              pathname: "/alarm/detail",
+              state: { alarmid: this.state.alarmid }
+            }}
+          >
+            <img
+              className="alarmlist_img"
+              alt="profile"
+              src={this.state.img}
+            ></img>
             <div className={`${this.state.readcheck && "readcheck"}`}>
               <p className="">{this.state.name}</p>
               <p className="">{this.state.time}</p>
               <div className="aaa">{this.state.title}</div>
               <div className="bbb">{this.state.text}</div>
             </div>
-          </div>
+          </Link>
         </div>
         <hr></hr>
       </div>

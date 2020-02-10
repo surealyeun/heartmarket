@@ -46,51 +46,50 @@ class Write extends Component {
           this.setStateAsync({
             images: e.target.files
           });
-           console.log(this.state.images);
+          console.log(this.state.images);
         }
       }
     }
   };
 
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    
-    //const formData = new FormData();
-    console.log(this.state.images);
-    // this.state.images.forEach(file => {
-    //   formData.append('files', file);
-    // })
-
-    // console.log(formData.values);
     e.preventDefault();
+
+    let files = new FormData();
+    for (var i = 0; i < this.state.images.length; i++) {
+      let file = this.state.images[i];
+      console.log(file);
+      files.append("files", file);
+    }
+    //formData.append("files", this.state.images);
 
     axios({
       method: "post",
       url: "http://13.125.55.96:8080/trade/add",
       headers: {
-        "content-type": "multipart/form-data"
+        'content-type': 'multipart/form-data'
       },
-      data: {
-        userNo: this.user.id,
-        tradeArea: this.user.address,
-        tradeTitle: this.state.title,
-        productPrice: this.state.price.toString,
+      params:{
         productInfo: this.state.explain,
-        tradeCategory: this.state.category,
         productName: this.state.title,
-        //files : formData
-      }
+        productPrice: this.state.price.toString,
+        tradeArea: this.user.address,
+        tradeCategory: this.state.category,
+        tradeTitle: this.state.title,
+        userNo: this.user.id,
+      },
+      data:files,
     })
       .then(res => {
         console.log(res.data.data);
         console.log("tjdddd");
       })
       .catch(error => {
-        //console.log(error);
-        //console.log(this.state);
+        console.log(error);
         alert(error);
         e.preventDefault();
       });
-      e.preventDefault();
+    e.preventDefault();
   };
 
   render() {
@@ -165,7 +164,7 @@ class Write extends Component {
                 ""
               ) : (
                 <div>
-                  <button type="submit">등록</button>
+                  <button>등록</button>
                   <button>취소</button>
                 </div>
               )}
