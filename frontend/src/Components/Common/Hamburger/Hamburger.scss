@@ -12,10 +12,78 @@
 }
 
 .Hamburger {
+  text-align: left;
+  #menu {
+    position: absolute;
+    width: 30px;
+    top: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  #menu > span {
+    display: block;
+    width: 100%;
+    height: 4px;
+    background: #f494ab;
+    margin: 2px 0;
+    border-radius: 10px;
+    transition: all 0.5s;
+  }
+
+  #menu > .on:nth-child(1) {
+    transform: translateY(1px) rotate(225deg);
+    transition-delay: 0.2s;
+  }
+  #menu > .on:nth-child(2) {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  #menu > .on:nth-child(3) {
+    transform: translateY(-11px) rotate(-225deg);
+    transition-delay: 0.2s;
+  }
+
+  font-family: "NanumSquareRound";
+  color: #365367;
+  font-weight: bolder;
+
+  .hambuger_box {
+    text-align: center;
+    background: #375368;
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: -300px;
+    z-index: 1500;
+    transform: translate(299px);
+    transition: 0.5s;
+    transition-timing-function: ease-in-out;
+  }
+
   .hambuger_profile {
     width: 100%;
     position: absolute;
     top: 20px;
+  }
+
+  .bnt_close {
+    position: fixed;
+    left: 260px;
+    width: 30px;
+    top: 15px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  //내정보와 채팅부분이 들어가는 탭 + 내용 부분
+  //스크롤 안보이게 해줌
+  -ms-overflow-style: none;
+  ::-webkit-scrollbar {
+    display: none;
   }
 
   .hambuger_background {
@@ -25,20 +93,18 @@
     background: #f9f4e6;
     margin-left: 2.5%;
     top: 185px;
+    overflow-y: auto;
   }
 
   .hambuger_tabbtn {
     width: 50%;
     position: absolute;
     height: 30px;
-    font-family: "NanumSquareRound";
-    color: #365367;
     padding-top: 10px;
-    font-weight: bolder;
     cursor: pointer;
   }
 
-  .hambuger_chat {
+  .hambuger_alarm {
     margin-left: calc(50%);
   }
 
@@ -47,25 +113,19 @@
     color: #f9f4e6;
   }
 
-  //스크롤 안보이게 해줌
-  -ms-overflow-style: none;
-  ::-webkit-scrollbar{display: none};
-
-
   //http://www.joshi.co.kr/index.php?mid=board_XbwP90&document_srl=442
   .hambuger_myinfo {
     margin-top: 40px;
-    overflow-y: auto;
     height: calc(100% - 40px);
     width: 100%;
     position: absolute;
 
-    .hambuger_gauge {
+    .hambuger_gauge,
+    .hambuger_zzim {
       width: 100%;
     }
 
     .hambuger_zzim {
-      width: 100%;
       margin-top: 70px;
     }
 
@@ -75,8 +135,6 @@
       text-align: left;
       p {
         margin-bottom: 20px;
-        font-family: "NanumSquareRound";
-        color: #375368;
         font-weight: bolder;
         cursor: pointer;
       }
@@ -91,53 +149,48 @@
       width: 93%;
       left: 10px;
     }
-    .hr_2 {
-      height: 2px;
-      border: 0px;
-      background-color : #365367;
+  }
+
+  .hambuger_prealarm{
+    margin-top: 50px;
+    height: calc(100% - 40px);
+    width: 100%;
+    position: absolute;
+    
+    .pp1{
       position: absolute;
-      top: 450px;
-      width: 93%;
-      left: 10px;
+      text-align: left;
+      left: 5%;
     }
+
+    .ppp{
+      color: #365367;
+      position: absolute;
+      text-align: right;
+      right: 5%;
+      margin-top: 2px;
+      cursor: pointer;
+    }
+
+    .prealarm_bundle{
+      margin-top: 40px;
+    }
+    
   }
 }
 
 @media screen and (max-width: 767px) {
   .Hamburger {
     #menu {
-      position: absolute;
       top: 20px;
-      width: 30px;
-      left: 10px;
-      margin-left: 5px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
+      left: 15px;
     }
+
     #menu > span {
-      display: block;
-      width: 100%;
-      height: 4px;
       background: #f9f4e6;
-      margin: 2px 0;
-      border-radius: 10px;
-      transition: all 0.5s;
     }
 
-    #menu > .on:nth-child(1) {
-      transform: translateY(1px) rotate(225deg);
-      transition-delay: 0.2s;
-    }
-    #menu > .on:nth-child(2) {
-      opacity: 0;
-      transform: translateX(50px);
-    }
-    #menu > .on:nth-child(3) {
-      transform: translateY(-11px) rotate(-225deg);
-      transition-delay: 0.2s;
-    }
-
+    //모바일 버전에서 햄버거 버튼 클릭시 화면의 다른 부분을 선택하면 꺼지게 하는 부분
     .hambuger_sub {
       background: #000;
       opacity: 50%;
@@ -146,157 +199,33 @@
       position: fixed;
       z-index: 1500;
       top: 0;
+      
+      //스르륵 나오게 하는 속성
       transform: perspective(100%);
       transition: 0.5s;
       transition-timing-function: ease-in-out;
     }
 
-    .hambuger_box {
-      text-align: center;
-      background: #375368;
-      width: 300px;
-      height: 100%;
-      position: fixed;
-      z-index: 2000;
-      top: 0px;
-      left: -300px;
-      transform: translate(299px);
-      transition: 0.5s;
-      transition-timing-function: ease-in-out;
-
-      .bnt_close {
-        position: absolute;
-        width: 30px;
-        top: 15px;
-        left: 15px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-      }
+    .bnt_close {
+      left: 15px;
     }
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 959px) {
-  .Hamburger {
-    text-align: left;
-    #menu {
-      position: absolute;
-      width: 30px;
-      margin-top: 15px;
-      top: 10px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-    }
-
-    #menu > span {
-      display: block;
-      width: 100%;
-      height: 4px;
-      background: #f494ab;
-      margin: 2px 0;
-      border-radius: 10px;
-      transition: all 0.5s;
-    }
-
-    #menu > .on:nth-child(1) {
-      transform: translateY(1px) rotate(225deg);
-      transition-delay: 0.2s;
-    }
-    #menu > .on:nth-child(2) {
-      opacity: 0;
-      transform: translateX(50px);
-    }
-    #menu > .on:nth-child(3) {
-      transform: translateY(-11px) rotate(-225deg);
-      transition-delay: 0.2s;
-    }
-
-    .hambuger_box {
-      text-align: center;
-      background: #375368;
-      width: 300px;
-      height: 100%;
-      position: fixed;
-      top: 0px;
-      left: -300px;
-      z-index: 1500;
-      transform: translate(299px);
-      transition: 0.5s;
-      transition-timing-function: ease-in-out;
-    }
-
-    .bnt_close {
-      position: fixed;
-      left: 260px;
-      width: 30px;
-      top: 15px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
-    }
-  }
+  // .Hamburger {
+  // }
 }
 
 @media screen and (min-width: 960px) {
   .Hamburger {
-    text-align: left;
     #menu {
-      position: absolute;
-      width: 30px;
-      margin-top: 22px;
-      top: 10px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
+      top: 33px;
     }
 
+    //이부분 나중에 지우기
     #menu > span {
-      display: block;
-      width: 100%;
-      height: 4px;
-      background: #f494ab;
-      margin: 2px 0;
-      border-radius: 10px;
-      transition: all 0.5s;
-    }
-
-    #menu > .on:nth-child(1) {
-      transform: translateY(1px) rotate(225deg);
-      transition-delay: 0.2s;
-    }
-    #menu > .on:nth-child(2) {
-      opacity: 0;
-      transform: translateX(50px);
-    }
-    #menu > .on:nth-child(3) {
-      transform: translateY(-11px) rotate(-225deg);
-      transition-delay: 0.2s;
-    }
-
-    .hambuger_box {
-      text-align: center;
-      background: #375368;
-      width: 300px;
-      height: 100%;
-      position: fixed;
-      top: 0px;
-      left: -300px;
-      z-index: 1500;
-      transform: translate(299px);
-      transition: 0.5s;
-      transition-timing-function: ease-in-out;
-    }
-
-    .bnt_close {
-      position: fixed;
-      left: 260px;
-      width: 30px;
-      top: 15px;
-      background: transparent;
-      border: none;
-      cursor: pointer;
+      background: black;
     }
   }
 }

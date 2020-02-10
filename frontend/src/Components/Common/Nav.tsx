@@ -62,7 +62,7 @@ function Nav() {
   };
 
   const mouseup = (e: any) => {
-    if(e.clientX === mouse_x && e.clientY === mouse_y){
+    if (e.clientX === mouse_x && e.clientY === mouse_y) {
       alert(e.target.id); //여기서 클릭
     }
   };
@@ -70,9 +70,9 @@ function Nav() {
   return (
     <nav className="Nav">
       <div className="div">
-        <Carousel arrows={false} infinite={false} responsive={responsive}  swipeable={false}
-  draggable
-  slidesToSlide={1}>
+        <Carousel arrows={false} infinite={false} responsive={responsive} swipeable={false}
+          draggable
+          slidesToSlide={1}>
           <Button className="category">
             <img id='1'
               className="img_category"

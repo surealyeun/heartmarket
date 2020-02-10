@@ -7,26 +7,26 @@
 }
 
 .Gauge {
-  .heart_title {
+
+  font-family: "NanumSquareRound";
+  font-weight: bolder;
+  color: #365367;
+
+  .heart_title, .heart_index, .heart_img, .progress {
     position: absolute;
-    font-family: "NanumSquareRound";
+  }
+
+  .heart_title {
     margin-top: 11px;
-    color: #365367;
     margin-left: 16px;
-    font-weight: bolder;
   }
 
   .heart_index {
-    position: absolute;
-    font-weight: bolder;
-    font-family: "NanumSquareRound";
-    color: #365367;
     margin-left: 190px;
     margin-top: 11px;
   }
 
   .heart_img {
-    position: absolute;
     width: 25px;
     height: 25px;
     margin-left: 110px;
@@ -34,9 +34,8 @@
   }
 
   .progress {
-    position: absolute;
-    width: 90%;
-    margin-left: 15px;
+    width: 94%;
+    margin-left: 8px;
     margin-top: calc(15%);
   }
 }

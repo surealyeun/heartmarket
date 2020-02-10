@@ -16,6 +16,17 @@
 
 .Main_Profile {
   text-align: center;
+
+  .profile_infotext, .profile_logout, .profile_number, .profile_edit, .profile_name{
+    position: absolute;
+    font-family: "NanumSquareRound";
+    color: #f9f4e6;
+  }
+
+  .profile_login, .profile_signup, .profile_edit, .profile_logout{
+    cursor: pointer;
+  }
+
   .profile_img {
     position: absolute;
     width: 60px;
@@ -26,15 +37,12 @@
   }
 
   .profile_infotext{
-    font-family: "NanumSquareRound";
-    color: #f9f4e6;
-    position: absolute;
     width: 100%;
     top: 38px;
     font-size: 18px;
   }
 
-  .profile_login{
+  .profile_login, .profile_signup{
     background: #f9f4e6;
     color: #375368;
     width: 50%;
@@ -44,8 +52,12 @@
     left:25%;
     height: 35px;
     padding-top: 5px;
-    border-radius: 5px;
-    cursor: pointer;
+  }
+
+  .profile_signup {
+    top: 155px;
+    height: 36px;
+    padding-top: 6px;
   }
 
   .profile_signup:hover, .profile_login:hover{
@@ -54,55 +66,28 @@
     opacity: 90%;
   }
 
-  .profile_signup {
-    background: #f9f4e6;
-    color: #375368;
-    width: 50%;
-    top: 155px;
-    font-size: 20px;
-    font-weight: bolder;
-    left:25%;
-    height: 36px;
-    padding-top: 6px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
   .profile_name {
     font-family: "yg-jalnan";
-    color: #f9f4e6;
-    position: absolute;
     width: 100%;
     top: 70px;
     font-size: 20px;
   }
 
   .profile_number {
-    font-family: "NanumSquareRound";
-    color: #f9f4e6;
-    position: absolute;
     width: 100%;
     top: 100px;
     font-size: 13px;
   }
 
   .profile_edit {
-    font-family: "NanumSquareRound";
-    color: #f9f4e6;
-    position: absolute;
     top: 125px;
     right: calc(50% + 20px);
     font-size: 14px;
-    cursor: pointer;
   }
 
   .profile_logout {
-    font-family: "NanumSquareRound";
-    color: #f9f4e6;
-    position: absolute;
     top: 125px;
     left: calc(50% + 20px);
     font-size: 14px;
-    cursor: pointer;
   }
 }

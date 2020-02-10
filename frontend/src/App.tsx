@@ -5,6 +5,8 @@ import React from 'react';
 // import Footer from './Components/Common/Footer'
 import Main from './Components/Routers/Main'
 import Write from './Components/Routers/Write'
+import Alarm from './Components/Routers/Alarm'
+
 import SearchResult from "./Components/Routers/SearchResult"
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
 
@@ -33,10 +35,12 @@ function App() {
         <Route path="/mypage/update" component={UpdateUser}/>
         <Route path="/sale" component={Sale}/>
         <Route path="/purchase" component={Purchase} />
-        <Route path="/write" component={Write} />
         <Route path="/user/:user" component={UserProfile} />
 
         <Route path="/" exact component={Main} ></Route>
+        <Route path="/alarm" component={Alarm}></Route>
+        <Route path="/write" component={Write} />
+
         <Route path="/search" component={SearchResult}></Route>
         <Route path="/test" component={test}></Route>
         <Redirect path="*" to="/"></Redirect>

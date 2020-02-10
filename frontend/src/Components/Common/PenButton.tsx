@@ -6,7 +6,7 @@ import Pen from "../img/Pen2.png";
 function PenButton() {
   let history = useHistory();
   const GoWritePage = () => {
-    if (window.localStorage.getItem("log") === "true") {
+    if (window.sessionStorage.getItem("log") === "true") {
       //로그인이 되어있으면
       history.push("/write");
     } else {
