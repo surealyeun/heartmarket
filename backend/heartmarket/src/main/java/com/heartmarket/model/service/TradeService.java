@@ -18,8 +18,9 @@ public interface TradeService {
 	public ResultMap<Object> updateTrade(Trade trade);
 	public ResultMap<Object> deleteTrade(int no) ;
 	
-	public List<TradeMapping> getList();
-	Page<TradeResponse> fetPages(int no, int size);
-	public Page<TradeResponse> fetPages(int no, int size, String area);
-	public Page<TradeResponse> fetPageAC(int no, int size, String area,  String category);
+	Page<Trade> getList(int no, int size);
+	Page<Trade> fetPages(int no, int size);
+	public Page<Trade> fetPages(int no, int size, String area);
+	public Page<Trade> fetPageAC(int no, int size, String area,  String category);
+	public Page<Trade> fetPageTP(int no, int size, List<String> sList, String area);
 }

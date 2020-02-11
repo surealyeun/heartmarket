@@ -52,8 +52,6 @@ public class Trade implements Serializable{
 	String tradeCategory;
 	@Column(name = "trade_title")
 	String tradeTitle;
-	@Column(name = "product_name")
-	String productName;
 	@Column(name = "trade_area")
 	String tradeArea;
 	@Column(name = "product_info")

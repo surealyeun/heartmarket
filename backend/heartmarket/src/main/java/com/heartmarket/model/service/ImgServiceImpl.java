@@ -48,12 +48,8 @@ public class ImgServiceImpl implements ImgService {
 			}
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
-			tmp.setStoredImg(
-					File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
-		} else {
 			fileName = File.separatorChar + "images" + File.separator + "none.png";
 			tmp.setOrgImg(fileName);
-			tmp.setStoredImg(fileName);
 		}
 		return tmp;
 	}

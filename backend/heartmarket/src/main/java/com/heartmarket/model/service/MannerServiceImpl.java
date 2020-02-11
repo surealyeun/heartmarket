@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.heartmarket.model.dao.MannerRepository;
+import com.heartmarket.model.dao.UserRepository;
 import com.heartmarket.model.dto.Manner;
 import com.heartmarket.util.ResultMap;
 
@@ -12,7 +13,9 @@ public class MannerServiceImpl implements MannerService{
 
 	@Autowired
 	MannerRepository mr;
-	
+
+	@Autowired
+	UserRepository ur;
 	// 매너에서 필요한 기능
 	// 매너  평가
 	// 공식 대입으로 평가  점수 저장
@@ -22,7 +25,7 @@ public class MannerServiceImpl implements MannerService{
 	@Override
 	public ResultMap<Manner> evalueUser(int value, int userNo){
 	
-		Manner tMnr = mr.findBymUserUserNo(userNo) == null ? new Manner() : mr.findBymUserUserNo(userNo);
+		Manner tMnr = mr.findBymUserUserNo(userNo) == null ? new Manner( ur.findByUserNo(userNo), 0, 0, 0, 50) : mr.findBymUserUserNo(userNo);
 		
 		double pGauge = tMnr.getPlusGauge();
 		double nGauge = tMnr.getNormalGauge();
@@ -48,6 +51,7 @@ public class MannerServiceImpl implements MannerService{
 		}
 		
 		double calc = hg + (pGauge + nGauge + mGauge)*(0.1)/hg;
+		System.out.println(calc);
 		
 		tMnr.setPlusGauge(pGauge);
 		tMnr.setNormalGauge(nGauge);

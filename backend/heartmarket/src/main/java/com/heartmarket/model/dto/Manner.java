@@ -41,4 +41,14 @@ public class Manner implements Serializable{
 	double minusGauge;
 	double heartGauge;
 	
+	public Manner(User mUser, double plusGauge, double normalGauge, double minusGauge, double heartGauge) {
+		super();
+		this.mUser = mUser;
+		this.plusGauge = plusGauge;
+		this.normalGauge = normalGauge;
+		this.minusGauge = minusGauge;
+		this.heartGauge = heartGauge;
+	}
+	
+	
 }
