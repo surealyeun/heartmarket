@@ -5,7 +5,7 @@ import axios from "axios";
 // import 'antd/dist/antd.css';
 //npm install antd --save
 //https://gary-shen.github.io/ant-design/components/upload/
- 
+
 import Header from "../Common/Header";
 import Nav from "../Common/Nav";
 import TopButton from "../Common/TopButton";

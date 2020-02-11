@@ -11,7 +11,7 @@ import Footer from "../Common/Footer";
 function Mypage() {
     return (
         <>
-            <Header />
+            <Header/>
             <div className="mypage">
                 <Profile />
                 <hr />

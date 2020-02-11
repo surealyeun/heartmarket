@@ -35,7 +35,16 @@ export function getPostThunk(id: number): ThunkAction<void, RootState, null, Pos
     const { request, success, failure } = getPostAsync;
     dispatch(request());
     try {
-      const postData = await getPost(id);
+      const user = sessionStorage.getItem('user')
+      let url = ""
+      let email = null
+      if (user) {
+        url = "http://70.12.246.87:8080/trade/search/area?"
+        email = JSON.parse(user).email
+      } else {
+        url = "http://70.12.246.87:8080/trade/search?"
+      }
+      const postData = await getPost(id, url, email);
       dispatch(success(postData));
     } catch (e) {
       dispatch(failure(e));
@@ -76,7 +85,7 @@ const post = createReducer<PostState, PostAction>(initialState, {
       post: state.post.concat(action.payload.data)
     };
   },
-  [GET_POST_FAILURE]: (state, action) => ({
+  [GET_POST_FAILURE]: (state) => ({
     ...state,
     loading: {
       GET_POST: false

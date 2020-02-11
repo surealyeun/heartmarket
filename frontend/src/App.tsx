@@ -14,7 +14,6 @@ import Join from './Components/Routers/Join';
 import Mypage from './Components/Routers/Mypage';
 import JoinDetail from './Components/Routers/JoinDetail';
 import JoinSuccess from './Components/Routers/JoinSuccess'; 
-import test from './Components/Routers/test'
 import UpdateUser from './Components/Routers/UpdateUser';
 import Sale from './Components/Routers/SaleMore';
 import Purchase from './Components/Routers/PurchaseMore';
@@ -38,7 +37,6 @@ function App() {
 
         <Route path="/" exact component={Main} ></Route>
         <Route path="/search" component={SearchResult}></Route>
-        <Route path="/test" component={test}></Route>
         <Redirect path="*" to="/"></Redirect>
       </Switch>
     </BrowserRouter>

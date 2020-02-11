@@ -19,10 +19,10 @@ const initialState: CounterState = {
   counter: 0
 };
 
-const counter = createReducer<CounterState, CounterAction>(initialState, {
+const postPage = createReducer<CounterState, CounterAction>(initialState, {
     [DIFF_BY]: (state, action) => ({
         counter: action.payload
     })
   });
-  export default counter;
+  export default postPage;
   

@@ -3,7 +3,7 @@ import Header from "../Common/Header";
 import Nav from "../Common/Nav";
 import "./SearchResult.scss";
 import FilterButton from "../Common/FilterButton";
-import SearchResultContainer from "../../containers/Search/SearchResultContainer";
+import ResultContainer from "../../containers/Search/ResultContainer";
 
 class SearchResult extends Component {
   filters = [
@@ -28,6 +28,13 @@ class SearchResult extends Component {
       title: "가격"
     }
   ];
+  constructor(props:any) {
+    super(props)
+    window.sessionStorage.setItem('isText', "true");
+  }
+  componentWillUnmount() {
+    window.sessionStorage.setItem('isText', "false");
+  }
   render() {
     return (
       <>
@@ -48,7 +55,7 @@ class SearchResult extends Component {
           </div>
           <div className="SearchResult_items">
             <h4 className="SearchResult_items_header">두근 마켓 검색 결과</h4>
-            <SearchResultContainer />
+            <ResultContainer />
           </div>
         </div>
       </>

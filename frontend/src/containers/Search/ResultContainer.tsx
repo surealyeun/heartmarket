@@ -1,6 +1,6 @@
 import Card from "../../Components/Common/Card";
 import { getPostThunk } from "../../modules/post";
-import { diffBy } from "../../modules/counter";
+import { diffBy } from "../../modules/postPage";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { RootState } from "../../modules";
@@ -9,16 +9,19 @@ import React, { Component } from "react";
 interface Props {
   loadingPost: any;
   post: any;
+  text: string;
   indexNum: number;
   PostActions: typeof getPostThunk;
   CountAction: typeof diffBy;
 }
 
-class SearchResultContainer extends Component<Props> {
+class ResultContainer extends Component<Props> {
   state = {
-    isLast: false
+    isLast: false,
   };
+  
   componentDidMount() {
+    console.log(this.props.text)
     const { PostActions } = this.props;
     PostActions(0);
     window.addEventListener("scroll", this.handleScroll);
@@ -52,13 +55,14 @@ class SearchResultContainer extends Component<Props> {
 }
 
 export default connect(
-  ({ post, counter }: RootState) => ({
+  ({ post, postPage, search }: RootState) => ({
     loadingPost: post.loading.GET_POST,
+    text: search.text,
     post: post.post,
-    indexNum: counter.counter
+    indexNum: postPage.counter
   }),
   dispatch => ({
     PostActions: bindActionCreators(getPostThunk, dispatch),
     CountAction: bindActionCreators(diffBy, dispatch)
   })
-)(SearchResultContainer);
+)(ResultContainer);
