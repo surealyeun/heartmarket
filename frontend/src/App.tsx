@@ -6,6 +6,7 @@ import React from 'react';
 import Main from './Components/Routers/Main'
 import Write from './Components/Routers/Write'
 import Alarm from './Components/Routers/Alarm'
+import DetailAlarm from './Components/Routers/DetailAlarm'
 
 import SearchResult from "./Components/Routers/SearchResult"
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
@@ -38,8 +39,9 @@ function App() {
         <Route path="/user/:user" component={UserProfile} />
 
         <Route path="/" exact component={Main} ></Route>
-        <Route path="/alarm" component={Alarm}></Route>
+        <Route path="/alarm" exact component={Alarm}></Route>
         <Route path="/write" component={Write} />
+        <Route path="/alarm/detail" component={DetailAlarm} />
 
         <Route path="/search" component={SearchResult}></Route>
         <Route path="/test" component={test}></Route>
