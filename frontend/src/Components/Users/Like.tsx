@@ -75,6 +75,7 @@ class Like extends React.Component {
                 this.setState({
                     Likes: res.data.data
                 });
+                
             })
             .catch(err => {
                 alert(err);
@@ -94,12 +95,7 @@ class Like extends React.Component {
                                 if (i < 4) {
                                     return (
                                         <Link
-                                            to={{
-                                                pathname: `/detail/${like.ctrade.tradeNo}`,
-                                                state: {
-                                                    trade: JSON.stringify(like.ctrade)
-                                                }
-                                            }}
+                                            to={`/detail/${like.ctrade.tradeNo}`}
                                         >
                                             <div className="item" key={"item" + i}>
                                                 <h1>{like.ctrade.tradeNo}</h1>
