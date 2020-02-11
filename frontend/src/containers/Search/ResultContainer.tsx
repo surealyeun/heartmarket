@@ -5,10 +5,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { RootState } from "../../modules";
 import React, { Component } from "react";
+import { PostItem } from "../../lib/api";
+
 
 interface Props {
   loadingPost: any;
-  post: any;
+  post: PostItem[];
   text: string;
   indexNum: number;
   PostActions: typeof getPostThunk;
@@ -17,13 +19,11 @@ interface Props {
 
 class ResultContainer extends Component<Props> {
   state = {
-    isLast: false,
+    scrollActive: false
   };
-  
   componentDidMount() {
-    console.log(this.props.text)
-    const { PostActions } = this.props;
-    PostActions(0);
+    const { PostActions, indexNum } = this.props;
+    PostActions(indexNum);
     window.addEventListener("scroll", this.handleScroll);
   }
   componentWillUnmount() {
@@ -38,12 +38,9 @@ class ResultContainer extends Component<Props> {
     if (scrollHeight - innerHeight - scrollTop < 100) {
       const { PostActions, CountAction, post } = this.props;
       const lastId = post[post.length - 1].tradeNo;
-      if (!this.props.loadingPost && !this.state.isLast) {
+      if (!this.props.loadingPost) {
         CountAction(lastId);
         const { indexNum } = this.props;
-        if (lastId === indexNum) {
-          this.setState({ isLast: true });
-        }
         PostActions(indexNum);
       }
     }

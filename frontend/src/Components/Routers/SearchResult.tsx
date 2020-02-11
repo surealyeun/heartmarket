@@ -3,7 +3,7 @@ import Header from "../common/Header";
 import Nav from "../common/Nav";
 import "./SearchResult.scss";
 import FilterButton from "../common/FilterButton";
-import ResultContainer from "../../containers/search/ResultContainer";
+import ResultContainer from "../../containers/search/ResultContainer"
 
 class SearchResult extends Component {
   filters = [
@@ -55,7 +55,7 @@ class SearchResult extends Component {
           </div>
           <div className="SearchResult_items">
             <h4 className="SearchResult_items_header">두근 마켓 검색 결과</h4>
-            <ResultContainer />
+            <ResultContainer/>
           </div>
         </div>
       </>
