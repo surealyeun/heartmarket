@@ -24,11 +24,12 @@ class Write extends Component {
     base64: []
   };
 
-  setStateAsync(state: object) {
-    return new Promise(resolve => {
-      this.setState(state, resolve);
-    });
-  }
+  // setStateAsync(state: object) {
+  //   return new Promise(resolve => {
+  //     this.setState(state, resolve);
+  //   });
+  // }
+
   //이미지 여러개 업로드
   InputChange = (e: any) => {
     //같은 이미지를 연속으로 선택하는 게 막혀있어서 바꾼 코드
@@ -98,46 +99,81 @@ class Write extends Component {
 
   };
 
-  //글쓴 내용 보내기
+  // //글쓴 내용 보내기
+  // handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+
+  //   if (this.state.images.length === 0) {
+  //     alert("최소 1개의 파일을 선택해주세요.");
+  //     return;
+  //   }
+  //   let formData = new FormData();
+  //   for (var i = 0; i < this.state.images.length; i++) {
+  //     let file = this.state.images[i];
+  //     formData.append("files", file);
+  //   }
+
+  //   axios({
+  //     method: "post",
+  //     url: "http://13.125.55.96:8080/trade/add",
+  //     headers: {
+  //       "content-type": "multipart/form-data"
+  //     },
+  //     params: {
+  //       productInfo: this.state.explain,
+  //       productPrice: this.state.price.toString,
+  //       tradeArea: this.user.address,
+  //       tradeCategory: this.state.category,
+  //       tradeTitle: this.state.title,
+  //       userNo: this.user.id
+  //     },
+  //     data: formData
+  //   })
+  //     .then(res => {
+  //       console.log(res.data.data);
+  //       console.log("tjdddd");
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       alert(error);
+  //       e.preventDefault();
+  //     });
+  //   e.preventDefault();
+  // };
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (this.state.images.length === 0) {
-      alert("최소 1개의 파일을 선택해주세요.");
-      return;
+    let files:File[];
+    files = this.state.images;
+    let tradeTitle = this.state.title;
+    let tradeCategory = this.state.category;
+    let productPrice = this.state.price;
+    let userNo: string = this.user.userNo;
+    let tradeArea: string = this.user.uarea[0].address;
+    let productInfo = this.state.explain;
+    let formdata = new FormData();
+    formdata.append("tradeTitle",tradeTitle);
+    formdata.append("tradeCategory",tradeCategory);
+    formdata.append("productPrice",productPrice);
+    formdata.append("userNo",userNo);
+    formdata.append("tradeArea",tradeArea);
+    formdata.append("productInfo",productInfo);
+    for(let i=0;i<files.length;i++) {
+      console.log(files[i])
+      formdata.append("files",files[i]);
     }
-    let formData = new FormData();
-    for (var i = 0; i < this.state.images.length; i++) {
-      let file = this.state.images[i];
-      formData.append("files", file);
-    }
-
     axios({
-      method: "post",
+      method: "POST",
       url: "http://13.125.55.96:8080/trade/add",
-      headers: {
-        "content-type": "multipart/form-data"
-      },
-      params: {
-        productInfo: this.state.explain,
-        productPrice: this.state.price.toString,
-        tradeArea: this.user.address,
-        tradeCategory: this.state.category,
-        tradeTitle: this.state.title,
-        userNo: this.user.id
-      },
-      data: formData
+      headers : { 'content-type' : 'multipart/form-data'},
+      data: formdata
     })
       .then(res => {
-        console.log(res.data.data);
+        console.log(res);
         console.log("tjdddd");
       })
       .catch(error => {
-        console.log(error);
         alert(error);
-        e.preventDefault();
       });
-    e.preventDefault();
   };
 
   render() {
