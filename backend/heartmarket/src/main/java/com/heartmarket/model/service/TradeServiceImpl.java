@@ -1,15 +1,22 @@
 package com.heartmarket.model.service;
 
+import org.springframework.data.domain.Pageable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dao.TradeRepository;
 import com.heartmarket.model.dto.Trade;
+import com.heartmarket.model.dto.response.TradeMapping;
+import com.heartmarket.model.dto.response.TradeResponse;
 import com.heartmarket.util.ResultMap;
 
 import io.swagger.annotations.ApiOperation;
@@ -94,5 +101,59 @@ public class TradeServiceImpl implements TradeService{
 			throw e;
 		}
 	}
+	
+	// 서울시 전체 목록 가져오기
+	@Override
+	public List<TradeMapping> getList(){
 
+		List<TradeResponse> trList = tr.findAllBy();
+		List<TradeMapping> tmList = new ArrayList<>();
+		
+		for (TradeResponse res : trList) {
+			tmList.add(new TradeMapping(
+					res.getTradeNo(),
+					res.getTradeTitle(),
+					res.getTradeArea(),
+					res.getProductPrice(),
+					res.getTUser().getNickname(),
+					tir.findAllBytiTradeTradeNo(res.getTradeNo())));
+		}
+		return tmList;
+	}
+
+	@Override
+	// size 만큼 가져오기 (전체 목록)
+	public Page<TradeResponse> fetPages(int no, int size){
+		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
+		return tr.findByTradeNoLessThan(no, pr);
+	}
+	
+	// 사용자가 설정한 지역을 기준으로 페이징
+	@Override
+	public Page<TradeResponse> fetPages(int no, int size, String area){
+		List<Trade> tList = tr.findAllByTradeArea(area);
+		int cnt = tList.get(tList.size()-1).getTradeNo() ;
+		System.out.println(tList.size());
+		System.out.println("no : "+ no);
+		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
+		if(no == 0) no = cnt;
+		System.out.println("cnt : " + cnt);
+		System.out.println(no+1);
+		return tr.findByTradeNoLessThanAndTradeArea(no, area, pr);
+	}
+	
+	// 사용자가 설정한 지역을 기준으로 카테고리를 선택했을 때, 페이징
+	@Override
+	public Page<TradeResponse> fetPageAC(int no, int size, String area, String category){
+		List<Trade> tList = tr.findAllByTradeArea(area);
+		System.out.println("t : " + tList.size());
+		System.out.println("no : "+ no);
+		if(tList.size() == 0) return null;
+		int cnt = tList.get(tList.size()-1).getTradeNo();
+		
+		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
+		if(no == 0) no = cnt;
+		return tr.findByTradeNoLessThanAndTradeAreaAndTradeCategory(no, area, category, pr);
+	}
+	
 }

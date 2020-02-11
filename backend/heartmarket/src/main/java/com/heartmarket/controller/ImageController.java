@@ -66,11 +66,11 @@ public class ImageController {
 		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
-			tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+//			tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		}else {
 			fileName = File.separatorChar + "images" + File.separator + "none.png";
 			tmp.setOrgImg(fileName);
-			tmp.setStoredImg(fileName);
+//			tmp.setStoredImg(fileName);
 		}
 		
 		tr.save(tmp);
@@ -108,11 +108,11 @@ public class ImageController {
 			if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 				fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 				tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
-				tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
+//				tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 			}else {
 				fileName = File.separatorChar + "images" + File.separator + "none.png";
 				tmp.setOrgImg(fileName);
-				tmp.setStoredImg(fileName);
+//				tmp.setStoredImg(fileName);
 			}
 			
 			fList.add(tmp);
