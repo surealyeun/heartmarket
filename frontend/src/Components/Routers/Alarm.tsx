@@ -9,6 +9,7 @@ import Footer from "../common/Footer";
 import TopButton from "../common/TopButton";
 import AlarmList from "../alarm/AlarmList";
 
+
 function Alarm() {
   const alarms = [
     {

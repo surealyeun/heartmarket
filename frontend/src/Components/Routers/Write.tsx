@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {withRouter} from 'react-router-dom'
 import "./Write.scss";
 import axios from "axios";
 // import { Upload, Button, Icon, } from 'antd';
@@ -24,14 +25,11 @@ class Write extends Component {
     base64: []
   };
 
-  // setStateAsync(state: object) {
-  //   return new Promise(resolve => {
-  //     this.setState(state, resolve);
-  //   });
-  // }
-
   //이미지 여러개 업로드
   InputChange = (e: any) => {
+
+    console.log(this.props);
+
     //같은 이미지를 연속으로 선택하는 게 막혀있어서 바꾼 코드
     this.setState({
       filekey: this.state.filekey + 1
@@ -84,6 +82,7 @@ class Write extends Component {
     }
   };
 
+  //이미지 삭제하기
   RemoveImg = (e: any) => {
 
     let forward = this.state.images.slice(0,e.target.id);
@@ -99,48 +98,9 @@ class Write extends Component {
 
   };
 
-  // //글쓴 내용 보내기
-  // handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-
-  //   if (this.state.images.length === 0) {
-  //     alert("최소 1개의 파일을 선택해주세요.");
-  //     return;
-  //   }
-  //   let formData = new FormData();
-  //   for (var i = 0; i < this.state.images.length; i++) {
-  //     let file = this.state.images[i];
-  //     formData.append("files", file);
-  //   }
-
-  //   axios({
-  //     method: "post",
-  //     url: "http://13.125.55.96:8080/trade/add",
-  //     headers: {
-  //       "content-type": "multipart/form-data"
-  //     },
-  //     params: {
-  //       productInfo: this.state.explain,
-  //       productPrice: this.state.price.toString,
-  //       tradeArea: this.user.address,
-  //       tradeCategory: this.state.category,
-  //       tradeTitle: this.state.title,
-  //       userNo: this.user.id
-  //     },
-  //     data: formData
-  //   })
-  //     .then(res => {
-  //       console.log(res.data.data);
-  //       console.log("tjdddd");
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //       alert(error);
-  //       e.preventDefault();
-  //     });
-  //   e.preventDefault();
-  // };
+  //글쓰기 보내기
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    
     e.preventDefault();
     let files:File[];
     files = this.state.images;
@@ -158,7 +118,6 @@ class Write extends Component {
     formdata.append("tradeArea",tradeArea);
     formdata.append("productInfo",productInfo);
     for(let i=0;i<files.length;i++) {
-      console.log(files[i])
       formdata.append("files",files[i]);
     }
     axios({
@@ -168,8 +127,10 @@ class Write extends Component {
       data: formdata
     })
       .then(res => {
-        console.log(res);
-        console.log("tjdddd");
+        console.log(res.data.data[0].tiTrade.tradeNo);
+        //console.log(this.props.history.push("/search/detail/"+res.data.data[0].tiTrade.tradeNo));
+      
+        //history.push("/search/detail/"+res.data.data[0].tiTrade.tradeNo);
       })
       .catch(error => {
         alert(error);
@@ -246,10 +207,8 @@ class Write extends Component {
 
               <div>
                 {this.state.images.length > 0 && (
-                  <div>
-                    <span className="X" id="0" onClick={e => this.RemoveImg(e)}>
-                      X
-                    </span>
+                  <div className="preview_div">
+                    <img alt="삭제" src="https://image.flaticon.com/icons/svg/458/458595.svg" className="X" id="0" onClick={e => this.RemoveImg(e)}/>
                     <img
                       className="image_preview"
                       alt="img1"
@@ -258,10 +217,8 @@ class Write extends Component {
                   </div>
                 )}
                 {this.state.images.length > 1 && (
-                  <div>
-                    <span className="X" id="1" onClick={e => this.RemoveImg(e)}>
-                      X
-                    </span>
+                  <div className="preview_div">
+                    <img alt="삭제" src="https://image.flaticon.com/icons/svg/458/458595.svg" className="X" id="1" onClick={e => this.RemoveImg(e)}/>
                     <img
                       className="image_preview"
                       alt="img2"
@@ -270,10 +227,8 @@ class Write extends Component {
                   </div>
                 )}
                 {this.state.images.length > 2 && (
-                  <div>
-                    <span className="X" id="2" onClick={e => this.RemoveImg(e)}>
-                      X
-                    </span>
+                  <div className="preview_div">
+                    <img alt="삭제" src="https://image.flaticon.com/icons/svg/458/458595.svg" className="X" id="2" onClick={e => this.RemoveImg(e)}/>
                     <img
                       className="image_preview"
                       alt="img2"
@@ -282,10 +237,8 @@ class Write extends Component {
                   </div>
                 )}
                 {this.state.images.length > 3 && (
-                  <div>
-                    <span className="X" id="3" onClick={e => this.RemoveImg(e)}>
-                      X
-                    </span>
+                  <div className="preview_div">
+                    <img alt="삭제" src="https://image.flaticon.com/icons/svg/458/458595.svg" className="X" id="3" onClick={e => this.RemoveImg(e)}/>
                     <img
                       className="image_preview"
                       alt="img2"
@@ -294,10 +247,8 @@ class Write extends Component {
                   </div>
                 )}
                 {this.state.images.length > 4 && (
-                  <div>
-                    <span className="X" id="4" onClick={e => this.RemoveImg(e)}>
-                      X
-                    </span>
+                  <div className="preview_div">
+                    <img alt="삭제" src="https://image.flaticon.com/icons/svg/458/458595.svg" className="X" id="4" onClick={e => this.RemoveImg(e)}/>
                     <img
                       className="image_preview"
                       alt="img2"
@@ -318,4 +269,5 @@ class Write extends Component {
     );
   }
 }
+//export default withRouter(Write);
 export default Write;

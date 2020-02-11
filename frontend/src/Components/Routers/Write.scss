@@ -80,12 +80,19 @@
     height: 40px;
     vertical-align: -5px;
   }
+  
+  .preview_div{
+    display: inline-block;
+  }
 
   .X{
-    // position: absolute;
-    // margin-left: 100px;
-    width: 10px;
+    position: absolute;
+    margin-top: 7px;
+    margin-left: 128px;
+    width: 15px;
+    filter: invert(100%);
     display: inline-flex;
+    cursor: pointer;
   }
 
   .image_preview{
