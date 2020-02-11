@@ -1,7 +1,7 @@
 import React from "react";
-import Header from "../Common/Header";
-import Nav from "../Common/Nav";
-import Footer from "../Common/Footer";
+import Header from "../common/Header";
+import Nav from "../common/Nav";
+import Footer from "../common/Footer";
 import axios from "axios";
 import "./Detail.scss";
 

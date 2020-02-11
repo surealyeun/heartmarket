@@ -4,10 +4,10 @@ import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import "./Alarm.scss";
-import Header from "../Common/Header";
-import Footer from "../Common/Footer";
-import TopButton from "../Common/TopButton";
-import AlarmList from "../Alarm/AlarmList";
+import Header from "../common/Header";
+import Footer from "../common/Footer";
+import TopButton from "../common/TopButton";
+import AlarmList from "../alarm/AlarmList";
 
 function Alarm() {
   const alarms = [

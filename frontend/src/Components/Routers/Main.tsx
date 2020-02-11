@@ -3,13 +3,13 @@ import "./Main.scss";
 
 import "react-multi-carousel/lib/styles.css";
 
-import Header from "../Common/Header";
-import Nav from "../Common/Nav";
-import PenButton from "../Common/PenButton";
-import TopButton from "../Common/TopButton";
-import Footer from "../Common/Footer";
-import Ganji from "../Main/Ganji";
-import Famous from "../Main/Famous";
+import Header from "../common/Header";
+import Nav from "../common/Nav";
+import PenButton from "../common/PenButton";
+import TopButton from "../common/TopButton";
+import Footer from "../common/Footer";
+import Ganji from "../main/Ganji";
+import Famous from "../main/Famous";
 import { makeStyles } from "@material-ui/core/styles";
 
 function Main() {

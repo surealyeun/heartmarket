@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./Hamburger.scss";
-import Gauge from "../Hamburger/Gauge";
-import MainProfile from "../Hamburger/MainProfile";
-import HamZzim from "../Hamburger/HamZzim";
-import PreAlarm from "../../Alarm/PreAlarm";
+import Gauge from "./Gauge";
+import MainProfile from "./MainProfile";
+import HamZzim from "./HamZzim";
+import PreAlarm from "../../alarm/PreAlarm";
 import { Link } from "react-router-dom";
 
 class Hamburger extends Component {

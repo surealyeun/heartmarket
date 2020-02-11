@@ -3,25 +3,25 @@ import React from 'react';
 // import Nav from './Components/Common/Nav'
 // import Button from './Components/Common/Button'
 // import Footer from './Components/Common/Footer'
-import Main from './Components/Routers/Main'
-import Write from './Components/Routers/Write'
-import Alarm from './Components/Routers/Alarm'
-import DetailAlarm from './Components/Routers/DetailAlarm'
+import Main from './components/routers/Main'
+import Write from './components/routers/Write'
+import Alarm from './components/routers/Alarm'
+import DetailAlarm from './components/routers/DetailAlarm'
 
-import SearchResult from "./Components/Routers/SearchResult"
+import SearchResult from "./components/routers/SearchResult"
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
 
 
-import Login from './Components/Routers/Login';
-import Join from './Components/Routers/Join';
-import Mypage from './Components/Routers/Mypage';
-import JoinDetail from './Components/Routers/JoinDetail';
-import JoinSuccess from './Components/Routers/JoinSuccess'; 
-import UpdateUser from './Components/Routers/UpdateUser';
-import Sale from './Components/Routers/SaleMore';
-import Purchase from './Components/Routers/PurchaseMore';
-import UserProfile from './Components/Routers/UserProfile';
-import Detail from './Components/Routers/Detail';
+import Login from './components/routers/Login';
+import Join from './components/routers/Join';
+import Mypage from './components/routers/Mypage';
+import JoinDetail from './components/routers/JoinDetail';
+import JoinSuccess from './components/routers/JoinSuccess'; 
+import UpdateUser from './components/routers/UpdateUser';
+import Sale from './components/routers/SaleMore';
+import Purchase from './components/routers/PurchaseMore';
+import UserProfile from './components/routers/UserProfile';
+import Detail from './components/routers/Detail';
 
 function App() {
   return (
@@ -37,14 +37,14 @@ function App() {
         <Route path="/sale" component={Sale}/>
         <Route path="/purchase" component={Purchase} />
         <Route path="/user/:user" component={UserProfile} />
-        <Route path="/detail/:tradeNos" component={Detail} />
+        <Route path="/search/detail/:tradeNos" component={Detail} />
 
         <Route path="/" exact component={Main} ></Route>
         <Route path="/alarm" exact component={Alarm}></Route>
         <Route path="/write" component={Write} />
         <Route path="/alarm/detail" component={DetailAlarm} />
 
-        <Route path="/search" component={SearchResult}></Route>
+        <Route path="/search" exact component={SearchResult}></Route>
         <Redirect path="*" to="/"></Redirect>
       </Switch>
     </BrowserRouter>

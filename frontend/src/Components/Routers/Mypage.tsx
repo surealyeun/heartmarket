@@ -1,12 +1,12 @@
 import React from "react";
 import "./Mypage.scss";
 
-import Header from "../Common/Header";
+import Header from "../common/Header";
 import Profile from "../users/MypageProfile";
 import Sale from "../users/Sale";
 import Purchase from "../users/Purchase";
 import Like from "../users/Like";
-import Footer from "../Common/Footer";
+import Footer from "../common/Footer";
 
 function Mypage() {
     return (

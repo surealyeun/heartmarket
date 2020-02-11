@@ -95,7 +95,7 @@ class Like extends React.Component {
                                 if (i < 4) {
                                     return (
                                         <Link
-                                            to={`/detail/${like.ctrade.tradeNo}`}
+                                            to={`/search/detail/${like.ctrade.tradeNo}`}
                                         >
                                             <div className="item" key={"item" + i}>
                                                 <h1>{like.ctrade.tradeNo}</h1>

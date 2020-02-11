@@ -1,10 +1,10 @@
 import React from "react";
 
-import Header from "../Common/Header";
-import Nav from "../Common/Nav";
-import Footer from "../Common/Footer";
+import Header from "../common/Header";
+import Nav from "../common/Nav";
+import Footer from "../common/Footer";
 import "./DetailAlarm.scss";
-import PreAlarm from "../Alarm/PreAlarm";
+import PreAlarm from "../alarm/PreAlarm";
 
 import { makeStyles } from "@material-ui/core/styles";
 

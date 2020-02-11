@@ -6,10 +6,10 @@ import axios from "axios";
 //npm install antd --save
 //https://gary-shen.github.io/ant-design/components/upload/
 
-import Header from "../Common/Header";
-import Nav from "../Common/Nav";
-import TopButton from "../Common/TopButton";
-import Footer from "../Common/Footer";
+import Header from "../common/Header";
+import Nav from "../common/Nav";
+import TopButton from "../common/TopButton";
+import Footer from "../common/Footer";
 
 class Write extends Component {
   user = JSON.parse(window.sessionStorage.getItem("user") || "{}");

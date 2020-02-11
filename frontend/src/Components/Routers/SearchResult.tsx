@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Header from "../Common/Header";
-import Nav from "../Common/Nav";
+import Header from "../common/Header";
+import Nav from "../common/Nav";
 import "./SearchResult.scss";
-import FilterButton from "../Common/FilterButton";
-import ResultContainer from "../../containers/Search/ResultContainer";
+import FilterButton from "../common/FilterButton";
+import ResultContainer from "../../containers/search/ResultContainer";
 
 class SearchResult extends Component {
   filters = [

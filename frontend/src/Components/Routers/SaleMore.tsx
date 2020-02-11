@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Header from '../Common/Header';
-import Footer from '../Common/Footer';
+import Header from '../common/Header';
+import Footer from '../common/Footer';
 import './More.scss';
 
 class SaleMore extends Component {
