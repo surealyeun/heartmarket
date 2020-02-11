@@ -14,11 +14,11 @@ function Mypage() {
             <Header/>
             <div className="mypage">
                 <Profile />
-                <hr />
                 <div className="like-section">
                     <Like />
                 </div>
-                <hr></hr>
+                <br/>
+                <br/>
                 <div className="products-section">
                     <div className="sale-section">
                         <Sale />
@@ -27,10 +27,11 @@ function Mypage() {
                         <Purchase />
                     </div>
                 </div>
-                <br />
-                <br />
             </div>
+                
+            <div>
             <Footer />
+            </div>
         </>
     );
 }

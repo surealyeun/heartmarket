@@ -21,6 +21,7 @@ import UpdateUser from './Components/Routers/UpdateUser';
 import Sale from './Components/Routers/SaleMore';
 import Purchase from './Components/Routers/PurchaseMore';
 import UserProfile from './Components/Routers/UserProfile';
+import Detail from './Components/Routers/Detail';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/sale" component={Sale}/>
         <Route path="/purchase" component={Purchase} />
         <Route path="/user/:user" component={UserProfile} />
+        <Route path="/detail/:tradeNos" component={Detail} />
 
         <Route path="/" exact component={Main} ></Route>
         <Route path="/alarm" exact component={Alarm}></Route>
