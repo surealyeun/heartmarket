@@ -80,6 +80,23 @@
     height: 40px;
     vertical-align: -5px;
   }
+
+  .X{
+    // position: absolute;
+    // margin-left: 100px;
+    width: 10px;
+    display: inline-flex;
+  }
+
+  .image_preview{
+    display: inline-flex;
+    width: 150px;
+    height: 150px;
+    object-fit: scale-down;
+    margin-right: 10px;
+    border : 1px solid black;
+    margin-bottom: 5PX;
+  }
 }
 
 @media screen and (max-width: 767px) {

@@ -20,7 +20,8 @@ class Write extends Component {
     price: "",
     category: "1",
     images: [],
-    filekey: 0
+    filekey: 0,
+    base64: []
   };
 
   setStateAsync(state: object) {
@@ -30,55 +31,102 @@ class Write extends Component {
   }
   //이미지 여러개 업로드
   InputChange = (e: any) => {
+    //같은 이미지를 연속으로 선택하는 게 막혀있어서 바꾼 코드
+    this.setState({
+      filekey: this.state.filekey + 1
+    });
+    //input 값 변경 감지해 설정
     if (e.target.name !== "images") {
       this.setState({
         [e.target.name]: e.target.value
       });
-    } else {
+    }
+    //이미지일때는 다르게 설정
+    else {
       let number = e.target.files?.length;
-      if (number !== undefined) {
-        if (number > 5) {
+      //파일이 선탯되었을 때
+      if (number !== undefined && number !== 0) {
+        if (number + this.state.images.length > 5) {
           alert("파일은 최대 5개까지 업로드 가능합니다.");
+        }
+        //이미지 파일 기존배열에 추가해주기
+        else {
+          var image = this.state.images;
+          for (var i = 0; i < number; i++) {
+            let file = e.target.files[i];
+            image = image.concat(file);
+          }
           this.setState({
-            filekey: this.state.filekey + 1
+            images: image
           });
-        } else {
-          this.setStateAsync({
-            images: e.target.files
-          });
-          console.log(this.state.images);
+          //이미지 변경 함수 호출
+          for (var j = 0; j < image.length; j++) this.ChangeImage(image[j]);
         }
       }
     }
   };
 
+  //이미지 변경됐을 때 프리뷰
+  ChangeImage = (e: any) => {
+    let reader = new FileReader();
+    reader.onloadend = e => {
+      // 2. 읽기가 완료되면 아래코드가 실행
+      const base64 = reader.result; //reader.result는 이미지를 인코딩(base64 ->이미지를 text인코딩)한 결괏값이 나온다.
+      if (base64) {
+        this.setState({
+          base64: [...this.state.base64, base64.toString()] // 파일 base64 상태 업데이트
+        });
+      }
+    };
+    if (e) {
+      reader.readAsDataURL(e); // 1. 파일을 읽어 버퍼에 저장합니다. 저장후 onloadend 트리거
+    }
+  };
+
+  RemoveImg = (e: any) => {
+
+    let forward = this.state.images.slice(0,e.target.id);
+    let back = this.state.images.slice(Number(e.target.id) + 1 ,this.state.base64.length);
+
+    let forward64 = this.state.base64.slice(0, e.target.id);
+    let back64 = this.state.base64.slice(Number(e.target.id) + 1 ,this.state.base64.length);
+
+    this.setState({
+      images: forward.concat(back),
+      base64: forward64.concat(back64)
+    });
+
+  };
+
+  //글쓴 내용 보내기
   handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    let files = new FormData();
+    if (this.state.images.length === 0) {
+      alert("최소 1개의 파일을 선택해주세요.");
+      return;
+    }
+    let formData = new FormData();
     for (var i = 0; i < this.state.images.length; i++) {
       let file = this.state.images[i];
-      console.log(file);
-      files.append("files", file);
+      formData.append("files", file);
     }
-    //formData.append("files", this.state.images);
 
     axios({
       method: "post",
       url: "http://13.125.55.96:8080/trade/add",
       headers: {
-        'content-type': 'multipart/form-data'
+        "content-type": "multipart/form-data"
       },
-      params:{
+      params: {
         productInfo: this.state.explain,
-        productName: this.state.title,
         productPrice: this.state.price.toString,
         tradeArea: this.user.address,
         tradeCategory: this.state.category,
         tradeTitle: this.state.title,
-        userNo: this.user.id,
+        userNo: this.user.id
       },
-      data:files,
+      data: formData
     })
       .then(res => {
         console.log(res.data.data);
@@ -153,21 +201,75 @@ class Write extends Component {
                     type="file"
                     name="images"
                     onChange={e => this.InputChange(e)}
-                    required
                   />
                 </label>
                 <div className="write_filenum">
                   {this.state.images.length}개의 사진이 업로드 되었습니다.
                 </div>
               </div>
-              {this.state.images.length === 0 ? (
-                ""
-              ) : (
-                <div>
-                  <button>등록</button>
-                  <button>취소</button>
-                </div>
-              )}
+
+              <div>
+                {this.state.images.length > 0 && (
+                  <div>
+                    <span className="X" id="0" onClick={e => this.RemoveImg(e)}>
+                      X
+                    </span>
+                    <img
+                      className="image_preview"
+                      alt="img1"
+                      src={this.state.base64[0]}
+                    />
+                  </div>
+                )}
+                {this.state.images.length > 1 && (
+                  <div>
+                    <span className="X" id="1" onClick={e => this.RemoveImg(e)}>
+                      X
+                    </span>
+                    <img
+                      className="image_preview"
+                      alt="img2"
+                      src={this.state.base64[1]}
+                    />
+                  </div>
+                )}
+                {this.state.images.length > 2 && (
+                  <div>
+                    <span className="X" id="2" onClick={e => this.RemoveImg(e)}>
+                      X
+                    </span>
+                    <img
+                      className="image_preview"
+                      alt="img2"
+                      src={this.state.base64[2]}
+                    />
+                  </div>
+                )}
+                {this.state.images.length > 3 && (
+                  <div>
+                    <span className="X" id="3" onClick={e => this.RemoveImg(e)}>
+                      X
+                    </span>
+                    <img
+                      className="image_preview"
+                      alt="img2"
+                      src={this.state.base64[3]}
+                    />
+                  </div>
+                )}
+                {this.state.images.length > 4 && (
+                  <div>
+                    <span className="X" id="4" onClick={e => this.RemoveImg(e)}>
+                      X
+                    </span>
+                    <img
+                      className="image_preview"
+                      alt="img2"
+                      src={this.state.base64[4]}
+                    />
+                  </div>
+                )}
+              </div>
 
               <button>등록</button>
               <button>취소</button>
