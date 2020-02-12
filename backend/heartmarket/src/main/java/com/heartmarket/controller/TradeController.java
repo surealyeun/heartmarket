@@ -173,7 +173,7 @@ public class TradeController {
 	@RequestMapping(value = "/trade/search/area/{area}", method = RequestMethod.GET)
 	@ApiOperation(value = "지역을 바꿀 때 마다 리셋")
 	public ResponseEntity<Object> getPageAList2(@RequestParam int no, @PathVariable String area) {
-		List<Trade> rs = ts.fetPages(no, 4, area).getContent();
+		List<Trade> rs = ts.fetPages(no, 8, area).getContent();
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		tm = mappedFor(rs);
 		return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "검색 완료", tm), HttpStatus.OK);
@@ -223,15 +223,19 @@ public class TradeController {
 	private List<TradeMapping> mappedFor(List<Trade> tList) {
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		User mUser = new User();
+		String tmp = "";
 		
 		for (Trade trade : tList) {
 			mUser = us.findByUser(trade.getTUser().getUserNo());
-			System.out.println(mUser.getUserNo());
+			tmp = tr.findAllBytiTradeTradeNo(trade.getTradeNo()).size() == 0 ? "none.png" : tr.findAllBytiTradeTradeNo(trade.getTradeNo()).get(0).getOrgImg();
+			System.out.println("Userno : " + mUser.getUserNo());
 			System.out.println(mUser.getProfileImg());
+			System.out.println("tradeno ; " + trade.getTradeNo());
 			tm.add(new TradeMapping(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
 					trade.getProductPrice(), trade.getTUser().getUserNo(), mUser.getProfileImg(),
-					trade.getTUser().getNickname(), trade.getTTradeImg()));
-//			System.out.println(trade.getTTradeImg().get(0).getOrgImg());
+					trade.getTUser().getNickname(), tmp ));
+//			System.out.println("tradeorg: " + trade.getTTradeImg().get(0).getOrgImg());
+			System.out.println();
 		}
 
 		return tm;
