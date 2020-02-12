@@ -20,5 +20,6 @@ public class TradeMapping {
 	int uNo;
 	String uImg;
 	String uNicname;
-	List<TradeImg> tList;
+//	List<TradeImg> tList;
+	String tList;
 }
