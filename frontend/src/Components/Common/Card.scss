@@ -24,6 +24,11 @@
     overflow: $over_t;
     font-family: $font_t;
     color: black;
+    //글자 잘린 부분 ...으로 표시
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; //한 줄만 표시
+    -webkit-box-orient: vertical;
   }
   .money,
   .address {
@@ -114,7 +119,7 @@
         12px,
         5px,
         5px,
-        none,
+        hidden,
         hidden,
         "yg-jalnan",
         "GmarketSansMedium"
