@@ -140,7 +140,8 @@ public class TradeServiceImpl implements TradeService{
 	public Page<Trade> fetPages(int no, int size, String area){
 		List<Trade> tList = tr.findAllByTradeArea(area);
 		int cnt = tList.get(tList.size()-1).getTradeNo() ;
-		System.out.println(tList.size());
+		System.out.println("size : " + tList.size());
+		System.out.println("cnt : " + cnt);
 		System.out.println("no : "+ no);
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
 		if(no == 0) no = cnt;
