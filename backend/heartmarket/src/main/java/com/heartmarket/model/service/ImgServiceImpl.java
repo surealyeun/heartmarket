@@ -54,6 +54,7 @@ public class ImgServiceImpl implements ImgService {
 			tmp.setOrgImg(fileName);
 //			tmp.setStoredImg(fileName);
 		}
+		System.out.println("티엠피 : "+tmp);
 		return tmp;
 	}
 

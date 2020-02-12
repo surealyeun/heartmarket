@@ -29,11 +29,14 @@ import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.TradeMapping;
 import com.heartmarket.model.service.ImgService;
+import com.heartmarket.model.service.MannerService;
 import com.heartmarket.model.service.TradeService;
 import com.heartmarket.model.service.TradeServiceImpl;
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
+import com.heartmarket.util.SearchUtils;
 import com.heartmarket.util.UploadFileUtils;
 
 import io.swagger.annotations.ApiOperation;
@@ -99,6 +102,9 @@ public class TradeController {
 			@RequestParam String tradeTitle,@RequestParam String tradeCategory,
 			@RequestParam String productPrice,@RequestParam String userNo,
 			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception{
+		for (int i = 0; i < files.length; i++) {
+			System.out.println("파이이이일:"+files[i].getOriginalFilename());
+		}
 		Date date = new Date();
 		SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = transeFormat.format(date);
