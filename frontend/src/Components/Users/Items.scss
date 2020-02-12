@@ -196,6 +196,7 @@
     .product-more-wrapper{
         position: relative;
         height: 40px;
+        width: 100%;
         display: block;
         // text-align: center;
         
@@ -219,9 +220,12 @@
         }
 
         .sale-more, .purchase-more{
-            // position: relative;
-            border: 0;
-            background-color: white;
+            position: inherit;
+            border: 1px solid black;
+            width: 100px;
+            height: 20px;
+            padding: 0;
+            // background-color: white;
             h3{
                 position: absolute;
                 right: 12%;
@@ -285,7 +289,7 @@
             // position: relative;
             border: 0;
             background-color: white;
-            
+            padding: 0;
             h3{
                 position: absolute;
                 font-family: 'NanumSquareRound';
@@ -296,6 +300,7 @@
             // position: relative;
             border: 0;
             background-color: white;
+            padding: 0;
             
             h3{
                 position: absolute;
