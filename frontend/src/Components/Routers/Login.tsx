@@ -3,8 +3,17 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "./Login.scss";
+import userStatus, { isLog } from "../../modules/user";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { RootState } from "../../modules";
 
-class Login extends Component {
+interface Props {
+  status: string | null;
+  UserAction: typeof isLog;
+}
+
+class Login extends Component<Props> {
     state = {
         email: "",
         password: "",
@@ -40,6 +49,7 @@ class Login extends Component {
                     this.setState({
                         islog: true
                     });
+                    this.props.UserAction();
                 })
                 .catch(error => {
                     // console.log(error);
@@ -128,4 +138,11 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default connect(
+    ({ userStatus }: RootState) => ({
+      status: userStatus.status
+    }),
+    dispatch => ({
+      UserAction: bindActionCreators(isLog, dispatch)
+    })
+  )(Login);

@@ -109,7 +109,7 @@ class Detail extends React.Component {
                             :
                             <div className="bottom">
                                 <button className="btn-heart" onClick={this.clickHeart}>♥</button>
-                                <button className="btn-contact">채팅? 쪽지? 거래하기</button>
+                                <button className="btn-contact">댓글? 쪽지? 알림? 거래하기</button>
                             </div>}
                             {/* <div className="tuser-manners">
                                 <h3>매너 지수</h3>

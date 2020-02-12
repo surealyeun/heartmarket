@@ -26,20 +26,27 @@
     .detail-r {
         // border: 1px solid;
         // display: inline-block;
-        background-color: #f7f1e2;
+        background-color: #f9f4e6;
         .tuser-info {
             display: grid;
             grid-template-columns: [img] 30% [info]50% [manners] 20%;
             grid-gap: 0;
             grid-auto-rows: minmax(10px, auto);
-            background-color: #fcf8ef;
-            border-bottom: 4px solid rgb(255, 255, 255);
+            background-color: #365367;
+            // border-bottom: 4px solid rgb(255, 255, 255);
+            .tuser-profile{
+                img{
+                    width: 100%;
+                    height: 100%;
+                    margin: auto;
+                }
+            }
             .tuser-id{
-                color: #585858;
+                color: white;
             }
             .tuser-manners{
                 margin: auto 0;
-                color: #585858;
+                color: white;
             }
         }
     
@@ -54,16 +61,6 @@
             }
         }
         
-    }
-
-    .tuser-info{
-        .tuser-profile{
-            img{
-                width: 100%;
-                height: 100%;
-                margin: auto;
-            }
-        }
     }
 
     .product-info {
@@ -167,20 +164,20 @@
                 .btn-complete{
                     width: 40%;
                     // border-color: rgb(23, 161, 57);
-                    background-color: rgba(23, 161, 57, 0.712);
+                    background-color: #f494ab;
                     color: white;
                 }
                 .btn-delete{
                     width: 30%;
                     // border-color: rgb(221, 33, 33);
-                    background-color: rgba(221, 33, 33, 0.596);
+                    background-color: #365367;
                     color: white;
                 }
                 .btn-update{
                     width: 30%;
                     // border-color: rgb(255, 150, 29);
-                    background-color: rgba(255, 150, 29, 0.616);
-                    color: white;
+                    background-color: white;
+                    color: #365367;
                 }
             }
             .bottom{
@@ -217,6 +214,8 @@
             }
             h3 {
                 font-size: 17px;
+                white-space: pre-line; 
+
             }
         }
         
@@ -298,20 +297,20 @@
                 .btn-complete{
                     width: 40%;
                     // border-color: rgb(23, 161, 57);
-                    background-color: rgba(23, 161, 57, 0.712);
+                    background-color: #f494ab;
                     color: white;
                 }
                 .btn-delete{
                     width: 30%;
                     // border-color: rgb(221, 33, 33);
-                    background-color: rgba(221, 33, 33, 0.596);
+                    background-color: #365367;
                     color: white;
                 }
                 .btn-update{
                     width: 30%;
                     // border-color: rgb(255, 150, 29);
-                    background-color: rgba(255, 150, 29, 0.616);
-                    color: white;
+                    background-color: white;
+                    color: #365367;
                 }
             }
             .bottom{

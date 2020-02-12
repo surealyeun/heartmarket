@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import "./MainProfile.scss";
+import { isLog } from "../../../modules/user";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { RootState } from "../../../modules";
 
-class MainProfile extends Component {
+interface Props {
+  status: string | null;
+  UserAction: typeof isLog;
+}
+
+class MainProfile extends Component<Props> {
   state = {
     islog: false
   };
@@ -17,7 +26,9 @@ class MainProfile extends Component {
   }
 
   logout = () => {
+    const { UserAction } = this.props
     window.sessionStorage.clear();
+    UserAction()
     this.setState({
       islog: false
     })
@@ -64,4 +75,11 @@ class MainProfile extends Component {
   }
 }
 
-export default MainProfile;
+export default connect(
+  ({ userStatus }: RootState) => ({
+    status: userStatus.status
+  }),
+  dispatch => ({
+    UserAction: bindActionCreators(isLog, dispatch)
+  })
+)(MainProfile);
