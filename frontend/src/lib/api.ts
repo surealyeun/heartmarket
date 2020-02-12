@@ -1,6 +1,11 @@
 import axios from "axios";
 
-export async function getPost(id: number = 0, url:string, email:string|null) {
+export async function getPost(
+  id: number = 0,
+  url: string,
+  email: string
+) {
+  console.log(url + `no=${id}&email=${email}`);
   const response = await axios.get<Post>(url + `no=${id}&email=${email}`);
   return response.data;
 }

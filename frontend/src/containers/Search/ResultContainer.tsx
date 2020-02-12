@@ -19,10 +19,11 @@ interface Props {
 class ResultContainer extends Component<Props> {
   componentDidMount() {
     const { PostActions, isReload } = this.props;
+    PostActions(0);
     // 새로고침 될때만 실행 (데이터 중복 방지)
-    if (!isReload) {
-      PostActions(0);
-    }
+    // if (!isReload) {
+    //   PostActions(0);
+    // }
     window.addEventListener("scroll", this.handleScroll);
   }
   componentWillUnmount() {
