@@ -7,6 +7,11 @@
         position: relative;
     }
 
+    .like{
+        background-color: #f9f4e6;
+        padding-bottom: 10px;
+    }
+
     h2{
         font-family: 'NanumSquareRound';
     }
@@ -14,7 +19,7 @@
     h3{
         color: #365367;
         font-family: 'yg-jalnan';
-        // margin: 5px 0;
+        padding: 5px 0;
     }
 
     div{
@@ -129,8 +134,10 @@
 
 .sale-section, .purchase-section {
     text-align: center;
-    display: inline-block;
+    // display: inline-block;
     margin: 0;
+    vertical-align: bottom;
+
 
     .products{
         display: inline-block;
@@ -144,7 +151,7 @@
     h3{
         color: #365367;
         font-family: 'yg-jalnan';
-        // margin: 5px 0;
+        padding: 5px 0;
     }
 
     div{

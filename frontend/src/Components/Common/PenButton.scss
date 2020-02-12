@@ -24,8 +24,6 @@
 
 @media screen and (min-width: 768px) and (max-width: 959px) {
   .PenButton {
-    max-width: 768px;
-    margin: 0 auto;
 
     .img_button {
       right: calc(50% - 350px);
@@ -33,13 +31,20 @@
   }
 }
 
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 960px) and (max-width: 1149px)  {
   .PenButton {
-    max-width: 960px;
-    margin: 0 auto;
 
     .img_button {
       right: calc(50% - 450px);
+    }
+  }
+}
+
+@media screen and (min-width: 1150px) {
+  .PenButton {
+
+    .img_button {
+      right: calc(50% - 560px);
     }
   }
 }

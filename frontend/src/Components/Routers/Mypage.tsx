@@ -1,24 +1,24 @@
 import React from "react";
 import "./Mypage.scss";
 
-import Header from "../Common/Header";
+import Header from "../common/Header";
 import Profile from "../users/MypageProfile";
 import Sale from "../users/Sale";
 import Purchase from "../users/Purchase";
 import Like from "../users/Like";
-import Footer from "../Common/Footer";
+import Footer from "../common/Footer";
 
 function Mypage() {
     return (
         <>
-            <Header />
+            <Header/>
             <div className="mypage">
                 <Profile />
-                <hr />
                 <div className="like-section">
                     <Like />
                 </div>
-                <hr></hr>
+                <br/>
+                <br/>
                 <div className="products-section">
                     <div className="sale-section">
                         <Sale />
@@ -27,10 +27,11 @@ function Mypage() {
                         <Purchase />
                     </div>
                 </div>
-                <br />
-                <br />
             </div>
+                
+            <div>
             <Footer />
+            </div>
         </>
     );
 }

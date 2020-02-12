@@ -29,6 +29,8 @@
 
 					<p>썸네일</p>
 					<img src="${goods.storedImg}" class="thumbImg" />
+					<%-- <img src="${ss}" /> --%>
+					
 				</div>
 
 				<div class="inputArea">
@@ -46,4 +48,6 @@
 	</div>
 
 </body>
+<script>
+</script>
 </html>

@@ -12,9 +12,9 @@ import com.heartmarket.util.ResultMap;
 
 public interface ImgService {
 
-	public ResultMap<TradeImg> uploadFile(MultipartFile file, String path) throws IOException, Exception;
+	public ResultMap<TradeImg> uploadFile(MultipartFile file, String path, String deli) throws IOException, Exception;
 
-	public ResultMap<List<TradeImg>> uploadFiles(MultipartFile[] files, String path) throws Exception;
+	public ResultMap<List<TradeImg>> uploadFiles(MultipartFile[] files, String path, String deli) throws Exception;
 //	public ResultMap<TradeImg> test1(MultipartFile file, String path) throws Exception;
 //	public ResultMap<List<TradeImg>> test2(MultipartFile[] files, String path) throws Exception;
 }

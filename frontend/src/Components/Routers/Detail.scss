@@ -1,0 +1,137 @@
+.product-detail {
+    margin: 0 auto;
+
+    h4,
+    h3 {
+        font-family: "NanumSquareRound";
+    }
+
+    hr {
+        height: 2px;
+        width: 100%;
+        margin: 10px auto;
+        border: thin solid #f9f4e6;
+        background-color: #f9f4e6;
+    }
+
+    .detail-l {
+        border: 1px solid;
+        // display: inline-block;
+    }
+
+    .detail-r {
+        border: 1px solid;
+        // display: inline-block;
+    }
+
+    .product-info {
+        width: 100%;
+        border: 1px solid;
+        margin: 0 auto;
+        h3 {
+            font-family: "NanumSquareRound";
+        }
+    }
+
+    .tuser-info {
+        display: grid;
+        grid-template-columns: [img] 35% [info]65%;
+        grid-gap: 0;
+        grid-auto-rows: minmax(10px, auto);
+        .tuser-profile {
+            border: 1px solid;
+            margin: 10px auto;
+            img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        width: 100%;
+        h2 {
+            font-size: 20px;
+            margin: 5px 15px;
+            font-family: "yg-jalnan";
+            color: #365367;
+        }
+        h3 {
+            font-size: 15px;
+            margin: 0 15px;
+        }
+        h4 {
+            font-size: 13px;
+            margin: 0 15px;
+        }
+        .detail-l {
+            width: 95%;
+            height: 300px;
+            margin: 10px auto;
+        }
+        .detail-r {
+            width: 95%;
+            border: 1px solid;
+            margin: 10px auto;
+            .tuser-info {
+                .tuser-profile {
+                    border: 1px solid;
+                    margin: 5px auto;
+                    img {
+                        width: 60px;
+                        height: 60px;
+                    }
+                }
+            }
+        }
+        .product-info {
+            width: 95%;
+            h3 {
+                font-size: 15px;
+            }
+        }
+        
+    }
+
+    @media screen and (min-width: 768px) {
+        width: 960px;
+        .detail-grid {
+            display: grid;
+            grid-template-columns: [img] 65% [info]35%;
+            grid-gap: 0;
+            grid-auto-rows: minmax(10px, auto);
+            width: 100%;
+        }
+        h2 {
+            font-size: 30px;
+            margin: 5px 20px;
+            font-family: "yg-jalnan";
+            color: #365367;
+        }
+        h3 {
+            margin: 10px 20px;
+        }
+        h4 {
+            margin-top: 15px;
+            margin-left: 20px;
+        }
+        .detail-l {
+            width: 100%;
+            height: 620px;
+            // margin: 0px auto;
+        }
+        .detail-r {
+            width: 100%;
+            border: 1px solid;
+            // margin: 0px auto;
+            // text-align: center;
+        }
+        .product-info {
+            // margin: 20px 20px;
+            span {
+                font-size: 23px;
+                color: #f494ab;
+            }
+        }
+    }
+}

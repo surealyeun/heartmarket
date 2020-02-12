@@ -27,20 +27,6 @@
       font-weight: bolder;
       color: #365367;
     }
-
-    .alarm_send {
-      position: absolute;
-      margin-top: -2px;
-      color: white;
-      background: #f494ab;
-      height: 28px;
-      width: 100px;
-      text-align: center;
-      padding-top: 5px;
-      border-radius: 5px;
-      font-weight: 500;
-      cursor: pointer;
-    }
   }
 
   .alarm_check {
@@ -93,9 +79,9 @@
 
     .alarm_haeder {
       margin-bottom: 40px;
-      .alarm_send {
-        right: 10px;
-      }
+      // .alarm_send {
+      //   right: 10px;
+      // }
     }
   }
 }
@@ -118,9 +104,6 @@
       .alarm_text {
         color: white;
         text-shadow: 2px 2px 2px gray;
-      }
-      .alarm_send {
-        right: calc(50% - 375px);
       }
     }
 
@@ -149,9 +132,6 @@
       .alarm_text {
         color: white;
         text-shadow: 2px 2px 2px gray;
-      }
-      .alarm_send {
-        right: calc(50% - 470px);
       }
     }
 
