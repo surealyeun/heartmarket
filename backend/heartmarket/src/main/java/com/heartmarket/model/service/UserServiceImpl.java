@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	@Autowired
 	private AreaRepository ar;
 
+	// 유저 번호로 유저 찾기
 	@Override
 	public User findByUser(int userNo) {
 		try {

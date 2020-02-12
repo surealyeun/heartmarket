@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ctc.wstx.shaded.msv_core.util.Uri;
+import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dto.Trade;
+import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.dto.response.TradeMapping;
 import com.heartmarket.model.dto.response.TradeResponse;
@@ -46,6 +48,9 @@ public class TradeController {
 
 	@Autowired
 	MannerService ms;
+	
+	@Autowired
+	TradeImgRepository tr;
 
 	// 게시글 전체 목록 조회 & 지역 기반으로 조회
 	@RequestMapping(value = "/trade/list", method = RequestMethod.GET)
@@ -168,9 +173,11 @@ public class TradeController {
 
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 
+		// 현재 로그인이 안되있을 때,
 		if (email.equals(null)) {
 			tm = mappedFor(ts.fetPageTP(no, 8, sList, "none").getContent());
 			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공?", tm), HttpStatus.OK);
+			// 현재 로그인 완료
 		} else {
 			String area = us.searchEmail(email).getUArea().get(0).getAddress();
 			tm = mappedFor(ts.fetPageTP(no, 8, sList, area).getContent());
@@ -184,9 +191,11 @@ public class TradeController {
 	private List<TradeMapping> mappedFor(List<Trade> tList) {
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		User mUser = new User();
-
+		
 		for (Trade trade : tList) {
 			mUser = us.findByUser(trade.getTUser().getUserNo());
+			System.out.println(mUser.getUserNo());
+			System.out.println(mUser.getProfileImg());
 			tm.add(new TradeMapping(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
 					trade.getProductPrice(), trade.getTUser().getUserNo(), mUser.getProfileImg(),
 					trade.getTUser().getNickname(), trade.getTTradeImg()));

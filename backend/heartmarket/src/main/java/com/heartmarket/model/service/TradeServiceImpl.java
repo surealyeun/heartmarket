@@ -160,7 +160,9 @@ public class TradeServiceImpl implements TradeService{
 //		if()
 		
 		// 로그인을 했을 때,
-//		return null;
+		List<Trade> tList = tr.findAllByTradeArea(area);
+		int cnt = tList.get(tList.size()-1).getTradeNo() ;
+		
 		return tr.findAll(new Specification<Trade>() {
 
 			@Override
@@ -175,6 +177,11 @@ public class TradeServiceImpl implements TradeService{
 				System.out.println("area : " + area);
 				if(!area.equals("none"))
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeArea"), area)));
+				if(no != 0) {
+					predicates.add(criteriaBuilder.and(criteriaBuilder.lessThan(root.get("tradeNo"), no)));
+				}else {
+					predicates.add(criteriaBuilder.and(criteriaBuilder.lessThan(root.get("tradeNo"), cnt)));
+				}
 			System.out.println(predicates.size());
 			System.out.println(predicates.get(0).toString());
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

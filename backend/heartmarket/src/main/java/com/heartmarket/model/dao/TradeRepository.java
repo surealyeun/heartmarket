@@ -46,5 +46,6 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 	// 지역별 데이터 수
 	Integer countByTradeArea(String area);
 
+	// 검색어  입력시 검색 결과를 불러오는 내용
 	Page<Trade> findAll(Specification<Trade> specification, Pageable req);
 }
