@@ -31,20 +31,24 @@ public class Manner implements Serializable{
 	@Column(name = "manner_no")
 	int mannerNo;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "user_no")
 	@ToString.Exclude
 	User mUser;
 	
-	@OneToOne
-	@JoinColumn(name ="trade_no")
-	@ToString.Exclude
-	Trade mTrade;
+	double plusGauge;
+	double normalGauge;
+	double minusGauge;
+	double heartGauge;
 	
-	@Column(name = "manner_point")
-	int mannerPoint;
-	String user_type;
-	@Column(name = "manner_type")
-	String mannerType;
+	public Manner(User mUser, double plusGauge, double normalGauge, double minusGauge, double heartGauge) {
+		super();
+		this.mUser = mUser;
+		this.plusGauge = plusGauge;
+		this.normalGauge = normalGauge;
+		this.minusGauge = minusGauge;
+		this.heartGauge = heartGauge;
+	}
+	
 	
 }

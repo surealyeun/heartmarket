@@ -14,4 +14,5 @@ public interface UserService {
 	public void delete(User user);
 	public int searchCount();
 	public ResultMap<User> duplicatedByEmail(String email);
+	User findByUser(int userNo);
 }

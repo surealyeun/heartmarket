@@ -26,15 +26,31 @@ import com.heartmarket.model.dto.User;
 import com.heartmarket.util.ResultMap;
 
 @Service
-public class UserServiceImpl implements UserService , UserDetailsService{
-	
+public class UserServiceImpl implements UserService, UserDetailsService {
+
 	@Autowired
 	private UserRepository ur;
 	@Autowired
 	private AreaRepository ar;
 
+	// 유저 번호로 유저 찾기
 	@Override
-	public boolean login(String email,String password) {
+	public User findByUser(int userNo) {
+		try {
+			User fUser = ur.findByUserNo(userNo);
+			if (fUser == null) {
+				throw new Exception("유저를 찾을 수 없습니다.");
+			}
+			return fUser;
+		} catch (Exception e) {
+			e.printStackTrace();
+//			throw e;
+		}
+		return null;
+	}
+
+	@Override
+	public boolean login(String email, String password) {
 		try {
 			User loginUser = ur.findByEmail(email);
 			if (loginUser == null) {
@@ -58,15 +74,15 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	public User searchEmail(String email) {
 		return this.ur.findByEmail(email);
 	}
-	
+
 	public ResultMap<User> duplicatedByEmail(String email) {
 		try {
 			User tUser = ur.findByEmail(email);
-			if(tUser == null) {
+			if (tUser == null) {
 				return new ResultMap<User>("SUCCESS", "Not Duplicated", null);
 			}
 			return new ResultMap<User>("Fail", "Duplicated", tUser);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			throw e;
 		}
 	}
@@ -76,7 +92,7 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	public void delete(User user) {
 		try {
 			User deleteUser = ur.findByEmail(user.getEmail());
-			if(deleteUser==null) {
+			if (deleteUser == null) {
 				throw new Exception("가입되지 않은 이메일입니다.");
 			}
 			ur.delete(deleteUser);
@@ -92,27 +108,27 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 
 	@Override
 	// 사용자 등록 (회원가입)
-	public void signUp(User user,String address) {
+	public void signUp(User user, String address) {
 		try {
 			User joinUser = ur.findByEmail(user.getEmail());
-			if(joinUser==null) {
-				//받아온 주소값으로 area를 만들고 조인된 부모값을 할당 
+			if (joinUser == null) {
+				// 받아온 주소값으로 area를 만들고 조인된 부모값을 할당
 				Area area = new Area(address);
 				area.setAUser(user);
 				List<Area> areas = new ArrayList<Area>();
 				areas.add(area);
-				//area를 부모의 자식으로 할당  즉, 연관관계 양방향의 참조를 연결시켜주는
+				// area를 부모의 자식으로 할당 즉, 연관관계 양방향의 참조를 연결시켜주는
 				user.setUArea(areas);
 				// auto_incerement 수정
 				ar.resortAreaNo(ar.findTop1ByOrderByAreaNoDesc().getAreaNo());
 				ur.save(user);
-			}else {
+			} else {
 				throw new Exception("이미 존재하는 이메일 입니다.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@Override
@@ -130,7 +146,7 @@ public class UserServiceImpl implements UserService , UserDetailsService{
 	public int searchCount() {
 		User user = ur.findTop1ByOrderByUserNoDesc();
 		ur.resortUserNo(user.getUserNo());
-		int result = user.getUserNo()+1;
+		int result = user.getUserNo() + 1;
 		return result;
 	}
 

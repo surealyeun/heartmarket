@@ -1,10 +1,20 @@
 package com.heartmarket.model.service;
 
+import org.springframework.data.domain.Pageable;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.heartmarket.model.dao.TradeImgRepository;
@@ -107,5 +117,88 @@ public class TradeServiceImpl implements TradeService{
 			throw e;
 		}
 	}
+	
+	// 서울시 전체 목록 가져오기
+	@Override
+	public Page<Trade> getList(int no, int size){
+		List<Trade> tList = tr.findAll();
+		int cnt = tList.get(tList.size()-1).getTradeNo() ;
+		if(no == 0) no = cnt;
+		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
+		return tr.findByTradeNoLessThan(no, pr);
+	}
 
+	@Override
+	// size 만큼 가져오기 (전체 목록)
+	public Page<Trade> fetPages(int no, int size){
+		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
+		return tr.findByTradeNoLessThan(no, pr);
+	}
+	
+	// 사용자가 설정한 지역을 기준으로 페이징
+	@Override
+	public Page<Trade> fetPages(int no, int size, String area){
+		List<Trade> tList = tr.findAllByTradeArea(area);
+		int cnt = tList.get(tList.size()-1).getTradeNo() ;
+		System.out.println(tList.size());
+		System.out.println("no : "+ no);
+		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
+		if(no == 0) no = cnt;
+		System.out.println("cnt : " + cnt);
+		System.out.println(no+1);
+		return tr.findByTradeNoLessThanAndTradeArea(no, area, pr);
+	}
+	
+	// 사용자가 설정한 지역을 기준으로 카테고리를 선택했을 때, 페이징
+	@Override
+	public Page<Trade> fetPageAC(int no, int size, String area, String category){
+		List<Trade> tList = tr.findAllByTradeArea(area);
+		System.out.println("t : " + tList.size());
+		System.out.println("no : "+ no);
+		if(tList.size() == 0) return null;
+		int cnt = tList.get(tList.size()-1).getTradeNo();
+		
+		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
+		if(no == 0) no = cnt;
+		return tr.findByTradeNoLessThanAndTradeAreaAndTradeCategory(no, area, category, pr);
+	}
+
+	@Override
+	// 검색했을 때, 결과 불러오기
+	public Page<Trade> fetPageTP(int no, int size, List<String> sList, String area) {
+		// 둘 중 하나 입니당....
+		// 로그인을 안 했을 때,
+//		if()
+		
+		// 로그인을 했을 때,
+		List<Trade> tList = tr.findAllByTradeArea(area);
+		int cnt = tList.get(tList.size()-1).getTradeNo() ;
+		
+		return tr.findAll(new Specification<Trade>() {
+
+			@Override
+			public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+				List<Predicate> predicates = new ArrayList<Predicate>();
+				for (String str : sList) {
+					System.out.println(str);
+					predicates.add(criteriaBuilder.or(criteriaBuilder.like(root.get("tradeTitle"), "%"+str+"%"),
+							criteriaBuilder.like(root.get("productInfo"), "%"+str+"%"))
+							);
+				}
+				System.out.println("area : " + area);
+				if(!area.equals("none"))
+					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeArea"), area)));
+				if(no != 0) {
+					predicates.add(criteriaBuilder.and(criteriaBuilder.lessThan(root.get("tradeNo"), no)));
+				}else {
+					predicates.add(criteriaBuilder.and(criteriaBuilder.lessThan(root.get("tradeNo"), cnt)));
+				}
+			System.out.println(predicates.size());
+			System.out.println(predicates.get(0).toString());
+				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+			}
+			
+		}, PageRequest.of(0, size, Sort.by("tradeNo").descending()));
+	}
+	
 }
