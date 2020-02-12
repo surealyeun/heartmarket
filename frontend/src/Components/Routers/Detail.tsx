@@ -3,14 +3,13 @@ import Header from "../common/Header";
 import Nav from "../common/Nav";
 import Footer from "../common/Footer";
 import axios from "axios";
-import Ganji from "../main/Ganji";
-import Gauge from "../common/hamburger/Gauge";
+// import Ganji from "../main/Ganji";
+// import Gauge from "../common/hamburger/Gauge";
 import "./Detail.scss";
+import Zzim from "../common/Zzim"
 
 class Detail extends React.Component {
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
-    url = window.location.href.split("/");
-    num = this.url[this.url.length - 1];
 
     state = {
         trade: {
@@ -22,30 +21,20 @@ class Detail extends React.Component {
             productPrice: "",
             tuser: { nickname: "", profileImg: "", email: "" },
             buser: ""
-        }
+        },
+        num:""
     };
 
-    clickHeart = () => {
-        axios({
-            method: "get",
-            url: "http://13.125.55.96:8080/cart/insert",
-            params: {
-                tradeNo: this.num,
-                userNo: this.user.userNo
-            }
-        }).then(res => {
-            console.log(res);
-            alert('심쿵 상품으로 추가되었습니다.')
-        }).catch(err => {
-            console.log(err);
-        })
-    }
+    updateUrl = () => {
+        const  url = window.location.href.split("/");
+        const num = url[url.length - 1]
+        this.setState({
+            num : num
+        });
 
-    componentDidMount() {
-        
         axios({
             method: "get",
-            url: "http://13.125.55.96:8080/trade/" + this.num
+            url: "http://13.125.55.96:8080/trade/" + num
         })
             .then(res => {
                 // console.log(res.data);
@@ -53,12 +42,20 @@ class Detail extends React.Component {
                 this.setState({
                     trade
                 });
-                console.log("trade", this.state.trade);
+                //console.log("trade", this.state.trade);
             })
             .catch(err => {
                 console.log("err", err);
                 alert("error");
             });
+    }
+
+    componentDidMount() {
+        this.updateUrl();
+    }
+
+    componentWillReceiveProps() {
+        this.updateUrl();
     }
 
     render() {
@@ -68,10 +65,10 @@ class Detail extends React.Component {
                 <Nav />
                 <div className="product-detail">
                     {/* <hr /> */}
-                    <br/>
+                    <br />
                     <div className="detail-grid">
                         <div className="detail-l">
-                            <img src="https://lh3.googleusercontent.com/proxy/Oyz8JPrTEZh7iiPcX-MxAnFeFv8lMlJBXN8PKmHEtIjljVS_rIJ5_Gdc4VNHy48fskPs0IvPgg1Y5SbfYZ-DYw0qawFFErnv_1L1hKWosQn2ABd0B3t7BliqWT-0Qcuzn8cGbbcfNUj0QUH68E6fg_1qED4O9_df" alt="" />
+                            <img src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/3f16c38757e982a14216589bb673fb756d1921ec9378767e91b24e6ae09099c3.webp?q=95&s=1440x1440&t=inside" alt="" />
                         </div>
                         <div className="detail-r">
                             <div className="tuser-info">
@@ -93,29 +90,30 @@ class Detail extends React.Component {
                             <div className="trade">
                                 <h4>카테고리 > {this.state.trade.tradeCategory}</h4>
                                 <h2>{this.state.trade.tradeTitle}</h2>
-                                <br/>
+                                <br />
                                 <h3>{this.state.trade.productPrice}원</h3>
                             </div>
-                            <br/>
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
+                            <br />
                             {this.user.email === this.state.trade.tuser.email
-                            ?
-                            <div className="tuser-btn">
-                                <button className="btn-complete">거래완료</button>
-                                <button className="btn-delete">삭제</button>
-                                <button className="btn-update">수정</button>
-                            </div>
-                            :
-                            <div className="bottom">
-                                <button className="btn-heart" onClick={this.clickHeart}>♥</button>
-                                <button className="btn-contact">댓글? 쪽지? 알림? 거래하기</button>
-                            </div>}
+                                ?
+                                <div className="tuser-btn">
+                                    <button className="btn-complete">거래완료</button>
+                                    <button className="btn-delete">삭제</button>
+                                    <button className="btn-update">수정</button>
+                                </div>
+                                :
+                                <div className="bottom">
+                                    {/* <button className="btn-heart" onClick={this.clickHeart}>♥</button> */}
+                                    <button className="btn-heart"><Zzim num={this.state.num}></Zzim></button>
+                                    <button className="btn-contact">댓글? 쪽지? 알림? 거래하기</button>
+                                </div>}
                             {/* <div className="tuser-manners">
                                 <h3>매너 지수</h3>
                                 <Gauge />
                             </div> */}
-                            
+
                         </div>
                     </div>
                     <div className="product-info">
