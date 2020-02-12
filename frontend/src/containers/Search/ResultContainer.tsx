@@ -1,4 +1,4 @@
-import Card from "../../Components/common/Card";
+import Card from "../../components/common/Card";
 import { getPostThunk } from "../../modules/post";
 import { diffBy } from "../../modules/postPage";
 import { connect } from "react-redux";
