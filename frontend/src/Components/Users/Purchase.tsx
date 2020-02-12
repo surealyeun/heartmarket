@@ -70,7 +70,7 @@ class Purchase extends React.Component {
                             alt="item1"
                         />
                     </div>
-                    {this.state.Purchases.length > 0 ? 
+                    {this.state.Purchases ? 
                     <>
                         {this.state.Purchases.map((purchase, i) => {
                             if(i < 4){
@@ -83,7 +83,9 @@ class Purchase extends React.Component {
                         })}
                     </>
                     :
-                    <></>
+                    <div>
+                        <h3>구매 상품이 없습니다.</h3>
+                    </div>
                     }
                     <div className="product-more-wrapper">
                     <Link to="/purchase"><button className="purchase-more">

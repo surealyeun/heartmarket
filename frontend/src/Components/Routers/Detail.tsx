@@ -67,7 +67,8 @@ class Detail extends React.Component {
                 <Header />
                 <Nav />
                 <div className="product-detail">
-                    <hr />
+                    {/* <hr /> */}
+                    <br/>
                     <div className="detail-grid">
                         <div className="detail-l">
                             <img src="https://lh3.googleusercontent.com/proxy/Oyz8JPrTEZh7iiPcX-MxAnFeFv8lMlJBXN8PKmHEtIjljVS_rIJ5_Gdc4VNHy48fskPs0IvPgg1Y5SbfYZ-DYw0qawFFErnv_1L1hKWosQn2ABd0B3t7BliqWT-0Qcuzn8cGbbcfNUj0QUH68E6fg_1qED4O9_df" alt="" />
@@ -106,15 +107,15 @@ class Detail extends React.Component {
                                 <button className="btn-update">수정</button>
                             </div>
                             :
-                            <></>}
+                            <div className="bottom">
+                                <button className="btn-heart" onClick={this.clickHeart}>♥</button>
+                                <button className="btn-contact">채팅? 쪽지? 거래하기</button>
+                            </div>}
                             {/* <div className="tuser-manners">
                                 <h3>매너 지수</h3>
                                 <Gauge />
                             </div> */}
-                            <div className="bottom">
-                                <button className="btn-heart" onClick={this.clickHeart}>♥</button>
-                                <button className="btn-contact">채팅? 쪽지? 거래하기</button>
-                            </div>
+                            
                         </div>
                     </div>
                     <div className="product-info">
