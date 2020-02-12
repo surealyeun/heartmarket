@@ -26,9 +26,9 @@ public class ImgServiceImpl implements ImgService {
 	@Autowired
 	TradeImgRepository tr;
 
-	public TradeImg upload(MultipartFile file, String uploadPath) throws IOException, Exception {
+	public TradeImg upload(MultipartFile file, String uploadPath, String deli) throws IOException, Exception {
 
-		String imgUploadPath = uploadPath + File.separator + "img";
+		String imgUploadPath = uploadPath+File.separator+deli;
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 
 		String fileName = null;
@@ -47,17 +47,20 @@ public class ImgServiceImpl implements ImgService {
 				return null;
 			}
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-			tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
-			fileName = File.separatorChar + "images" + File.separator + "none.png";
+			tmp.setOrgImg(File.separator + deli + ymdPath + File.separator + fileName);
+//			tmp.setStoredImg(File.separator + deli + ymdPath + File.separator + "store" + fileName);
+		} else {
+			fileName = File.separatorChar + deli + File.separator + "none.png";
 			tmp.setOrgImg(fileName);
+//			tmp.setStoredImg(fileName);
 		}
 		return tmp;
 	}
 
 	@Override
-	public ResultMap<TradeImg> uploadFile(MultipartFile file, String path) throws Exception{
+	public ResultMap<TradeImg> uploadFile(MultipartFile file, String path,String deli) throws Exception{
 		try {
-			TradeImg tig = upload(file, path);
+			TradeImg tig = upload(file, path, deli);
 //			if(tig.getOrgImg().endsWith("none.png") || tig.getStoredImg().endsWith("none.png")) {
 //				return new ResultMap<TradeImg>("FAIL", "업로드 할 파일이 없습니다.", null);
 //			}
@@ -69,14 +72,13 @@ public class ImgServiceImpl implements ImgService {
 	}
 	
 	@Override
-	public ResultMap<List<TradeImg>> uploadFiles(MultipartFile[] files, String path) throws Exception{
+	public ResultMap<List<TradeImg>> uploadFiles(MultipartFile[] files, String path, String deli) throws Exception{
 		List<TradeImg> tList= Arrays.asList(files)
 				.stream()
 				.map(file -> {
 					try {
-						return upload(file, path);
+						return upload(file, path, deli);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 						return null;
 					}

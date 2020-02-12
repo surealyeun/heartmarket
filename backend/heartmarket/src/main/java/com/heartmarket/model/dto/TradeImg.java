@@ -44,13 +44,12 @@ public class TradeImg implements Serializable{
 //	String productImg; // 이미지 주소
 	@Column(name = "org_img")
 	String orgImg;
-
-	/*
-	 * @Column(name = "stored_img") String storedImg;
-	 */
+//	@Column(name = "stored_img")
+//	String storedImg;
 	@Override
 	public String toString() {
-		return "TradeImg [imgNo=" + imgNo + ", orgImg=" + orgImg + "]";
+		return "TradeImg [imgNo=" + imgNo + ", orgImg=" + orgImg 
+				+ "]";
 	}
 	
 	

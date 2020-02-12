@@ -19,9 +19,10 @@ import org.springframework.stereotype.Service;
 
 import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dao.TradeRepository;
+import com.heartmarket.model.dao.UserRepository;
 import com.heartmarket.model.dto.Trade;
-import com.heartmarket.model.dto.response.TradeMapping;
-import com.heartmarket.model.dto.response.TradeResponse;
+import com.heartmarket.model.dto.TradeImg;
+import com.heartmarket.model.dto.User;
 import com.heartmarket.util.ResultMap;
 
 import io.swagger.annotations.ApiOperation;
@@ -34,7 +35,9 @@ public class TradeServiceImpl implements TradeService{
 	
 	@Autowired
 	TradeImgRepository tir;
-
+	
+	@Autowired
+	UserRepository ur;
 	// 모든 자료 조회
 	@Transactional
 	public List<Trade> findAll() {
@@ -61,8 +64,16 @@ public class TradeServiceImpl implements TradeService{
 
 	// 게시글 추가
 	@Transactional
-	public ResultMap<Integer> addTrade(Trade trade) {
+	public ResultMap<Integer> addTrade(Trade trade,List<TradeImg> fList,int userNo) {
 		try {
+			User user = ur.findByUserNo(userNo);
+			System.out.println("유우저 :" + user.getUserNo());
+			System.out.println("트레이드 :" + trade.toString());
+			for (TradeImg tradeImg : fList) {
+				tradeImg.setTiTrade(trade);
+			}
+			trade.setTUser(user);
+			trade.setTTradeImg(fList);
 			tr.save(trade);
 			return new ResultMap<Integer>("SUCCSS", "게시글 추가 완료", 1);
 		} catch (Exception e) {

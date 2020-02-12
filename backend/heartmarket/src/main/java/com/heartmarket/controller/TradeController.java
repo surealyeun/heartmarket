@@ -1,9 +1,12 @@
 package com.heartmarket.controller;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
+import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
 import org.apache.commons.io.IOUtils;
@@ -18,24 +21,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ctc.wstx.shaded.msv_core.util.Uri;
 import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
-import com.heartmarket.model.dto.response.TradeMapping;
-import com.heartmarket.model.dto.response.TradeResponse;
-import com.heartmarket.model.service.MannerService;
+import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.TradeService;
 import com.heartmarket.model.service.TradeServiceImpl;
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
-import com.heartmarket.util.SearchUtils;
+import com.heartmarket.util.UploadFileUtils;
 
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
+@Slf4j
 @CrossOrigin("*")
 public class TradeController {
 	// 거래 게시글 관련 된 모든 기능
@@ -45,6 +50,11 @@ public class TradeController {
 
 	@Autowired
 	UserService us;
+	
+	@Autowired
+	ImgService is;
+	
+	private ResultMap<List<TradeImg>> rms;
 
 	@Autowired
 	MannerService ms;
@@ -85,8 +95,24 @@ public class TradeController {
 	// 게시글 추가
 	@ApiOperation(value = "게시글 추가")
 	@RequestMapping(value = "/trade/add", method = RequestMethod.POST)
-	public ResponseEntity<Object> addTrade(@RequestBody Trade trade) {
-		return new ResponseEntity<Object>(ts.addTrade(trade), HttpStatus.OK);
+	public ResponseEntity<Object> addTrade(
+			@RequestParam String tradeTitle,@RequestParam String tradeCategory,
+			@RequestParam String productPrice,@RequestParam String userNo,
+			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception{
+		Date date = new Date();
+		SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String time = transeFormat.format(date);
+		int uNo = Integer.parseInt(userNo);
+		Trade trade = new Trade(tradeCategory, tradeTitle,tradeArea, productInfo, productPrice, time);
+		String imgUploadPath = File.separator + "home"+File.separator+"ubuntu";
+		rms = is.uploadFiles(files,imgUploadPath,"trade");
+		if(rms.getData() != null) {
+			List<TradeImg> fList = rms.getData();
+			ts.addTrade(trade,fList,uNo);
+			return new ResponseEntity<Object>(rms, HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Object>(rms,HttpStatus.NOT_ACCEPTABLE);
+		}
 	}
 
 	// 게시글 삭제
