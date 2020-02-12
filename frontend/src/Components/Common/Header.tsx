@@ -10,21 +10,23 @@ function Header() {
   const [inputText, setInputText] = useState(
     window.sessionStorage.getItem("searchText")
   );
-  
+
   useEffect(() => {
-    const isValid = window.sessionStorage.getItem("isText")
+    const isValid = window.sessionStorage.getItem("isText");
     if (isValid === "false") {
       setInputText("");
       window.sessionStorage.setItem("searchText", "");
     }
-  },[]);
+  }, []);
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
 
   const inputClick = () => {
-    if (inputText) window.sessionStorage.setItem("searchText", inputText);
+    if (inputText) {
+      window.sessionStorage.setItem("searchText", inputText);
+    }
   };
 
   return (
@@ -42,7 +44,7 @@ function Header() {
           id="input_search"
           type="text"
         ></input>
-        <Link to="/search" onClick={inputClick}>
+        <a href="/search" onClick={inputClick}>
           <button className="btn_search" type="button">
             <img
               className="img_search"
@@ -50,7 +52,7 @@ function Header() {
               src="https://image.flaticon.com/icons/svg/711/711319.svg"
             ></img>
           </button>
-        </Link>
+        </a>
       </div>
     </header>
   );

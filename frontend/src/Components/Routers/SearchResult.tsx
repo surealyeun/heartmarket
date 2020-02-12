@@ -28,8 +28,7 @@ class SearchResult extends Component {
       title: "가격"
     }
   ];
-  constructor(props:any) {
-    super(props)
+  componentDidMount() {
     window.sessionStorage.setItem('isText', "true");
   }
   componentWillUnmount() {
