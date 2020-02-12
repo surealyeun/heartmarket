@@ -1,8 +1,5 @@
 import React from 'react';
-// import Header from './Components/Common/Header'
-// import Nav from './Components/Common/Nav'
-// import Button from './Components/Common/Button'
-// import Footer from './Components/Common/Footer'
+
 import Main from './components/routers/Main'
 import Write from './components/routers/Write'
 import Alarm from './components/routers/Alarm'

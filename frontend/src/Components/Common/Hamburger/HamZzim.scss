@@ -17,7 +17,7 @@
     color: #365367;
   }
 
-  .zzim_title, .zzim_plus, .div_Zzim, .zzim_price{
+  .zzim_title, .zzim_plus, .zzim_price{
     position: absolute;
   }
   .zzim_title {
@@ -29,12 +29,29 @@
     cursor: pointer;
   }
 
+  .zzim_info{
+    height: 1px;
+  }
+
+  .no_item{
+    position: absolute;
+    margin-top: 30px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background: #4242421a;
+    margin-left: 15px;
+    border-radius: 3px;
+  }
+
   .div_Zzim {
     margin-top: 34px;
     width: calc(100% - 10px);
     height: 80px;
     text-align: center;
     margin-left: 7px;
+    position: relative;
 
     .zzim_item {
       width: calc(100% - 5px);

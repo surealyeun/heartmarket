@@ -104,9 +104,9 @@ class Hamburger extends Component {
                                   <p>공지하기</p>
                                   <p>건의하기</p>
                                 </div>
-                                <div>
+                                {/* <div>
                                   <hr className="hr_1"></hr>
-                                </div>
+                                </div> */}
                               </div>
                             </div>
                           )}

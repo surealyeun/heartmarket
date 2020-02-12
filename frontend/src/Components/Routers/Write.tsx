@@ -52,7 +52,7 @@ class Write extends Component {
             images: image
           });
           //이미지 변경 함수 호출
-          for (var j = 0; j < image.length; j++) this.ChangeImage(image[j]);
+          for (var j = this.state.images.length; j < image.length; j++) this.ChangeImage(image[j]);
         }
       }
     }
@@ -147,7 +147,10 @@ class Write extends Component {
   };
 
   render() {
-    if (this.state.success) console.log(this.state.success); //return <Redirect to={this.state.success}></Redirect>
+    if (this.state.success) {
+      alert("글이 작성되었습니다")
+      return <Redirect to={this.state.success}></Redirect>
+    }
     return (
       <>
         <Header></Header>
