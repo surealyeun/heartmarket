@@ -13,7 +13,7 @@ class UpdateUser extends Component {
     };
 
     componentDidMount() {
-        console.log(this.user);
+        // console.log(this.user);
     }
 
     goback = () => {
@@ -44,23 +44,31 @@ class UpdateUser extends Component {
 
     changeProfile = () => {
         const file = new FormData();
-        // console.log(this.state.profile);
+        const nickname: string = this.user.nickname;
+        const email: string = this.user.email;
+        const address: string = this.user.uarea[0].address;
         file.append("profile", this.state.profile);
-
+        console.log('file에 프로필 사진을 추가');
+        console.log(this.state.profile);
         axios({
-            method: "post",
-            url: "http://70.12.246.87:8080/img/upload",
-            data: file,
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
+            method: "put",
+            url: "http://13.125.55.96:8080/user/updateUser",
+            headers: { "Content-Type": "multipart/form-data" },
+            params: {
+                address: address,
+                email: email,
+                nickname: nickname,
+                password: "1234",
+            },
+            data: file
         })
             .then(res => {
-                alert("upload image");
+                console.log(res);
+                alert("프로필 이미지를 수정했어요");
             })
             .catch(err => {
                 console.log(err);
-                alert("upload fail");
+                alert("이미지 수정 실패");
             });
     };
 
@@ -166,7 +174,7 @@ class UpdateUser extends Component {
                             type="button"
                             onClick={this.changeProfile}
                         >
-                            이미지 변경
+                            이미지 수정하기
                         </button>
                     </div>
                     <br />

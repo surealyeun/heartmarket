@@ -2,7 +2,7 @@ import React from "react";
 import { PostItem } from "../../lib/api";
 import "./Card.scss";
 import "./LoadingView";
-import LoadingView from "./LoadingView";
+import LoadingView from './LoadingView';
 
 interface Item {
   loadingPost: boolean;

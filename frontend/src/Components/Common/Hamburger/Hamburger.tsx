@@ -6,7 +6,15 @@ import HamZzim from "./HamZzim";
 import PreAlarm from "../../alarm/PreAlarm";
 import { Link } from "react-router-dom";
 
-class Hamburger extends Component {
+
+import { connect } from "react-redux";
+import { RootState } from "../../../modules";
+
+interface Props {
+  status: string | null;
+}
+
+class Hamburger extends Component<Props> {
 
   state = {
     visible: false,
@@ -48,8 +56,17 @@ class Hamburger extends Component {
     }
   }
 
+  componentWillReceiveProps(){
+    console.log("change!")
+    if(this.props.status === 'null')
+    this.setState({
+      login:false
+    })
+  }
+
   render() {
     const { visible, login, tab } = this.state;
+    console.log(this.props.status)
     return (
       <div className="Hamburger">
         <button type="button" id="menu" onClick={this.onclick}>
@@ -67,7 +84,7 @@ class Hamburger extends Component {
                   <div className="hambuger_profile">
                     <MainProfile></MainProfile>
                   </div>
-                  {!login ? ( //로그인 했을 때 - 변수 바꾸기
+                  {(this.props.status !== 'true') ? ( //로그인 했을 때 - 변수 바꾸기
                     ""
                   ) : (
                       <div className="hambuger_background">
@@ -128,4 +145,9 @@ class Hamburger extends Component {
   }
 }
 
-export default Hamburger;
+//export default Hamburger;
+export default connect(
+  ({ userStatus }: RootState) => ({
+    status: userStatus.status
+  })
+)(Hamburger);

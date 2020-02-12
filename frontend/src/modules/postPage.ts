@@ -20,9 +20,8 @@ const initialState: CounterState = {
 };
 
 const postPage = createReducer<CounterState, CounterAction>(initialState, {
-    [DIFF_BY]: (state, action) => ({
-        counter: action.payload
-    })
-  });
-  export default postPage;
-  
+  [DIFF_BY]: (state, action) => ({
+    counter: action.payload
+  })
+});
+export default postPage;
