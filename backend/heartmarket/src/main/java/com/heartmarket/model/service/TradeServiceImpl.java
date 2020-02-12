@@ -172,8 +172,16 @@ public class TradeServiceImpl implements TradeService{
 //		if()
 		
 		// 로그인을 했을 때,
-		List<Trade> tList = tr.findAllByTradeArea(area);
+		System.out.println("Area : " + area);
+		List<Trade> tList = new ArrayList<Trade>();
+		if(!area.equals("none"))
+				tList = tr.findAllByTradeArea(area);
+		else {
+			tList = tr.findAll();
+		}
 		int cnt = tList.get(tList.size()-1).getTradeNo() ;
+		System.out.println("cnt : " + cnt);
+		System.out.println("size : " + tList.size());
 		
 		return tr.findAll(new Specification<Trade>() {
 

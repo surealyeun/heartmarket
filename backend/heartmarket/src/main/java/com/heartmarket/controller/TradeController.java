@@ -30,6 +30,7 @@ import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.dto.response.TradeMapping;
+import com.heartmarket.model.dto.response.TradeResponse;
 import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.MannerService;
 import com.heartmarket.model.service.TradeService;
@@ -87,6 +88,13 @@ public class TradeController {
 		}
 	}
 
+	// 지역별 게시글 현황
+	@RequestMapping(value = "/trade/area/search/{area}", method = RequestMethod.GET)
+	@ApiOperation(value =  "지역별 게시글 현황")
+	public ResponseEntity<Object> findByArea(@PathVariable String area){
+		return new ResponseEntity<Object>(new ResultMap<TradeResponse>("SUCCESS", area + "지역 게시글", null), HttpStatus.OK);
+	}
+	
 	// 게시글 1개만 조회
 	@RequestMapping(value = "/trade/{no}", method = RequestMethod.GET)
 	@ApiOperation(value = "게시글 1개만 조회")
@@ -108,6 +116,9 @@ public class TradeController {
 		int uNo = Integer.parseInt(userNo);
 		Trade trade = new Trade(tradeCategory, tradeTitle,tradeArea, productInfo, productPrice, time);
 		String imgUploadPath = File.separator + "home"+File.separator+"ubuntu";
+		for (MultipartFile multipartFile : files) {
+			System.out.println("files : " + multipartFile);
+		}
 		rms = is.uploadFiles(files,imgUploadPath,"trade");
 		if(rms.getData() != null) {
 			List<TradeImg> fList = rms.getData();
@@ -131,8 +142,18 @@ public class TradeController {
 	public ResponseEntity<Object> updateTrade(@RequestBody Trade trade) {
 		return new ResponseEntity<Object>(ts.updateTrade(trade), HttpStatus.OK);
 	}
+	
+	// 거래 완료
+	// 거래 완료는 판매자가 구매자를 확정시켰을 때만 완료이다.
+//	@RequestMapping(value = "/trade/complete", method = )
+//	public ResponseEntity<Object> completeTrade(){
+//		// 거래 완료
+//		
+//	}
 
 	// 매너 평가
+	// 거래가 완료되었을 때만, 평가를 할 수 있다.
+	// 평가는 Trade 테이블의 true/false 를 
 	@RequestMapping(value = "/manner", method = RequestMethod.POST)
 	public ResponseEntity<Object> evalManner(@RequestParam int val, @RequestParam int userNo) {
 		return new ResponseEntity<Object>(ms.evalueUser(val, userNo), HttpStatus.OK);
@@ -201,9 +222,9 @@ public class TradeController {
 			return new ResponseEntity<Object>(new ResultMap<TradeMapping>("FAIL", "검색 불가", null), HttpStatus.OK);
 
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
-
+		System.out.println("email : " + email);
 		// 현재 로그인이 안되있을 때,
-		if (email.equals(null)) {
+		if (email.equals("none")) {
 			tm = mappedFor(ts.fetPageTP(no, 8, sList, "none").getContent());
 			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공?", tm), HttpStatus.OK);
 			// 현재 로그인 완료
@@ -233,7 +254,7 @@ public class TradeController {
 					trade.getTUser().getNickname(), tmp ));
 //			System.out.println("tradeorg: " + trade.getTTradeImg().get(0).getOrgImg());
 			System.out.println();
-		}
+		} 
 
 		return tm;
 	}

@@ -20,8 +20,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.heartmarket.model.dao.AreaRepository;
+import com.heartmarket.model.dao.MannerRepository;
 import com.heartmarket.model.dao.UserRepository;
 import com.heartmarket.model.dto.Area;
+import com.heartmarket.model.dto.Manner;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.util.ResultMap;
 
@@ -32,6 +34,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	private UserRepository ur;
 	@Autowired
 	private AreaRepository ar;
+	@Autowired
+	private MannerRepository mr;
 
 	// 유저 번호로 유저 찾기
 	@Override
@@ -95,6 +99,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 			if (deleteUser == null) {
 				throw new Exception("가입되지 않은 이메일입니다.");
 			}
+			mr.delete(mr.findBymUserUserNo(deleteUser.getUserNo()));
 			ur.delete(deleteUser);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,6 +127,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 				// auto_incerement 수정
 				ar.resortAreaNo(ar.findTop1ByOrderByAreaNoDesc().getAreaNo());
 				ur.save(user);
+				mr.save(new Manner(user, 0, 0, 0, 50));
+				
 			} else {
 				throw new Exception("이미 존재하는 이메일 입니다.");
 			}

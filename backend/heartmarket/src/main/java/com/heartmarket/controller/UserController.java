@@ -30,6 +30,7 @@ import com.heartmarket.model.dto.User;
 import com.heartmarket.model.service.AreaService;
 import com.heartmarket.model.service.EmailService;
 import com.heartmarket.model.service.JwtService;
+import com.heartmarket.model.service.MannerService;
 import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
@@ -53,6 +54,8 @@ public class UserController {
 	JwtService jwts;
 	@Autowired
 	ImgService is;
+	@Autowired
+	MannerService ns;
 	
 	private ResultMap<TradeImg> rm;
 	

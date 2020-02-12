@@ -27,7 +27,7 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 	List<Trade> findAllBybUserUserNo(int userNo);
 	
 	// 검색 결과
-	List<TradeResponse> findAllBy();
+//	List<TradeResponse> findAllBy();
 	
 	// 페이지  기능
 	Page<Trade> findByTradeNoLessThan(int tradeNo, Pageable req);

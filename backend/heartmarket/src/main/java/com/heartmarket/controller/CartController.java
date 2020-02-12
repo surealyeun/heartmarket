@@ -5,7 +5,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,6 +39,16 @@ public class CartController {
 		}
 		return result;
 	}
+//	public ResponseEntity<Object> insertCart(HttpServletRequest request,@RequestParam int userNo,@RequestParam int tradeNo) {
+//		if(!cs.duplicateCart(userNo, tradeNo)) {
+//			cs.insert(userNo, tradeNo);
+//			Cart tCart = cs.findOne(null, tradeNo);
+//			result = new ResultMap<String>("OK","insert SUCESS","장바구니 추가 완료");
+//		}else {
+//			result = new ResponseEntity<Object>("FAIL","insert FAIL",);
+//		}
+//		return result;
+//	}
 	
 	@RequestMapping(value = "/cart/delete",method = RequestMethod.GET)
 	public ResultMap<String> delete(HttpServletRequest request,@RequestParam int userNo,@RequestParam int tradeNo) {
@@ -58,5 +70,15 @@ public class CartController {
 			result = new ResultMap<List<Cart>>("OK","search SUCESS",carts);
 		}
 		return result;
+	}
+	
+	@RequestMapping(value = "/cart/search/{tradeNo}", method = RequestMethod.GET)
+	public ResultMap<Object> searchCart(@PathVariable int tradeNo, @RequestParam String email){
+		if(!email.equals("none")) {
+			Cart cCart = cs.findOne(email, tradeNo);
+			return new ResultMap<Object>("SUCCESS", "찜했어요", cCart);
+		}
+		return new ResultMap<Object>("FAIL", "로그인이 안되있어요", null);
+
 	}
 }
