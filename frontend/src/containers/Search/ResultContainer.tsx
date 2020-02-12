@@ -7,23 +7,22 @@ import { RootState } from "../../modules";
 import React, { Component } from "react";
 import { PostItem } from "../../lib/api";
 
-
 interface Props {
   loadingPost: any;
+  isReload: boolean;
   post: PostItem[];
-  text: string;
   indexNum: number;
   PostActions: typeof getPostThunk;
   CountAction: typeof diffBy;
 }
 
 class ResultContainer extends Component<Props> {
-  state = {
-    scrollActive: false
-  };
   componentDidMount() {
-    const { PostActions, indexNum } = this.props;
-    PostActions(indexNum);
+    const { PostActions, isReload } = this.props;
+    // 새로고침 될때만 실행 (데이터 중복 방지)
+    if (!isReload) {
+      PostActions(0);
+    }
     window.addEventListener("scroll", this.handleScroll);
   }
   componentWillUnmount() {
@@ -35,13 +34,16 @@ class ResultContainer extends Component<Props> {
     const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
+    // 컴포넌트 생명주기를 이해해야 코드 이해 가능
     if (scrollHeight - innerHeight - scrollTop < 100) {
-      const { PostActions, CountAction, post } = this.props;
-      const lastId = post[post.length - 1].tradeNo;
       if (!this.props.loadingPost) {
-        CountAction(lastId);
-        const { indexNum } = this.props;
-        PostActions(indexNum);
+        const { PostActions, CountAction, post, indexNum } = this.props;
+        const lastId = post[post.length - 1].tradeNo;
+        if (lastId !== indexNum) {
+          CountAction(lastId);
+          const { indexNum } = this.props;
+          PostActions(indexNum);
+        }
       }
     }
   };
@@ -52,9 +54,9 @@ class ResultContainer extends Component<Props> {
 }
 
 export default connect(
-  ({ post, postPage, search }: RootState) => ({
+  ({ post, postPage }: RootState) => ({
     loadingPost: post.loading.GET_POST,
-    text: search.text,
+    isReload: post.isReload,
     post: post.post,
     indexNum: postPage.counter
   }),

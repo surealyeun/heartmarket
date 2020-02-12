@@ -38,11 +38,12 @@ export function getPostThunk(id: number): ThunkAction<void, RootState, null, Pos
       const user = sessionStorage.getItem('user')
       let url = ""
       let email = null
+      
       if (user) {
-        url = "http://70.12.246.87:8080/trade/search/area?"
+        url = "http://13.125.55.96:8080/trade/search/area?"
         email = JSON.parse(user).email
       } else {
-        url = "http://70.12.246.87:8080/trade/search?"
+        url = "http://13.125.55.96:8080/trade/search?"
       }
       const postData = await getPost(id, url, email);
       dispatch(success(postData));
@@ -58,6 +59,7 @@ export type PostState = {
   loading: {
     GET_POST: boolean;
   };
+  isReload: boolean;
   post: any;
 };
 
@@ -65,6 +67,7 @@ const initialState: PostState = {
   loading: {
     GET_POST: false
   },
+  isReload: false,
   post: []
 };
 
@@ -82,7 +85,8 @@ const post = createReducer<PostState, PostAction>(initialState, {
       loading: {
         GET_POST: false
       },
-      post: state.post.concat(action.payload.data)
+      post: state.post.concat(action.payload.data),
+      isReload: true
     };
   },
   [GET_POST_FAILURE]: (state) => ({
