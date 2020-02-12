@@ -52,8 +52,8 @@ public class Trade implements Serializable{
 	String tradeCategory;
 	@Column(name = "trade_title")
 	String tradeTitle;
-	@Column(name = "product_name")
-	String productName;
+//	@Column(name = "product_name")
+//	String productName;
 	@Column(name = "trade_area")
 	String tradeArea;
 	@Column(name = "product_info")
@@ -64,12 +64,12 @@ public class Trade implements Serializable{
 	String tradeDate;
 	
 	
-public Trade(String tradeCategory, String tradeTitle, String productName, String tradeArea, String productInfo,
+public Trade(String tradeCategory, String tradeTitle, String tradeArea, String productInfo,
 			String productPrice, String tradeDate) {
 		super();
 		this.tradeCategory = tradeCategory;
 		this.tradeTitle = tradeTitle;
-		this.productName = productName;
+//		this.productName = productName;
 		this.tradeArea = tradeArea;
 		this.productInfo = productInfo;
 		this.productPrice = productPrice;
