@@ -32,34 +32,15 @@ public class CartController {
 	
 	ResultMap result;
 	
-	@RequestMapping(value = "/cart/insert",method = RequestMethod.GET)
-	public ResultMap<String> insertCart(HttpServletRequest request,@RequestParam int userNo,@RequestParam int tradeNo) {
+	@RequestMapping(value = "/cart",method = RequestMethod.GET)
+	@ApiOperation(value = "찜 기능 구현 API 존재여부에 따라 등록 및 삭제")
+	public ResultMap<String> Cart(HttpServletRequest request,@RequestParam int userNo,@RequestParam int tradeNo) {
 		if(!cs.duplicateCart(userNo, tradeNo)) {
 			cs.insert(userNo, tradeNo);
 			result = new ResultMap<String>("OK","insert SUCESS","장바구니 추가 완료");
 		}else {
-			result = new ResultMap<String>("FAIL","insert FAIL","해당 상품이 해당유저에 장바구니에 이미 포함되어있습니다.");
-		}
-		return result;
-	}
-//	public ResponseEntity<Object> insertCart(HttpServletRequest request,@RequestParam int userNo,@RequestParam int tradeNo) {
-//		if(!cs.duplicateCart(userNo, tradeNo)) {
-//			cs.insert(userNo, tradeNo);
-//			Cart tCart = cs.findOne(null, tradeNo);
-//			result = new ResultMap<String>("OK","insert SUCESS","장바구니 추가 완료");
-//		}else {
-//			result = new ResponseEntity<Object>("FAIL","insert FAIL",);
-//		}
-//		return result;
-//	}
-	
-	@RequestMapping(value = "/cart/delete",method = RequestMethod.GET)
-	public ResultMap<String> delete(HttpServletRequest request,@RequestParam int userNo,@RequestParam int tradeNo) {
-		if(cs.duplicateCart(userNo, tradeNo)) {
 			cs.delete(userNo, tradeNo);
 			result = new ResultMap<String>("OK","delete SUCESS","장바구니 삭제 완료");
-		}else {
-			result = new ResultMap<String>("FAIL","delete FAIL","해당 상품이 해당유저에 장바구니에 포함되어 있지 않습니다.");
 		}
 		return result;
 	}

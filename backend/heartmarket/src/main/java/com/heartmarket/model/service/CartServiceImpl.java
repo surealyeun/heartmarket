@@ -58,7 +58,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public List<Cart> searchAll(int userNo) {
 		try {
-			List<Cart> carts = cr.findAllBycUserUserNo(userNo);
+			List<Cart> carts = cr.findAllBycUserUserNoOrderByCartNoDesc(userNo);
 			return carts;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,7 +91,7 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Cart findByTradeNo(String email, int tradeNo) {
 		User u = ur.findByEmail(email);
-		return cr.findBycTradeTradeNo(tradeNo);
+		return cr.findBycUserUserNoAndcTradeTradeNo(u.getUserNo(), tradeNo);
 	}
 
 }
