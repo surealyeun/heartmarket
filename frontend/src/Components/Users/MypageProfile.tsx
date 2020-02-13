@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom';
-import Gauge from '../common/hamburger/Gauge';
+// import Gauge from '../common/hamburger/Gauge';
 import "./Profile.scss";
 import SessionDelete from "../common/SessionDelete";
 

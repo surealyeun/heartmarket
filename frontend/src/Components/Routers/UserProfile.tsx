@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
-import axios from "axios";
+// import axios from "axios";
 
 import "./UserProfile.scss";
 import SessionDelete from "../common/SessionDelete";

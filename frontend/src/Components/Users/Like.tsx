@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ItemCard from './ItemCard';
+import SessionDelete from "../common/SessionDelete";
 
 export interface like {
     cartNo: number;
