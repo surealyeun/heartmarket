@@ -112,9 +112,13 @@ public class TradeController {
 	// 게시글 추가
 	@ApiOperation(value = "게시글 추가")
 	@RequestMapping(value = "/trade/add", method = RequestMethod.POST)
-	public ResponseEntity<Object> addTrade(@RequestParam String tradeTitle, @RequestParam String tradeCategory,
-			@RequestParam String productPrice, @RequestParam String userNo, @RequestParam String tradeArea,
-			@RequestParam String productInfo, @RequestParam MultipartFile[] files) throws Exception {
+	public ResponseEntity<Object> addTrade(
+			@RequestParam String tradeTitle,@RequestParam String tradeCategory,
+			@RequestParam String productPrice,@RequestParam String userNo,
+			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception{
+		for (int i = 0; i < files.length; i++) {
+			System.out.println("파이이이일:"+files[i].getOriginalFilename());
+		}
 		Date date = new Date();
 		SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = transeFormat.format(date);

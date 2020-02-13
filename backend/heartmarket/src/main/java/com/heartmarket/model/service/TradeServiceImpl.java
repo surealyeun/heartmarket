@@ -144,10 +144,10 @@ public class TradeServiceImpl implements TradeService{
 		System.out.println("cnt : " + cnt);
 		System.out.println("no : "+ no);
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
-		if(no == 0) no = cnt;
+		if(no == 0) no = cnt+1;
 		System.out.println("cnt : " + cnt);
-		System.out.println(no+1);
-		return tr.findByTradeNoLessThanAndTradeArea(no+1, area, pr);
+		System.out.println(no);
+		return tr.findByTradeNoLessThanAndTradeArea(no, area, pr);
 	}
 	
 	// 사용자가 설정한 지역을 기준으로 카테고리를 선택했을 때, 페이징
