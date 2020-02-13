@@ -43,7 +43,7 @@ public class Cart implements Serializable{
 	@Column(name = "cart_no")
 	int cartNo;
 	
-	@OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+	@OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.LAZY)
 	@JoinColumn(name="user_no")
 	@ToString.Exclude
 	@JsonIgnoreProperties

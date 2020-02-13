@@ -91,7 +91,9 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Cart findByTradeNo(String email, int tradeNo) {
 		User u = ur.findByEmail(email);
-		return cr.findBycTradeTradeNo(tradeNo);
+		System.out.println("cTradeNo : " + tradeNo);
+		
+		return cr.findBycTradeTradeNoAndcUserUserNo(tradeNo, u.getUserNo());
 	}
 
 }
