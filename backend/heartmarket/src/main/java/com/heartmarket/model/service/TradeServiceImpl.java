@@ -147,7 +147,7 @@ public class TradeServiceImpl implements TradeService{
 		if(no == 0) no = cnt;
 		System.out.println("cnt : " + cnt);
 		System.out.println(no+1);
-		return tr.findByTradeNoLessThanAndTradeArea(no, area, pr);
+		return tr.findByTradeNoLessThanAndTradeArea(no+1, area, pr);
 	}
 	
 	// 사용자가 설정한 지역을 기준으로 카테고리를 선택했을 때, 페이징

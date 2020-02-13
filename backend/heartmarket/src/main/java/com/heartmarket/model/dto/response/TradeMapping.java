@@ -22,5 +22,5 @@ public class TradeMapping {
 	String uNicname;
 //	List<TradeImg> tList;
 	String tList;
-//	int cNo;
+	int cNo;
 }

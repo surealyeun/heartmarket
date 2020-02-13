@@ -15,5 +15,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 	public Cart findBycUserUserNoAndcTradeTradeNo(int userNo,int tradeNo);
 	public List<Cart> findAllBycUserUserNo(int userNo);
 	
-	public Cart findBycTradeTradeNo(Specification<Cart> specification);
+	public List<Cart> findAll(Specification<Cart> specification);
+	
+	public Cart findBycTradeTradeNo(int tradeNo);
 }

@@ -15,4 +15,5 @@ public interface UserService {
 	public int searchCount();
 	public ResultMap<User> duplicatedByEmail(String email);
 	User findByUser(int userNo);
+	public User findByNickname(String nickname);
 }

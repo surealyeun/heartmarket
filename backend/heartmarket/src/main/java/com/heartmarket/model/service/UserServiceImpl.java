@@ -164,4 +164,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		authorities.add(new SimpleGrantedAuthority(user.getUserPermission()));
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), authorities);
 	}
+
+	
+	// 유저 닉네임 검색?
+	@Override
+	public User findByNickname(String nickname) {
+		// 닉네임으로 유저를 검색합시다.
+		try {
+			User user = ur.findByNickname(nickname);
+			return user;
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }

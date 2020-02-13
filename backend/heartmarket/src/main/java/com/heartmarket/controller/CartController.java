@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.heartmarket.model.dto.Cart;
+import com.heartmarket.model.dto.response.CartMapping;
 import com.heartmarket.model.service.CartService;
 import com.heartmarket.util.ResultMap;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -72,13 +75,16 @@ public class CartController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/cart/search/{tradeNo}", method = RequestMethod.GET)
-	public ResultMap<Object> searchCart(@PathVariable int tradeNo, @RequestParam String email){
-		if(!email.equals("none")) {
-			Cart cCart = cs.findOne(email, tradeNo);
-			return new ResultMap<Object>("SUCCESS", "찜했어요", cCart);
-		}
-		return new ResultMap<Object>("FAIL", "로그인이 안되있어요", null);
-
-	}
+	// 거래 번호로 찾기
+//	@ApiOperation(value = "현재 로그인하고 있는 유저 기준으로 게시글 찜 여부 확인")
+//	@RequestMapping(value = "/cart/search/{tradeNo}", method = RequestMethod.GET)
+//	public ResponseEntity<Object> searchCart(@PathVariable int tradeNo, @RequestParam String email){
+//		if(!email.equals("none")) {
+//			List<Cart> cCart = cs.findOne(email, tradeNo);
+//			System.out.println(cCart.size());
+//			return new ResponseEntity<Object>(new ResultMap<CartMapping>("SUCCESS", "찜했어요",new CartMapping(cCart.get(0).getCartNo(), cCart.get(0).getCUser().getUserNo(), cCart.get(0).getCTrade().getTradeNo())), HttpStatus.OK);
+//		}
+//		return new ResponseEntity<Object>(new ResultMap<Object>("FAIL", "로그인이 안되있어요", null), HttpStatus.NOT_FOUND);
+//
+//	}
 }

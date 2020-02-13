@@ -28,9 +28,9 @@ public class CartServiceImpl implements CartService {
 	UserRepository ur;
 	@Autowired
 	TradeRepository tr;
-	
+
 	@Override
-	public void insert(int userNo,int tradeNo) {
+	public void insert(int userNo, int tradeNo) {
 		try {
 			User user = ur.findByUserNo(userNo);
 			Trade trade = tr.findByTradeNo(tradeNo);
@@ -45,9 +45,9 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void delete(int userNo,int tradeNo) {
+	public void delete(int userNo, int tradeNo) {
 		try {
-			Cart cart = cr.findBycUserUserNoAndcTradeTradeNo(userNo,tradeNo);
+			Cart cart = cr.findBycUserUserNoAndcTradeTradeNo(userNo, tradeNo);
 			cr.deleteById(cart.getCartNo());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -70,34 +70,28 @@ public class CartServiceImpl implements CartService {
 	public boolean duplicateCart(int userNo, int tradeNo) {
 		try {
 			Cart cart = cr.findBycUserUserNoAndcTradeTradeNo(userNo, tradeNo);
-			if(cart!=null) return true;
+			if (cart != null)
+				return true;
 			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
-	
-	// 카트 찜여부 확인
+
+	// 찜 목록
 	@Override
-	public Cart findOne(String email, int tradeNo) {
-		System.out.println(email);
-		System.out.println(tradeNo);
-		return cr.findBycTradeTradeNo(new Specification<Cart>() {
-			
-			@Override
-			public Predicate toPredicate(Root<Cart> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-				List<Predicate> predicates = new ArrayList<Predicate>();
-				// email ""-> 로그인 안한 상태
-				if(!email.equals("")) {
-					User u = ur.findByEmail(email);
-					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("cUser"), u.getUserNo())));
-					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("cTradeNo"), tradeNo)));
-					return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-				}
-				return null;
-			}
-		});
+	public List<Cart> findList(String email) {
+		User u = ur.findByEmail(email);
+		return cr.findAllBycUserUserNo(u.getUserNo());
+	}
+
+	// tradeNo로 cart 검색
+	// email 은 로그인 한 유저
+	@Override
+	public Cart findByTradeNo(String email, int tradeNo) {
+		User u = ur.findByEmail(email);
+		return cr.findBycTradeTradeNo(tradeNo);
 	}
 
 }
