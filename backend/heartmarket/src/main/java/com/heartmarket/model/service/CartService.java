@@ -11,4 +11,7 @@ public interface CartService {
 	public void delete(int userNo,int tradeNo);
 	public List<Cart> searchAll(int userNo);
 	public boolean duplicateCart(int userNo,int tradeNo);
+	
+	List<Cart> findList(String email);
+	Cart findByTradeNo(String email, int tradeNo);
 }

@@ -26,10 +26,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ctc.wstx.shaded.msv_core.util.Uri;
 import com.heartmarket.model.dao.TradeImgRepository;
+import com.heartmarket.model.dto.Cart;
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.dto.response.TradeMapping;
+import com.heartmarket.model.dto.response.TradeResponse;
+import com.heartmarket.model.service.CartService;
 import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.MannerService;
 import com.heartmarket.model.service.TradeService;
@@ -53,17 +56,20 @@ public class TradeController {
 
 	@Autowired
 	UserService us;
-	
+
 	@Autowired
 	ImgService is;
-	
+
 	private ResultMap<List<TradeImg>> rms;
 
 	@Autowired
 	MannerService ms;
-	
+
 	@Autowired
 	TradeImgRepository tr;
+
+	@Autowired
+	CartService cs;
 
 	// 게시글 전체 목록 조회 & 지역 기반으로 조회
 	@RequestMapping(value = "/trade/list", method = RequestMethod.GET)
@@ -85,6 +91,14 @@ public class TradeController {
 			return new ResponseEntity<Object>(
 					new ResultMap<List<Trade>>("SUCCESS", location + "에 해당하는 게시글 조회 완료", tList), HttpStatus.OK);
 		}
+	}
+
+	// 지역별 게시글 현황
+	@RequestMapping(value = "/trade/area/search/{area}", method = RequestMethod.GET)
+	@ApiOperation(value = "지역별 게시글 현황")
+	public ResponseEntity<Object> findByArea(@PathVariable String area) {
+		return new ResponseEntity<Object>(new ResultMap<TradeResponse>("SUCCESS", area + "지역 게시글", null),
+				HttpStatus.OK);
 	}
 
 	// 게시글 1개만 조회
@@ -109,15 +123,18 @@ public class TradeController {
 		SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = transeFormat.format(date);
 		int uNo = Integer.parseInt(userNo);
-		Trade trade = new Trade(tradeCategory, tradeTitle,tradeArea, productInfo, productPrice, time);
-		String imgUploadPath = File.separator + "home"+File.separator+"ubuntu";
-		rms = is.uploadFiles(files,imgUploadPath,"trade");
-		if(rms.getData() != null) {
+		Trade trade = new Trade(tradeCategory, tradeTitle, tradeArea, productInfo, productPrice, time);
+		String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
+		for (MultipartFile multipartFile : files) {
+			System.out.println("files : " + multipartFile);
+		}
+		rms = is.uploadFiles(files, imgUploadPath, "trade");
+		if (rms.getData() != null) {
 			List<TradeImg> fList = rms.getData();
-			ts.addTrade(trade,fList,uNo);
+			ts.addTrade(trade, fList, uNo);
 			return new ResponseEntity<Object>(rms, HttpStatus.OK);
-		}else {
-			return new ResponseEntity<Object>(rms,HttpStatus.NOT_ACCEPTABLE);
+		} else {
+			return new ResponseEntity<Object>(rms, HttpStatus.NOT_ACCEPTABLE);
 		}
 	}
 
@@ -135,7 +152,18 @@ public class TradeController {
 		return new ResponseEntity<Object>(ts.updateTrade(trade), HttpStatus.OK);
 	}
 
+	// 거래 완료
+	// 거래 완료는 판매자가 구매자를 확정시켰을 때만 완료이다.
+	@RequestMapping(value = "/trade/complete", method = RequestMethod.PUT)
+	public ResponseEntity<Object> completeTrade(){
+		// 거래 완료
+		
+		return null;
+	}
+
 	// 매너 평가
+	// 거래가 완료되었을 때만, 평가를 할 수 있다.
+	// 평가는 Trade 테이블의 true/false 를
 	@RequestMapping(value = "/manner", method = RequestMethod.POST)
 	public ResponseEntity<Object> evalManner(@RequestParam int val, @RequestParam int userNo) {
 		return new ResponseEntity<Object>(ms.evalueUser(val, userNo), HttpStatus.OK);
@@ -146,17 +174,17 @@ public class TradeController {
 	@ApiOperation(value = "로그인 하지 않았을 경우, 전체 목록을 가져옴")
 	public ResponseEntity<Object> getList(@RequestParam int no) {
 		List<Trade> tList = ts.getList(no, 8).getContent();
-		return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "목록 불러오기 완료", mappedFor(tList)),
-				HttpStatus.OK);
+		return new ResponseEntity<Object>(
+				new ResultMap<List<TradeMapping>>("SUCCESS", "목록 불러오기 완료", mappedFor(tList, "none")), HttpStatus.OK);
 	}
 
 	// 검색 결과 ( 필요한 항목만 => 모든 검색 페이징 기법 )
-	@RequestMapping(value = "/trade/search2", method = RequestMethod.GET)
-	public ResponseEntity<Object> getPageList(@RequestParam int no, @RequestParam int size) {
-		List<Trade> rs = ts.fetPages(no, size).getContent();
-		return new ResponseEntity<Object>(new ResultMap<Object>("success", "message", ts.fetPages(no, size)),
-				HttpStatus.OK);
-	}
+//	@RequestMapping(value = "/trade/search2", method = RequestMethod.GET)
+//	public ResponseEntity<Object> getPageList(@RequestParam int no, @RequestParam int size) {
+//		List<Trade> rs = ts.fetPages(no, size).getContent();
+//		return new ResponseEntity<Object>(new ResultMap<Object>("success", "message", ts.fetPages(no, size)),
+//				HttpStatus.OK);
+//	}
 
 	// 검색 결과 ( 사용자의 위치를 기준으로 => )
 	@RequestMapping(value = "/trade/search/area", method = RequestMethod.GET)
@@ -165,17 +193,17 @@ public class TradeController {
 		String area = us.searchEmail(email).getUArea().get(0).getAddress();
 		List<Trade> rs = ts.fetPages(no, 8, area).getContent();
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
-		tm = mappedFor(rs);
+		tm = mappedFor(rs, email);
 		return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "검색 완료", tm), HttpStatus.OK);
 	}
 
-	// 검색 결과 ( 사용자의 위치를 기준으로 => )
+	// 검색 결과 ( 사용자의 위치를 기준으로 => 지역을 바꿀 때 마다 재검색 )
 	@RequestMapping(value = "/trade/search/area/{area}", method = RequestMethod.GET)
 	@ApiOperation(value = "지역을 바꿀 때 마다 리셋")
 	public ResponseEntity<Object> getPageAList2(@RequestParam int no, @PathVariable String area) {
 		List<Trade> rs = ts.fetPages(no, 8, area).getContent();
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
-		tm = mappedFor(rs);
+		tm = mappedFor(rs, "none");
 		return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "검색 완료", tm), HttpStatus.OK);
 	}
 
@@ -187,14 +215,14 @@ public class TradeController {
 		List<Trade> rs = ts.fetPageAC(no, 3, area, category).getContent();
 		System.out.println(rs.size());
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
-		tm = mappedFor(rs);
+		tm = mappedFor(rs, "none");
 		return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "검색 완료", tm), HttpStatus.OK);
 	}
 
 	// 검색 ( 키워드 2개 이상 / 단일 키워드 )
 	@RequestMapping(value = "/trade/search/{keyword}", method = RequestMethod.GET)
-	public ResponseEntity<Object> searchByKeyword(@PathVariable String keyword, @RequestParam(required = false) String email,
-			@RequestParam int no) {
+	public ResponseEntity<Object> searchByKeyword(@PathVariable String keyword,
+			@RequestParam(required = false) String email, @RequestParam int no) {
 
 		// 입력받은 단어들을 받음
 		List<String> sList = new ArrayList<>();
@@ -204,15 +232,15 @@ public class TradeController {
 			return new ResponseEntity<Object>(new ResultMap<TradeMapping>("FAIL", "검색 불가", null), HttpStatus.OK);
 
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
-
+		System.out.println("email : " + email);
 		// 현재 로그인이 안되있을 때,
-		if (email.equals(null)) {
-			tm = mappedFor(ts.fetPageTP(no, 8, sList, "none").getContent());
+		if (email.equals("none")) {
+			tm = mappedFor(ts.fetPageTP(no, 8, sList, "none").getContent(), "none");
 			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공?", tm), HttpStatus.OK);
 			// 현재 로그인 완료
 		} else {
 			String area = us.searchEmail(email).getUArea().get(0).getAddress();
-			tm = mappedFor(ts.fetPageTP(no, 8, sList, area).getContent());
+			tm = mappedFor(ts.fetPageTP(no, 8, sList, area).getContent(), email);
 			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공?", tm), HttpStatus.OK);
 
 		}
@@ -220,21 +248,30 @@ public class TradeController {
 	}
 
 // 매핑 중...... C
-	private List<TradeMapping> mappedFor(List<Trade> tList) {
+	private List<TradeMapping> mappedFor(List<Trade> tList, String email) {
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		User mUser = new User();
 		String tmp = "";
-		
-		for (Trade trade : tList) {
+		int booleanC = 0;
+
+		System.out.println("email : " + email);
+		System.out.println(tList.size());
+		for (Trade trade : tList) { // dho dksehlwl
+			
 			mUser = us.findByUser(trade.getTUser().getUserNo());
-			tmp = tr.findAllBytiTradeTradeNo(trade.getTradeNo()).size() == 0 ? "none.png" : tr.findAllBytiTradeTradeNo(trade.getTradeNo()).get(0).getOrgImg();
+			System.out.println("getUser : " +mUser.getUserNo());
+			if (!email.equals("none")) 
+				booleanC = cs.findByTradeNo(email, trade.getTradeNo()) == null ? 0 : 1;
+				System.out.println(booleanC);
+			// 찜이 되있으면 true, 아니면 false
+			tmp = tr.findAllBytiTradeTradeNo(trade.getTradeNo()).size() == 0 ? "none.png"
+					: tr.findAllBytiTradeTradeNo(trade.getTradeNo()).get(0).getOrgImg();
 			System.out.println("Userno : " + mUser.getUserNo());
 			System.out.println(mUser.getProfileImg());
 			System.out.println("tradeno ; " + trade.getTradeNo());
 			tm.add(new TradeMapping(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
 					trade.getProductPrice(), trade.getTUser().getUserNo(), mUser.getProfileImg(),
-					trade.getTUser().getNickname(), tmp ));
-//			System.out.println("tradeorg: " + trade.getTTradeImg().get(0).getOrgImg());
+					trade.getTUser().getNickname(), tmp, booleanC));
 			System.out.println();
 		}
 

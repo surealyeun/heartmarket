@@ -37,6 +37,7 @@ public class ImgServiceImpl implements ImgService {
 		System.out.println(ymdPath);
 
 		TradeImg tmp = new TradeImg();
+		System.out.println(file);
 		if (!(file == null)) {
 			int fileIndex = file.getOriginalFilename().lastIndexOf('.') + 1;
 			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex,
@@ -54,6 +55,7 @@ public class ImgServiceImpl implements ImgService {
 			tmp.setOrgImg(fileName);
 //			tmp.setStoredImg(fileName);
 		}
+		System.out.println(tmp.getOrgImg());
 		System.out.println("티엠피 : "+tmp);
 		return tmp;
 	}
@@ -78,6 +80,7 @@ public class ImgServiceImpl implements ImgService {
 				.stream()
 				.map(file -> {
 					try {
+						System.out.println(file);
 						return upload(file, path, deli);
 					} catch (Exception e) {
 						e.printStackTrace();

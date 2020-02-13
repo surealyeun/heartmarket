@@ -14,5 +14,5 @@ public interface TradeResponse {
 	String getTradeArea();
 	
 	User getTUser();
-	List<TradeImg> getTTradeImg();
+//	List<TradeImg> getTTradeImg();
 }
