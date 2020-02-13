@@ -31,7 +31,7 @@ import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.dto.response.TradeMapping;
-import com.heartmarket.model.dto.response.TradeResponse;
+import com.heartmarket.model.dto.response.OtherTrade;
 import com.heartmarket.model.service.CartService;
 import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.MannerService;
@@ -97,7 +97,7 @@ public class TradeController {
 	@RequestMapping(value = "/trade/area/search/{area}", method = RequestMethod.GET)
 	@ApiOperation(value = "지역별 게시글 현황")
 	public ResponseEntity<Object> findByArea(@PathVariable String area) {
-		return new ResponseEntity<Object>(new ResultMap<TradeResponse>("SUCCESS", area + "지역 게시글", null),
+		return new ResponseEntity<Object>(new ResultMap<OtherTrade>("SUCCESS", area + "지역 게시글", null),
 				HttpStatus.OK);
 	}
 

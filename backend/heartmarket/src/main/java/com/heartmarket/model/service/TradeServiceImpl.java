@@ -229,8 +229,11 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	public Page<Trade> findByTradeType(int no, int size, int type, int userno) {
+		if(no == 0)
+			no = tr.countAll();
 		
-		return tr.findByTradeNoLessThan(no+1, new Specification<Trade>() {
+		final int cnt = no;
+		return tr.findAll( new Specification<Trade>() {
 
 			@Override
 			public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -238,14 +241,15 @@ public class TradeServiceImpl implements TradeService {
 
 				// 구매
 				if (type == 1) {
-					predicates.add((criteriaBuilder.equal(root.get("bUser").get("userNo"), userno)));
+					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("bUser").get("userNo"), userno)));
 					System.out.println(root.get("bUser").get("userNo").toString());
 				}
 				// 판매
 				else if (type == 2) {
-					predicates.add((criteriaBuilder.equal(root.get("tUser").get("userNo"), userno)));
+					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tUser").get("userNo"), userno)));
 				}
 
+				predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("tradeNo"), cnt)));
 				System.out.println(predicates.size());
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}

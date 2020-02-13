@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.heartmarket.model.dto.Trade;
-import com.heartmarket.model.dto.response.TradeResponse;
+import com.heartmarket.model.dto.response.OtherTrade;
 
 @Repository
 public interface TradeRepository extends JpaRepository<Trade, Integer> {
@@ -48,6 +48,9 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 	// 현재 데이터 수
 	// 지역별 데이터 수
 	Integer countByTradeArea(String area);
+	
+	@Query("Select count(t) from Trade t")
+	int  countAll();
 
 	// 검색어  입력시 검색 결과를 불러오는 내용
 	Page<Trade> findByTradeNoLessThan(int tradeNo, Specification<Trade> specification, Pageable req);
