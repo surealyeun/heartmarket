@@ -24,9 +24,7 @@ function Header() {
   };
 
   const inputClick = () => {
-    if (inputText) {
-      window.sessionStorage.setItem("searchText", inputText);
-    }
+      window.sessionStorage.setItem("searchText", inputText||"");
   };
 
   return (

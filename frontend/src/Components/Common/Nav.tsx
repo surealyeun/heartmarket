@@ -31,9 +31,12 @@ import Categorytxt12 from "../img/cate12-txt.png";
 import Categorytxt13 from "../img/cate13-txt.png";
 
 import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router-dom";
 
 function Nav() {
   //https://felixblog.tistory.com/50
+
+  let history = useHistory();
 
   const responsive = {
     Desktop: {
@@ -63,7 +66,9 @@ function Nav() {
 
   const mouseup = (e: any) => {
     if (e.clientX === mouse_x && e.clientY === mouse_y) {
-      alert(e.target.id); //여기서 클릭
+      //alert(e.target.id); //여기서 클릭
+      window.sessionStorage.setItem("searchCategory", e.target.id);
+      if(window.sessionStorage.getItem("searchText")!=="false") history.push("/search");
     }
   };
 

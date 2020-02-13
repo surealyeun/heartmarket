@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   postPage,
   search,
   userStatus,
-  zzimStatus
+  zzimStatus,
 });
 
 export default rootReducer;

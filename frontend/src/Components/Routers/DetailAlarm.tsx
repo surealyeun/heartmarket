@@ -7,6 +7,7 @@ import "./DetailAlarm.scss";
 import PreAlarm from "../alarm/PreAlarm";
 
 import { makeStyles } from "@material-ui/core/styles";
+import SessionDelete from "../common/SessionDelete";
 
 function DetailAlarm() {
 
@@ -24,6 +25,7 @@ function DetailAlarm() {
     <>
       <Header></Header>
       <Nav></Nav>
+      <SessionDelete></SessionDelete>
       <div className="DetailAlarm">
         <div className={classes.root}>
           <div className="display">

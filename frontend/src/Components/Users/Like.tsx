@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import SessionDelete from "../common/SessionDelete";
 
 export interface like {
     cartNo: number;
@@ -86,6 +87,7 @@ class Like extends React.Component {
     render() {
         return (
             <div className="like">
+                <SessionDelete></SessionDelete>
                 <h3>심쿵 상품</h3>
                 <div className="products">
                     {this.state.Likes ? (

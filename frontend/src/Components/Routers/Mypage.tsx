@@ -7,11 +7,13 @@ import Sale from "../users/Sale";
 import Purchase from "../users/Purchase";
 import Like from "../users/Like";
 import Footer from "../common/Footer";
+import SessionDelete from "../common/SessionDelete";
 
 function Mypage() {
     return (
         <>
             <Header/>
+            <SessionDelete></SessionDelete>
             <div className="mypage">
                 <Profile />
                 <div className="like-section">

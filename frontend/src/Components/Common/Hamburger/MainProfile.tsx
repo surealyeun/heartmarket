@@ -27,7 +27,8 @@ class MainProfile extends Component<Props> {
 
   logout = () => {
     const { UserAction } = this.props
-    window.sessionStorage.clear();
+    window.sessionStorage.setItem("log", "");
+    window.sessionStorage.setItem("user", "");
     UserAction()
     this.setState({
       islog: false

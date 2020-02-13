@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./UpdateUser.scss";
 import axios from "axios";
+import SessionDelete from "../common/SessionDelete";
 
 class UpdateUser extends Component {
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
@@ -146,6 +147,7 @@ class UpdateUser extends Component {
         // console.log(this.user);
         return (
             <div className="big">
+                <SessionDelete></SessionDelete>
                 <div className="updateuser">
                     <h1>프로필 수정</h1>
                     <div className="profile-img-wrapper">
