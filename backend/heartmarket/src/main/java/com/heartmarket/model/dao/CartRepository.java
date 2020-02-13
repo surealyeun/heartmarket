@@ -19,4 +19,7 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 	public List<Cart> findAll(Specification<Cart> specification);
 	
 	public Cart findBycTradeTradeNo(int tradeNo);
+	
+	@Query("select c from Cart c where c.cTrade.tradeNo=?1 and c.cUser.userNo=?2")
+	public Cart findBycTradeTradeNoAndcUserUserNo(int tradeNo, int userNo);
 }

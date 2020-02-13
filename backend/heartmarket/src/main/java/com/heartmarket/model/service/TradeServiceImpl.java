@@ -28,16 +28,17 @@ import com.heartmarket.util.ResultMap;
 import io.swagger.annotations.ApiOperation;
 
 @Service
-public class TradeServiceImpl implements TradeService{
+public class TradeServiceImpl implements TradeService {
 
 	@Autowired
 	TradeRepository tr;
-	
+
 	@Autowired
 	TradeImgRepository tir;
-	
+
 	@Autowired
 	UserRepository ur;
+
 	// 모든 자료 조회
 	@Transactional
 	public List<Trade> findAll() {
@@ -64,7 +65,7 @@ public class TradeServiceImpl implements TradeService{
 
 	// 게시글 추가
 	@Transactional
-	public ResultMap<Integer> addTrade(Trade trade,List<TradeImg> fList,int userNo) {
+	public ResultMap<Integer> addTrade(Trade trade, List<TradeImg> fList, int userNo) {
 		try {
 			User user = ur.findByUserNo(userNo);
 			System.out.println("유우저 :" + user.getUserNo());
@@ -117,50 +118,55 @@ public class TradeServiceImpl implements TradeService{
 			throw e;
 		}
 	}
-	
+
 	// 서울시 전체 목록 가져오기
 	@Override
-	public Page<Trade> getList(int no, int size){
+	public Page<Trade> getList(int no, int size) {
 		List<Trade> tList = tr.findAll();
-		int cnt = tList.get(tList.size()-1).getTradeNo() ;
-		if(no == 0) no = cnt;
+		int cnt = tList.get(tList.size() - 1).getTradeNo();
+		if (no == 0)
+			no = cnt;
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
 		return tr.findByTradeNoLessThan(no, pr);
 	}
 
 	@Override
 	// size 만큼 가져오기 (전체 목록)
-	public Page<Trade> fetPages(int no, int size){
+	public Page<Trade> fetPages(int no, int size) {
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
 		return tr.findByTradeNoLessThan(no, pr);
 	}
-	
+
 	// 사용자가 설정한 지역을 기준으로 페이징
 	@Override
-	public Page<Trade> fetPages(int no, int size, String area){
+	public Page<Trade> fetPages(int no, int size, String area) {
 		List<Trade> tList = tr.findAllByTradeArea(area);
-		int cnt = tList.get(tList.size()-1).getTradeNo() ;
+		int cnt = tList.get(tList.size() - 1).getTradeNo();
 		System.out.println("size : " + tList.size());
 		System.out.println("cnt : " + cnt);
-		System.out.println("no : "+ no);
+		System.out.println("no : " + no);
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
+
 		if(no == 0) no = cnt+1;
 		System.out.println("cnt : " + cnt);
 		System.out.println(no);
+
 		return tr.findByTradeNoLessThanAndTradeArea(no, area, pr);
 	}
-	
+
 	// 사용자가 설정한 지역을 기준으로 카테고리를 선택했을 때, 페이징
 	@Override
-	public Page<Trade> fetPageAC(int no, int size, String area, String category){
+	public Page<Trade> fetPageAC(int no, int size, String area, String category) {
 		List<Trade> tList = tr.findAllByTradeArea(area);
 		System.out.println("t : " + tList.size());
-		System.out.println("no : "+ no);
-		if(tList.size() == 0) return null;
-		int cnt = tList.get(tList.size()-1).getTradeNo();
-		
+		System.out.println("no : " + no);
+		if (tList.size() == 0)
+			return null;
+		int cnt = tList.get(tList.size() - 1).getTradeNo();
+
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
-		if(no == 0) no = cnt;
+		if (no == 0)
+			no = cnt;
 		return tr.findByTradeNoLessThanAndTradeAreaAndTradeCategory(no, area, category, pr);
 	}
 
@@ -170,19 +176,19 @@ public class TradeServiceImpl implements TradeService{
 		// 둘 중 하나 입니당....
 		// 로그인을 안 했을 때,
 //		if()
-		
+
 		// 로그인을 했을 때,
 		System.out.println("Area : " + area);
 		List<Trade> tList = new ArrayList<Trade>();
-		if(!area.equals("none"))
-				tList = tr.findAllByTradeArea(area);
+		if (!area.equals("none"))
+			tList = tr.findAllByTradeArea(area);
 		else {
 			tList = tr.findAll();
 		}
-		int cnt = tList.get(tList.size()-1).getTradeNo() ;
+		int cnt = tList.get(tList.size() - 1).getTradeNo();
 		System.out.println("cnt : " + cnt);
 		System.out.println("size : " + tList.size());
-		
+
 		return tr.findAll(new Specification<Trade>() {
 
 			@Override
@@ -190,24 +196,60 @@ public class TradeServiceImpl implements TradeService{
 				List<Predicate> predicates = new ArrayList<Predicate>();
 				for (String str : sList) {
 					System.out.println(str);
-					predicates.add(criteriaBuilder.or(criteriaBuilder.like(root.get("tradeTitle"), "%"+str+"%"),
-							criteriaBuilder.like(root.get("productInfo"), "%"+str+"%"))
-							);
+					predicates.add(criteriaBuilder.or(criteriaBuilder.like(root.get("tradeTitle"), "%" + str + "%"),
+							criteriaBuilder.like(root.get("productInfo"), "%" + str + "%")));
 				}
 				System.out.println("area : " + area);
-				if(!area.equals("none"))
+				if (!area.equals("none"))
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeArea"), area)));
-				if(no != 0) {
+				if (no != 0) {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.lessThan(root.get("tradeNo"), no)));
-				}else {
+				} else {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.lessThan(root.get("tradeNo"), cnt)));
 				}
-			System.out.println(predicates.size());
-			System.out.println(predicates.get(0).toString());
+				System.out.println(predicates.size());
+				System.out.println(predicates.get(0).toString());
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
-			
+
 		}, PageRequest.of(0, size, Sort.by("tradeNo").descending()));
 	}
-	
+
+	@Override
+	public Trade findByCompleteTrade(int bUserNo, int tUserNo, int tradeNo) {
+		Trade tmp = new Trade();
+		try {
+//			ㅋㄴtmp = tr.findBybUserUserNoIsNullAndtUserUserNoAndTradeNo(tUserNo, tradeNo);
+			return tmp;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	@Override
+	public Page<Trade> findByTradeType(int no, int size, int type, int userno) {
+		
+		return tr.findByTradeNoLessThan(no+1, new Specification<Trade>() {
+
+			@Override
+			public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+				List<Predicate> predicates = new ArrayList<Predicate>();
+
+				// 구매
+				if (type == 1) {
+					predicates.add((criteriaBuilder.equal(root.get("bUser").get("userNo"), userno)));
+					System.out.println(root.get("bUser").get("userNo").toString());
+				}
+				// 판매
+				else if (type == 2) {
+					predicates.add((criteriaBuilder.equal(root.get("tUser").get("userNo"), userno)));
+				}
+
+				System.out.println(predicates.size());
+				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
+			}
+
+		}, PageRequest.of(0, size, Sort.by("tradeNo").descending()));
+	}
 }

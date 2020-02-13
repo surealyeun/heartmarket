@@ -22,4 +22,7 @@ public interface TradeService {
 	public Page<Trade> fetPages(int no, int size, String area);
 	public Page<Trade> fetPageAC(int no, int size, String area,  String category);
 	public Page<Trade> fetPageTP(int no, int size, List<String> sList, String area);
+
+	Trade findByCompleteTrade(int bUserNo, int tUserNo, int tradeNo);
+	Page<Trade> findByTradeType(int no, int size, int type, int userno);
 }
