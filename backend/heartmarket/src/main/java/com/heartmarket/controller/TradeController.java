@@ -228,7 +228,7 @@ public class TradeController {
 	@RequestMapping(value = "/trade/search/{keyword}", method = RequestMethod.GET)
 	public ResponseEntity<Object> searchByKeyword(@PathVariable String keyword,
 			@RequestParam(required = false) String email, @RequestParam int no) {
-
+ 
 		// 입력받은 단어들을 받음
 		List<String> sList = new ArrayList<>();
 		SearchUtils s = new SearchUtils();
