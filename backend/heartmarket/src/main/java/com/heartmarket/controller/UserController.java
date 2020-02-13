@@ -1,5 +1,6 @@
 package com.heartmarket.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -167,7 +168,7 @@ public class UserController {
 	@ApiOperation(value = "회원 수정관련 기능")
 	@RequestMapping(value = "/user/updateUser", method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateUser(@RequestParam String email,
-			@RequestParam String password,
+			@RequestParam(required = false) String password,
 			@RequestParam String nickname,
 			@RequestParam(required = false) MultipartFile profile,
 			@RequestParam String address,
@@ -177,15 +178,19 @@ public class UserController {
 			List<Area> area = user.getUArea();
 			for (Area area2 : area) {
 				if (area2.getAUser().getUserNo() == user.getUserNo()) {
+					area2.setAUser(user);
 					area2.setAddress(address);
 					as.updateArea(area2);
 				}
 			}
 			System.out.println("시작 주소 : " +req.getPathInfo());
+			String imgUploadPath = File.separator + "home"+File.separator+"ubuntu";
 //			rm = is.uploadFile(profile, req.getSession().getServletContext().getRealPath("/"));
-			rm = is.uploadFile(profile, "/home/ubuntu","profile");
-			password = BCrypt.hashpw(password, BCrypt.gensalt());
-			user.setPassword(password);
+			rm = is.uploadFile(profile, imgUploadPath,"profile");
+			if(password != null) {
+				password = BCrypt.hashpw(password, BCrypt.gensalt());
+				user.setPassword(password);
+			}
 			user.setNickname(nickname);
 			user.setProfileImg(rm.getData().getOrgImg());
 			us.update(user);
