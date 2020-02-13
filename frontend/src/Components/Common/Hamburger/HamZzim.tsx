@@ -66,7 +66,7 @@ class HamZzim extends React.Component<Props> {
     mouse_x: 0,
     mouse_y: 0,
     Likes: Array<like>(),
-    success:""
+    success: ""
   };
 
   mousedown = (e: React.MouseEvent<HTMLImageElement>) => {
@@ -80,8 +80,8 @@ class HamZzim extends React.Component<Props> {
     if (e.clientX === this.state.mouse_x && e.clientY === this.state.mouse_y) {
       //this.props.history.push(`/search/detail/${e.target.id}`)
       this.setState({
-        success:"/search/detail/"+e.target.id
-      })
+        success: "/search/detail/" + e.target.id
+      });
     }
   };
 
@@ -108,18 +108,18 @@ class HamZzim extends React.Component<Props> {
         alert(err);
         console.log("err", err);
       });
-  }
+  };
 
   render() {
     if (this.props.status) {
       this.zzimupdate();
-      this.props.ZzimAction()
+      this.props.ZzimAction();
     }
-    if(this.state.success){
+    if (this.state.success) {
       this.setState({
         success:""
       })
-      return <Redirect to={this.state.success}></Redirect>
+      return <Redirect to={this.state.success}></Redirect>;
     }
     return (
       <div className="HamZzim">
@@ -135,7 +135,10 @@ class HamZzim extends React.Component<Props> {
               responsive={this.responsive}
             >
               {this.state.Likes.map(like => (
-                <div className="zzim_item" key={like.ctrade.tradeNo ? like.ctrade.tradeNo + "" : ""}>
+                <div
+                  className="zzim_item"
+                  key={like.ctrade.tradeNo ? like.ctrade.tradeNo + "" : ""}
+                >
                   <img
                     id={like.ctrade.tradeNo ? like.ctrade.tradeNo + "" : ""}
                     className="img_zzim"
@@ -152,7 +155,10 @@ class HamZzim extends React.Component<Props> {
                   >
                     {like.ctrade.productPrice}
                   </p>
-                  <p id={like.ctrade.tradeNo ? like.ctrade.tradeNo + "" : ""}  className="zzim_itemtitle">
+                  <p
+                    id={like.ctrade.tradeNo ? like.ctrade.tradeNo + "" : ""}
+                    className="zzim_itemtitle"
+                  >
                     {like.ctrade.tradeTitle}
                   </p>
                 </div>
@@ -160,8 +166,8 @@ class HamZzim extends React.Component<Props> {
             </Carousel>
           </div>
         ) : (
-            <p className="no_item">추가된 상품이 없습니다</p>
-          )}
+          <p className="no_item">추가된 상품이 없습니다</p>
+        )}
       </div>
     );
   }
@@ -176,4 +182,3 @@ export default connect(
     ZzimAction: bindActionCreators(isZzim, dispatch)
   })
 )(HamZzim);
-

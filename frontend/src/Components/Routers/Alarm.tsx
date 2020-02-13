@@ -8,7 +8,7 @@ import Header from "../common/Header";
 import Footer from "../common/Footer";
 import TopButton from "../common/TopButton";
 import AlarmList from "../alarm/AlarmList";
-
+import SessionDelete from "../common/SessionDelete";
 
 function Alarm() {
   const alarms = [
@@ -142,6 +142,7 @@ function Alarm() {
 
   return (
     <>
+      <SessionDelete></SessionDelete>
       <Header></Header>
       <div className="Alarm">
         <div className={classes.root}>

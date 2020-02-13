@@ -2,12 +2,14 @@ import React from "react";
 import {Link} from 'react-router-dom';
 // import Gauge from '../common/hamburger/Gauge';
 import "./Profile.scss";
+import SessionDelete from "../common/SessionDelete";
 
 function Profile() {
     const user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
     return (
         <div className="profile">
+            <SessionDelete></SessionDelete>
             <div className="profile-img-wrapper">
                 <img
                     className="profile-img"

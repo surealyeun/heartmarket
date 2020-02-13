@@ -42,13 +42,13 @@ export function getPostThunk(id: number): ThunkAction<void, RootState, null, Pos
       let email = "none"
       //70.12.246.87, 13.125.55.96 -- 아마존 
       if (user) {
-        url = "http://70.12.246.87:8080/trade/search/area?"
+        url = "http://13.125.55.96:8080/trade/search/area?"
         email = JSON.parse(user).email
       } else {
-        url = "http://70.12.246.87:8080/trade/search?"
+        url = "http://13.125.55.96:8080/trade/search?"
       }
       if (keyword) {
-        url = `http://70.12.246.87:8080/trade/search/${keyword}?`
+        url = `http://13.125.55.96:8080/trade/search/${keyword}?`
       }
       const postData = await getPost(id, url, email);
       dispatch(success(postData));

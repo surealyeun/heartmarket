@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Items.scss";
+import SessionDelete from "../common/SessionDelete";
 
 export interface sale {
     tradeNo: number;
@@ -64,6 +65,7 @@ class Sale extends React.Component {
     render() {
         return (
             <div className="sale">
+                <SessionDelete></SessionDelete>
                 <h3>판매 상품</h3>
                 <div className="products">
                     <div className="item">

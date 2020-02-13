@@ -7,9 +7,9 @@ interface Filter {
 
 function FilterButton(props: Filter) {
   return (
-    <div>
+    // <div>
       <a className="FilterButton_btn FilterButton_btn_base" href="dfdf">{props.title}</a>
-    </div>
+    // </div>
   );
 }
 

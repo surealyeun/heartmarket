@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import Header from '../common/Header';
 import Footer from '../common/Footer';
 import './More.scss';
+import SessionDelete from "../common/SessionDelete";
 
 class SaleMore extends Component {
     render() {
         return (
             <div>
+                <SessionDelete></SessionDelete>
                 <Header />
                 <div className="sale-more">
                     {/* 검색 결과 가져다 쓰기 ㅎㅎ*/}

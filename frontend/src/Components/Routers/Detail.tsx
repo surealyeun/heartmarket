@@ -57,6 +57,7 @@ class Detail extends React.Component {
     componentWillReceiveProps() {
         this.updateUrl();
     }
+    
 
     render() {
         return (

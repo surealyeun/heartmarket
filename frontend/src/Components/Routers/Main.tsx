@@ -11,6 +11,7 @@ import Footer from "../common/Footer";
 import Ganji from "../main/Ganji";
 import Famous from "../main/Famous";
 import { makeStyles } from "@material-ui/core/styles";
+import SessionDelete from "../common/SessionDelete";
 
 function Main() {
   const useStyles = makeStyles(theme => ({
@@ -92,6 +93,7 @@ function Main() {
     <>
       <Header></Header>
       <Nav></Nav>
+      <SessionDelete></SessionDelete>
       <div className="Main">
         <div className={classes.root}>
           <Ganji></Ganji>
