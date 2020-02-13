@@ -6,6 +6,8 @@ import Profile from "../users/MypageProfile";
 import Sale from "../users/Sale";
 import Purchase from "../users/Purchase";
 import Like from "../users/Like";
+import TopButton from "../common/TopButton";
+import Penbutton from "../common/PenButton";
 import Footer from "../common/Footer";
 import SessionDelete from "../common/SessionDelete";
 
@@ -19,8 +21,8 @@ function Mypage() {
                 <div className="like-section">
                     <Like />
                 </div>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <div className="products-section">
                     <div className="sale-section">
                         <Sale />
@@ -30,9 +32,11 @@ function Mypage() {
                     </div>
                 </div>
             </div>
-                
+
             <div>
-            <Footer />
+                <TopButton />
+                <Penbutton />
+                <Footer />
             </div>
         </>
     );

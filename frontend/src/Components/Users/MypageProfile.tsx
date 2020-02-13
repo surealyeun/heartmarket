@@ -1,12 +1,12 @@
 import React from "react";
 import {Link} from 'react-router-dom';
-// import Gauge from '../common/hamburger/Gauge';
+import Gauge from '../common/hamburger/Gauge';
 import "./Profile.scss";
 import SessionDelete from "../common/SessionDelete";
 
 function Profile() {
     const user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
-
+    console.log(user);
     return (
         <div className="profile">
             <SessionDelete></SessionDelete>
@@ -14,16 +14,18 @@ function Profile() {
                 <img
                     className="profile-img"
                     alt="profile"
-                    src="https://image.flaticon.com/icons/svg/2471/2471392.svg"
+                    src={user.profileImg}
                 ></img>
             </div>
             <div className="info">
                 <div>
                     {/* link 수정이 필요함 */}
-                    <Link to={`/user/${user.email}`}>{user.nickname}님</Link>
-                    <br />
+                    <Link to={`/user/${user.userNo}`}>
+                        <h3>{user.nickname}님</h3>
+                    </Link>
+                    {/* <br /> */}
                     <Link to="/mypage/update">
-                        <button>프로필 수정</button>
+                        <button className="btn-updateprofile">프로필 수정</button>
                     </Link>
                 </div>
             </div>

@@ -2,6 +2,7 @@
 import React from "react";
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import ItemCard from './ItemCard';
 
 import "./Items.scss";
 import SessionDelete from "../common/SessionDelete";
@@ -15,10 +16,16 @@ export interface purchase {
     productInfo:   string;
     productPrice:  string;
     tradeDate:     Date;
-    ttradeImg:     any[];
+    ttradeImg:     TtradeImg[];
     buser:         User;
     tuser:         User;
     tmanner:       null;
+}
+
+export interface TtradeImg {
+    imgNo:   number;
+    tiTrade: number;
+    orgImg:  string;
 }
 
 export interface User {
@@ -66,31 +73,30 @@ class Purchase extends React.Component {
                 <SessionDelete></SessionDelete>
                 <h3>구매 상품</h3>
                 <div className="products">
-                    <div className="item">
+                    {/* <div className="item">
                         <img
                             src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/77120318A0EA8BE3F97C131D8758D2B5E452A0D37184FE594F75148386745E8A.jpg?q=82&s=300x300&t=crop"
                             alt="item1"
                         />
-                    </div>
+                    </div> */}
                     {this.state.Purchases ? 
                     <>
                         {this.state.Purchases.map((purchase, i) => {
                             if(i < 4){
                                 return (
-                                    <div className="item" key={'item'+i}>
-                            <h3>{purchase.tradeTitle}</h3>
-                                    </div>
+                                    <ItemCard image={purchase.ttradeImg} tradeTitle={purchase.tradeTitle} 
+                                    productPrice={purchase.productPrice} />
                                 )
                             }
                         })}
                     </>
                     :
-                    <div>
-                        <h3>구매 상품이 없습니다.</h3>
+                    <div className="item">
+                        <h4>구매 상품이 없습니다.</h4>
                     </div>
                     }
                     <div className="product-more-wrapper">
-                    <Link to="/purchase"><button className="purchase-more">
+                    <Link to="/purchase"><button className="btn-purchase-more">
                         <h3>+ 구매 상품 더보기</h3>
                     </button></Link>
                 </div>

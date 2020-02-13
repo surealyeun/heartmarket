@@ -2,7 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import SessionDelete from "../common/SessionDelete";
+import ItemCard from './ItemCard';
 
 export interface like {
     cartNo: number;
@@ -19,10 +19,16 @@ export interface Ctrade {
     productInfo: string;
     productPrice: string;
     tradeDate: Date;
-    ttradeImg: any[];
+    ttradeImg: TtradeImg[];
     buser: null;
     tuser: User;
     tmanner: null;
+}
+
+export interface TtradeImg {
+    imgNo:   number;
+    tiTrade: number;
+    orgImg:  string;
 }
 
 export interface User {
@@ -51,10 +57,11 @@ class Like extends React.Component {
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
     mouseOver = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        // console.log(e.target);
+        console.log(e.target);
         this.setState({
             isOver: false
         });
+        document.getElementsByClassName('img-back')
     };
 
     mouseOut = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -65,6 +72,7 @@ class Like extends React.Component {
     };
 
     componentDidMount() {
+
         axios({
             method: "get",
             url: "http://13.125.55.96:8080/cart/searchAll",
@@ -76,7 +84,7 @@ class Like extends React.Component {
                 this.setState({
                     Likes: res.data.data
                 });
-                
+                console.log(res.data.data);
             })
             .catch(err => {
                 alert(err);
@@ -96,13 +104,9 @@ class Like extends React.Component {
                                 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                                 if (i < 4) {
                                     return (
-                                        <Link
-                                            to={`/search/detail/${like.ctrade.tradeNo}`}
-                                        >
-                                            <div className="item" key={"item" + i}>
-                                                <h1>{like.ctrade.tradeNo}</h1>
-                                                <h3>{like.ctrade.tradeTitle}</h3>
-                                            </div>
+                                        <Link to={`/search/detail/${like.ctrade.tradeNo}`}>
+                                            <ItemCard image={like.ctrade.ttradeImg} tradeTitle={like.ctrade.tradeTitle} 
+                                            productPrice={like.ctrade.productPrice} />
                                         </Link>
                                     );
                                 }
@@ -110,11 +114,11 @@ class Like extends React.Component {
                         </>
                     ) : (
                         <div>
-                            <h3>심쿵 상품이 없습니다.</h3>
+                            <h4>심쿵 상품이 없습니다.</h4>
                         </div>
                     )}
 
-                    <div className="item" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+                    {/* <div className="item" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
                         <img
                             src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/77120318A0EA8BE3F97C131D8758D2B5E452A0D37184FE594F75148386745E8A.jpg?q=82&s=300x300&t=crop"
                             alt="item1"
@@ -122,15 +126,17 @@ class Like extends React.Component {
                         <div className="img-back" hidden={this.state.isOver}>
                             <p>모두가 가지고 싶어하는 에어팟</p>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* <div className="item">
                         <button className="btn-more"><img src="https://image.flaticon.com/icons/svg/1836/1836226.svg" alt=""></img></button>
                     </div> */}
                 </div>
                 <div className="like-more-wrapper">
-                    <button className="like-more">
-                        <h3>+ 심쿵 상품 더보기</h3>
+                    <button className="btn-like-more">
+                        <Link to="/like">
+                            <h3>+ 심쿵 상품 더보기</h3>
+                        </Link>
                     </button>
                 </div>
                 <br />

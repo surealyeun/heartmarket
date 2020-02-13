@@ -22,8 +22,20 @@
     }
     
     .info {
-        margin-top: 40px;
+        margin-top: 10px;
+        h3{
+            margin: 5px 0;
+        }
+        .btn-updateprofile{
+            border: 0;
+            background-color: #365367;
+            color: white;
+            border-radius: 5px;
+            padding: 0.5em 1em;
+            font-family: 'NanumSquareRound';
+        }
     }
+    
     
     .heart-img {
         width: 60px;
