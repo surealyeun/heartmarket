@@ -15,7 +15,6 @@ export type UserState = {
     status: string | null;
 };
 
-console.log(sessionStorage.getItem("log"))
 const initialState: UserState = {
     status: sessionStorage.getItem("log")
 };

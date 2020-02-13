@@ -3,12 +3,14 @@ import post from "./post";
 import postPage from "./postPage"
 import search from "./search"
 import userStatus from "./user"
+import zzimStatus from "./zzim"
 
 const rootReducer = combineReducers({
   post,
   postPage,
   search,
-  userStatus
+  userStatus,
+  zzimStatus
 });
 
 export default rootReducer;

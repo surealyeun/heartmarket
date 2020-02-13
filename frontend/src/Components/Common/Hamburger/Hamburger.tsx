@@ -6,7 +6,6 @@ import HamZzim from "./HamZzim";
 import PreAlarm from "../../alarm/PreAlarm";
 import { Link } from "react-router-dom";
 
-
 import { connect } from "react-redux";
 import { RootState } from "../../../modules";
 
@@ -18,7 +17,6 @@ class Hamburger extends Component<Props> {
 
   state = {
     visible: false,
-    login: false,
     tab: false
   };
 
@@ -28,8 +26,6 @@ class Hamburger extends Component<Props> {
 
     this.state = {
       visible: false,
-      login: window.sessionStorage.getItem("log") === "true" ? true : false,
-      //login: true,
       tab: false
     };
   }
@@ -56,17 +52,9 @@ class Hamburger extends Component<Props> {
     }
   }
 
-  componentWillReceiveProps(){
-    console.log("change!")
-    if(this.props.status === 'null')
-    this.setState({
-      login:false
-    })
-  }
-
   render() {
-    const { visible, login, tab } = this.state;
-    console.log(this.props.status)
+    const { visible, tab } = this.state;
+    //console.log(this.props.status)
     return (
       <div className="Hamburger">
         <button type="button" id="menu" onClick={this.onclick}>
@@ -121,9 +109,6 @@ class Hamburger extends Component<Props> {
                                   <p>공지하기</p>
                                   <p>건의하기</p>
                                 </div>
-                                {/* <div>
-                                  <hr className="hr_1"></hr>
-                                </div> */}
                               </div>
                             </div>
                           )}
