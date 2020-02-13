@@ -186,16 +186,17 @@ public class UserController {
 					as.updateArea(area2);
 				}
 			}
-			System.out.println("시작 주소 : " +req.getPathInfo());
 			String imgUploadPath = File.separator + "home"+File.separator+"ubuntu";
 //			rm = is.uploadFile(profile, req.getSession().getServletContext().getRealPath("/"));
-			rm = is.uploadFile(profile, imgUploadPath,"profile");
+			if(profile != null) {
+				rm = is.uploadFile(profile, imgUploadPath,"profile");
+				user.setProfileImg(rm.getData().getOrgImg());
+			}
 			if(password != null) {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
 				user.setPassword(password);
 			}
 			user.setNickname(nickname);
-			user.setProfileImg(rm.getData().getOrgImg());
 			us.update(user);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			resultMap.put("state", "OK");
