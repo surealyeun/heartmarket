@@ -151,8 +151,16 @@ public class TradeController {
 	// 거래 완료
 	// 거래 완료는 판매자가 구매자를 확정시켰을 때만 완료이다.
 	@RequestMapping(value = "/trade/complete", method = RequestMethod.PUT)
-	public ResponseEntity<Object> completeTrade(){
+	public ResponseEntity<Object> completeTrade(@RequestParam String email, @RequestParam String other) {
 		// 거래 완료
+		// 1. 현재 로그인 중인 유저의 기준으로 게시물을 가져옴.
+		//    닉네임을 검색해야 합니다. 
+		User buyer = us.findByNickname(other);
+		
+		// 2. 게시물에서 구매자 아이디가 null인지 확인
+		// 3. null 이라면 구매자 아이디를 검색하여 확인 사살
+		//    null이 아니라면 거래가 완료된 게시글
+		
 		
 		return null;
 	}
@@ -187,6 +195,7 @@ public class TradeController {
 	@ApiOperation(value = "사용자의 기본위치를 기반으로 검색")
 	public ResponseEntity<Object> getPageAList(@RequestParam int no, @RequestParam String email) {
 		String area = us.searchEmail(email).getUArea().get(0).getAddress();
+		System.out.println(area);
 		List<Trade> rs = ts.fetPages(no, 8, area).getContent();
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		tm = mappedFor(rs, email);
@@ -223,7 +232,8 @@ public class TradeController {
 		// 입력받은 단어들을 받음
 		List<String> sList = new ArrayList<>();
 		SearchUtils s = new SearchUtils();
-		sList = s.fetchKeyword(keyword);
+		if (!keyword.equals(null))
+			sList = s.fetchKeyword(keyword);
 		if (sList.size() == 0)
 			return new ResponseEntity<Object>(new ResultMap<TradeMapping>("FAIL", "검색 불가", null), HttpStatus.OK);
 
@@ -242,6 +252,16 @@ public class TradeController {
 		}
 
 	}
+	
+	@RequestMapping(value = "/trade/myTrade/{type}", method = RequestMethod.GET)
+	@ApiOperation(value = "구매, 판매 내역 조회")
+	public ResponseEntity<Object> findByTradeType(@PathVariable int type, @RequestParam String email, @RequestParam int no){
+		List<TradeMapping> tm = new ArrayList<TradeMapping>();
+		return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>(
+				"SUCCESS", type == 1 ? "구매내역" : "판매내역",
+				mappedFor(ts.findByTradeType(no, 8, type, us.searchEmail(email).getUserNo()).getContent(), email))
+				, HttpStatus.OK );
+	}
 
 // 매핑 중...... C
 	private List<TradeMapping> mappedFor(List<Trade> tList, String email) {
@@ -253,18 +273,19 @@ public class TradeController {
 		System.out.println("email : " + email);
 		System.out.println(tList.size());
 		for (Trade trade : tList) { // dho dksehlwl
-			
+
 			mUser = us.findByUser(trade.getTUser().getUserNo());
-			System.out.println("getUser : " +mUser.getUserNo());
-			if (!email.equals("none")) 
+			System.out.println("getUser : " + mUser.getUserNo());
+			if (!email.equals("none"))
 				booleanC = cs.findByTradeNo(email, trade.getTradeNo()) == null ? 0 : 1;
-				System.out.println(booleanC);
+			System.out.println(booleanC);
 			// 찜이 되있으면 true, 아니면 false
-			tmp = tr.findAllBytiTradeTradeNo(trade.getTradeNo()).size() == 0 ? "none.png"
+			tmp = trade == null ? "none.png"
 					: tr.findAllBytiTradeTradeNo(trade.getTradeNo()).get(0).getOrgImg();
 			System.out.println("Userno : " + mUser.getUserNo());
 			System.out.println(mUser.getProfileImg());
 			System.out.println("tradeno ; " + trade.getTradeNo());
+			System.out.println("uimg : " + mUser.getProfileImg());
 			tm.add(new TradeMapping(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
 					trade.getProductPrice(), trade.getTUser().getUserNo(), mUser.getProfileImg(),
 					trade.getTUser().getNickname(), tmp, booleanC));

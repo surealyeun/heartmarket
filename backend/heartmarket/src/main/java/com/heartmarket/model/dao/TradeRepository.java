@@ -34,6 +34,9 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 	Page<Trade> findByTradeNoLessThanAndTradeArea(int tradeNo, String area, Pageable req);
 	Page<Trade> findByTradeNoLessThanAndTradeAreaAndTradeCategory(int tradeNo, String tradeArea, String tradeCategory, Pageable req);
 
+	// 페이지  기능
+	// 가져 옵시다. 구매 목록, 판매 목록
+
 	// 페이지 기능 -> 검색 기능
 	// 1. 모든 리스트를 불러오고 검색어를 기준으로 다시 처리
 //	Page<Trade> findByTradeNoLessThanAndTradeTitleContainingAndProductInfoContaining(int tradeNo, 
@@ -47,5 +50,11 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 	Integer countByTradeArea(String area);
 
 	// 검색어  입력시 검색 결과를 불러오는 내용
-	Page<Trade> findAll(Specification<Trade> specification, Pageable req);
+	Page<Trade> findByTradeNoLessThan(int tradeNo, Specification<Trade> specification, Pageable req);
+
+	Page<Trade> findAll(Specification<Trade> specification, Pageable of);
+	
+	// 거래 게시글 -> 완료가 안된 경우
+	// 구매자가 없고,
+//	Trade findByTradeNoAndtUserUserNoAndbUserBuyerNoNoIsNull(int tradeNo, int tUserNo);
 }
