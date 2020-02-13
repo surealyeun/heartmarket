@@ -17,6 +17,7 @@ import JoinSuccess from './components/routers/JoinSuccess';
 import UpdateUser from './components/routers/UpdateUser';
 import Sale from './components/routers/SaleMore';
 import Purchase from './components/routers/PurchaseMore';
+import Like from './components/routers/LikeMore';
 import UserProfile from './components/routers/UserProfile';
 import Detail from './components/routers/Detail';
 
@@ -33,8 +34,9 @@ function App() {
         <Route path="/mypage/update" component={UpdateUser}/>
         <Route path="/sale" component={Sale}/>
         <Route path="/purchase" component={Purchase} />
-        <Route path="/user/:user" component={UserProfile} />
-        <Route path="/search/detail/:tradeNos" component={Detail} />
+        <Route path="/like" component={Like} />
+        <Route path="/user/:userNo" component={UserProfile} />
+        <Route path="/search/detail/:tradeNo" component={Detail} />
 
         <Route path="/" exact component={Main} ></Route>
         <Route path="/alarm" exact component={Alarm}></Route>

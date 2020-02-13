@@ -49,8 +49,6 @@ class UpdateUser extends Component {
         const email: string = this.user.email;
         const address: string = this.user.uarea[0].address;
         file.append("profile", this.state.profile);
-        console.log('file에 프로필 사진을 추가');
-        console.log(this.state.profile);
         axios({
             method: "put",
             url: "http://13.125.55.96:8080/user/updateUser",
@@ -59,12 +57,14 @@ class UpdateUser extends Component {
                 address: address,
                 email: email,
                 nickname: nickname,
-                password: "1234",
             },
             data: file
         })
             .then(res => {
-                console.log(res);
+                console.log(res.data.data.profileImg);
+                this.user.profileImg = res.data.data.profileImg;
+                window.sessionStorage.removeItem("user");
+                window.sessionStorage.setItem("user", JSON.stringify(this.user));
                 alert("프로필 이미지를 수정했어요");
             })
             .catch(err => {
@@ -89,8 +89,6 @@ class UpdateUser extends Component {
                 address: this.user.uarea[0].address,
                 email: this.user.email,
                 nickname: this.state.nickname,
-                password: "1234",
-                profile: this.user.profileImg
             }
         })
             .then(res => {
@@ -115,8 +113,9 @@ class UpdateUser extends Component {
     };
 
     updateAddr = () => {
-        const file = new FormData();
-        file.append("profile", this.state.profile);
+        // const file = new FormData();
+        // file.append("profile", this.state.profile);
+        console.log(this.user.profileImg);
         axios({
             method: "put",
             url: "http://13.125.55.96:8080/user/updateUser",
@@ -124,8 +123,6 @@ class UpdateUser extends Component {
                 address: this.state.address,
                 email: this.user.email,
                 nickname: this.user.nickname,
-                password: "1234",
-                profile: this.user.profileImg
             }
         })
             .then(res => {
@@ -156,7 +153,7 @@ class UpdateUser extends Component {
                             <img
                                 className="profile-img"
                                 alt="profile"
-                                src="https://image.flaticon.com/icons/svg/2471/2471392.svg"
+                                src={this.user.profileImg}
                             />
                         ) : (
                             <img className="profile-img" alt="profile" src={this.state.base64} />

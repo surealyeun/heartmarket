@@ -11,18 +11,12 @@ class UserProfile extends Component {
     isLoad: false
   };
 
-  componentDidMount() {
-    axios({
-      method: "get",
-      url: "http://13.125.55.96:8080/user/"
-    })
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+    url = window.location.href.split('/');
+    userNo = this.url[this.url.length - 1];
+
+    componentDidMount() {
+        
+    }
 
   render() {
     return (

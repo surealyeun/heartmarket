@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ItemCard from "./ItemCard";
 import "./Items.scss";
 import SessionDelete from "../common/SessionDelete";
 
@@ -14,10 +15,16 @@ export interface sale {
     productInfo: string;
     productPrice: string;
     tradeDate: Date;
-    ttradeImg: any[];
+    ttradeImg: TtradeImg[];
     buser: null;
     tuser: Tuser;
     tmanner: null;
+}
+
+export interface TtradeImg {
+    imgNo:   number;
+    tiTrade: number;
+    orgImg:  string;
 }
 
 export interface Tuser {
@@ -68,7 +75,7 @@ class Sale extends React.Component {
                 <SessionDelete></SessionDelete>
                 <h3>판매 상품</h3>
                 <div className="products">
-                    <div className="item">
+                    {/* <div className="item">
                         <div className="item-manners">
                             <h3>♥♥♥♥♥</h3>
                         </div>
@@ -78,16 +85,17 @@ class Sale extends React.Component {
                                 alt="item1"
                             />
                         </div>
-                    </div>
+                    </div> */}
                     {this.state.Sales ? (
                         <>
                             {this.state.Sales.map((sale, i) => {
                                 if (i < 4) {
                                     return (
                                         <Link to={`/search/detail/${sale.tradeNo}`}>
-                                            <div className="item" key={"item" + i}>
+                                            <ItemCard image={sale.ttradeImg} tradeTitle={sale.tradeTitle} productPrice={sale.productPrice} />
+                                            {/* <div className="item" key={"item" + i}>
                                                 <h3>{sale.tradeTitle}</h3>
-                                            </div>
+                                            </div> */}
                                         </Link>
                                     );
                                 }
@@ -95,7 +103,7 @@ class Sale extends React.Component {
                         </>
                     ) : (
                         <div>
-                            <h3>판매 상품이 없습니다.</h3>
+                            <h4>판매 상품이 없습니다.</h4>
                         </div>
                     )}
                     {/* <div className="item">
@@ -103,7 +111,7 @@ class Sale extends React.Component {
                     </div> */}
                 </div>
                 <div className="product-more-wrapper">
-                    <button className="sale-more">
+                    <button className="btn-sale-more">
                         <Link to="/sale">
                             <h3>+ 판매 상품 더보기</h3>
                         </Link>
