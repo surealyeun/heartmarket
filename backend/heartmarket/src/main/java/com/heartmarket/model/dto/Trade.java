@@ -39,16 +39,17 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 @Entity
-@Table(name="trade")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,property = "tradeNo")
-public class Trade implements Serializable{
+@Table(name = "trade")
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "tradeNo")
+public class Trade implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "trade_no")
 	Integer tradeNo;
-	
+
 	@Column(name = "trade_category")
 	String tradeCategory;
 	@Column(name = "trade_title")
@@ -61,10 +62,9 @@ public class Trade implements Serializable{
 	String productPrice;
 	@Column(name = "trade_date")
 	String tradeDate;
-	
-	
-public Trade(String tradeCategory, String tradeTitle, String tradeArea, String productInfo,
-			String productPrice, String tradeDate) {
+
+	public Trade(String tradeCategory, String tradeTitle, String tradeArea, String productInfo, String productPrice,
+			String tradeDate) {
 		super();
 		this.tradeCategory = tradeCategory;
 		this.tradeTitle = tradeTitle;
@@ -75,7 +75,7 @@ public Trade(String tradeCategory, String tradeTitle, String tradeArea, String p
 		this.tradeDate = tradeDate;
 	}
 
-	//	@OneToMany(mappedBy = "cTrade")
+	// @OneToMany(mappedBy = "cTrade")
 //	List<Cart> tCart;
 //	
 
@@ -88,15 +88,23 @@ public Trade(String tradeCategory, String tradeTitle, String tradeArea, String p
 	@JoinColumn(name = "buyer_no")
 	@ToString.Exclude
 	User bUser;
-	
-	@OneToOne(mappedBy = "mTrade")
-	@ToString.Exclude
-	@Transient
-	Manner tManner;
-	
-	@OneToMany(mappedBy = "tiTrade", fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+
+//	@OneToOne(mappedBy = "mTrade")
+//	@ToString.Exclude
+//	@Transient
+//	Manner tManner;
+
+	@OneToMany(mappedBy = "tiTrade", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@ToString.Exclude
 //	@Transient
 	List<TradeImg> tTradeImg;
-	
+
+	public List<TradeImg> gettTradeImg() {
+		return tTradeImg;
+	}
+
+	public void settTradeImg(List<TradeImg> tTradeImg) {
+		this.tTradeImg = tTradeImg;
+	}
+
 }

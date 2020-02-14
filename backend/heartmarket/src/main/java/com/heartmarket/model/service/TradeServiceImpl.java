@@ -68,9 +68,9 @@ public class TradeServiceImpl implements TradeService {
 	// 상세 페이지 조회
 	@Transactional
 	@Override
-	public Trade findDetail(int tradeNo) {
+	public TradeDetail findDetail(int tradeNo) {
 		try {
-			return tr.findByTradeNo(tradeNo);
+			return new TradeDetail(tr.findByTradeNo(tradeNo), 0);
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -108,7 +108,7 @@ public class TradeServiceImpl implements TradeService {
 				tradeImg.setTiTrade(trade);
 			}
 			trade.setTUser(user);
-			trade.setTTradeImg(fList);
+			trade.settTradeImg(fList);
 			tr.save(trade);
 			return new ResultMap<Integer>("SUCCSS", "게시글 추가 완료", 1);
 		} catch (Exception e) {
