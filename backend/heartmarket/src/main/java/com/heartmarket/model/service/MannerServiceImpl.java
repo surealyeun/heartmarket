@@ -55,6 +55,7 @@ public class MannerServiceImpl implements MannerService{
 		
 		tMnr.setPlusGauge(pGauge);
 		tMnr.setNormalGauge(nGauge);
+		
 		tMnr.setMinusGauge(mGauge);
 		tMnr.setHeartGauge(calc);
 		
