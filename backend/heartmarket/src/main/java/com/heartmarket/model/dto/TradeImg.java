@@ -38,7 +38,6 @@ public class TradeImg implements Serializable{
 	
 	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST) 
 	@JoinColumn(name = "trade_no")
-	@ToString.Exclude
 	Trade tiTrade;
 	
 //	String productImg; // 이미지 주소

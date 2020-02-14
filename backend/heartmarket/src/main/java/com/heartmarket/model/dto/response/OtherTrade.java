@@ -1,11 +1,12 @@
 package com.heartmarket.model.dto.response;
 
-import java.util.List;
 
-import com.heartmarket.model.dto.TradeImg;
-import com.heartmarket.model.dto.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 // 검색 결과 표시를 위한 response
+@Getter
+@AllArgsConstructor
 public class OtherTrade {
 
 	int tradeNo;

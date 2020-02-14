@@ -3,6 +3,8 @@ package com.heartmarket.model.service;
 import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -147,7 +149,8 @@ public class TradeServiceImpl implements TradeService {
 		System.out.println("no : " + no);
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
 
-		if(no == 0) no = cnt+1;
+		if (no == 0)
+			no = cnt + 1;
 		System.out.println("cnt : " + cnt);
 		System.out.println(no);
 
@@ -185,7 +188,8 @@ public class TradeServiceImpl implements TradeService {
 		else {
 			tList = tr.findAll();
 		}
-		int cnt = tList.get(tList.size() - 1).getTradeNo();
+//		int cnt = tList.get(tList.size() - 1).getTradeNo();
+		int cnt = tr.countAll();
 		System.out.println("cnt : " + cnt);
 		System.out.println("size : " + tList.size());
 
@@ -216,11 +220,26 @@ public class TradeServiceImpl implements TradeService {
 	}
 
 	@Override
-	public Trade findByCompleteTrade(int bUserNo, int tUserNo, int tradeNo) {
+	public ResultMap<Trade> findByCompleteTrade(int bUserNo, String other, int tradeNo) {
 		Trade tmp = new Trade();
 		try {
-//			ㅋㄴtmp = tr.findBybUserUserNoIsNullAndtUserUserNoAndTradeNo(tUserNo, tradeNo);
-			return tmp;
+//			// 1. 현재 로그인 중인 유저의 기준으로 게시물을 가져옴.
+			// 닉네임을 검색해야 합니다.
+			User buyer = ur.findByNickname(other);
+			// 2. 게시물에서 구매자 아이디가 null인지 확인
+			Trade checkBuyer = tr.findByTradeNo(tradeNo);
+			
+			System.out.println(Objects.isNull(checkBuyer.getBUser()));
+			if (Objects.isNull(checkBuyer.getBUser())) {
+				// 3. null 이라면 구매자 아이디를 검색하여 확인 사살
+				checkBuyer.setBUser(buyer);
+				System.out.println(checkBuyer.toString());
+				tr.save(checkBuyer);
+				return new ResultMap<Trade>("SUCCESS", "거래 완료 확정", tmp);
+			} else {
+				// 2-1. null이 아니라면 거래가 완료된 게시글
+				return new ResultMap<Trade>("FAIL", "거래가 완료된 글입니다.", null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -229,11 +248,11 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	public Page<Trade> findByTradeType(int no, int size, int type, int userno) {
-		if(no == 0)
+		if (no == 0)
 			no = tr.countAll();
-		
+
 		final int cnt = no;
-		return tr.findAll( new Specification<Trade>() {
+		return tr.findAll(new Specification<Trade>() {
 
 			@Override
 			public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {

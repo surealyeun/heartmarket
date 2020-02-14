@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -52,8 +53,6 @@ public class Trade implements Serializable{
 	String tradeCategory;
 	@Column(name = "trade_title")
 	String tradeTitle;
-//	@Column(name = "product_name")
-//	String productName;
 	@Column(name = "trade_area")
 	String tradeArea;
 	@Column(name = "product_info")
@@ -79,6 +78,7 @@ public Trade(String tradeCategory, String tradeTitle, String tradeArea, String p
 	//	@OneToMany(mappedBy = "cTrade")
 //	List<Cart> tCart;
 //	
+
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "user_no")
 	@ToString.Exclude
