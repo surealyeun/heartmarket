@@ -56,7 +56,7 @@ public class TradeImg implements Serializable {
 
 	@Override
 	public String toString() {
-		return "TradeImg [imgNo=" + imgNo + ", tiTrade=" + tiTrade + ", orgImg=" + orgImg + "]";
+		return "TradeImg [imgNo=" + imgNo + ", orgImg=" + orgImg + "]";
 	}
 
 }

@@ -36,7 +36,8 @@ public class Mail {
 	@Column(name = "mail_code")
 	int mailCode;
 	
-	@OneToOne(mappedBy = "mailNo")
+	@ManyToOne
+	@JoinColumn(name = "content_no")
 	MailContent content;
 	
 	@Column(name = "read_date")
