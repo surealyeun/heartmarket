@@ -19,12 +19,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.heartmarket.model.dao.CartRepository;
 import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dao.TradeRepository;
 import com.heartmarket.model.dao.UserRepository;
+import com.heartmarket.model.dto.Cart;
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.TradeDetail;
 import com.heartmarket.util.ResultMap;
 
 import io.swagger.annotations.ApiOperation;
@@ -41,6 +44,9 @@ public class TradeServiceImpl implements TradeService {
 	@Autowired
 	UserRepository ur;
 
+	@Autowired
+	CartRepository cr;
+	
 	// 모든 자료 조회
 	@Transactional
 	public List<Trade> findAll() {
@@ -61,9 +67,35 @@ public class TradeServiceImpl implements TradeService {
 
 	// 상세 페이지 조회
 	@Transactional
-	public Trade findOne(int tradeNo) {
-		return tr.findByTradeNo(tradeNo);
+	@Override
+	public Trade findDetail(int tradeNo) {
+		try {
+			return tr.findByTradeNo(tradeNo);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
+	
+	@Transactional
+	@Override
+	public TradeDetail findDetailByEmail(int tradeNo, int userNo) {
+		try {
+			// 게시글 정보를 가져오기
+			Trade trade = tr.findByTradeNo(tradeNo);
+			Cart cart = cr.findBycTradeTradeNoAndcUserUserNo(tradeNo, userNo);
+			if(!Objects.isNull(cart))
+				return new TradeDetail(trade, 1);
+			else {
+				return new TradeDetail(trade, 0);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 
 	// 게시글 추가
 	@Transactional

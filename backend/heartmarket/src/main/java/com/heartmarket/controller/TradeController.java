@@ -104,11 +104,18 @@ public class TradeController {
 	// 게시글 1개만 조회
 	@RequestMapping(value = "/trade/{no}", method = RequestMethod.GET)
 	@ApiOperation(value = "게시글 1개만 조회")
-	public ResponseEntity<Object> findOne(@PathVariable int no) {
-//		Trade tmp = ts.findOne(no);
-		return new ResponseEntity<Object>(ts.findOne(no), HttpStatus.OK);
+	public ResponseEntity<Object> findOne(@PathVariable int no, @RequestParam String email) {
+		
+		if(email.equals("none")) {
+			// 1. 로그인 안되있으면 그냥 가져온다.
+			return new ResponseEntity<Object>(ts.findDetail(no), HttpStatus.OK);
+		}else {
+		// 1. 로그인한 상태면 유저 정보를 가져오기
+			User tUser = us.searchEmail(email);
+			return new ResponseEntity<Object>(ts.findDetailByEmail(no, tUser.getUserNo()), HttpStatus.OK);
+		}
 	}
-
+	
 	// 게시글 추가
 	@ApiOperation(value = "게시글 추가")
 	@RequestMapping(value = "/trade/add", method = RequestMethod.POST)
