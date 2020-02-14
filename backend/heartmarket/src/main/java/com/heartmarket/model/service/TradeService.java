@@ -16,8 +16,9 @@ public interface TradeService {
 	public TradeDetail findDetailByEmail(int tradeNo, int userNo);
 	public TradeDetail findDetail(int tradeNo);
 	public List<Trade> findAllByAddr(String address);
+	public Trade findByTradeNo(String tradeNo);
 	public ResultMap<Integer> addTrade(Trade trade,List<TradeImg> fList,int userNo);
-	public ResultMap<Object> updateTrade(Trade trade);
+	public ResultMap<Object> updateTrade(Trade trade,List<TradeImg> fList);
 	public ResultMap<Object> deleteTrade(int no) ;
 	
 	Page<Trade> getList(int no, int size);

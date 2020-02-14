@@ -33,30 +33,22 @@ public class ImgServiceImpl implements ImgService {
 
 		String fileName = null;
 
-		System.out.println(imgUploadPath);
-		System.out.println(ymdPath);
-
 		TradeImg tmp = new TradeImg();
 		System.out.println(file);
-		if (!(file == null)) {
+		if (file != null) {
 			int fileIndex = file.getOriginalFilename().lastIndexOf('.') + 1;
 			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex,
 					file.getOriginalFilename().length());
-			System.out.println("File name : " + file.getOriginalFilename());
-
-			if (!((fileExtension.equals("jpg") || (fileExtension.equals("gif") || (fileExtension.equals("png")))))) {
+			if (!(fileExtension.equals("jpg") || fileExtension.equals("gif") || fileExtension.equals("png"))) {
 				return null;
 			}
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			tmp.setOrgImg(File.separator + deli + ymdPath + File.separator + fileName);
-//			tmp.setStoredImg(File.separator + deli + ymdPath + File.separator + "store" + fileName);
 		} else {
 			fileName = File.separatorChar + deli + File.separator + "none.png";
 			tmp.setOrgImg(fileName);
 //			tmp.setStoredImg(fileName);
 		}
-		System.out.println(tmp.getOrgImg());
-		System.out.println("티엠피 : "+tmp);
 		return tmp;
 	}
 
@@ -80,7 +72,6 @@ public class ImgServiceImpl implements ImgService {
 				.stream()
 				.map(file -> {
 					try {
-						System.out.println(file);
 						return upload(file, path, deli);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -88,7 +79,6 @@ public class ImgServiceImpl implements ImgService {
 					}
 				})
 				.collect(Collectors.toList());
-		
 		return new ResultMap<List<TradeImg>>("SUCCESS", "파일 업로드 완료", tList);
 	}
 

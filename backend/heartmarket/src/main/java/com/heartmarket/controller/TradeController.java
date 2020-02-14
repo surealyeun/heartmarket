@@ -155,8 +155,29 @@ public class TradeController {
 	// 게시글 수정
 	@ApiOperation(value = "게시글 수정")
 	@RequestMapping(value = "/trade/update", method = RequestMethod.PUT)
-	public ResponseEntity<Object> updateTrade(@RequestBody Trade trade) {
-		return new ResponseEntity<Object>(ts.updateTrade(trade), HttpStatus.OK);
+	public ResponseEntity<Object> updateTrade(@RequestParam String tradeNo,@RequestParam String tradeTitle,@RequestParam String tradeCategory,
+			@RequestParam String productPrice,@RequestParam(required = false) String userNo,
+			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception {
+		Trade trade = ts.findByTradeNo(tradeNo);
+		System.out.println("트트"+trade.getTradeTitle());
+		if(trade != null) {
+			trade.setTradeTitle(tradeTitle);
+			trade.setTradeCategory(tradeCategory);
+			trade.setProductPrice(productPrice);
+			trade.setProductInfo(productInfo);
+			String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
+			rms = is.uploadFiles(files, imgUploadPath, "trade");
+			if (rms.getData() != null) {
+				List<TradeImg> fList = rms.getData();
+				ResultMap<Object> rm = ts.updateTrade(trade, fList);
+				return new ResponseEntity<Object>(rm, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<Object>(rms, HttpStatus.NOT_ACCEPTABLE);
+			}
+//		return new ResponseEntity<Object>(ts.updateTrade(trade), HttpStatus.OK);
+		}else {
+			return new ResponseEntity<Object>(new ResultMap<String>("FAIL","거래 이미지 수정 실패","null"), HttpStatus.NOT_ACCEPTABLE);
+		}
 	}
 
 	// 거래 완료
