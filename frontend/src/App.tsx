@@ -4,6 +4,7 @@ import Main from './components/routers/Main'
 import Write from './components/routers/Write'
 import Alarm from './components/routers/Alarm'
 import DetailAlarm from './components/routers/DetailAlarm'
+import WriteUpdate from './components/routers/WriteUpdate'
 
 import SearchResult from "./components/routers/SearchResult"
 import { BrowserRouter, Switch, Redirect, Route } from 'react-router-dom';
@@ -40,8 +41,9 @@ function App() {
 
         <Route path="/" exact component={Main} ></Route>
         <Route path="/alarm" exact component={Alarm}></Route>
-        <Route path="/write" component={Write} />
+        <Route path="/write" exact component={Write} />
         <Route path="/alarm/detail" component={DetailAlarm} />
+        <Route path="/write/update" component={WriteUpdate} />
 
         <Route path="/search" exact component={SearchResult}></Route>
         <Redirect path="*" to="/"></Redirect>
