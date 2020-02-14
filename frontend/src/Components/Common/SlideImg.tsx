@@ -1,14 +1,20 @@
 import React from "react";
-import "./Ganji.scss";
+import "./SlideImg.scss";
 
 import Carousel from "react-multi-carousel";
-import Ganji1 from "../img/Ganji1-1.png";
-import Ganji2 from "../img/Ganji2-4.png";
-import Ganji3 from "../img/Ganji3-5.png";
 
-function Ganji() {
+interface TtradeImg {
+    imgNo: number;
+    tiTrade: number;
+    orgImg: string;
+}
 
-    const responsive = {
+interface Props {
+    ttradeImg: TtradeImg[];
+}
+
+class SlideImg extends React.Component<Props> {
+    responsive = {
         Desktop: {
             breakpoint: { max: 4000, min: 767 },
             items: 1
@@ -23,52 +29,64 @@ function Ganji() {
         }
     };
 
-    return (
-        <div className="Ganji">
-            <div className="div_carousel">
-                <Carousel
-                    additionalTransfrom={0}
-                    arrows
-                    autoPlay={true}
-                    autoPlaySpeed={3000}
-                    customTransition="all .5"
-                    transitionDuration={500}
-                    containerClass="container"
-                    draggable
-                    infinite
-                    keyBoardControl
-                    minimumTouchDrag={80}
-                    showDots
-                    slidesToSlide={1}
-                    swipeable={false}
-                    removeArrowOnDeviceType={["mobile"]}
-                    responsive={responsive}
-                >
-                    <div className="div_ganji">
-                        <img
-                            className="ganji"
-                            alt=""
-                            src={Ganji1}
-                        ></img>
-                    </div>
-                    <div className="div_ganji">
-                        <img
-                            className="ganji"
-                            alt=""
-                            src={Ganji2}
-                        ></img>
-                    </div>
-                    <div className="div_ganji">
-                        <img
-                            className="ganji"
-                            alt=""
-                            src={Ganji3}
-                        ></img>
-                    </div>
-                </Carousel>
+    render() {
+        return (
+            <div className="slide-img">
+                <div className="div_carousel">
+                    <Carousel
+                        additionalTransfrom={0}
+                        arrows
+                        customTransition="all .5"
+                        transitionDuration={500}
+                        containerClass="container"
+                        draggable
+                        infinite
+                        keyBoardControl
+                        minimumTouchDrag={80}
+                        showDots
+                        slidesToSlide={1}
+                        swipeable={false}
+                        removeArrowOnDeviceType={["mobile"]}
+                        responsive={this.responsive}
+                    >
+                        {this.props.ttradeImg.map(img => {
+                            return (
+                                <div className="div_ganji">
+                                    <img
+                                        className="ganji"
+                                        alt={img.orgImg}
+                                        src={img.orgImg}
+                                        key={img.imgNo}
+                                    ></img>
+                                </div>
+                            );
+                        })}
+                        {/* <div className="div_ganji">
+                            <img
+                                className="ganji"
+                                alt=""
+                                src="https://s.ftcdn.net/v2013/pics/all/curated/RKyaEDwp8J7JKeZWQPuOVWvkUjGQfpCx_cover_580.jpg?r=1a0fc22192d0c808b8bb2b9bcfbf4a45b1793687"
+                            ></img>
+                        </div>
+                        <div className="div_ganji">
+                            <img
+                                className="ganji"
+                                alt=""
+                                src="https://www.juniper.net/assets/img/hero/case-studies/hero-case-study-cern.jpg"
+                            ></img>
+                        </div>
+                        <div className="div_ganji">
+                            <img
+                                className="ganji"
+                                alt=""
+                                src="https://images.unsplash.com/photo-1499084732479-de2c02d45fcc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+                            ></img>
+                        </div> */}
+                    </Carousel>
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
-export default Ganji;
+export default SlideImg;

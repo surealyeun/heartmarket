@@ -7,47 +7,47 @@ import "./Items.scss";
 import SessionDelete from "../common/SessionDelete";
 
 export interface sale {
-    tradeNo: number;
+    tradeNo:       number;
     tradeCategory: string;
-    tradeTitle: string;
-    productName: string;
-    tradeArea: string;
-    productInfo: string;
-    productPrice: string;
-    tradeDate: Date;
-    ttradeImg: TtradeImg[];
-    buser: null;
-    tuser: Tuser;
-    tmanner: null;
+    tradeTitle:    string;
+    tradeArea:     string;
+    productInfo:   string;
+    productPrice:  string;
+    tradeDate:     Date;
+    tTradeImg:     TTradeImg[];
+    tuser:         Tuser;
+    buser:         null;
+    tmanner:       null;
 }
 
-export interface TtradeImg {
+export interface TTradeImg {
     imgNo:   number;
     tiTrade: number;
     orgImg:  string;
 }
 
 export interface Tuser {
-    userNo: number;
-    email: string;
-    password: string;
-    profileImg: null;
-    nickname: string;
+    userNo:         number;
+    email:          string;
+    password:       string;
+    profileImg:     string;
+    nickname:       string;
     userPermission: string;
-    uarea: Uarea[];
+    uarea:          Uarea[];
 }
 
 export interface Uarea {
-    areaNo: number;
+    areaNo:  number;
     address: string;
-    auser: number;
+    auser:   number;
 }
+
 
 class Sale extends React.Component {
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
     state = {
-        Sales: Array<sale>()
+        Sales: Array<sale>(),
     };
 
     componentDidMount() {
@@ -59,6 +59,7 @@ class Sale extends React.Component {
             }
         })
             .then(res => {
+                console.log(res.data.data);
                 this.setState({
                     Sales: res.data.data
                 });
@@ -91,12 +92,19 @@ class Sale extends React.Component {
                             {this.state.Sales.map((sale, i) => {
                                 if (i < 4) {
                                     return (
-                                        <Link to={`/search/detail/${sale.tradeNo}`}>
-                                            <ItemCard image={sale.ttradeImg} tradeTitle={sale.tradeTitle} productPrice={sale.productPrice} />
-                                            {/* <div className="item" key={"item" + i}>
+                                        <>
+                                            <Link to={`/search/detail/${sale.tradeNo}`}>
+                                                <ItemCard
+                                                    image={sale.tTradeImg}
+                                                    tradeTitle={sale.tradeTitle}
+                                                    productPrice={sale.productPrice}
+                                                />
+                                                {/* <div className="item" key={"item" + i}>
                                                 <h3>{sale.tradeTitle}</h3>
                                             </div> */}
-                                        </Link>
+                                            </Link>
+                                            
+                                        </>
                                     );
                                 }
                             })}

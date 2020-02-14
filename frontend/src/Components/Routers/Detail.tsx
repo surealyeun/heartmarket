@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../common/Header";
 import Nav from "../common/Nav";
+import SlideImg from "../common/SlideImg";
 import Footer from "../common/Footer";
 import axios from "axios";
 // import Ganji from "../main/Ganji";
@@ -16,7 +17,7 @@ class Detail extends React.Component {
             tradeTitle: "",
             tradeCategory: "",
             tradeArea: "",
-            ttradeImg: [],
+            tTradeImg: [{imgNo: 0, tiTrade: 0, orgImg: ""}],
             productInfo: "",
             productPrice: "",
             tuser: { nickname: "", profileImg: "", email: "" },
@@ -37,7 +38,7 @@ class Detail extends React.Component {
             url: "http://13.125.55.96:8080/trade/" + num
         })
             .then(res => {
-                // console.log(res.data);
+                console.log(res.data);
                 const trade = res.data;
                 this.setState({
                     trade
@@ -69,7 +70,8 @@ class Detail extends React.Component {
                     <br />
                     <div className="detail-grid">
                         <div className="detail-l">
-                            <img src={this.state.trade.ttradeImg[0]} alt="" />
+                            {/* <img src={this.state.trade.ttradeImg[0].orgImg} alt="" /> */}
+                            <SlideImg ttradeImg={this.state.trade.tTradeImg} />
                         </div>
                         <div className="detail-r">
                             <div className="tuser-info">

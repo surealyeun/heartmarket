@@ -4,29 +4,30 @@ import Gauge from '../common/hamburger/Gauge';
 import "./Profile.scss";
 import SessionDelete from "../common/SessionDelete";
 
-function Profile() {
-    const user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
-    console.log(user);
-    return (
+class Profile extends React.Component {
+    user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
+
+    render() {return (
         <div className="profile">
             <SessionDelete></SessionDelete>
             <div className="profile-img-wrapper">
                 <img
                     className="profile-img"
                     alt="profile"
-                    src={user.profileImg}
+                    src={this.user.profileImg}
                 ></img>
             </div>
             <div className="info">
                 <div>
                     {/* link 수정이 필요함 */}
-                    <Link to={`/user/${user.userNo}`}>
-                        <h3>{user.nickname}님</h3>
+                    <Link to={`/user/${this.user.userNo}`}>
+                        <h3>{this.user.nickname}님</h3>
                     </Link>
                     {/* <br /> */}
                     <Link to="/mypage/update">
                         <button className="btn-updateprofile">프로필 수정</button>
                     </Link>
+                    
                 </div>
             </div>
             <div></div>
@@ -43,6 +44,7 @@ function Profile() {
             </div>
         </div>
     );
+    }
 }
 
 export default Profile;

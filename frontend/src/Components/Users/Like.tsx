@@ -3,49 +3,59 @@ import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import ItemCard from './ItemCard';
+import SessionDelete from "../common/SessionDelete";
 
 export interface like {
+    cTrade: Trade;
     cartNo: number;
-    cuser: User;
-    ctrade: Ctrade;
+    ctrade: Trade;
+    cuser:  User;
 }
 
-export interface Ctrade {
-    tradeNo: number;
+export interface Trade {
+    buser:         User;
+    productInfo:   string;
+    productPrice:  string;
+    tTradeImg:     TTradeImg[];
+    tmanner:       Tmanner;
+    tradeArea:     string;
     tradeCategory: string;
-    tradeTitle: string;
-    productName: string;
-    tradeArea: string;
-    productInfo: string;
-    productPrice: string;
-    tradeDate: Date;
-    ttradeImg: TtradeImg[];
-    buser: null;
-    tuser: User;
-    tmanner: null;
-}
-
-export interface TtradeImg {
-    imgNo:   number;
-    tiTrade: number;
-    orgImg:  string;
+    tradeDate:     string;
+    tradeNo:       number;
+    tradeTitle:    string;
+    tuser:         User;
 }
 
 export interface User {
-    userNo: number;
-    email: string;
-    password: string;
-    profileImg: null | string;
-    nickname: string;
+    email:          string;
+    nickname:       string;
+    password:       string;
+    profileImg:     string;
+    uarea:          Uarea[];
+    userNo:         number;
     userPermission: string;
-    uarea: Uarea[];
 }
 
 export interface Uarea {
-    areaNo: number;
     address: string;
-    auser: number;
+    areaNo:  number;
 }
+
+export interface TTradeImg {
+    imgNo:  number;
+    orgImg: string;
+    tiTrade: number;
+}
+
+export interface Tmanner {
+    heartGauge:  number;
+    mannerNo:    number;
+    minusGauge:  number;
+    muser:       User;
+    normalGauge: number;
+    plusGauge:   number;
+}
+
 
 class Like extends React.Component {
     state = {
@@ -84,7 +94,7 @@ class Like extends React.Component {
                 this.setState({
                     Likes: res.data.data
                 });
-                console.log(res.data.data);
+                console.log('like 다 가져옴',res.data.data);
             })
             .catch(err => {
                 alert(err);
@@ -105,7 +115,7 @@ class Like extends React.Component {
                                 if (i < 4) {
                                     return (
                                         <Link to={`/search/detail/${like.ctrade.tradeNo}`}>
-                                            <ItemCard image={like.ctrade.ttradeImg} tradeTitle={like.ctrade.tradeTitle} 
+                                            <ItemCard image={like.ctrade.tTradeImg} tradeTitle={like.ctrade.tradeTitle} 
                                             productPrice={like.ctrade.productPrice} />
                                         </Link>
                                     );
