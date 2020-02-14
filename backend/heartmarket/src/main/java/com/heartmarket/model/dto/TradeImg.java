@@ -26,32 +26,37 @@ import lombok.ToString;
 //@ToString(exclude = "tiTrade")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter @Setter
+@Getter
+@Setter
 @Entity
 @Table(name = "trade_img")
-@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class,property = "imgNo")
-public class TradeImg implements Serializable{
+@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "imgNo")
+public class TradeImg implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "img_no")
 	int imgNo;
-	
-	@ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST) 
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "trade_no")
-	@ToString.Exclude
 	Trade tiTrade;
-	
+
 //	String productImg; // 이미지 주소
 	@Column(name = "org_img")
 	String orgImg;
+
 //	@Column(name = "stored_img")
 //	String storedImg;
+	
+	public TradeImg(Trade tiTrade, String orgImg) {
+		super();
+		this.tiTrade = tiTrade;
+		this.orgImg = orgImg;
+	}
+
 	@Override
 	public String toString() {
-		return "TradeImg [imgNo=" + imgNo + ", orgImg=" + orgImg 
-				+ "]";
+		return "TradeImg [imgNo=" + imgNo + ", tiTrade=" + tiTrade + ", orgImg=" + orgImg + "]";
 	}
-	
-	
 
 }

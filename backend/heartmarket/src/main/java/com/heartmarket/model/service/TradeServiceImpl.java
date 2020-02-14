@@ -25,6 +25,7 @@ import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.util.ResultMap;
 
+import io.jsonwebtoken.lang.Collections;
 import io.swagger.annotations.ApiOperation;
 
 @Service
@@ -74,7 +75,7 @@ public class TradeServiceImpl implements TradeService {
 				tradeImg.setTiTrade(trade);
 			}
 			trade.setTUser(user);
-			trade.setTTradeImg(fList);
+			trade.settTradeImg(fList);
 			tr.save(trade);
 			return new ResultMap<Integer>("SUCCSS", "게시글 추가 완료", 1);
 		} catch (Exception e) {
@@ -86,14 +87,35 @@ public class TradeServiceImpl implements TradeService {
 	// 게시글 수정
 	@Transactional
 	@ApiOperation(value = "게시글 수정")
-	public ResultMap<Object> updateTrade(Trade trade) {
+	public ResultMap<Object> updateTrade(Trade trade, List<TradeImg> fList) {
 		try {
-			Object obj = tr.save(trade);
-			if (obj != null) {
-				return new ResultMap<Object>("SUCCSS", "게시글 수정 완료", obj);
-			} else {
-				return new ResultMap<Object>("FAIL", "게시글 수정 실패", obj);
+			List<TradeImg> tradeOrigin = tir.findAllBytiTradeTradeNo(trade.getTradeNo());
+			int oldlen = tradeOrigin.size();
+			System.out.println("올드 :" +oldlen );
+			int newlen = fList.size();
+			System.out.println("뉴 :" +newlen );
+			if(oldlen < newlen) {
+				for (int i = oldlen; i < newlen; i++) {
+					tradeOrigin.add(new TradeImg(trade,fList.get(i).getOrgImg()));
+					System.out.println("무엇인가요"+tradeOrigin.get(i));
+				}
+			}else if(oldlen > newlen){
+				for (int i = 0; i < oldlen; i++) {
+					if(i>=newlen) tir.delete(tradeOrigin.get(i));
+				}
+				tradeOrigin = tradeOrigin.subList(0, newlen);
+				System.out.println("작을때 크기 : "+ tradeOrigin.size());
 			}
+			for (int i = 0; i < tradeOrigin.size(); i++) {
+				if(i<oldlen) {
+					tradeOrigin.get(i).setOrgImg(fList.get(i).getOrgImg());
+				}
+			}
+			trade.settTradeImg(tradeOrigin);
+			System.out.println("마무리: " + trade.gettTradeImg());
+			tir.saveAll(tradeOrigin);
+			tr.save(trade);
+			return new ResultMap<Object>("SUCCSS", "게시글 수정 완료", trade);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -251,5 +273,18 @@ public class TradeServiceImpl implements TradeService {
 			}
 
 		}, PageRequest.of(0, size, Sort.by("tradeNo").descending()));
+	}
+
+	@Override
+	public Trade findByTradeNo(String tradeNo) {
+		try {
+			int no = Integer.parseInt(tradeNo);
+			Trade trade = tr.findByTradeNo(no);
+			if(trade!=null) return trade;
+			return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 }

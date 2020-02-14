@@ -85,7 +85,7 @@ public Trade(String tradeCategory, String tradeTitle, String tradeArea, String p
 	User tUser;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "buyer_no")
+	@JoinColumn(name = "buyer_no",referencedColumnName = "user_no")
 	@ToString.Exclude
 	User bUser;
 	
@@ -98,5 +98,15 @@ public Trade(String tradeCategory, String tradeTitle, String tradeArea, String p
 	@ToString.Exclude
 //	@Transient
 	List<TradeImg> tTradeImg;
+
+
+	public List<TradeImg> gettTradeImg() {
+		return tTradeImg;
+	}
+
+	public void settTradeImg(List<TradeImg> tTradeImg) {
+		this.tTradeImg = tTradeImg;
+	}
+	
 	
 }
