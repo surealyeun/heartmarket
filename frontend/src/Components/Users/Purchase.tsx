@@ -1,8 +1,9 @@
 /* eslint-disable array-callback-return */
 import React from "react";
-import {Link} from 'react-router-dom';
-import axios from 'axios';
-import ItemCard from './ItemCard';
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Modal from "../users/MannerModal";
+import ItemCard from "./ItemCard";
 
 import "./Items.scss";
 import SessionDelete from "../common/SessionDelete";
@@ -11,28 +12,27 @@ export interface purchase {
     tradeNo:       number;
     tradeCategory: string;
     tradeTitle:    string;
-    productName:   string;
     tradeArea:     string;
     productInfo:   string;
     productPrice:  string;
     tradeDate:     Date;
-    ttradeImg:     TtradeImg[];
-    buser:         User;
-    tuser:         User;
+    tTradeImg:     TTradeImg[];
+    tuser:         Tuser;
+    buser:         null;
     tmanner:       null;
 }
 
-export interface TtradeImg {
+export interface TTradeImg {
     imgNo:   number;
     tiTrade: number;
     orgImg:  string;
 }
 
-export interface User {
+export interface Tuser {
     userNo:         number;
     email:          string;
     password:       string;
-    profileImg:     null;
+    profileImg:     string;
     nickname:       string;
     userPermission: string;
     uarea:          Uarea[];
@@ -46,10 +46,22 @@ export interface Uarea {
 
 class Purchase extends React.Component {
     state = {
-        Purchases: Array<purchase>()
-    }
+        Purchases: Array<purchase>(),
+        isModalOpen: false
+    };
 
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
+
+    openModal = () => {
+        this.setState({
+            isModalOpen: true
+        });
+    };
+    closeModal = () => {
+        this.setState({
+            isModalOpen: false
+        });
+    };
 
     componentDidMount() {
         axios({
@@ -58,13 +70,15 @@ class Purchase extends React.Component {
             params: {
                 email: this.user.email
             }
-        }).then(res => {
-            this.setState({
-                Purchases: res.data.data
-            })
-        }).catch(err => {
-            console.log(err);
         })
+            .then(res => {
+                this.setState({
+                    Purchases: res.data.data
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     }
 
     render() {
@@ -79,31 +93,46 @@ class Purchase extends React.Component {
                             alt="item1"
                         />
                     </div> */}
-                    {this.state.Purchases ? 
-                    <>
-                        {this.state.Purchases.map((purchase, i) => {
-                            if(i < 4){
-                                return (
-                                    <ItemCard image={purchase.ttradeImg} tradeTitle={purchase.tradeTitle} 
-                                    productPrice={purchase.productPrice} />
-                                )
-                            }
-                        })}
-                    </>
-                    :
-                    <div className="item">
-                        <h4>구매 상품이 없습니다.</h4>
-                    </div>
-                    }
+                    {this.state.Purchases ? (
+                        <>
+                            {this.state.Purchases.map((purchase, i) => {
+                                if (i < 4) {
+                                    return (
+                                        <>
+                                            <ItemCard
+                                                image={purchase.tTradeImg}
+                                                tradeTitle={purchase.tradeTitle}
+                                                productPrice={purchase.productPrice}
+                                            />
+                                            <button onClick={this.openModal}>modal</button>
+                                            <Modal
+                                                isOpen={this.state.isModalOpen}
+                                                close={this.closeModal}
+                                            />
+                                        </>
+                                    );
+                                }
+                            })}
+                        </>
+                    ) : (
+                        <div className="item">
+                            <h4>구매 상품이 없습니다.</h4>
+                            <button onClick={this.openModal}>modal</button>
+                                            <Modal
+                                                isOpen={this.state.isModalOpen}
+                                                close={this.closeModal}/>
+                        </div>
+                    )}
                     <div className="product-more-wrapper">
-                    <Link to="/purchase"><button className="btn-purchase-more">
-                        <h3>+ 구매 상품 더보기</h3>
-                    </button></Link>
-                </div>
+                        <Link to="/purchase">
+                            <button className="btn-purchase-more">
+                                <h3>+ 구매 상품 더보기</h3>
+                            </button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         );
-
     }
 }
 

@@ -1,14 +1,14 @@
 import React from 'react';
 import './ItemCard.scss';
 
-interface img {
+interface TtradeImg {
     imgNo: number;
     tiTrade: number;
     orgImg: string;
 }
 
 interface Props{
-    image: Array<img>;
+    image: Array<TtradeImg>;
     tradeTitle: string;
     productPrice: string;
 }
