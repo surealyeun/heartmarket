@@ -12,40 +12,39 @@ import SessionDelete from "../common/SessionDelete";
 // import "./SaleMore.scss";
 
 export interface purchase {
-    tradeNo: number;
+    tradeNo:       number;
     tradeCategory: string;
-    tradeTitle: string;
-    productName: string;
-    tradeArea: string;
-    productInfo: string;
-    productPrice: string;
-    tradeDate: Date;
-    ttradeImg: TtradeImg[];
-    buser: null;
-    tuser: Tuser;
-    tmanner: null;
+    tradeTitle:    string;
+    tradeArea:     string;
+    productInfo:   string;
+    productPrice:  string;
+    tradeDate:     Date;
+    tTradeImg:     TTradeImg[];
+    tuser:         Tuser;
+    buser:         null;
+    tmanner:       null;
 }
 
-export interface TtradeImg {
+export interface TTradeImg {
     imgNo:   number;
     tiTrade: number;
     orgImg:  string;
 }
 
 export interface Tuser {
-    userNo: number;
-    email: string;
-    password: string;
-    profileImg: null;
-    nickname: string;
+    userNo:         number;
+    email:          string;
+    password:       string;
+    profileImg:     string;
+    nickname:       string;
     userPermission: string;
-    uarea: Uarea[];
+    uarea:          Uarea[];
 }
 
 export interface Uarea {
-    areaNo: number;
+    areaNo:  number;
     address: string;
-    auser: number;
+    auser:   number;
 }
 
 class PurchaseMore extends Component {
@@ -89,7 +88,7 @@ class PurchaseMore extends Component {
                                 
                                     return (
                                         <Link to={`/search/detail/${purchase.tradeNo}`}>
-                                            <ItemCard image={purchase.ttradeImg} tradeTitle={purchase.tradeTitle}
+                                            <ItemCard image={purchase.tTradeImg} tradeTitle={purchase.tradeTitle}
                                              productPrice={purchase.productPrice} />
                                             {/* <div className="item" key={"item" + i}>
                                                 <h3>{sale.tradeTitle}</h3>

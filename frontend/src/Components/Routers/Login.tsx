@@ -92,8 +92,9 @@ class Login extends Component<Props> {
           <h3>
             <span>두</span>리번 <span>두</span>리번 <span>근</span>처에
           </h3>
-          <h1>두근 마켓</h1>
-
+          <Link to="/">
+            <h1>두근 마켓</h1>
+          </Link>
           {this.state.islog ? (
             <div>
               <h2>
