@@ -3,6 +3,8 @@ package com.heartmarket.model.service;
 import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,12 +19,15 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import com.heartmarket.model.dao.CartRepository;
 import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dao.TradeRepository;
 import com.heartmarket.model.dao.UserRepository;
+import com.heartmarket.model.dto.Cart;
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.TradeDetail;
 import com.heartmarket.util.ResultMap;
 
 import io.jsonwebtoken.lang.Collections;
@@ -40,6 +45,9 @@ public class TradeServiceImpl implements TradeService {
 	@Autowired
 	UserRepository ur;
 
+	@Autowired
+	CartRepository cr;
+	
 	// 모든 자료 조회
 	@Transactional
 	public List<Trade> findAll() {
@@ -60,9 +68,35 @@ public class TradeServiceImpl implements TradeService {
 
 	// 상세 페이지 조회
 	@Transactional
-	public Trade findOne(int tradeNo) {
-		return tr.findByTradeNo(tradeNo);
+	@Override
+	public TradeDetail findDetail(int tradeNo) {
+		try {
+			return new TradeDetail(tr.findByTradeNo(tradeNo), 0);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
+	
+	@Transactional
+	@Override
+	public TradeDetail findDetailByEmail(int tradeNo, int userNo) {
+		try {
+			// 게시글 정보를 가져오기
+			Trade trade = tr.findByTradeNo(tradeNo);
+			Cart cart = cr.findBycTradeTradeNoAndcUserUserNo(tradeNo, userNo);
+			if(!Objects.isNull(cart))
+				return new TradeDetail(trade, 1);
+			else {
+				return new TradeDetail(trade, 0);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
 
 	// 게시글 추가
 	@Transactional
@@ -169,7 +203,8 @@ public class TradeServiceImpl implements TradeService {
 		System.out.println("no : " + no);
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
 
-		if(no == 0) no = cnt+1;
+		if (no == 0)
+			no = cnt + 1;
 		System.out.println("cnt : " + cnt);
 		System.out.println(no);
 
@@ -207,7 +242,8 @@ public class TradeServiceImpl implements TradeService {
 		else {
 			tList = tr.findAll();
 		}
-		int cnt = tList.get(tList.size() - 1).getTradeNo();
+//		int cnt = tList.get(tList.size() - 1).getTradeNo();
+		int cnt = tr.countAll();
 		System.out.println("cnt : " + cnt);
 		System.out.println("size : " + tList.size());
 
@@ -238,11 +274,26 @@ public class TradeServiceImpl implements TradeService {
 	}
 
 	@Override
-	public Trade findByCompleteTrade(int bUserNo, int tUserNo, int tradeNo) {
+	public ResultMap<Trade> findByCompleteTrade(int bUserNo, String other, int tradeNo) {
 		Trade tmp = new Trade();
 		try {
-//			ㅋㄴtmp = tr.findBybUserUserNoIsNullAndtUserUserNoAndTradeNo(tUserNo, tradeNo);
-			return tmp;
+//			// 1. 현재 로그인 중인 유저의 기준으로 게시물을 가져옴.
+			// 닉네임을 검색해야 합니다.
+			User buyer = ur.findByNickname(other);
+			// 2. 게시물에서 구매자 아이디가 null인지 확인
+			Trade checkBuyer = tr.findByTradeNo(tradeNo);
+			
+			System.out.println(Objects.isNull(checkBuyer.getBUser()));
+			if (Objects.isNull(checkBuyer.getBUser())) {
+				// 3. null 이라면 구매자 아이디를 검색하여 확인 사살
+				checkBuyer.setBUser(buyer);
+				System.out.println(checkBuyer.toString());
+				tr.save(checkBuyer);
+				return new ResultMap<Trade>("SUCCESS", "거래 완료 확정", tmp);
+			} else {
+				// 2-1. null이 아니라면 거래가 완료된 게시글
+				return new ResultMap<Trade>("FAIL", "거래가 완료된 글입니다.", null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -251,8 +302,11 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	public Page<Trade> findByTradeType(int no, int size, int type, int userno) {
-		
-		return tr.findByTradeNoLessThan(no+1, new Specification<Trade>() {
+		if (no == 0)
+			no = tr.countAll();
+
+		final int cnt = no;
+		return tr.findAll(new Specification<Trade>() {
 
 			@Override
 			public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -260,14 +314,15 @@ public class TradeServiceImpl implements TradeService {
 
 				// 구매
 				if (type == 1) {
-					predicates.add((criteriaBuilder.equal(root.get("bUser").get("userNo"), userno)));
+					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("bUser").get("userNo"), userno)));
 					System.out.println(root.get("bUser").get("userNo").toString());
 				}
 				// 판매
 				else if (type == 2) {
-					predicates.add((criteriaBuilder.equal(root.get("tUser").get("userNo"), userno)));
+					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tUser").get("userNo"), userno)));
 				}
 
+				predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("tradeNo"), cnt)));
 				System.out.println(predicates.size());
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
