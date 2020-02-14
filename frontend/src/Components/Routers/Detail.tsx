@@ -33,7 +33,7 @@ class Detail extends React.Component {
     const num = url[url.length - 1];
     var email = "none";
     if(this.user.email !== undefined || this.user.email !== "") email = this.user.email;
-    console.log(email)
+    if(email === undefined) email = "none";
     this.setState({
       num: num,
     });
