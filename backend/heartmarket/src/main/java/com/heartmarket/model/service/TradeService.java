@@ -6,12 +6,15 @@ import org.springframework.data.domain.Page;
 
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
+import com.heartmarket.model.dto.response.TradeDetail;
 import com.heartmarket.util.ResultMap;
 
 public interface TradeService {
 
 	public List<Trade> findAll() ;
-	public Trade findOne(int tradeNo);
+//	public Trade findOne(int tradeNo);
+	public TradeDetail findDetailByEmail(int tradeNo, int userNo);
+	public TradeDetail findDetail(int tradeNo);
 	public List<Trade> findAllByAddr(String address);
 	public ResultMap<Integer> addTrade(Trade trade,List<TradeImg> fList,int userNo);
 	public ResultMap<Object> updateTrade(Trade trade);
@@ -23,6 +26,6 @@ public interface TradeService {
 	public Page<Trade> fetPageAC(int no, int size, String area,  String category);
 	public Page<Trade> fetPageTP(int no, int size, List<String> sList, String area);
 
-	Trade findByCompleteTrade(int bUserNo, int tUserNo, int tradeNo);
+	ResultMap<Trade> findByCompleteTrade(int bUserNo, String other, int tradeNo);
 	Page<Trade> findByTradeType(int no, int size, int type, int userno);
 }

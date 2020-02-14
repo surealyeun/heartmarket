@@ -31,7 +31,7 @@ import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.dto.response.TradeMapping;
-import com.heartmarket.model.dto.response.TradeResponse;
+import com.heartmarket.model.dto.response.OtherTrade;
 import com.heartmarket.model.service.CartService;
 import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.MannerService;
@@ -97,18 +97,25 @@ public class TradeController {
 	@RequestMapping(value = "/trade/area/search/{area}", method = RequestMethod.GET)
 	@ApiOperation(value = "지역별 게시글 현황")
 	public ResponseEntity<Object> findByArea(@PathVariable String area) {
-		return new ResponseEntity<Object>(new ResultMap<TradeResponse>("SUCCESS", area + "지역 게시글", null),
+		return new ResponseEntity<Object>(new ResultMap<OtherTrade>("SUCCESS", area + "지역 게시글", null),
 				HttpStatus.OK);
 	}
 
 	// 게시글 1개만 조회
 	@RequestMapping(value = "/trade/{no}", method = RequestMethod.GET)
 	@ApiOperation(value = "게시글 1개만 조회")
-	public ResponseEntity<Object> findOne(@PathVariable int no) {
-//		Trade tmp = ts.findOne(no);
-		return new ResponseEntity<Object>(ts.findOne(no), HttpStatus.OK);
+	public ResponseEntity<Object> findOne(@PathVariable int no, @RequestParam String email) {
+		
+		if(email.equals("none")) {
+			// 1. 로그인 안되있으면 그냥 가져온다.
+			return new ResponseEntity<Object>(ts.findDetail(no), HttpStatus.OK);
+		}else {
+		// 1. 로그인한 상태면 유저 정보를 가져오기
+			User tUser = us.searchEmail(email);
+			return new ResponseEntity<Object>(ts.findDetailByEmail(no, tUser.getUserNo()), HttpStatus.OK);
+		}
 	}
-
+	
 	// 게시글 추가
 	@ApiOperation(value = "게시글 추가")
 	@RequestMapping(value = "/trade/add", method = RequestMethod.POST)
@@ -155,18 +162,13 @@ public class TradeController {
 	// 거래 완료
 	// 거래 완료는 판매자가 구매자를 확정시켰을 때만 완료이다.
 	@RequestMapping(value = "/trade/complete", method = RequestMethod.PUT)
-	public ResponseEntity<Object> completeTrade(@RequestParam String email, @RequestParam String other) {
+	@ApiOperation(value = "거래 완료 이벤트")
+	public ResponseEntity<Object> completeTrade(@RequestParam String email, @RequestParam int tradeNo, @RequestParam String other) {
 		// 거래 완료
-		// 1. 현재 로그인 중인 유저의 기준으로 게시물을 가져옴.
-		//    닉네임을 검색해야 합니다. 
-		User buyer = us.findByNickname(other);
+		int tUserNo = us.searchEmail(email).getUserNo();
+		ResultMap<Trade> tms = ts.findByCompleteTrade(tUserNo, other, tradeNo);
 		
-		// 2. 게시물에서 구매자 아이디가 null인지 확인
-		// 3. null 이라면 구매자 아이디를 검색하여 확인 사살
-		//    null이 아니라면 거래가 완료된 게시글
-		
-		
-		return null;
+		return tms.getData().equals(null) ? new ResponseEntity<Object>(tms, HttpStatus.NOT_FOUND) : new ResponseEntity<Object>(tms, HttpStatus.OK);
 	}
 
 	// 매너 평가

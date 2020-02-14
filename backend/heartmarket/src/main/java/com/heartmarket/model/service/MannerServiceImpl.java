@@ -25,7 +25,7 @@ public class MannerServiceImpl implements MannerService{
 	@Override
 	public ResultMap<Manner> evalueUser(int value, int userNo){
 	
-		Manner tMnr = mr.findBymUserUserNo(userNo) == null ? new Manner( ur.findByUserNo(userNo), 0, 0, 0, 50) : mr.findBymUserUserNo(userNo);
+		Manner tMnr = mr.findBymUserUserNo(userNo);
 		
 		double pGauge = tMnr.getPlusGauge();
 		double nGauge = tMnr.getNormalGauge();
@@ -61,4 +61,8 @@ public class MannerServiceImpl implements MannerService{
 		mr.save(tMnr);
 		return new ResultMap<Manner>("SUCCESS", "평가완료", tMnr);
 	}
+	
+	// 매너 평가를 위해서는 거래 완료가 필요하다.
+	// 거래 완료 여부를 확인하고 시발
+//	public ResultMap<Object> 
 }

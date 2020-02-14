@@ -11,7 +11,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.heartmarket.model.dto.Trade;
-import com.heartmarket.model.dto.response.TradeResponse;
+import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.OtherTrade;
 
 @Repository
 public interface TradeRepository extends JpaRepository<Trade, Integer> {
@@ -31,6 +32,8 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 	
 	// 페이지  기능
 	Page<Trade> findByTradeNoLessThan(int tradeNo, Pageable req);
+	
+	Page<Trade> findBytUserUserNoAndTradeNoLessThan(int userNo, int tradeNo, Pageable req);
 	Page<Trade> findByTradeNoLessThanAndTradeArea(int tradeNo, String area, Pageable req);
 	Page<Trade> findByTradeNoLessThanAndTradeAreaAndTradeCategory(int tradeNo, String tradeArea, String tradeCategory, Pageable req);
 
@@ -38,23 +41,19 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 	// 가져 옵시다. 구매 목록, 판매 목록
 
 	// 페이지 기능 -> 검색 기능
-	// 1. 모든 리스트를 불러오고 검색어를 기준으로 다시 처리
-//	Page<Trade> findByTradeNoLessThanAndTradeTitleContainingAndProductInfoContaining(int tradeNo, 
-//			String tradeTitle, String productInfo, Pageable req);
-//	@Query("select * from trade t where t.trade_title like %:str% and t.product_info like %:str%")
-//	List<Trade> findByKeywords(@Param(value = "str") String keyword);
-	
-	
 	// 현재 데이터 수
 	// 지역별 데이터 수
 	Integer countByTradeArea(String area);
+	
+	@Query("Select count(t) from Trade t")
+	int  countAll();
 
 	// 검색어  입력시 검색 결과를 불러오는 내용
 	Page<Trade> findByTradeNoLessThan(int tradeNo, Specification<Trade> specification, Pageable req);
 
 	Page<Trade> findAll(Specification<Trade> specification, Pageable of);
 	
-	// 거래 게시글 -> 완료가 안된 경우
-	// 구매자가 없고,
-//	Trade findByTradeNoAndtUserUserNoAndbUserBuyerNoNoIsNull(int tradeNo, int tUserNo);
+
+	// 판매내역 일부만가져오기 --> 상대방 프로필에 띄울거
+	List<Trade> findTop4BytUserUserNo(int userNo);
 }
