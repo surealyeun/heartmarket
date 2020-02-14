@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 //import {withRouter} from 'react-router-dom'
 import { Redirect } from "react-router";
+import "./WriteUpdate.scss";
 import "./Write.scss";
 import axios from "axios";
 import Header from "../common/Header";
@@ -8,9 +9,10 @@ import Nav from "../common/Nav";
 import TopButton from "../common/TopButton";
 import Footer from "../common/Footer";
 
-class Write extends Component {
+class WriteUpdate extends Component {
   user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
   state = {
+    tradeNo:"",
     title: "",
     explain: "",
     price: "",
@@ -18,81 +20,89 @@ class Write extends Component {
     images: [],
     filekey: 0,
     base64: [],
-    success: ""
+    success: "",
+    before: []
   };
 
-  componentDidMount() {
-    var category = window.sessionStorage.getItem("searchCategory");
-    //alert(category)
-    if (category === "0" || category === undefined) category = "1";
-    this.setState({
-      category: category
-    });
+  constructor(props: any) {
+    super(props);
+    console.log(props.history.location.state.props.tradeNo);
+    this.state = {
+      ...this.state,
+      tradeNo:props.history.location.state.props.tradeNo,
+      title: props.history.location.state.props.tradeTitle,
+      explain: props.history.location.state.props.productInfo,
+      price: props.history.location.state.props.productPrice,
+      category: props.history.location.state.props.tradeCategory,
+      //images: [],
+      before: props.history.location.state.props.tTradeImg
+    };
   }
 
-  //이미지 여러개 업로드랑 인풋 값 변경 감지해 적용
-  InputChange = (e: any) => {
-    //input 값 변경 감지해 설정
-    if (e.target.name !== "images") {
-      if (e.target.name === "title") {
-        if (e.target.value.length > 45) {
-          e.target.value = e.target.value.substring(0, 45);
-          this.setState({
-            [e.target.name]: e.target.value
-          });
-          alert("최대 45자까지 가능합니다");
-        } else {
-          this.setState({
-            [e.target.name]: e.target.value
-          });
-        }
-      } else if (e.target.name === "price") {
-        if (e.target.value.length > 9) {
-          e.target.value = e.target.value.substring(0, 9);
-          this.setState({
-            [e.target.name]: e.target.value
-          });
-          alert("최대 999,999,999원까지 가능합니다");
-        } else {
-          this.setState({
-            [e.target.name]: e.target.value
-          });
-        }
+ //이미지 여러개 업로드랑 인풋 값 변경 감지해 적용
+ InputChange = (e: any) => {
+  //input 값 변경 감지해 설정
+  if (e.target.name !== "images") {
+    if (e.target.name === "title") {
+      if (e.target.value.length > 45) {
+        e.target.value = e.target.value.substring(0, 45);
+        this.setState({
+          [e.target.name]: e.target.value
+        });
+        alert("최대 45자까지 가능합니다");
       } else {
         this.setState({
           [e.target.name]: e.target.value
         });
       }
-    }
-    //이미지일때는 다르게 설정
-    else {
-      //같은 이미지를 연속으로 선택하는 게 막혀있어서 바꾼 코드
+    } else if (e.target.name === "price") {
+      if (e.target.value.length > 9) {
+        e.target.value = e.target.value.substring(0, 9);
+        this.setState({
+          [e.target.name]: e.target.value
+        });
+        alert("최대 999,999,999원까지 가능합니다");
+      } else {
+        this.setState({
+          [e.target.name]: e.target.value
+        });
+      }
+    } else {
       this.setState({
-        filekey: this.state.filekey + 1
+        [e.target.name]: e.target.value
       });
-      let number = e.target.files?.length;
-      //파일이 선탯되었을 때
-      if (number !== undefined && number !== 0) {
-        if (number + this.state.images.length > 5) {
-          alert("파일은 최대 5개까지 업로드 가능합니다.");
+    }
+  }
+  //이미지일때는 다르게 설정
+  else {
+    //같은 이미지를 연속으로 선택하는 게 막혀있어서 바꾼 코드
+    this.setState({
+      filekey: this.state.filekey + 1
+    });
+    let number = e.target.files?.length;
+    //파일이 선탯되었을 때
+    if (number !== undefined && number !== 0) {
+      if (number + this.state.images.length > 5) {
+        alert("파일은 최대 5개까지 업로드 가능합니다.");
+      }
+      //이미지 파일 기존배열에 추가해주기
+      else {
+        var image = this.state.images;
+        for (var i = 0; i < number; i++) {
+          let file = e.target.files[i];
+          image = image.concat(file);
         }
-        //이미지 파일 기존배열에 추가해주기
-        else {
-          var image = this.state.images;
-          for (var i = 0; i < number; i++) {
-            let file = e.target.files[i];
-            image = image.concat(file);
-          }
-          this.setState({
-            images: image
-          });
-          //이미지 변경 함수 호출
-          for (var j = this.state.images.length; j < image.length; j++)
-            this.ChangeImage(image[j]);
-        }
+        this.setState({
+          images: image
+        });
+        //이미지 변경 함수 호출
+        for (var j = this.state.images.length; j < image.length; j++)
+          this.ChangeImage(image[j]);
       }
     }
-  };
+  }
+};
+
   //이미지 변경됐을 때 프리뷰
   ChangeImage = (e: any) => {
     let reader = new FileReader();
@@ -152,6 +162,7 @@ class Write extends Component {
     let tradeCategory = this.state.category;
     let productPrice = this.state.price;
     let userNo: string = this.user.userNo;
+    let tradeNo: string = this.state.tradeNo;
     let tradeArea: string = this.user.uarea[0].address;
     let productInfo = this.state.explain;
     let formdata = new FormData();
@@ -159,21 +170,23 @@ class Write extends Component {
     formdata.append("tradeCategory", tradeCategory);
     formdata.append("productPrice", productPrice);
     formdata.append("userNo", userNo);
+    formdata.append("tradeNo ", tradeNo);
     formdata.append("tradeArea", tradeArea);
     formdata.append("productInfo", productInfo);
     for (let i = 0; i < files.length; i++) {
       formdata.append("files", files[i]);
     }
     axios({
-      method: "POST",
-      url: "http://13.125.55.96:8080/trade/add",
+      method: "PUT",
+      url: "http://13.125.55.96:8080/trade/update",
       headers: { "content-type": "multipart/form-data" },
       data: formdata
     })
       .then(res => {
-        console.log(res.data.data[0].tiTrade.tradeNo);
+        console.log(res.data.data);
+        alert("수정이 완료되었습니다")
         this.setState({
-          success: "search/detail/" + res.data.data[0].tiTrade.tradeNo
+          success: "search/detail/" + res.data.data.tradeNo
         });
       })
       .catch(error => {
@@ -183,14 +196,14 @@ class Write extends Component {
 
   render() {
     if (this.state.success) {
-      alert("글이 작성되었습니다");
+      alert("글이 수정되었습니다");
       return <Redirect to={this.state.success}></Redirect>;
     }
     return (
       <>
         <Header></Header>
         <Nav></Nav>
-        <div className="Write">
+        <div className="Write WriteUpdate">
           <div>
             <input
               className="write_address"
@@ -222,6 +235,7 @@ class Write extends Component {
               className="write_input"
               name="title"
               type="text"
+              value={this.state.title}
               placeholder="글 제목을 입력해주세요."
               onChange={e => this.InputChange(e)}
               required
@@ -231,7 +245,8 @@ class Write extends Component {
               name="price"
               type="number"
               min="0"
-              max="9999999999"
+              max="999999999"
+              value={this.state.price}
               placeholder="가격을 입력해주세요."
               onChange={e => this.InputChange(e)}
               required
@@ -239,10 +254,26 @@ class Write extends Component {
             <textarea
               className="textarea"
               name="explain"
+              value={this.state.explain}
               placeholder="상품 설명을 입력해주세요"
               onChange={e => this.InputChange(e)}
               required
             ></textarea>
+
+            <div className="filebox_before">
+              <div className="before_bundle">
+                {this.state.before.map(image => (
+                  <div className="div_before">
+                    <img
+                      alt="이전 이미지"
+                      //src="https://image.flaticon.com/icons/svg/1063/1063738.svg"
+                      src={image}
+                    ></img>
+                  </div>
+                ))}
+                <span>* 기존 이미지는 전부 사라집니다</span>
+              </div>
+            </div>
             <div className="filebox">
               <label>
                 제품 사진 업로드
@@ -344,7 +375,7 @@ class Write extends Component {
               )}
             </div>
 
-            <button onClick={this.handleSubmit}>등록</button>
+            <button onClick={this.handleSubmit}>수정</button>
             <button>취소</button>
           </div>
         </div>
@@ -356,4 +387,4 @@ class Write extends Component {
 }
 
 //export default withRouter(Write);
-export default Write;
+export default WriteUpdate;
