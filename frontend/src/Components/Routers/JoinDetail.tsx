@@ -92,10 +92,10 @@ class JoinDetail extends Component {
             });
     };
 
-<<<<<<< frontend/src/Components/Routers/JoinDetail.tsx
     render() {
         return (
             <div className="big">
+                <SessionDelete></SessionDelete>
                 <div className="join-detail">
                     <h1>회원가입</h1>
                     <h3>기본 회원정보를 입력하세요.</h3>
@@ -147,63 +147,6 @@ class JoinDetail extends Component {
             </div>
         );
     }
-=======
-  render() {
-    return (
-      <div className="big">
-        <SessionDelete></SessionDelete>
-        <div className="join-detail">
-          <h1>회원가입</h1>
-          <h3>기본 회원정보를 입력하세요.</h3>
-          <br />
-          <form>
-            <input
-              type="text"
-              className="nickname"
-              placeholder="닉네임 최대 8글자"
-              onChange={this.nicknameValid}
-              required
-            />{" "}
-            <br />
-            <input
-              type="email"
-              className="email"
-              value={this.state.email}
-              placeholder="email"
-              disabled
-            />
-            <br />
-            <input
-              type="password"
-              className="password"
-              placeholder="비밀번호"
-              required
-              onChange={e => this.handlePW(e.target.value)}
-            />
-            <br />
-            <input
-              type="text"
-              className="address"
-              placeholder="주소(예시: 역삼동)"
-              onChange={e => this.handleaddress(e.target.value)}
-            />
-            <br />
-            <Link to="/joinsuc">
-              <button
-                type="button"
-                className="btn-joinpage"
-                disabled={!this.state.confirm}
-                onClick={this.handleOnClick}
-              >
-                회원가입
-              </button>
-            </Link>
-          </form>
-        </div>
-      </div>
-    );
-  }
->>>>>>> frontend/src/Components/Routers/JoinDetail.tsx
 }
 
 export default JoinDetail;

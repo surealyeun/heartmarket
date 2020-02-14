@@ -25,7 +25,7 @@ export interface Ctrade {
     productPrice:             string;
     tradeDate:                Date;
     tuser:                    User;
-    ttradeImg:                TtradeImg[];
+    tTradeImg:                TtradeImg[];
     buser:                    null;
     hibernateLazyInitializer: HibernateLazyInitializer;
     tmanner:                  null;
@@ -96,7 +96,7 @@ class LikeMore extends Component {
                             {this.state.Likes.map((like, i) => {
                                     return (
                                         <Link to={`/search/detail/${like.ctrade.tradeNo}`}>
-                                            <ItemCard image={like.ctrade.ttradeImg} tradeTitle={like.ctrade.tradeTitle}
+                                            <ItemCard image={like.ctrade.tTradeImg} tradeTitle={like.ctrade.tradeTitle}
                                              productPrice={like.ctrade.productPrice} />
                                             {/* <div className="item" key={"item" + i}>
                                                 <h3>{sale.tradeTitle}</h3>

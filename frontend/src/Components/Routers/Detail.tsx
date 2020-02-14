@@ -11,38 +11,49 @@ import { Link } from "react-router-dom";
 class Detail extends React.Component {
   user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
-    state = {
-        trade: {
-            tradeTitle: "",
-            tradeCategory: "",
-            tradeArea: "",
-            tTradeImg: [{imgNo: 0, tiTrade: 0, orgImg: ""}],
-            productInfo: "",
-            productPrice: "",
-            tuser: { uno: 0, nickname: "", profileImg: "", email: "" },
-            buser: ""
-        },
-        num:""
-    };
+  state = {
+    all:{
+      trade: {
+        tradeTitle: "",
+        tradeCategory: "",
+        tradeArea: "",
+        tTradeImg: [{ imgNo: 0, tiTrade: 0, orgImg: "" }],
+        productInfo: "",
+        productPrice: "",
+        tuser: { uno: 0, nickname: "", profileImg: "", email: "" },
+        buser: "",
+      },
+      cno:0
+    },
+    num: ""
+  };
 
   updateUrl = () => {
     const url = window.location.href.split("/");
     const num = url[url.length - 1];
+    var email = "none";
+    if(this.user.email !== undefined || this.user.email !== "") email = this.user.email;
+    console.log(email)
     this.setState({
-      num: num
+      num: num,
     });
 
     axios({
       method: "get",
-      url: "http://13.125.55.96:8080/trade/" + num
+      url: "http://13.125.55.96:8080/trade/" + num,
+      params: {
+        email:email
+      }
     })
       .then(res => {
-        // console.log(res.data);
-        const trade = res.data;
+        console.log(res.data);
+        const all = res.data;
+        //alert("받아는 옴")
         this.setState({
-          trade
+          all
         });
-        console.log("trade", this.state.trade);
+        
+        console.log("trade", this.state.all);
       })
       .catch(err => {
         console.log("err", err);
@@ -50,93 +61,19 @@ class Detail extends React.Component {
       });
   };
 
-<<<<<<< frontend/src/Components/Routers/Detail.tsx
-        axios({
-            method: "get",
-            url: "http://13.125.55.96:8080/trade/" + num
-        })
-            .then(res => {
-                console.log(res.data);
-                const trade = res.data;
-                this.setState({
-                    trade
-                });
-                //console.log("trade", this.state.trade);
-            })
-            .catch(err => {
-                console.log("err", err);
-                alert("error");
-            });
-    }
-
-    componentDidMount() {
-        this.updateUrl();
-    }
-=======
   componentDidMount() {
     this.updateUrl();
   }
->>>>>>> frontend/src/Components/Routers/Detail.tsx
+
+  // constructor(props:any){
+  //   super(props);
+  //   this.updateUrl();
+  // }
 
   componentWillReceiveProps() {
     this.updateUrl();
   }
 
-<<<<<<< frontend/src/Components/Routers/Detail.tsx
-    render() {
-        return (
-            <div>
-                <Header />
-                <Nav />
-                <div className="product-detail">
-                    {/* <hr /> */}
-                    <br />
-                    <div className="detail-grid">
-                        <div className="detail-l">
-                            {/* <img src={this.state.trade.ttradeImg[0].orgImg} alt="" /> */}
-                            <SlideImg ttradeImg={this.state.trade.tTradeImg} />
-                        </div>
-                        <div className="detail-r">
-                            <div className="tuser-info">
-                                <div className="tuser-profile">
-                                    <img
-                                        src={this.user.profileImg}
-                                        alt="profile"
-                                    />
-                                </div>
-                                <div className="tuser-id">
-                                    <h3>{this.state.trade.tuser.nickname}</h3>
-                                    <h4>{this.state.trade.tradeArea}</h4>
-                                </div>
-                                <div className="tuser-manners">
-                                    <h3>매너</h3>
-                                    <h3>지수</h3>
-                                </div>
-                            </div>
-                            <div className="trade">
-                                <h4>카테고리 > {this.state.trade.tradeCategory}</h4>
-                                <h2>{this.state.trade.tradeTitle}</h2>
-                                <br />
-                                <h3>{this.state.trade.productPrice}원</h3>
-                            </div>
-                            <br />
-                            <br />
-                            <br />
-                            {this.user.email === this.state.trade.tuser.email
-                                ?
-                                <div className="tuser-btn">
-                                    <button className="btn-complete">거래완료</button>
-                                    <button className="btn-delete">삭제</button>
-                                    <button className="btn-update">수정</button>
-                                </div>
-                                :
-                                <div className="bottom">
-                                    {/* <button className="btn-heart" onClick={this.clickHeart}>♥</button> */}
-                                    <button className="btn-heart"><Zzim num={this.state.num}></Zzim></button>
-                                    <button className="btn-contact">댓글? 쪽지? 알림? 거래하기</button>
-                                </div>}
-                            {/* <div className="tuser-manners">
-=======
   render() {
     return (
       <div>
@@ -147,7 +84,8 @@ class Detail extends React.Component {
           <br />
           <div className="detail-grid">
             <div className="detail-l">
-              <img src={this.state.trade.tTradeImg[0]} alt="" />
+              {/* <img src={this.state.trade.ttradeImg[0].orgImg} alt="" /> */}
+              <SlideImg ttradeImg={this.state.all.trade.tTradeImg} />
             </div>
             <div className="detail-r">
               <div className="tuser-info">
@@ -155,8 +93,8 @@ class Detail extends React.Component {
                   <img src={this.user.profileImg} alt="profile" />
                 </div>
                 <div className="tuser-id">
-                  <h3>{this.state.trade.tuser.nickname}</h3>
-                  <h4>{this.state.trade.tradeArea}</h4>
+                  <h3>{this.state.all.trade.tuser.nickname}</h3>
+                  <h4>{this.state.all.trade.tradeArea}</h4>
                 </div>
                 <div className="tuser-manners">
                   <h3>매너</h3>
@@ -164,22 +102,22 @@ class Detail extends React.Component {
                 </div>
               </div>
               <div className="trade">
-                <h4>카테고리 > {this.state.trade.tradeCategory}</h4>
-                <h2>{this.state.trade.tradeTitle}</h2>
+                <h4>카테고리 > {this.state.all.trade.tradeCategory}</h4>
+                <h2>{this.state.all.trade.tradeTitle}</h2>
                 <br />
-                <h3>{this.state.trade.productPrice}원</h3>
+                <h3>{this.state.all.trade.productPrice}원</h3>
               </div>
               <br />
               <br />
               <br />
-              {this.user.email === this.state.trade.tuser.email ? (
+              {this.user.email === this.state.all.trade.tuser.email ? (
                 <div className="tuser-btn">
                   <button className="btn-complete">거래완료</button>
                   <button className="btn-delete">삭제</button>
                   <Link
                     to={{
                       pathname: "/write/update",
-                      state: { props: this.state.trade }
+                      state: { props: this.state.all.trade }
                     }}
                   >
                     <button className="btn-update">수정</button>
@@ -187,11 +125,12 @@ class Detail extends React.Component {
                 </div>
               ) : (
                 <div className="bottom">
+                  {/* <button className="btn-heart" onClick={this.clickHeart}>♥</button> */}
                   <button className="btn-heart">
                     <Zzim
                       num={this.state.num}
-                      cno={1}
-                      uno={this.state.trade.tuser.uno}
+                      cno={this.state.all.cno}
+                      uno={this.state.all.trade.tuser.uno}
                     ></Zzim>
                   </button>
                   <button className="btn-contact">
@@ -200,7 +139,6 @@ class Detail extends React.Component {
                 </div>
               )}
               {/* <div className="tuser-manners">
->>>>>>> frontend/src/Components/Routers/Detail.tsx
                                 <h3>매너 지수</h3>
                                 <Gauge />
                             </div> */}
@@ -210,7 +148,7 @@ class Detail extends React.Component {
             <h3>
               <span>상품 상세 설명</span>
             </h3>
-            <h3>{this.state.trade.productInfo}</h3>
+            <h3>{this.state.all.trade.productInfo}</h3>
           </div>
         </div>
 
