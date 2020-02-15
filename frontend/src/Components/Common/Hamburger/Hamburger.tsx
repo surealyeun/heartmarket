@@ -82,7 +82,7 @@ class Hamburger extends Component<Props> {
                             <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm" onClick={e => this.onTabclick(e)}>알림</div>
                             <div className="hambuger_prealarm">
                               <p className="pp1">새로운 알림 (2{visible})</p>
-                              <Link to={{ pathname: "/alarm" } }>
+                              <Link to={{ pathname: "/alarm" }}>
                                 <p className="ppp" onClick={this.onclick}>더보기</p>
                               </Link>
                               <div className="prealarm_bundle">
@@ -104,10 +104,15 @@ class Hamburger extends Component<Props> {
                                   <HamZzim></HamZzim>
                                 </div>
                                 <div className="hambuger_godetail">
+                                  <div></div>
                                   <p>판매상품</p>
+                                  <div></div>
                                   <p>구매상품</p>
+                                  <div></div>
                                   <p>공지하기</p>
+                                  <div></div>
                                   <p>건의하기</p>
+                                  <div></div>
                                 </div>
                               </div>
                             </div>

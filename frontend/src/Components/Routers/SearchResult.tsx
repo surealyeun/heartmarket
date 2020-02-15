@@ -7,8 +7,16 @@ import FilterButton from "../common/FilterButton";
 import ResultContainer from "../../containers/search/ResultContainer";
 import PenButton from "../common/PenButton";
 import TopButton from "../common/TopButton";
+import { isCategory } from "../../modules/category";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { RootState } from "../../modules";
 
-class SearchResult extends Component {
+interface Props {
+  CategoryAction: typeof isCategory;
+}
+
+class SearchResult extends Component<Props> {
   filters = [
     {
       id: 1,
@@ -24,29 +32,25 @@ class SearchResult extends Component {
     },
     {
       id: 4,
-      title: "거리순"
-    },
-    {
-      id: 5,
-      title: "가격"
+      title: "가격순"
     }
   ];
 
   category = [
     { name: ""},
-    { name: "디지털/가전" },
-    { name: "가구/인테리어" },
-    { name: "유아동/유아도서" },
-    { name: "생활가공식품" },
-    { name: "여성의류" },
-    { name: "여성잡화" },
-    { name: "뷰티/미용" },
-    { name: "남성패션/잡화" },
-    { name: "스포츠/레저" },
-    { name: "게임/취미" },
-    { name: "도서/티켓/음반" },
-    { name: "반려동물용품" },
-    { name: "기타중고물품" }
+    { name: "디지털/가전 X" },
+    { name: "가구/인테리어 X" },
+    { name: "유아동/유아도서 X" },
+    { name: "생활가공식품 X" },
+    { name: "여성의류 X" },
+    { name: "여성잡화 X" },
+    { name: "뷰티/미용 X" },
+    { name: "남성패션/잡화 X" },
+    { name: "스포츠/레저 X" },
+    { name: "게임/취미 X" },
+    { name: "도서/티켓/음반 X" },
+    { name: "반려동물용품 X" },
+    { name: "기타중고물품 X" }
   ];
 
   componentDidMount() {
@@ -55,6 +59,12 @@ class SearchResult extends Component {
   componentWillUnmount() {
     window.sessionStorage.setItem("isText", "false");
   }
+
+  categoryDelete = () => {
+    window.sessionStorage.setItem("searchCategory","0");
+    this.props.CategoryAction();
+  }
+
   render() {
     return (
       <>
@@ -76,7 +86,7 @@ class SearchResult extends Component {
             <span className="SearchResult_items_header">
               두근 마켓 검색 결과
             </span>
-            <span>{this.category[Number(window.sessionStorage.getItem("searchCategory"))||0].name}</span>
+            <span className="category_text" onClick={this.categoryDelete}>{this.category[Number(window.sessionStorage.getItem("searchCategory"))||0].name}</span>
             <ResultContainer />
           </div>
         </div>
@@ -88,4 +98,11 @@ class SearchResult extends Component {
   }
 }
 
-export default SearchResult;
+export default connect(
+  ({ categoryStatus }: RootState) => ({
+    status: categoryStatus.status
+  }),
+  dispatch => ({
+    CategoryAction: bindActionCreators(isCategory, dispatch)
+  })
+)(SearchResult);

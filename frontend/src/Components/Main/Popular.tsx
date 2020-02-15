@@ -19,7 +19,6 @@ function Popular() {
   //axios 호출
   useEffect(() => {
     var user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
-    console.log(user);
     if (user.email) {
       axios({
         method: "get",
@@ -30,7 +29,6 @@ function Popular() {
         }
       })
         .then(res => {
-          //alert("login");
           setItems(res.data.data);
         })
         .catch(err => {

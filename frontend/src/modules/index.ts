@@ -4,6 +4,7 @@ import postPage from "./postPage"
 import search from "./search"
 import userStatus from "./user"
 import zzimStatus from "./zzim"
+import categoryStatus from "./category"
 
 const rootReducer = combineReducers({
   post,
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   search,
   userStatus,
   zzimStatus,
+  categoryStatus
 });
 
 export default rootReducer;

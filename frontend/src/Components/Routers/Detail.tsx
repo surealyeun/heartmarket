@@ -32,8 +32,8 @@ class Detail extends React.Component {
     const url = window.location.href.split("/");
     const num = url[url.length - 1];
     var email = "none";
-    if(this.user.email !== undefined || this.user.email !== "") email = this.user.email;
-    if(email === undefined) email = "none";
+    if(this.user.email !== undefined && this.user.email !== "") email = this.user.email;
+    //if(email === undefined) email = "none";
     this.setState({
       num: num,
     });
@@ -46,14 +46,11 @@ class Detail extends React.Component {
       }
     })
       .then(res => {
-        console.log(res.data);
         const all = res.data;
         //alert("받아는 옴")
         this.setState({
           all
         });
-        
-        console.log("trade", this.state.all);
       })
       .catch(err => {
         console.log("err", err);
@@ -65,11 +62,6 @@ class Detail extends React.Component {
     this.updateUrl();
   }
 
-  // constructor(props:any){
-  //   super(props);
-  //   this.updateUrl();
-  // }
-
   componentWillReceiveProps() {
     this.updateUrl();
   }
@@ -78,7 +70,7 @@ class Detail extends React.Component {
     return (
       <div>
         <Header />
-        <Nav />
+        <Nav></Nav>
         <div className="product-detail">
           {/* <hr /> */}
           <br />
