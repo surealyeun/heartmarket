@@ -58,9 +58,7 @@ class Hamburger extends Component<Props> {
     return (
       <div className="Hamburger">
         <button type="button" id="menu" onClick={this.onclick}>
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span> <span></span> <span></span>
         </button>
         <div>
           <div className={`${visible && "hambuger_sub"}`} onClick={this.onclick}></div>
@@ -104,14 +102,10 @@ class Hamburger extends Component<Props> {
                                   <HamZzim></HamZzim>
                                 </div>
                                 <div className="hambuger_godetail">
-                                  <div></div>
-                                  <p>판매상품</p>
-                                  <div></div>
-                                  <p>구매상품</p>
-                                  <div></div>
-                                  <p>공지하기</p>
-                                  <div></div>
-                                  <p>건의하기</p>
+                                  <div></div> <p>판매상품</p>
+                                  <div></div> <p>구매상품</p>
+                                  <div></div> <p>공지하기</p>
+                                  <div></div> <p>건의하기</p>
                                   <div></div>
                                 </div>
                               </div>
@@ -121,10 +115,7 @@ class Hamburger extends Component<Props> {
                     )}
 
                   <button type="button" className="bnt_close" onClick={this.onclick}>
-                    <img
-                      alt="close"
-                      src="https://image.flaticon.com/icons/svg/458/458595.svg"
-                    ></img>
+                    <img alt="close" src="https://image.flaticon.com/icons/svg/458/458595.svg" ></img>
                   </button>
                 </div>
               )}

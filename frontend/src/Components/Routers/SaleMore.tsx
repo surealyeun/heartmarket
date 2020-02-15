@@ -89,7 +89,7 @@ class SaleMore extends Component {
                                     return (
                                         <Link to={`/search/detail/${sale.tradeNo}`}>
                                             <ItemCard image={sale.tTradeImg} tradeTitle={sale.tradeTitle}
-                                             productPrice={sale.productPrice} />
+                                             productPrice={sale.productPrice} tradeNo={sale.tradeNo}/>
                                             {/* <div className="item" key={"item" + i}>
                                                 <h3>{sale.tradeTitle}</h3>
                                             </div> */}

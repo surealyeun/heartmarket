@@ -36,6 +36,7 @@ class MainProfile extends Component<Props> {
   }
 
   user = JSON.parse(window.sessionStorage.getItem('user') || '{}');
+  
 
   render() {
     const { islog } = this.state;
@@ -57,7 +58,7 @@ class MainProfile extends Component<Props> {
               <img
                 className="profile_img"
                 alt="프로필 이미지"
-                src="https://image.flaticon.com/icons/svg/660/660611.svg"
+                src={this.user.profileImg}
               ></img>
               <p className="profile_name">
                 {this.user.nickname}

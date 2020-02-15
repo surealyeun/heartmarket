@@ -116,7 +116,7 @@ class Like extends React.Component {
                                     return (
                                         <Link to={`/search/detail/${like.ctrade.tradeNo}`}>
                                             <ItemCard image={like.ctrade.tTradeImg} tradeTitle={like.ctrade.tradeTitle} 
-                                            productPrice={like.ctrade.productPrice} />
+                                            productPrice={like.ctrade.productPrice} tradeNo={like.ctrade.tradeNo}/>
                                         </Link>
                                     );
                                 }

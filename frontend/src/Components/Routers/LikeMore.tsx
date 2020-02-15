@@ -97,7 +97,7 @@ class LikeMore extends Component {
                                     return (
                                         <Link to={`/search/detail/${like.ctrade.tradeNo}`}>
                                             <ItemCard image={like.ctrade.tTradeImg} tradeTitle={like.ctrade.tradeTitle}
-                                             productPrice={like.ctrade.productPrice} />
+                                             productPrice={like.ctrade.productPrice} tradeNo={like.ctrade.tradeNo} />
                                             {/* <div className="item" key={"item" + i}>
                                                 <h3>{sale.tradeTitle}</h3>
                                             </div> */}
