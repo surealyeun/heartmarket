@@ -50,7 +50,7 @@ class Detail extends React.Component {
     })
       .then(res => {
         const all = res.data;
-        console.log(all);
+        //console.log(all);
         this.setState({
           all
         });

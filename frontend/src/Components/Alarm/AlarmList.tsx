@@ -12,7 +12,8 @@ interface alarm {
   text: string;
   check: boolean;
   readcheck: boolean;
-  sendStatus: string;
+  sendStatus: boolean;
+  deleteAlarm:boolean;
 }
 
 class AlarmList extends React.Component<alarm> {
@@ -44,13 +45,16 @@ class AlarmList extends React.Component<alarm> {
     if (this.state.check !== preStates.check) {
       console.log(this.state.alarmid + " " + this.state.check);
     }
+    //여기서 삭제하기
+    if(this.state.check && this.props.deleteAlarm){
+
+    }
   }
 
   componentWillUnmount() {
     this.setState({
       check: false
     });
-    console.log(this.state.alarmid + " " + this.state.check);
   }
 
   Checkbox = () => {
@@ -59,7 +63,6 @@ class AlarmList extends React.Component<alarm> {
     });
   };
 
-  // <div className={`${visible && "hambuger_sub"}`} onClick={this.onclick}></div>
   render() {
     return (
       <div className="AlarmList" key={this.state.alarmid}>

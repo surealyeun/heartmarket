@@ -24,6 +24,7 @@
   .rec_pos2{
     margin-top: 50px;
   }
+
   .background{
     position: absolute;
     font-size: 18px;
@@ -38,17 +39,19 @@
     margin-bottom: 10px;
     cursor: pointer;
   }
+  
+  .alarm_content{
+    word-wrap: break-word;
+    white-space: pre-line; 
+  }
 
   .detailalarm_btn{
     z-index: 5;
-    //position: absolute;
     display: inline-block;
     text-align: center;
     width: 200px;
     height: 35px;
     border-radius: 5px;
-    //background: #f9f4e6;
-    //color: #365367;
     background: #365367;
     color: #f9f4e6;
     font-weight: bolder;
@@ -70,13 +73,19 @@
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
+
+    .detailalarm_btn{
+      width: 35%;
+    }
+    .pos_left{
+      margin-left: 10px;
+    }
   }
 }
 
 @media screen and (min-width: 768px) and (max-width: 959px) {
   .DetailAlarm {
     max-width: 768px;
-    //width: 100%;
     margin: 0 auto;
     margin-top: 15px;
   }
@@ -85,7 +94,6 @@
 @media screen and (min-width: 960px) {
   .DetailAlarm {
     max-width: 960px;
-    //width: 100%;
     margin: 0 auto;
     margin-top: 15px;
   }

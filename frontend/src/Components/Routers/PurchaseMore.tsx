@@ -9,7 +9,6 @@ import PenButton from "../common/PenButton";
 import Footer from "../common/Footer";
 import "./More.scss";
 import SessionDelete from "../common/SessionDelete";
-// import "./SaleMore.scss";
 
 export interface purchase {
     tradeNo:       number;

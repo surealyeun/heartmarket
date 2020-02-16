@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 import "./Login.scss";
-import userStatus, { isLog } from "../../modules/user";
+import { isLog } from "../../modules/user";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { RootState } from "../../modules";

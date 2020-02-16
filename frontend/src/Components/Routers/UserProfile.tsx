@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import axios from "axios";
-import ItemCard from "../users/ItemCard";
+//import ItemCard from "../users/ItemCard";
 import {Link} from 'react-router-dom';
 
 import "./UserProfile.scss";

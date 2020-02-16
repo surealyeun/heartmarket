@@ -3,8 +3,8 @@ import "./Hamburger.scss";
 import Gauge from "./Gauge";
 import MainProfile from "./MainProfile";
 import HamZzim from "./HamZzim";
-import PreAlarm from "../../alarm/PreAlarm";
-import { Link } from "react-router-dom";
+import PreAlarmList from "../../alarm/PreAlarmList";
+// import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { RootState } from "../../../modules";
@@ -79,14 +79,7 @@ class Hamburger extends Component<Props> {
                             <div id="tabmyinfo" className="hambuger_tabbtn hambuger_tapcheck" onClick={e => this.onTabclick(e)}>내정보</div>
                             <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm" onClick={e => this.onTabclick(e)}>알림</div>
                             <div className="hambuger_prealarm">
-                              <p className="pp1">새로운 알림 (2{visible})</p>
-                              <Link to={{ pathname: "/alarm" }}>
-                                <p className="ppp" onClick={this.onclick}>더보기</p>
-                              </Link>
-                              <div className="prealarm_bundle">
-                                <PreAlarm></PreAlarm>
-                                <PreAlarm></PreAlarm>
-                              </div>
+                              <PreAlarmList></PreAlarmList>
                             </div>
                           </div>
                         ) : (

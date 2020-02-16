@@ -150,7 +150,6 @@
         font-weight: bolder;
         cursor: pointer;
       }
-      // border: 1px solid #375368;
     }
   }
 
@@ -159,27 +158,6 @@
     height: calc(100% - 40px);
     width: 100%;
     position: absolute;
-    
-    .pp1{
-      position: absolute;
-      text-align: left;
-      left: 5%;
-    }
-
-    .ppp{
-      color: #365367;
-      position: absolute;
-      text-align: right;
-      right: 5%;
-      margin-top: 2px;
-      cursor: pointer;
-    }
-
-    .prealarm_bundle{
-      margin-top: 40px;
-      margin-left: 14px;
-    }
-    
   }
 }
 

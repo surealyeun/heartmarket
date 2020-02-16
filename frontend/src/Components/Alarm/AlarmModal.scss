@@ -15,6 +15,7 @@
 .AlarmModal {
   *{font-family: "NanumSquareRound";}
   .Modal-overlay {
+    z-index: 3000;
     position: fixed;
     top: 0;
     left: 0;
@@ -23,7 +24,7 @@
     background-color: rgba(0, 0, 0, 0.16);
   }
   .Modal {
-    z-index: 2000;
+    z-index: 3001;
     position: fixed;
     top: 50%;
     left: 50%;

@@ -10,7 +10,6 @@ import TopButton from "../common/TopButton";
 import Footer from "../common/Footer";
 import Ganji from "../main/Ganji";
 import Popular from "../main/Popular"
-//import Famous from "../main/Famous";
 import { makeStyles } from "@material-ui/core/styles";
 import SessionDelete from "../common/SessionDelete";
 

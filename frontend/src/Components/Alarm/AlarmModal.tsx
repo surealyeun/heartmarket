@@ -39,10 +39,10 @@ class AlarmModal extends React.Component<Props> {
             url: "http://110.12.73.220:10001/mail/send",
             params: {
                 content: this.state.sendText,
-                //tradeNo: this.props.tradeNo,
+                tradeNo: this.props.tradeNo,
                 senderMail : this.user.email,
                 receiverMail: this.props.email,
-                title:"Test"
+                title:this.state.title
             }
         })
             .then(res => {

@@ -6,6 +6,7 @@
 }
 
 .Alarm {
+  min-height: 70vh;
   font-family: "NanumSquareRound";
   margin-top: 10px;
 
@@ -30,7 +31,7 @@
   }
 
   .alarm_check {
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 
     .checkbox {
       position: absolute;
@@ -82,7 +83,8 @@
     margin-right: 10px;
 
     .alarm_haeder {
-      margin-bottom: 40px;
+      //margin-bottom: 40px;
+      height: 32px;
       // .alarm_send {
       //   right: 10px;
       // }

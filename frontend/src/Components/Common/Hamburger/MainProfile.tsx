@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./MainProfile.scss";
 import { isLog } from "../../../modules/user";
 import { connect } from "react-redux";
@@ -13,7 +13,8 @@ interface Props {
 
 class MainProfile extends Component<Props> {
   state = {
-    islog: false
+    islog: false,
+    logout: false
   };
 
   //로그인 되어 있는지 확인
@@ -21,6 +22,7 @@ class MainProfile extends Component<Props> {
     super(props);
 
     this.state = {
+      ...this.state,
       islog: window.sessionStorage.getItem("log") === "true" ? true : false
     };
   }
@@ -31,15 +33,21 @@ class MainProfile extends Component<Props> {
     window.sessionStorage.setItem("user", "");
     UserAction()
     this.setState({
-      islog: false
+      islog: false,
+      logout: true
     })
   }
 
   user = JSON.parse(window.sessionStorage.getItem('user') || '{}');
   
-
   render() {
     const { islog } = this.state;
+    if(this.state.logout===true){
+      this.setState({
+        logout: false,
+      });
+      return <Redirect to="/"></Redirect>;
+    }
 
     return (
       <div className="Main_Profile">

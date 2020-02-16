@@ -184,9 +184,8 @@ class WriteUpdate extends Component {
     })
       .then(res => {
         console.log(res.data.data);
-        alert("수정이 완료되었습니다")
         this.setState({
-          success: "search/detail/" + res.data.data.tradeNo
+          success: "/search/detail/" + this.state.tradeNo
         });
       })
       .catch(error => {
