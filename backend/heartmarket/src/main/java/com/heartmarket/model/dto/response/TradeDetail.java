@@ -11,6 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TradeDetail {
 
+	// 게시글 정보
 	Trade trade;
+	// 찜 여부
 	int cno;
+	
+	// 거래 완료 됬으면 완료됬는지 아닌지 여부
+	int complete;
 }
