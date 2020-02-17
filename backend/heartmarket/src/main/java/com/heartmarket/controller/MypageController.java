@@ -68,9 +68,9 @@ public class MypageController {
 	// 평가가 완료되면, review에 하나 추가.
 	@RequestMapping(value = "/mypage/evalue/{tradeNo}", method = RequestMethod.POST)
 	@ApiOperation(value = "매너 평가")
-	public ResponseEntity<Object> evalManner(@RequestParam int val, @RequestParam int userNo, @RequestParam int tradeNo) {
+	public ResponseEntity<Object> evalManner(@RequestParam int val, @RequestParam int userNo, @PathVariable int tradeNo) {
 		ResultMap<ReviewResponse> rms = new ResultMap<ReviewResponse>();
-		if(Objects.isNull(mns.evalueUser(tradeNo, userNo, val)))
+		if(Objects.isNull(mns.evalueUser(tradeNo, userNo, val).getData()))
 			return new ResponseEntity<Object>(mns.evalueUser(tradeNo, userNo, val), HttpStatus.OK);
 		else
 			return new ResponseEntity<Object>(mns.evalueUser(tradeNo, userNo, val), HttpStatus.NOT_ACCEPTABLE);

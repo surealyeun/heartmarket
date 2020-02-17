@@ -332,7 +332,7 @@ public class TradeServiceImpl implements TradeService {
 				else if (type == 2) {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tUser").get("userNo"), userno)));
 				}
-
+				
 				predicates.add(criteriaBuilder.and(criteriaBuilder.lessThanOrEqualTo(root.get("tradeNo"), cnt)));
 				System.out.println(predicates.size());
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -349,6 +349,18 @@ public class TradeServiceImpl implements TradeService {
 			if(trade!=null) return trade;
 			return null;
 		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	// 인기매물 목록 구하기
+	@Override
+	public List<Trade> getPopularList(){
+		try {
+			
+			return tr.findTop8All(PageRequest.of(0, 8)).getContent();
+		}catch(Exception e) {
 			e.printStackTrace();
 			throw e;
 		}

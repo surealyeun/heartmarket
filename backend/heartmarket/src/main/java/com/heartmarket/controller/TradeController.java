@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
@@ -130,7 +131,7 @@ public class TradeController {
 		SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = transeFormat.format(date);
 		int uNo = Integer.parseInt(userNo);
-		Trade trade = new Trade(tradeCategory, tradeTitle, tradeArea, productInfo, productPrice, time);
+		Trade trade = new Trade(tradeCategory, tradeTitle, tradeArea, productInfo, Integer.parseInt(productPrice), time);
 		String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
 		for (MultipartFile multipartFile : files) {
 			System.out.println("files : " + multipartFile);
@@ -163,7 +164,7 @@ public class TradeController {
 		if(trade != null) {
 			trade.setTradeTitle(tradeTitle);
 			trade.setTradeCategory(tradeCategory);
-			trade.setProductPrice(productPrice);
+			trade.setProductPrice(Integer.parseInt(productPrice));
 			trade.setProductInfo(productInfo);
 			String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
 			rms = is.uploadFiles(files, imgUploadPath, "trade");
@@ -312,5 +313,20 @@ public class TradeController {
 		}
 
 		return tm;
+	}
+	
+	@RequestMapping(value = "/trade/popular", method = RequestMethod.GET)
+	@ApiOperation(value = "인기매물 추천")
+	public ResponseEntity<Object> popularList(@RequestParam String email){
+		List<TradeMapping> tmList = new ArrayList<TradeMapping>();
+		if(Objects.isNull(ts.getPopularList()))
+			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("FAIL", "목록 불러오기 실패", null)
+					, HttpStatus.NO_CONTENT);
+		else {
+			tmList = mappedFor(ts.getPopularList(), email);
+			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공", tmList), 
+					HttpStatus.OK);
+			
+		}
 	}
 }

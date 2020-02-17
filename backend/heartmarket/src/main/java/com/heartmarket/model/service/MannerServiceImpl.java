@@ -32,8 +32,8 @@ public class MannerServiceImpl implements MannerService{
 	// 평가는 3 택 1
 	// user 를 기반으로 저장
 	
-	@Override
-	public Manner evalueUser(int value, int userNo){
+
+	public Manner evalueManner(int value, int userNo){
 	
 		Manner tMnr = mr.findBymUserUserNo(userNo);
 		
@@ -69,7 +69,7 @@ public class MannerServiceImpl implements MannerService{
 		tMnr.setMinusGauge(mGauge);
 		tMnr.setHeartGauge(calc);
 		
-		mr.save(tMnr);
+//		mr.save(tMnr);
 //		return new ResultMap<Manner>("SUCCESS", "평가완료", tMnr);
 		return tMnr;
 	}
@@ -80,13 +80,16 @@ public class MannerServiceImpl implements MannerService{
 	public ResultMap<ReviewResponse> evalueUser(int tradeNo, int userNo, int val){
 		try {
 			// 매너 평가 완료
-			int comMnr = 0;
-			Manner rMnr = evalueUser(val, userNo);
+//			if(Objects.isNull(tr.findByTradeNo(tradeNo))) {
+//				
+//			}
 			// 리뷰 등록 완료
 			Review rvw = new Review();
+			System.out.println(rr.findByrTradeTradeNo(tradeNo));
 			if(Objects.isNull(rr.findByrTradeTradeNo(tradeNo))){
-				rvw = new Review(tr.findByTradeNo(tradeNo));
-				
+				rvw = new Review(tr.findByTradeNo(tradeNo));	
+				Manner rMnr = evalueManner(val, userNo);
+				System.out.println(rMnr);
 				mr.save(rMnr);
 				rr.save(rvw);
 				return new ResultMap<ReviewResponse>("SUCCESS", "평가 완료", new ReviewResponse( rvw,rMnr));

@@ -16,7 +16,7 @@ public class TradeMapping {
 	int tradeNo;
 	String tTitle;
 	String tArea;
-	String pPrice;
+	int pPrice;
 	int uNo;
 	String uImg;
 	String uNicname;

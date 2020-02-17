@@ -59,11 +59,11 @@ public class Trade implements Serializable {
 	@Column(name = "product_info")
 	String productInfo;
 	@Column(name = "product_price")
-	String productPrice;
+	int productPrice;
 	@Column(name = "trade_date")
 	String tradeDate;
 
-	public Trade(String tradeCategory, String tradeTitle, String tradeArea, String productInfo, String productPrice,
+	public Trade(String tradeCategory, String tradeTitle, String tradeArea, String productInfo, int productPrice,
 			String tradeDate) {
 		super();
 		this.tradeCategory = tradeCategory;

@@ -10,7 +10,7 @@ import com.heartmarket.util.ResultMap;
 public interface MannerService {
 
 //	public ResultMap<Manner> evalueUser(int value, int userNo);
-	public Manner evalueUser(int value, int userNo);
+//	public Manner evalueUser(int value, int userNo);
 
 	ResultMap<ReviewResponse> evalueUser(int tradeNo, int userNo, int val);
 	

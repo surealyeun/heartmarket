@@ -140,9 +140,10 @@ public class MypageServiceImpl implements MypageService {
 			Manner oMr = mr.findBymUserUserNo(oUser.getUserNo());
 			
 			int cnt = tr.countAll();
-			if (no == 0)
-				no = cnt;
+//			if (no == 0)
+//				no = cnt;
 			System.out.println(no);
+			System.out.println("cnt : " + cnt);
 			
 			List<Trade> tList= new ArrayList<Trade>();
 
@@ -156,10 +157,10 @@ public class MypageServiceImpl implements MypageService {
 					List<Predicate> list = new ArrayList<Predicate>();
 
 					list.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tUser").get("userNo"), userNo)));
-					list.add(criteriaBuilder.and(criteriaBuilder.lessThan(root.get("tradeNo"), num)));
+//					list.add(criteriaBuilder.and(criteriaBuilder.lessThan(root.get("tradeNo"), num)));
 					return criteriaBuilder.and(list.toArray(new Predicate[list.size()]));
 				}
-			}, PageRequest.of(0, 8, Sort.by("tradeNo").descending())).getContent();
+			}, PageRequest.of(no, 8, Sort.by("tradeNo").descending())).getContent();
 			
 			System.out.println(tList.size());
 			List<OtherTrade> oList = new ArrayList<OtherTrade>();
