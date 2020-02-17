@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./AlarmList.scss";
-//import PreAlarm from "./PreAlarm";
+import "./AlarmListItem.scss";
+import axios from "axios";
 
 interface Mail {
   data: {
@@ -16,29 +16,32 @@ interface Mail {
       tradeNo: number;
       tradeTitle: string;
       productInfo: string;
-      tTradeImg: Array<TtradeImg>;
-      tuser: {
-        userNo: number;
-        nickname: string;
-      };
+      ttradeImg: Array<TtradeImg>;
     };
     sender: {
       userNo: number;
+      email: string;
+      nickname: string;
+      profileImg: string;
+    };
+    receiver: {
+      userNo: number;
+      email: string;
       nickname: string;
       profileImg: string;
     };
     check: boolean;
   };
   check: boolean;
+  readAlarm: boolean;
 }
 
 interface TtradeImg {
   imgNo: number;
-  tiTrade: number;
   orgImg: string;
 }
 
-class AlarmList extends React.Component<Mail> {
+class AlarmListItem extends React.Component<Mail> {
   state = {
     data: {
       mailNo: 0,
@@ -52,10 +55,17 @@ class AlarmList extends React.Component<Mail> {
         tradeNo: 0,
         tradeTitle: "",
         productInfo: "",
-        tTradeImg: [{ imgNo: 0, tiTrade: 0, orgImg: "" }],
+        ttradeImg: [{ imgNo: 0, orgImg: "" }],
       },
       sender: {
         userNo: 0,
+        email: "",
+        nickname: "",
+        profileImg: ""
+      },
+      receiver: {
+        userNo: 0,
+        email: "",
         nickname: "",
         profileImg: ""
       },
@@ -71,22 +81,36 @@ class AlarmList extends React.Component<Mail> {
     this.state = {
       ...props
     };
-    console.log(this.state.data.readDate);
   }
 
-  componentDidUpdate(preProps: any, preStates: any) {
+  componentWillReceiveProps(preProps: any) {
     if (this.props.check !== preProps.check) {
       this.setState({
         check: this.props.check
       });
     }
-    if (this.state.check !== preStates.check) {
-      // console.log(this.state.data. + " " + this.state.check);
-    }
-    //여기서 삭제하기
-    // if(this.state.check && this.props.deleteAlarm){
+    //여기서 전체 삭제, 읽음 전환 하기
+    if ((this.state.check) && this.props.readAlarm) {
+      if (this.state.data.readDate === null) {
+        //alert("sss");
+        axios({
+          method: "get",
+          url: "http://13.125.55.96:8080/mail/readReceiver",
+          params: {
+            mailNo: this.state.data.mailNo,
+            receiverMail: this.user.email
+          }
+        })
+          .then(res => {
+            //alert("알림이 삭제되었습니다.")
+          })
+          .catch(err => {
+            console.log("err", err);
+            alert("error");
+          });
 
-    // }
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -114,8 +138,8 @@ class AlarmList extends React.Component<Mail> {
           {this.state.data.readDate === null ? (
             <div className="btn new_btn">new</div>
           ) : (
-            <div className="btn read_btn">Read</div>
-          )}
+              <div className="btn read_btn">Read</div>
+            )}
 
           <span className="time">
             {this.state.data.sendDate.substring(0, 16)}
@@ -132,7 +156,7 @@ class AlarmList extends React.Component<Mail> {
               src={this.state.data.sender.profileImg}
             ></img>
             <div>
-              {this.user.userNo !== this.state.data.sender.userNo? (<p className="nickname">{this.state.data.sender.nickname}</p>) : (<p className="nickname">{this.state.data.sender.userNo}</p>)}
+              {this.user.userNo !== this.state.data.sender.userNo ? (<p className="nickname">{this.state.data.sender.nickname}</p>) : (<p className="nickname">{this.state.data.receiver.nickname}</p>)}
               <div className="title">{this.state.data.title}</div>
               <div className="content">{this.state.data.content}</div>
             </div>
@@ -144,4 +168,4 @@ class AlarmList extends React.Component<Mail> {
   }
 }
 
-export default AlarmList;
+export default AlarmListItem;

@@ -5,7 +5,7 @@ import "./Alarm.scss";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import TopButton from "../common/TopButton";
-import AlarmList from "../alarm/AlarmList";
+import AlarmList from "../alarm/AlarmListItem";
 import axios from "axios";
 
 class Alarm extends Component {
@@ -25,14 +25,17 @@ class Alarm extends Component {
             tradeNo: 0,
             tradeTitle: "",
             productInfo: "",
-            tTradeImg: [{ imgNo: 0, tiTrade: 0, orgImg: "" }],
-            tuser: {
-              userNo: 0,
-              nickname: ""
-            },
+            ttradeImg: [{ imgNo: 0, orgImg: "" }],
           },
           sender: {
             userNo: 0,
+            email:"",
+            nickname: "",
+            profileImg: ""
+          },
+          receiver: {
+            userNo: 0,
+            email:"",
             nickname: "",
             profileImg: ""
           },
@@ -43,6 +46,7 @@ class Alarm extends Component {
     //받은 알림(false), 보낸 알림 (true)
     sendStatus: false,
     deleteAlarm: false,
+    readAlarm:false,
     //전체 선택 여부 확인 변수
     check: false,
     readcheck: "notyet"
@@ -120,6 +124,12 @@ class Alarm extends Component {
     window.sessionStorage.setItem("readcheck", "notyet");
   };
 
+  setReadAll = () => {
+    this.setState({
+      readAlarm:!this.state.readAlarm
+    })
+  }
+
   //Axois 호출하기
   callAxios = (No: number) => {
     var url = "";
@@ -146,7 +156,6 @@ class Alarm extends Component {
     })
       .then(res => {
         const mail = res.data;
-        console.log(mail);
         this.setState({
           mail
         });
@@ -160,6 +169,12 @@ class Alarm extends Component {
     if (this.user.email === undefined) {
       alert("로그인을 해야 가능한 서비스 입니다.");
       return <Redirect to="/"></Redirect>;
+    }
+    if(this.state.readAlarm){
+      this.setState({
+        readAlarm:false
+      })
+      //window.location.reload();
     }
     return (
       <>
@@ -186,7 +201,7 @@ class Alarm extends Component {
               readOnly
             ></input>
             <div className="alarm_deleteall">삭제</div>
-            <div className="alarm_readall">읽음 표시</div>
+            {this.state.sendStatus===false && <div className="alarm_readall" onClick={this.setReadAll}>읽음 표시</div>}
             {this.state.sendStatus === false ? (
               <select onChange={this.changeRead} value={this.state.readcheck}>
                 <option value="notyet">안읽은 알림</option>
@@ -205,6 +220,7 @@ class Alarm extends Component {
               <AlarmList
                 key={alarm.mailNo}
                 check={this.state.check}
+                readAlarm={this.state.readAlarm}
                 data={alarm}
               ></AlarmList>
             ))}
