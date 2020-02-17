@@ -9,53 +9,69 @@ import AlarmList from "../alarm/AlarmList";
 import axios from "axios";
 
 class Alarm extends Component {
-
   state = {
-    alarms: [{
-      alarmid: 1,
-      img:
-        "https://dnvefa72aowie.cloudfront.net/origin/article/202001/142e5f439d6d5e28a381afea8ff31c8f065dfc28d44c7c0b1281f2d132b36f26.webp?q=82&s=300x300&t=crop",
-      name: "송마음이",
-      time: "1분전",
-      title: "포트메리온 그릇 20종 미사용",
-      text: "상품에 관심있어서 연락드려요~~ 사고 싶어요",
-      check: false,
-      readcheck: false,
-      senddelete: false,
-      recievedelete: false
-    }],
+    mail: {
+      total: 0,
+      data: [
+        {
+          mailNo: 0,
+          title: "",
+          content: "",
+          sendDate: "",
+          sendDel: 0,
+          readDel: 0,
+          readDate: "",
+          trade: {
+            tradeNo: 0,
+            tradeTitle: "",
+            productInfo: "",
+            tTradeImg: [{ imgNo: 0, tiTrade: 0, orgImg: "" }],
+            tuser: {
+              userNo: 0,
+              nickname: ""
+            },
+          },
+          sender: {
+            userNo: 0,
+            nickname: "",
+            profileImg: ""
+          },
+          check: false
+        }
+      ]
+    },
     //받은 알림(false), 보낸 알림 (true)
     sendStatus: false,
     deleteAlarm: false,
     //전체 선택 여부 확인 변수
     check: false,
     readcheck: "notyet"
-  }
+  };
 
-  user = JSON.parse(window.sessionStorage.getItem('user') || '{}');
+  user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
   //전체 선택하는 부분
   CheckedAll = () => {
-    this.state.alarms.forEach(alarm => (alarm.check = !this.state.check));
+    this.state.mail.data.forEach(alarm => (alarm.check = !this.state.check));
     this.setState({
       check: !this.state.check
-    })
+    });
   };
 
   changeRead = (e: any) => {
     //읽은 상태 변경시 체크 상태 변경
-    this.state.alarms.forEach(alarm => (alarm.check = false));
+    this.state.mail.data.forEach(alarm => (alarm.check = false));
     this.setState({
       readcheck: e.target.value
-    })
+    });
     window.sessionStorage.setItem("readcheck", e.target.value);
 
-    this.callAxios();
+    this.callAxios(0);
   };
 
   changeSendStatus = (e: any) => {
     //보낸 상태 변경시 체크 상태 변경
-    this.state.alarms.forEach(alarm => (alarm.check = false));
+    this.state.mail.data.forEach(alarm => (alarm.check = false));
     this.setState({ check: false });
     //상태에 따른 이미지 업로드 -> axios 호출로 변경
     if (e.target.value === "false") {
@@ -64,7 +80,7 @@ class Alarm extends Component {
       this.sendStatusTrue();
     }
 
-    this.callAxios();
+    this.callAxios(0);
   };
 
   //세션 스토리지의 값 기본 값 받아오기
@@ -78,10 +94,10 @@ class Alarm extends Component {
     }
     this.setState({
       readcheck: read
-    })
-    window.sessionStorage.setItem("readcheck", read||"notyet");
+    });
+    window.sessionStorage.setItem("readcheck", read || "notyet");
 
-    this.callAxios();
+    this.callAxios(0);
   }
 
   //보낸
@@ -89,68 +105,71 @@ class Alarm extends Component {
     this.setState({
       sendStatus: true,
       readcheck: "all"
-    })
+    });
     window.sessionStorage.setItem("sendStatus", "true");
     window.sessionStorage.setItem("readcheck", "all");
-  }
+  };
 
   //받은
   sendStatusFalse = () => {
     this.setState({
       sendStatus: false,
       readcheck: "notyet"
-    })
+    });
     window.sessionStorage.setItem("sendStatus", "false");
     window.sessionStorage.setItem("readcheck", "notyet");
-  }
+  };
 
   //Axois 호출하기
-  callAxios = () => {
-    var url = ""
+  callAxios = (No: number) => {
+    var url = "";
     //받은
-    if (window.sessionStorage.getItem("sendStatus") === "false") {
+    if (window.sessionStorage.getItem("sendStatus") === "false" || undefined) {
       //안 읽은 전체 읽은
-      if (window.sessionStorage.getItem("readcheck") === "notyet") url="/mail/findAllUnReaded";
-      else if (window.sessionStorage.getItem("readcheck") === "all") url="/mail/findAllReceive";
-      else if (window.sessionStorage.getItem("readcheck") === "read") url ="/mail/findAllReaded"
+      if (window.sessionStorage.getItem("readcheck") === "notyet" || undefined)
+        url = "/mail/findAllUnReaded?receiverMail=" + this.user.email;
+      else if (window.sessionStorage.getItem("readcheck") === "all")
+        url = "/mail/findAllReceive?receiverMail=" + this.user.email;
+      else if (window.sessionStorage.getItem("readcheck") === "read")
+        url = "/mail/findAllReaded?receiverMail=" + this.user.email;
     }
-    // 보낸
+    // 보낸 전체
     else {
-      //안 읽은 전체 읽은
-      if (window.sessionStorage.getItem("readcheck") === "notyet") url = ""
-      else if (window.sessionStorage.getItem("readcheck") === "all") url="/mail/findAllSend"
-      else if (window.sessionStorage.getItem("readcheck") === "read") url = ""
+      url = "/mail/findAllSend?senderMail=" + this.user.email;
     }
     axios({
       method: "get",
-      url: url,
+      url: "http://13.125.55.96:8080" + url,
       params: {
-        receiverMail: this.user.email
+        no: No
       }
     })
       .then(res => {
-        const alarms = res.data;
-        console.log(alarms);
+        const mail = res.data;
+        console.log(mail);
         this.setState({
-          alarms
+          mail
         });
       })
       .catch(err => {
         console.log("err", err);
       });
-  }
+  };
 
   render() {
     if (this.user.email === undefined) {
-      alert("로그인을 해야 가능한 서비스 입니다.")
-      return <Redirect to="/"></Redirect>
+      alert("로그인을 해야 가능한 서비스 입니다.");
+      return <Redirect to="/"></Redirect>;
     }
     return (
       <>
         <Header></Header>
         <div className="Alarm">
           <div className="alarm_haeder">
-            <select onChange={this.changeSendStatus} value={this.state.sendStatus + ""}>
+            <select
+              onChange={this.changeSendStatus}
+              value={this.state.sendStatus + ""}
+            >
               <option value="false">받은 알림</option>
               <option value="true">보낸 알림</option>
             </select>
@@ -175,25 +194,23 @@ class Alarm extends Component {
                 <option value="all">전체 알림</option>
               </select>
             ) : (
-                <select onChange={this.changeRead} value={this.state.readcheck}>
-                  <option value="all">전체 알림</option>
-                  <option value="notyet">안읽은 알림</option>
-                  <option value="read">읽은 알림</option>
-                </select>
-              )}
+              <select onChange={this.changeRead} value={this.state.readcheck}>
+                <option value="all">전체 알림</option>
+              </select>
+            )}
           </div>
           <div>
             <hr></hr>
-            {this.state.alarms.map(alarm => (
+            {this.state.mail.data.map(alarm => (
               <AlarmList
-                key={alarm.alarmid}
-                sendStatus={this.state.sendStatus}
-                deleteAlarm={this.state.deleteAlarm}
+                key={alarm.mailNo}
                 check={this.state.check}
-                {...alarm}
+                data={alarm}
               ></AlarmList>
             ))}
           </div>
+          <div className="plus_btn">더 보 기</div>
+          <br></br><br></br><br></br><br></br>
         </div>
         <TopButton></TopButton>
         <Footer></Footer>

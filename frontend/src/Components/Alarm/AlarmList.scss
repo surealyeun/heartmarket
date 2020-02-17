@@ -26,15 +26,15 @@
     .readcheck {
       color: rgb(204, 203, 203);
     }
-    p {
+    .nickname {
       margin-left: 50px;
       display: inline;
     }
-    .aaa {
+    .title {
       margin-left: 50px;
       margin-top: 5px;
     }
-    .bbb {
+    .content {
       margin-top: 5px;
 
       //글자 잘린 부분 ...으로 표시
@@ -42,14 +42,33 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .send_btn {
-      z-index: 5;
+    .btn {
       position: absolute;
       text-align: center;
       width: 40px;
-      height: 40px;
+      height: 25px;
       border-radius: 5px;
+      background: #f494ab;
+      color: #f9f4e6;
+      font-weight: bolder;
+      font-size: 15px;
+      margin-top: 3px;
+      padding-top: 5px;
+      padding-right: 2.5px;
+      padding-left: 2.5px;
+    }
+
+    .read_btn{
+      color: #365367;
       background: #f9f4e6;
+    }
+    .time{
+      position: absolute;
+      text-align: center;
+      width: 150px;
+      height: 25px;
+      border-radius: 5px;
+      background: #4242421a;
       color: #365367;
       font-weight: bolder;
       font-size: 15px;
@@ -63,8 +82,11 @@
 
 @media screen and (max-width: 767px) {
   .AlarmList {
-    .send_btn {
+    .btn {
       right: 10px;
+    }
+    .time{
+      right: 65px;
     }
   }
 }
@@ -74,8 +96,11 @@
     margin: 0 auto;
     max-width: 768px;
 
-    .send_btn {
+    .btn {
       right: calc(50% - 380px);
+    }
+    .time{
+      right: calc(50% - 325px);
     }
   }
 }
@@ -84,8 +109,11 @@
     margin: 0 auto;
     max-width: 960px;
 
-    .send_btn {
+    .btn {
       right: calc(50% - 480px);
+    }
+    .time{
+      right: calc(50% - 425px);
     }
   }
 }
