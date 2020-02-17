@@ -9,39 +9,44 @@ import "./Items.scss";
 import SessionDelete from "../common/SessionDelete";
 
 export interface purchase {
-    tradeNo:       number;
+    eval: number;
+    btrade: Btrade;
+}
+
+export interface Btrade {
+    tradeNo: number;
     tradeCategory: string;
-    tradeTitle:    string;
-    tradeArea:     string;
-    productInfo:   string;
-    productPrice:  string;
-    tradeDate:     Date;
-    tTradeImg:     TTradeImg[];
-    tuser:         Tuser;
-    buser:         null;
-    tmanner:       null;
+    tradeTitle: string;
+    tradeArea: string;
+    productInfo: string;
+    productPrice: string;
+    tradeDate: Date;
+    tTradeImg: TTradeImg[];
+    tuser: Tuser;
+    buser: null;
+    tmanner: null;
 }
 
 export interface TTradeImg {
-    imgNo:   number;
+    imgNo: number;
     tiTrade: number;
-    orgImg:  string;
+    orgImg: string;
 }
 
 export interface Tuser {
-    userNo:         number;
-    email:          string;
-    password:       string;
-    profileImg:     string;
-    nickname:       string;
+    userNo: number;
+    email: string;
+    password: string;
+    profileImg: string;
+    nickname: string;
     userPermission: string;
-    uarea:          Uarea[];
+    uarea: Uarea[];
 }
 
 export interface Uarea {
-    areaNo:  number;
+    areaNo: number;
     address: string;
-    auser:   number;
+    auser: number;
 }
 
 class Purchase extends React.Component {
@@ -72,6 +77,7 @@ class Purchase extends React.Component {
             }
         })
             .then(res => {
+                console.log("purchase", res.data.data);
                 this.setState({
                     Purchases: res.data.data
                 });
@@ -87,28 +93,39 @@ class Purchase extends React.Component {
                 <SessionDelete></SessionDelete>
                 <h3>구매 상품</h3>
                 <div className="products">
-                    {/* <div className="item">
-                        <img
-                            src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/77120318A0EA8BE3F97C131D8758D2B5E452A0D37184FE594F75148386745E8A.jpg?q=82&s=300x300&t=crop"
-                            alt="item1"
-                        />
-                    </div> */}
                     {this.state.Purchases ? (
                         <>
                             {this.state.Purchases.map((purchase, i) => {
                                 if (i < 4) {
                                     return (
                                         <>
-                                            <ItemCard
-                                                image={purchase.tTradeImg}
-                                                tradeTitle={purchase.tradeTitle}
-                                                productPrice={purchase.productPrice}
-                                                tradeNo={purchase.tradeNo}
-                                            />
-                                            <button onClick={this.openModal}>modal</button>
+                                            <div className="purchase-modalbtn">
+                                                <Link
+                                                    to={`/search/detail/${purchase.btrade.tradeNo}`}
+                                                >
+                                                    <ItemCard
+                                                        image={purchase.btrade.tTradeImg}
+                                                        tradeTitle={purchase.btrade.tradeTitle}
+                                                        productPrice={purchase.btrade.productPrice}
+                                                        tradeNo={purchase.btrade.tradeNo}
+                                                    />
+                                                </Link>
+                                                {purchase.eval === 0 ? (
+                                                    <button
+                                                        className="btn-manner-modal"
+                                                        onClick={this.openModal}
+                                                    >
+                                                        평가하기
+                                                    </button>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                            </div>
                                             <Modal
                                                 isOpen={this.state.isModalOpen}
                                                 close={this.closeModal}
+                                                userNo={purchase.btrade.tuser.userNo}
+                                                tradeNo={purchase.btrade.tradeNo}
                                             />
                                         </>
                                     );
@@ -118,10 +135,6 @@ class Purchase extends React.Component {
                     ) : (
                         <div className="item">
                             <h4>구매 상품이 없습니다.</h4>
-                            <button onClick={this.openModal}>modal</button>
-                                            <Modal
-                                                isOpen={this.state.isModalOpen}
-                                                close={this.closeModal}/>
                         </div>
                     )}
                     <div className="product-more-wrapper">

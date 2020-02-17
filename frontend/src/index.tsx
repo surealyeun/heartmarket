@@ -6,6 +6,7 @@ import { createStore, applyMiddleware } from "redux";
 import rootReducer from "./modules";
 import { createLogger } from 'redux-logger'
 import ReduxThunk from 'redux-thunk'
+import "dotenv/config"
 
 const logger = createLogger();
 const store = createStore(rootReducer, applyMiddleware(logger, ReduxThunk));

@@ -1,0 +1,53 @@
+.map_wrap {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+  .hTitle {
+    font-weight: bold;
+    display: block;
+  }
+  .hAddr {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    border-radius: 2px;
+    background: #fff;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+    padding: 5px;
+  }
+  #centerAddr {
+    display: block;
+    margin-top: 2px;
+    font-weight: normal;
+  }
+  .bAddr {
+    padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .area {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #888;
+    border-radius: 3px;
+    font-size: 12px;
+    top: -5px;
+    left: 15px;
+    padding: 2px;
+  }
+  .info {
+    font-size: 12px;
+    padding: 5px;
+  }
+  .info .title {
+    font-weight: bold;
+  }
+  .size {
+    padding-right: 15px;
+  }
+  .size ul {
+    padding-left: 20px;
+  }

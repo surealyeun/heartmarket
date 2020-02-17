@@ -1,45 +1,72 @@
 import React from "react";
+import axios from 'axios';
 import "./MannerModal.scss";
 
 interface Props {
     isOpen: boolean;
     close: any;
+    userNo: number;
+    tradeNo: number;
 }
 
 class MannerModal extends React.Component<Props> {
     state = {
         rate: '',
+        val: 0,
         isRate: false
     }
 
     good = () => {
         this.setState({
             rate: '좋았어요',
+            val: 3,
             isRate: true
         })
     }
     soso = () => {
         this.setState({
             rate: '보통이에요',
+            val: 0,
             isRate: true
         })
     }
     bad = () => {
         this.setState({
             rate: '별로예요',
+            val: -3,
             isRate: true
         })
     }
 
     rating = () => {
         // isRate === true 때 axios 평가 추가
-
-        this.props.close();
+        if(this.state.isRate){
+            axios({
+                method: "post",
+                url: "http://13.125.55.96:8080/mypage/evalue/"+this.props.tradeNo,
+                params: {
+                    userNo: this.props.userNo,
+                    val: this.state.val,
+                    tradeNo: this.props.tradeNo
+                }
+            }).then(res => {
+                console.log(res);
+                this.props.close();
+                
+            }).catch(err => {
+                console.log(err);
+            })
+        }else{
+            this.setState({
+                rate: "평가 점수를 누르고 완료해주세요"
+            })
+        }
     }
 
     modalClose = () => {
         this.setState({
             rate: '',
+            val: 0,
             isRate: false
         })
         this.props.close();

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import axios from "axios";
-import ItemCard_simple from "../users/ItemCard_simple";
+import ItemCardSimple from "../users/ItemCardSimple";
 import { Link } from "react-router-dom";
 
 import "./UserProfile.scss";
@@ -111,7 +111,7 @@ class UserProfile extends Component {
                     return (
                       <>
                         <Link to={`/search/detail/${sale.tradeNo}`}>
-                          <ItemCard_simple
+                          <ItemCardSimple
                             image={sale.imgarr}
                             tradeTitle={sale.ttitle}
                             productPrice={sale.pprice}
