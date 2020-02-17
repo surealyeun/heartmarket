@@ -83,11 +83,12 @@ public class MannerServiceImpl implements MannerService{
 //			if(Objects.isNull(tr.findByTradeNo(tradeNo))) {
 //				
 //			}
-			// 리뷰 등록 완료
-			Review rvw = new Review();
-			System.out.println(rr.findByrTradeTradeNo(tradeNo));
-			if(Objects.isNull(rr.findByrTradeTradeNo(tradeNo))){
-				rvw = new Review(tr.findByTradeNo(tradeNo));	
+			// 리뷰 등록 완료 
+			Review rev = rr.findByrTradeTradeNo(tradeNo);
+			System.out.println("review : " + rr.findByrTradeTradeNo(tradeNo));
+			
+			if(rev == null){
+				Review rvw = new Review(tr.findByTradeNo(tradeNo));	
 				Manner rMnr = evalueManner(val, userNo);
 				System.out.println(rMnr);
 				mr.save(rMnr);

@@ -188,7 +188,7 @@ public class MypageServiceImpl implements MypageService {
 
 			List<Trade> tList= new ArrayList<Trade>();
 			System.out.println(tList.size());
-			tList = tr.findAll();
+			tList = tr.findAllBytUserUserNo(userNo);
 			List<OtherTrade> oList = new ArrayList<OtherTrade>();
 		
 			for (Trade trade : tList) {
