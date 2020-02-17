@@ -11,6 +11,7 @@ interface Props{
     image: Array<TtradeImg>;
     tradeTitle: string;
     productPrice: string;
+    tradeNo:number;
 }
 
 class ItemCard extends React.Component<Props> {
@@ -34,15 +35,15 @@ class ItemCard extends React.Component<Props> {
 
     render(){
         return (
-            <div className="itemCard" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
-                <div className="img-back" hidden={this.state.isOver}>
-                    <div className="item-info">
-                        <h4 className="title">{this.props.tradeTitle}</h4>
+            <div id={this.props.tradeNo+""} className="itemCard" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+                <div id={this.props.tradeNo+""} className="img-back" hidden={this.state.isOver}>
+                    <div id={this.props.tradeNo+""} className="item-info">
+                        <h4 id={this.props.tradeNo+""} className="title">{this.props.tradeTitle}</h4>
                         <hr/>
-                        <h4 className="price">{this.props.productPrice}원</h4>
+                        <h4 id={this.props.tradeNo+""} className="price">{this.props.productPrice}원</h4>
                     </div>
                 </div>
-                <img src={this.props.image[0].orgImg.toString()} alt={this.props.tradeTitle} /> 
+                <img id={this.props.tradeNo+""} src={this.props.image[0].orgImg.toString()} alt={this.props.tradeTitle} /> 
             </div>
         );
     }

@@ -3,8 +3,8 @@ import "./Hamburger.scss";
 import Gauge from "./Gauge";
 import MainProfile from "./MainProfile";
 import HamZzim from "./HamZzim";
-import PreAlarm from "../../alarm/PreAlarm";
-import { Link } from "react-router-dom";
+import PreAlarmList from "../../alarm/PreAlarmList";
+// import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { RootState } from "../../../modules";
@@ -58,9 +58,7 @@ class Hamburger extends Component<Props> {
     return (
       <div className="Hamburger">
         <button type="button" id="menu" onClick={this.onclick}>
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span> <span></span> <span></span>
         </button>
         <div>
           <div className={`${visible && "hambuger_sub"}`} onClick={this.onclick}></div>
@@ -81,14 +79,7 @@ class Hamburger extends Component<Props> {
                             <div id="tabmyinfo" className="hambuger_tabbtn hambuger_tapcheck" onClick={e => this.onTabclick(e)}>내정보</div>
                             <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm" onClick={e => this.onTabclick(e)}>알림</div>
                             <div className="hambuger_prealarm">
-                              <p className="pp1">새로운 알림 (2{visible})</p>
-                              <Link to={{ pathname: "/alarm" } }>
-                                <p className="ppp" onClick={this.onclick}>더보기</p>
-                              </Link>
-                              <div className="prealarm_bundle">
-                                <PreAlarm></PreAlarm>
-                                <PreAlarm></PreAlarm>
-                              </div>
+                              <PreAlarmList></PreAlarmList>
                             </div>
                           </div>
                         ) : (
@@ -104,10 +95,11 @@ class Hamburger extends Component<Props> {
                                   <HamZzim></HamZzim>
                                 </div>
                                 <div className="hambuger_godetail">
-                                  <p>판매상품</p>
-                                  <p>구매상품</p>
-                                  <p>공지하기</p>
-                                  <p>건의하기</p>
+                                  <div></div> <p>판매상품</p>
+                                  <div></div> <p>구매상품</p>
+                                  <div></div> <p>공지하기</p>
+                                  <div></div> <p>건의하기</p>
+                                  <div></div>
                                 </div>
                               </div>
                             </div>
@@ -116,10 +108,7 @@ class Hamburger extends Component<Props> {
                     )}
 
                   <button type="button" className="bnt_close" onClick={this.onclick}>
-                    <img
-                      alt="close"
-                      src="https://image.flaticon.com/icons/svg/458/458595.svg"
-                    ></img>
+                    <img alt="close" src="https://image.flaticon.com/icons/svg/458/458595.svg" ></img>
                   </button>
                 </div>
               )}

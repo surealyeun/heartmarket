@@ -21,12 +21,12 @@ class WriteUpdate extends Component {
     filekey: 0,
     base64: [],
     success: "",
-    before: []
+    before:  [{ imgNo: 0, tiTrade: 0, orgImg: "" }],
   };
 
   constructor(props: any) {
     super(props);
-    console.log(props.history.location.state.props.tradeNo);
+    console.log(props.history.location.state.props.tTradeImg);
     this.state = {
       ...this.state,
       tradeNo:props.history.location.state.props.tradeNo,
@@ -184,9 +184,8 @@ class WriteUpdate extends Component {
     })
       .then(res => {
         console.log(res.data.data);
-        alert("수정이 완료되었습니다")
         this.setState({
-          success: "search/detail/" + res.data.data.tradeNo
+          success: "/search/detail/" + this.state.tradeNo
         });
       })
       .catch(error => {
@@ -267,7 +266,7 @@ class WriteUpdate extends Component {
                     <img
                       alt="이전 이미지"
                       //src="https://image.flaticon.com/icons/svg/1063/1063738.svg"
-                      src={image}
+                      src={image.orgImg}
                     ></img>
                   </div>
                 ))}

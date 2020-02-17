@@ -103,6 +103,7 @@ class Purchase extends React.Component {
                                                 image={purchase.tTradeImg}
                                                 tradeTitle={purchase.tradeTitle}
                                                 productPrice={purchase.productPrice}
+                                                tradeNo={purchase.tradeNo}
                                             />
                                             <button onClick={this.openModal}>modal</button>
                                             <Modal

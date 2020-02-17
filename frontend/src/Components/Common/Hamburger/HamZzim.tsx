@@ -9,6 +9,7 @@ import { isZzim } from "../../../modules/zzim";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { RootState } from "../../../modules";
+import ItemCard from "../../users/ItemCard"
 
 interface Props {
   status: boolean | false;
@@ -16,42 +17,55 @@ interface Props {
 }
 
 export interface like {
+  cTrade: Trade;
   cartNo: number;
+  ctrade: Trade;
   cuser: User;
-  ctrade: Ctrade;
 }
 
-export interface Ctrade {
-  tradeNo: number;
-  tradeCategory: string;
-  tradeTitle: string;
-  productName: string;
-  tradeArea: string;
+export interface Trade {
+  buser: User;
   productInfo: string;
   productPrice: string;
-  tradeDate: Date;
-  ttradeImg: any[];
-  buser: null;
+  tTradeImg: TTradeImg[];
+  tmanner: Tmanner;
+  tradeArea: string;
+  tradeCategory: string;
+  tradeDate: string;
+  tradeNo: number;
+  tradeTitle: string;
   tuser: User;
-  tmanner: null;
 }
 
 export interface User {
-  userNo: number;
   email: string;
-  password: string;
-  profileImg: null | string;
   nickname: string;
-  userPermission: string;
+  password: string;
+  profileImg: string;
   uarea: Uarea[];
+  userNo: number;
+  userPermission: string;
 }
 
 export interface Uarea {
-  areaNo: number;
   address: string;
-  auser: number;
+  areaNo: number;
 }
 
+export interface TTradeImg {
+  imgNo: number;
+  orgImg: string;
+  tiTrade: number;
+}
+
+export interface Tmanner {
+  heartGauge: number;
+  mannerNo: number;
+  minusGauge: number;
+  muser: User;
+  normalGauge: number;
+  plusGauge: number;
+}
 class HamZzim extends React.Component<Props> {
   //https://felixblog.tistory.com/50
 
@@ -79,6 +93,7 @@ class HamZzim extends React.Component<Props> {
   mouseup = (e: any) => {
     if (e.clientX === this.state.mouse_x && e.clientY === this.state.mouse_y) {
       //this.props.history.push(`/search/detail/${e.target.id}`)
+      console.log(e.target)
       this.setState({
         success: "/search/detail/" + e.target.id
       });
@@ -117,7 +132,7 @@ class HamZzim extends React.Component<Props> {
     }
     if (this.state.success) {
       this.setState({
-        success:""
+        success: ""
       })
       return <Redirect to={this.state.success}></Redirect>;
     }
@@ -135,39 +150,17 @@ class HamZzim extends React.Component<Props> {
               responsive={this.responsive}
             >
               {this.state.Likes.map(like => (
-                <div
-                  className="zzim_item"
-                  key={like.ctrade.tradeNo ? like.ctrade.tradeNo + "" : ""}
-                >
-                  <img
-                    id={like.ctrade.tradeNo ? like.ctrade.tradeNo + "" : ""}
-                    className="img_zzim"
-                    onMouseDown={this.mousedown}
-                    onMouseUp={this.mouseup}
-                    alt=""
-                    src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/3f16c38757e982a14216589bb673fb756d1921ec9378767e91b24e6ae09099c3.webp?q=95&s=1440x1440&t=inside"
-                  ></img>
-                  <p
-                    id={like.ctrade.tradeNo ? like.ctrade.tradeNo + "" : ""}
-                    onMouseDown={this.mousedown}
-                    onMouseUp={this.mouseup}
-                    className="zzim_price"
-                  >
-                    {like.ctrade.productPrice}
-                  </p>
-                  <p
-                    id={like.ctrade.tradeNo ? like.ctrade.tradeNo + "" : ""}
-                    className="zzim_itemtitle"
-                  >
-                    {like.ctrade.tradeTitle}
-                  </p>
+                <div className="zzim_items" key={like.ctrade.tradeNo} onMouseDown={this.mousedown}
+                  onMouseUp={this.mouseup}>
+                  <ItemCard image={like.ctrade.tTradeImg} tradeTitle={like.ctrade.tradeTitle}
+                    productPrice={like.ctrade.productPrice} tradeNo={like.ctrade.tradeNo} />
                 </div>
               ))}
             </Carousel>
           </div>
         ) : (
-          <p className="no_item">추가된 상품이 없습니다</p>
-        )}
+            <p className="no_item">추가된 상품이 없습니다</p>
+          )}
       </div>
     );
   }

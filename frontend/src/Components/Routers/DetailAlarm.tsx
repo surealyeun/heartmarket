@@ -4,10 +4,9 @@ import Header from "../common/Header";
 import Nav from "../common/Nav";
 import Footer from "../common/Footer";
 import "./DetailAlarm.scss";
-import PreAlarm from "../alarm/PreAlarm";
+// import PreAlarm from "../alarm/PreAlarm";
 
 import { makeStyles } from "@material-ui/core/styles";
-import SessionDelete from "../common/SessionDelete";
 
 function DetailAlarm() {
 
@@ -25,7 +24,6 @@ function DetailAlarm() {
     <>
       <Header></Header>
       <Nav></Nav>
-      <SessionDelete></SessionDelete>
       <div className="DetailAlarm">
         <div className={classes.root}>
           <div className="display">
@@ -41,14 +39,11 @@ function DetailAlarm() {
             <br></br>
             <br></br>
           </div>
-          <div>
-            <div>rkskkkealsdmaksdma;smd;alsda;kfmldnflsnlamldkasm;das;ldmaksnfldnflknaskldmalskmd<br/>asdaksdhaskdhlaksjdlaksj</div>
-            <div>rkskkkealsdmaksdma;smd;alsda;kfmldnflsnl>amldkasm;das;ldmaksnfldnflknaskldmalskmd<br/>asdaksdhaskdhlaksjdlaksj</div>
-            <div>rkskkkealsdmaksdma;smd;alsda;kfmldnflsnl>amldkasm;das;ldmaksnfldnflknaskldmalskmd<br/>asdaksdhaskdhlaksjdlaksj</div>
-            <div>rkskkkealsdmaksdma;smd;alsda;kfmldnflsnl>amldkasm;das;ldmaksnfldnflknaskldmalskmd<br/>asdaksdhaskdhlaksjdlaksj</div>
+          <div className="alarm_content">
+            rkskkkealsdmaksdma;smd;alsda;kfmldnflsnlamldkasm;das;ldmaksn
+            fldnflknaskldmalskmdasdaksdhaskdhlaksjdlaksj>rkskkkealsdmaksdma;smd;alsda;kfmldnflsnl>amldkasm;das;ldmaksnfldnflknaskldmalskmd>asdaksdhaskdhlaksjdlaksjrkskkkealsdmaksdma;smd;alsda;kfmldnflsnl>amldkasm;das;ldmaksnfldnflknaskldmalskmd>asdaksdhaskdhlaksjdlaksjrkskkkealsdmaksdma;smd;alsda;kfmldnflsnl>amldkasm;das;ldmaksnfldnflknaskldmalskmd/>asdaksdhaskdhlaksjdlaksj
           </div>
-          <br></br><br></br>
-          <PreAlarm></PreAlarm>
+          <br></br>
           <div>
             <br></br>
             <div className="detailalarm_btn">답장</div>

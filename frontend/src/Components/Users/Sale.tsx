@@ -98,6 +98,7 @@ class Sale extends React.Component {
                                                     image={sale.tTradeImg}
                                                     tradeTitle={sale.tradeTitle}
                                                     productPrice={sale.productPrice}
+                                                    tradeNo={sale.tradeNo}
                                                 />
                                                 {/* <div className="item" key={"item" + i}>
                                                 <h3>{sale.tradeTitle}</h3>

@@ -1,5 +1,7 @@
 .AlarmList {
-  *{color : black;}
+  * {
+    color: black;
+  }
   input[type="checkbox"] {
     position: absolute;
     margin-top: 10px;
@@ -30,10 +32,15 @@
     }
     .aaa {
       margin-left: 50px;
-      margin-top: 3px;
+      margin-top: 5px;
     }
     .bbb {
-      margin-top: 7px;
+      margin-top: 5px;
+
+      //글자 잘린 부분 ...으로 표시
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .send_btn {
       z-index: 5;
@@ -68,7 +75,6 @@
     max-width: 768px;
 
     .send_btn {
-      
       right: calc(50% - 380px);
     }
   }

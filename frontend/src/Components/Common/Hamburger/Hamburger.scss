@@ -131,24 +131,25 @@
 
     .hambuger_godetail {
       position: relative;
-      margin-left: 16px;
       text-align: left;
-      margin-top: 100px;
+      margin-top: 90px;
+      margin-left: 5px;
+      margin-right: 5px;
+      div{
+        margin-left: 5px;
+        margin-right: 5px;
+        height: 1px;
+        background: #42424233;
+        border: none
+      }
       p {
+        margin-top: 20px;
+        margin-left: 16px;
+        width: 85px;
         margin-bottom: 20px;
         font-weight: bolder;
         cursor: pointer;
       }
-    }
-
-    .hr_1 {
-      height: 1px;
-      border: 0px;
-      background-color: #365367;
-      position: absolute;
-      top: 280px;
-      width: 93%;
-      left: 10px;
     }
   }
 
@@ -157,26 +158,6 @@
     height: calc(100% - 40px);
     width: 100%;
     position: absolute;
-    
-    .pp1{
-      position: absolute;
-      text-align: left;
-      left: 5%;
-    }
-
-    .ppp{
-      color: #365367;
-      position: absolute;
-      text-align: right;
-      right: 5%;
-      margin-top: 2px;
-      cursor: pointer;
-    }
-
-    .prealarm_bundle{
-      margin-top: 40px;
-    }
-    
   }
 }
 
@@ -193,8 +174,7 @@
 
     //모바일 버전에서 햄버거 버튼 클릭시 화면의 다른 부분을 선택하면 꺼지게 하는 부분
     .hambuger_sub {
-      background: #000;
-      opacity: 50%;
+      background: rgba(0, 0, 0, 0.5);
       width: 100%;
       height: 100%;
       position: fixed;

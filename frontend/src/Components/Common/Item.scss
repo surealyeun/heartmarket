@@ -154,7 +154,7 @@
     font-size: 20px;
     margin-left: 120px;
     margin-top: 120px;
-    color: red;
+    color: #f494ab;
     z-index: 10;
     cursor: pointer;
   }
@@ -163,15 +163,15 @@
     .zzim_item {
         font-size: 25px;
         margin-left: 140px;
-        margin-top: 140px;
+        margin-top: 143px;
       }
   }
   //Web-2
   @media screen and (min-width: 960px) {
     .zzim_item {
-        font-size: 30px;
-        margin-left: 180px;
-        margin-top: 185px;
+        font-size: 28px;
+        margin-left: 183px;
+        margin-top: 183px;
       }
   }
 }

@@ -17,7 +17,9 @@
     color: #365367;
   }
 
-  .zzim_title, .zzim_plus, .zzim_price{
+  .zzim_title,
+  .zzim_plus,
+  .zzim_price {
     position: absolute;
   }
   .zzim_title {
@@ -29,11 +31,11 @@
     cursor: pointer;
   }
 
-  .zzim_info{
+  .zzim_info {
     height: 1px;
   }
 
-  .no_item{
+  .no_item {
     position: absolute;
     margin-top: 30px;
     padding-top: 12px;
@@ -50,61 +52,23 @@
     width: calc(100% - 10px);
     height: 80px;
     text-align: center;
-    margin-left: 7px;
+    //margin-left: 5px;
     position: relative;
 
-    .zzim_item {
-      width: calc(100% - 5px);
+    .zzim_items {
       cursor: pointer;
-
-      .img_zzim {
-        width: calc(100%);
-        height: 130px;
-        object-fit: cover;
-        -webkit-user-drag: none;
-      }
-
-      .zzim_itemtitle {
-        text-align: left;
-        margin-left: 1px;
-        width: 100%;
-        height: 20px;
-        color: #000;
-        font-size: 13px;
-
-        //글자 잘린 부분 ...으로 표시
-        word-wrap: break-word;
-        display: -webkit-box;
-        -webkit-line-clamp: 1; //한 줄만 표시
-        -webkit-box-orient: vertical;
-      }
-
-      .zzim_price {
-        visibility: hidden;
-      }
-    }
-
-    .zzim_item:hover {
-      .img_zzim {
-        opacity: 50%;
-      }
-
-      .zzim_price {
-        visibility: visible;
-        text-shadow: 0 0 1px #000;
-        text-overflow: ellipsis;
-        font-size: 20px;
-        top: calc(50% - 30px);
-        margin-left: 2px;
-        width: 90%;
-
-        //텍스트 드래그 막는 속성
-        -ms-user-select: none;
-        -moz-user-select: -moz-none;
-        -khtml-user-select: none;
-        -webkit-user-select: none;
-        user-select: none;
+      .itemCard{
+        margin-top: 0px;
+        width: 130px;
+        height: 155px;
       }
     }
   }
+
+  @media screen and (min-width: 768px) {
+    .div_Zzim {
+      margin-left: 5px;
+    }
+  }
+
 }

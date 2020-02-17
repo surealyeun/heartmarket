@@ -7,13 +7,21 @@ import axios from "axios";
 import "./Detail.scss";
 import Zzim from "../common/Zzim";
 import { Link } from "react-router-dom";
+import Modal from "../alarm/AlarmModal";
+import { connect } from "react-redux";
+import { RootState } from "../../modules";
 
-class Detail extends React.Component {
+interface Props {
+  status: string | null;
+}
+
+class Detail extends React.Component<Props> {
   user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
   state = {
     all:{
       trade: {
+        tradeNo:0,
         tradeTitle: "",
         tradeCategory: "",
         tradeArea: "",
@@ -23,17 +31,18 @@ class Detail extends React.Component {
         tuser: { uno: 0, nickname: "", profileImg: "", email: "" },
         buser: "",
       },
-      cno:0
+      cno: 0
     },
-    num: ""
+    num: "",
+    isModalOpen: false
   };
 
   updateUrl = () => {
     const url = window.location.href.split("/");
     const num = url[url.length - 1];
     var email = "none";
-    if(this.user.email !== undefined || this.user.email !== "") email = this.user.email;
-    console.log(email)
+    if (this.user.email !== undefined && this.user.email !== "") email = this.user.email;
+    //if(email === undefined) email = "none";
     this.setState({
       num: num,
     });
@@ -61,15 +70,24 @@ class Detail extends React.Component {
       });
   };
 
+  openModal = () => {
+    this.setState({
+      isModalOpen: true
+    });
+  };
+  closeModal = () => {
+    this.setState({
+      isModalOpen: false
+    });
+  };
+
   componentDidMount() {
     this.updateUrl();
+    window.sessionStorage.setItem("isText", "true");
   }
-
-  // constructor(props:any){
-  //   super(props);
-  //   this.updateUrl();
-  // }
-
+  componentWillUnmount() {
+    window.sessionStorage.setItem("isText", "false");
+  }
   componentWillReceiveProps() {
     this.updateUrl();
   }
@@ -78,7 +96,7 @@ class Detail extends React.Component {
     return (
       <div>
         <Header />
-        <Nav />
+        <Nav></Nav>
         <div className="product-detail">
           {/* <hr /> */}
           <br />
@@ -124,24 +142,27 @@ class Detail extends React.Component {
                   </Link>
                 </div>
               ) : (
-                <div className="bottom">
-                  {/* <button className="btn-heart" onClick={this.clickHeart}>♥</button> */}
-                  <button className="btn-heart">
-                    <Zzim
-                      num={this.state.num}
-                      cno={this.state.all.cno}
-                      uno={this.state.all.trade.tuser.uno}
-                    ></Zzim>
-                  </button>
-                  <button className="btn-contact">
-                    댓글? 쪽지? 알림? 거래하기
-                  </button>
-                </div>
-              )}
-              {/* <div className="tuser-manners">
-                                <h3>매너 지수</h3>
-                                <Gauge />
-                            </div> */}
+                  <div className="bottom">
+                    <button className="btn-heart">
+                      <Zzim
+                        num={this.state.num}
+                        cno={this.state.all.cno}
+                        uno={this.state.all.trade.tuser.uno}
+                      ></Zzim>
+                    </button>
+
+                    <button className="btn-contact" onClick={this.openModal}>
+                      댓글? 쪽지? 알림? 거래하기
+                    </button>
+                    <Modal
+                      tradeNo={this.state.all.trade.tradeNo}
+                      email={this.state.all.trade.tuser.email}
+                      nickname={this.state.all.trade.tuser.nickname}
+                      isOpen={this.state.isModalOpen}
+                      close={this.closeModal}
+                    />
+                  </div>
+                )}
             </div>
           </div>
           <div className="product-info">
@@ -158,4 +179,10 @@ class Detail extends React.Component {
   }
 }
 
-export default Detail;
+// export default Detail;
+export default connect(
+  ({ userStatus }: RootState) => ({
+    status: userStatus.status
+  })
+)(Detail);
+
