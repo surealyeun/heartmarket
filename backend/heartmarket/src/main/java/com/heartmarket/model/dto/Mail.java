@@ -63,9 +63,9 @@ public class Mail {
 		this.trade = trade;
 		this.title = title;
 		this.content = content;
-		SendDate = sendDate;
+		this.SendDate = sendDate;
 		this.readDel = readDel;
-		SendDel = sendDel;
+		this.SendDel = sendDel;
 	}
 
 	

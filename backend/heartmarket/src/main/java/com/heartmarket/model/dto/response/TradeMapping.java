@@ -23,4 +23,5 @@ public class TradeMapping {
 //	List<TradeImg> tList;
 	String tList;
 	int cNo;
+	String category;
 }
