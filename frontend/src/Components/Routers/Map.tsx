@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-concat */
 import React, { Component, useState } from "react";
 import { areas } from "./polygon";
+import './Map.scss';
 
 declare global {
     interface Window {

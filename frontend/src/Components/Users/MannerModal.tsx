@@ -47,7 +47,6 @@ class MannerModal extends React.Component<Props> {
                 params: {
                     userNo: this.props.userNo,
                     val: this.state.val,
-                    tradeNo: this.props.tradeNo
                 }
             }).then(res => {
                 console.log(res);

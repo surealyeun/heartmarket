@@ -49,7 +49,7 @@ class UserProfile extends Component {
 
     axios({
       method: "get",
-      url: "http://13.125.55.96:8080/mypage/detail/" + this.userNo,
+      url: "http://13.125.55.96:8080/mypage/detail2/" + this.userNo,
       params: {
         no: 0
       }
