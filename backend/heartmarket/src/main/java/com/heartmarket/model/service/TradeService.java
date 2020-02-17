@@ -28,4 +28,5 @@ public interface TradeService {
 
 	ResultMap<Trade> findByCompleteTrade(int bUserNo, String other, int tradeNo);
 	Page<Trade> findByTradeType(int no, int size, int type, int userno);
+	List<Trade> getPopularList();
 }

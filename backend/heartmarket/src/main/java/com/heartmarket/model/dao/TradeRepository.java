@@ -53,4 +53,12 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 
 	// 판매내역 일부만가져오기 --> 상대방 프로필에 띄울거
 	List<Trade> findTop4BytUserUserNo(int userNo);
+	
+	// 인기매물 ( 찜한 순서대로 )
+	@Query("select t from Cart c right join Trade t on c.cTrade.tradeNo = t.tradeNo"
+			+ " group by t.tradeNo "
+			+ "order by count(c.cTrade.tradeNo) desc"
+			)
+	Page<Trade> findTop8All(Pageable req);
+	
 }

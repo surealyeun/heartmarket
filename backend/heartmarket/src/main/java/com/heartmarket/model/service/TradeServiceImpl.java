@@ -360,4 +360,16 @@ public class TradeServiceImpl implements TradeService {
 			throw e;
 		}
 	}
+	
+	// 인기매물 목록 구하기
+	@Override
+	public List<Trade> getPopularList(){
+		try {
+			
+			return tr.findTop8All(PageRequest.of(0, 8)).getContent();
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 }
