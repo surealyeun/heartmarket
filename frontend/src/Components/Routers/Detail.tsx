@@ -74,8 +74,11 @@ class Detail extends React.Component {
 
   componentDidMount() {
     this.updateUrl();
+    window.sessionStorage.setItem("isText", "true");
   }
-
+  componentWillUnmount() {
+    window.sessionStorage.setItem("isText", "false");
+  }
   componentWillReceiveProps() {
     this.updateUrl();
   }
