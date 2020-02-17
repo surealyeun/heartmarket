@@ -40,8 +40,7 @@ function App() {
         <Route path="/search/detail/:tradeNo" component={Detail} />
 
         <Route path="/" exact component={Main} ></Route>
-        <Route path="/alarm" exact component={Alarm}>
-        </Route>
+        <Route path="/alarm" exact component={Alarm}></Route>
         <Route path="/write" exact component={Write} />
         <Route path="/alarm/detail" component={DetailAlarm} />
         <Route path="/write/update" component={WriteUpdate} />

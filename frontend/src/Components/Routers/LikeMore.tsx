@@ -8,7 +8,13 @@ import TopButton from "../common/TopButton";
 import PenButton from "../common/PenButton";
 import Footer from "../common/Footer";
 import "./More.scss";
-// import "./SaleMore.scss";
+import ToLogin from '../users/ToLogin';
+import { connect } from "react-redux";
+import { RootState } from "../../modules";
+
+interface Props {
+  status: string | null;
+}
 
 export interface like {
     cartNo: number;
@@ -56,7 +62,7 @@ export interface Uarea {
     auser:   number;
 }
 
-class LikeMore extends Component {
+class LikeMore extends Component<Props> {
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
     state = {
@@ -84,6 +90,8 @@ class LikeMore extends Component {
     render() {
         return (
             <div>
+                {this.props.status === 'true' ? 
+                <>
                 <Header />
                 <Nav />
                 <div className="like-more">
@@ -116,9 +124,16 @@ class LikeMore extends Component {
                 <TopButton />
                 <PenButton />
                 <Footer />
+                </>
+                :
+                <ToLogin />
+                }
             </div>
         );
     }
 }
 
-export default LikeMore;
+export default connect(({ userStatus }: RootState) => ({
+    status: userStatus.status
+  }))(LikeMore);
+  

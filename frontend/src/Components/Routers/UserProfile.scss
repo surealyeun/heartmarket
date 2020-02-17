@@ -40,7 +40,7 @@
             text-align: center;
         }
     }
-    hr {
+    .tophr {
         height: 2px;
         width: 100%;
         margin: 10px auto;
@@ -93,10 +93,9 @@
         }
 
         .img-back {
-            background-color: rgba(0, 0, 0, 0.342);
-            width: 100%;
-            height: 100%;
-            position: absolute;
+            border-radius: 0 5% 0 0;
+            background-color: rgba(228, 220, 208, 0.856);
+            position: relative;
             top: 0;
             // display: none;
             color: white;

@@ -40,7 +40,7 @@ class Profile extends React.Component {
                         src="https://image.flaticon.com/icons/svg/1584/1584687.svg"
                     ></img>
                 </div>
-                <div>88 BPM</div>
+                <div>{this.user.otherHg} BPM</div>
             </div>
         </div>
     );

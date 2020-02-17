@@ -8,12 +8,18 @@ import "./Detail.scss";
 import Zzim from "../common/Zzim";
 import { Link } from "react-router-dom";
 import Modal from "../alarm/AlarmModal";
+import { connect } from "react-redux";
+import { RootState } from "../../modules";
 
-class Detail extends React.Component {
+interface Props {
+  status: string | null;
+}
+
+class Detail extends React.Component<Props> {
   user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
   state = {
-    all: {
+    all:{
       trade: {
         tradeNo:0,
         tradeTitle: "",
@@ -45,15 +51,18 @@ class Detail extends React.Component {
       method: "get",
       url: "http://13.125.55.96:8080/trade/" + num,
       params: {
-        email: email
+        email:email
       }
     })
       .then(res => {
+        console.log(res.data);
         const all = res.data;
-        //console.log(all);
+        //alert("받아는 옴")
         this.setState({
           all
         });
+        
+        console.log("trade", this.state.all);
       })
       .catch(err => {
         console.log("err", err);
@@ -170,4 +179,10 @@ class Detail extends React.Component {
   }
 }
 
-export default Detail;
+// export default Detail;
+export default connect(
+  ({ userStatus }: RootState) => ({
+    status: userStatus.status
+  })
+)(Detail);
+
