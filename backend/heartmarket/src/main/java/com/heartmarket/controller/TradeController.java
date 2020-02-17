@@ -192,15 +192,6 @@ public class TradeController {
 		return tms.getData().equals(null) ? new ResponseEntity<Object>(tms, HttpStatus.NOT_FOUND) : new ResponseEntity<Object>(tms, HttpStatus.OK);
 	}
 
-	// 매너 평가
-	// 거래가 완료되었을 때만, 평가를 할 수 있다.
-	// 평가는 Trade 테이블의 true/false 를
-	@RequestMapping(value = "/manner", method = RequestMethod.POST)
-	@ApiOperation(value = "매너  평가")
-	public ResponseEntity<Object> evalManner(@RequestParam int val, @RequestParam int userNo) {
-		return new ResponseEntity<Object>(ms.evalueUser(val, userNo), HttpStatus.OK);
-	}
-
 	// 검색 결과 ( 필요한 항목만 )
 	@RequestMapping(value = "/trade/search", method = RequestMethod.GET)
 	@ApiOperation(value = "로그인 하지 않았을 경우, 전체 목록을 가져옴")

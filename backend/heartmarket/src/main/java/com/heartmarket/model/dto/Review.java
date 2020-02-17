@@ -29,7 +29,14 @@ public class Review {
 	@JoinColumn(name = "trade_no")
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@ToString.Exclude
-	@Transient
+//	@Transient
 	Trade rTrade;
+
+	public Review(Trade rTrade) {
+		super();
+		this.rTrade = rTrade;
+	}
+	
+	
 	
 }
