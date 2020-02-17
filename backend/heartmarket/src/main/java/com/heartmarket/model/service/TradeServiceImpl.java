@@ -67,11 +67,16 @@ public class TradeServiceImpl implements TradeService {
 	}
 
 	// 상세 페이지 조회
+	// 로그인 안했을 때, 판매여부 확인
 	@Transactional
 	@Override
 	public TradeDetail findDetail(int tradeNo) {
 		try {
-			return new TradeDetail(tr.findByTradeNo(tradeNo), 0);
+			if(Objects.isNull(tr.findByTradeNo(tradeNo).getBUser())) {
+				return new TradeDetail(tr.findByTradeNo(tradeNo), 0, 0);				
+			}else {
+				return new TradeDetail(tr.findByTradeNo(tradeNo), 0, 1);
+			}
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -79,6 +84,9 @@ public class TradeServiceImpl implements TradeService {
 		}
 	}
 	
+	// 로그인 되어있는 상태.
+	// 찜 목록 표현
+	// 거래 완료되었는지 아닌지 확인
 	@Transactional
 	@Override
 	public TradeDetail findDetailByEmail(int tradeNo, int userNo) {
@@ -86,10 +94,13 @@ public class TradeServiceImpl implements TradeService {
 			// 게시글 정보를 가져오기
 			Trade trade = tr.findByTradeNo(tradeNo);
 			Cart cart = cr.findBycTradeTradeNoAndcUserUserNo(tradeNo, userNo);
-			if(!Objects.isNull(cart))
-				return new TradeDetail(trade, 1);
+			if(Objects.isNull(cart)) {
+				return Objects.isNull(trade.getBUser()) ?
+					new TradeDetail(trade, 0, 0) :  new TradeDetail(trade, 0, 1);
+			}
 			else {
-				return new TradeDetail(trade, 0);
+				return Objects.isNull(trade.getBUser()) ?
+						new TradeDetail(trade, 1, 0) :  new TradeDetail(trade, 1, 1);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -181,7 +192,7 @@ public class TradeServiceImpl implements TradeService {
 		List<Trade> tList = tr.findAll();
 		int cnt = tList.get(tList.size() - 1).getTradeNo();
 		if (no == 0)
-			no = cnt;
+			no = cnt+1;
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
 		return tr.findByTradeNoLessThan(no, pr);
 	}
@@ -223,7 +234,7 @@ public class TradeServiceImpl implements TradeService {
 
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
 		if (no == 0)
-			no = cnt;
+			no = cnt+1;
 		return tr.findByTradeNoLessThanAndTradeAreaAndTradeCategory(no, area, category, pr);
 	}
 
@@ -243,7 +254,7 @@ public class TradeServiceImpl implements TradeService {
 			tList = tr.findAll();
 		}
 //		int cnt = tList.get(tList.size() - 1).getTradeNo();
-		int cnt = tr.countAll();
+		int cnt = tr.countAll()+1;
 		System.out.println("cnt : " + cnt);
 		System.out.println("size : " + tList.size());
 
@@ -303,7 +314,7 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public Page<Trade> findByTradeType(int no, int size, int type, int userno) {
 		if (no == 0)
-			no = tr.countAll();
+			no = tr.countAll()+1;
 
 		final int cnt = no;
 		return tr.findAll(new Specification<Trade>() {

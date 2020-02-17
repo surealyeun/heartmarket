@@ -55,6 +55,7 @@ public class MannerServiceImpl implements MannerService{
 		
 		tMnr.setPlusGauge(pGauge);
 		tMnr.setNormalGauge(nGauge);
+		
 		tMnr.setMinusGauge(mGauge);
 		tMnr.setHeartGauge(calc);
 		
@@ -63,6 +64,6 @@ public class MannerServiceImpl implements MannerService{
 	}
 	
 	// 매너 평가를 위해서는 거래 완료가 필요하다.
-	// 거래 완료 여부를 확인하고 시발
+	// 거래 완료 여부를 확인하고
 //	public ResultMap<Object> 
 }

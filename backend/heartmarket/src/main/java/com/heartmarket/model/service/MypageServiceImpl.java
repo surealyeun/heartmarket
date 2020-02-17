@@ -2,6 +2,7 @@ package com.heartmarket.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -17,12 +18,15 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Optional;
 import com.heartmarket.model.dao.MannerRepository;
+import com.heartmarket.model.dao.ReviewRepository;
 import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dao.TradeRepository;
 import com.heartmarket.model.dao.UserRepository;
 import com.heartmarket.model.dto.Manner;
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.MyBuyList;
+import com.heartmarket.model.dto.response.MySellList;
 import com.heartmarket.model.dto.response.OtherResponse;
 import com.heartmarket.model.dto.response.OtherTrade;
 import com.heartmarket.util.ResultMap;
@@ -41,37 +45,64 @@ public class MypageServiceImpl implements MypageService {
 
 	@Autowired
 	TradeImgRepository tir;
+	
+	@Autowired
+	ReviewRepository rr;
 
 	// 판매 내역 조회
-	@Override
-	public ResultMap<Object> getSellList(String email) {
-		User tUser = ur.findByEmail(email);
-		int seller = tUser.getUserNo(); // 판매자 정보
-		try {
-			List<Trade> sList = tr.findAllBytUserUserNo(seller);
-			if (sList.size() == 0)
-				return new ResultMap<Object>("SUCCESS", "판매한 내역이 없습니다.", null);
-			return new ResultMap<Object>("SUCCESS", "판매한 목록 조회 완료", sList);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		// 판매 내역을 조회 할때, 거래완료가 되었는지 확인할 수 있어야 한다.
+		// 거래 완료가 됬으면 1, 아니면 0.
+		// 0 일 때, 거래완료가 필요.
+		@Override
+		public ResultMap<Object> getSellList(String email) {
+			User tUser = ur.findByEmail(email);
+			int seller = tUser.getUserNo(); // 판매자 정보
+			try {
+				List<Trade> sList = tr.findAllBytUserUserNo(seller);
+				if (sList.size() == 0)
+					return new ResultMap<Object>("SUCCESS", "판매한 내역이 없습니다.", null);			
+				List<MySellList> msList = new ArrayList<MySellList>();
+				for (Trade t : sList) {
+					if(Objects.isNull(t.getBUser())) {
+						msList.add(new MySellList(t, 0));
+					}else {
+						msList.add(new MySellList(t, 1));
+					}
+				}
+				return new ResultMap<Object>("SUCCESS", "판매한 목록 조회 완료", msList);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
 		}
-	}
 
-	@Override
-	public ResultMap<Object> getBuyList(String email) {
-		User tUser = ur.findByEmail(email);
-		int buyer = tUser.getUserNo(); // 판매자 정보
-		try {
-			List<Trade> sList = tr.findAllBybUserUserNo(buyer);
-			if (sList.size() == 0)
-				return new ResultMap<Object>("SUCCESS", "구매한 내역이 없습니다.", null);
-			return new ResultMap<Object>("SUCCESS", "구매한 목록 조회 완료", sList);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
+		// 구매내역 조회
+		// 구매내역을 조회할 때, 평가 여부를 확인할 수 있게 해야한다.
+		// 평가가 완료되어있으면 1
+		// 아니면 0
+		@Override
+		public ResultMap<Object> getBuyList(String email) {
+			User tUser = ur.findByEmail(email);
+			int buyer = tUser.getUserNo(); // 판매자 정보
+			try {
+				List<Trade> sList = tr.findAllBybUserUserNo(buyer);
+				if (sList.size() == 0)
+					return new ResultMap<Object>("SUCCESS", "구매한 내역이 없습니다.", null);
+				
+				List<MyBuyList> mbList = new ArrayList<MyBuyList>();
+				for (Trade trade : sList) {
+					if(Objects.isNull(rr.findByrTradeTradeNo(trade.getTradeNo()))) {
+						mbList.add(new MyBuyList(trade, 0));
+					}else {
+						mbList.add(new MyBuyList(trade, 1));
+					}
+				}
+				return new ResultMap<Object>("SUCCESS", "구매한 목록 조회 완료", mbList);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw e;
+			}
 		}
-	}
 
 	// 상대방 프로필을 가져오기
 	@Override

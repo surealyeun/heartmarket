@@ -196,6 +196,7 @@ public class TradeController {
 	// 거래가 완료되었을 때만, 평가를 할 수 있다.
 	// 평가는 Trade 테이블의 true/false 를
 	@RequestMapping(value = "/manner", method = RequestMethod.POST)
+	@ApiOperation(value = "매너  평가")
 	public ResponseEntity<Object> evalManner(@RequestParam int val, @RequestParam int userNo) {
 		return new ResponseEntity<Object>(ms.evalueUser(val, userNo), HttpStatus.OK);
 	}
