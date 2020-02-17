@@ -26,23 +26,47 @@ public class Mail {
 	int mailNo;
 	
 	@ManyToOne
+	@JoinColumn(name = "trade_no",referencedColumnName = "trade_no")
+	Trade trade;
+	
+	@ManyToOne
 	@JoinColumn(name = "sender_no",referencedColumnName = "user_no")
-	User senderNo;
+	User sender;
 	
 	@ManyToOne
 	@JoinColumn(name = "receiver_no",referencedColumnName = "user_no")
-	User receiverNo;
+	User receiver;
 	
-	@Column(name = "mail_code")
-	int mailCode;
+	@Column(name = "title")
+	String title;
 	
-	@ManyToOne
-	@JoinColumn(name = "content_no")
-	MailContent content;
+	@Column(name = "content")
+	String content;
 	
 	@Column(name = "read_date")
 	String readDate;
+	
 	@Column(name = "send_date")
 	String SendDate;
+	
+	@Column(name = "read_del")
+	int readDel;
+
+	@Column(name = "send_del")
+	int SendDel;
+
+	public Mail(User sender, User receiver,Trade trade,String title, String content, String sendDate, int readDel,
+			int sendDel) {
+		super();
+		this.sender = sender;
+		this.receiver = receiver;
+		this.trade = trade;
+		this.title = title;
+		this.content = content;
+		SendDate = sendDate;
+		this.readDel = readDel;
+		SendDel = sendDel;
+	}
+
 	
 }
