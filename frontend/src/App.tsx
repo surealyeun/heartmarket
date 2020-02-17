@@ -21,6 +21,7 @@ import Purchase from './components/routers/PurchaseMore';
 import Like from './components/routers/LikeMore';
 import UserProfile from './components/routers/UserProfile';
 import Detail from './components/routers/Detail';
+import Map from './components/routers/Map';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="/write/update" component={WriteUpdate} />
 
         <Route path="/search" exact component={SearchResult}></Route>
+        <Route path="/map" component={Map} />
         <Redirect path="*" to="/"></Redirect>
       </Switch>
     </BrowserRouter>

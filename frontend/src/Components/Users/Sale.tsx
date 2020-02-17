@@ -6,7 +6,12 @@ import ItemCard from "./ItemCard";
 import "./Items.scss";
 import SessionDelete from "../common/SessionDelete";
 
-export interface sale {
+export interface sale{
+    complete: number;
+    strade: Strade;
+}
+
+export interface Strade {
     tradeNo:       number;
     tradeCategory: string;
     tradeTitle:    string;
@@ -59,7 +64,7 @@ class Sale extends React.Component {
             }
         })
             .then(res => {
-                console.log(res.data.data);
+                console.log('sale',res.data.data);
                 this.setState({
                     Sales: res.data.data
                 });
@@ -93,16 +98,13 @@ class Sale extends React.Component {
                                 if (i < 4) {
                                     return (
                                         <>
-                                            <Link to={`/search/detail/${sale.tradeNo}`}>
+                                            <Link to={`/search/detail/${sale.strade.tradeNo}`}>
                                                 <ItemCard
-                                                    image={sale.tTradeImg}
-                                                    tradeTitle={sale.tradeTitle}
-                                                    productPrice={sale.productPrice}
-                                                    tradeNo={sale.tradeNo}
+                                                    image={sale.strade.tTradeImg}
+                                                    tradeTitle={sale.strade.tradeTitle}
+                                                    productPrice={sale.strade.productPrice}
+                                                    tradeNo={sale.strade.tradeNo}
                                                 />
-                                                {/* <div className="item" key={"item" + i}>
-                                                <h3>{sale.tradeTitle}</h3>
-                                            </div> */}
                                             </Link>
                                             
                                         </>

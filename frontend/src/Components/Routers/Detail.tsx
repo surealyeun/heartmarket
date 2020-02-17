@@ -31,11 +31,29 @@ class Detail extends React.Component<Props> {
         tuser: { uno: 0, nickname: "", profileImg: "", email: "" },
         buser: "",
       },
-      cno: 0
+      cno: 0,
+      complete: 0
     },
     num: "",
     isModalOpen: false
   };
+
+  category = [
+    { name: ""},
+    { name: "디지털/가전" },
+    { name: "가구/인테리어" },
+    { name: "유아동/유아도서" },
+    { name: "생활가공식품" },
+    { name: "여성의류" },
+    { name: "여성잡화" },
+    { name: "뷰티/미용" },
+    { name: "남성패션/잡화" },
+    { name: "스포츠/레저" },
+    { name: "게임/취미" },
+    { name: "도서/티켓/음반" },
+    { name: "반려동물용품" },
+    { name: "기타중고물품" }
+  ];
 
   updateUrl = () => {
     const url = window.location.href.split("/");
@@ -119,8 +137,15 @@ class Detail extends React.Component<Props> {
                   <h3>지수</h3>
                 </div>
               </div>
+              {this.state.all.complete === 1 ? 
+              <div className="complete-trade">
+                <h1>거래 완료!</h1>
+              </div>
+              :
+              <></>
+              }
               <div className="trade">
-                <h4>카테고리 > {this.state.all.trade.tradeCategory}</h4>
+                <h4>카테고리 > {this.category[Number(this.state.all.trade.tradeCategory)].name}</h4>
                 <h2>{this.state.all.trade.tradeTitle}</h2>
                 <br />
                 <h3>{this.state.all.trade.productPrice}원</h3>

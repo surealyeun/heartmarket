@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import axios from "axios";
-import ItemCard_simple from "../users/ItemCard_simple";
+import ItemCardSimple from "../users/ItemCardSimple";
 import { Link } from "react-router-dom";
 
 import "./UserProfile.scss";
@@ -49,7 +49,7 @@ class UserProfile extends Component {
 
     axios({
       method: "get",
-      url: "http://13.125.55.96:8080/mypage/detail/" + this.userNo,
+      url: "http://13.125.55.96:8080/mypage/detail2/" + this.userNo,
       params: {
         no: 0
       }
@@ -111,7 +111,7 @@ class UserProfile extends Component {
                     return (
                       <>
                         <Link to={`/search/detail/${sale.tradeNo}`}>
-                          <ItemCard_simple
+                          <ItemCardSimple
                             image={sale.imgarr}
                             tradeTitle={sale.ttitle}
                             productPrice={sale.pprice}
