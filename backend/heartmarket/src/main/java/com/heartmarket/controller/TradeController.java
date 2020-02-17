@@ -103,7 +103,7 @@ public class TradeController {
 
 	// 게시글 1개만 조회
 	@RequestMapping(value = "/trade/{no}", method = RequestMethod.GET)
-	@ApiOperation(value = "게시글 1개만 조회")
+	@ApiOperation(value = "게시글 1개만 조회 => 상세페이지")
 	public ResponseEntity<Object> findOne(@PathVariable int no, @RequestParam String email) {
 		
 		if(email.equals("none")) {
@@ -117,6 +117,21 @@ public class TradeController {
 	}
 	
 	// 게시글 추가
+	/*  { 0: ""},
+	    { 1: "디지털/가전 X" },
+	    { 2: "가구/인테리어 X" },
+	    { 3: "유아동/유아도서 X" },
+	    { 4: "생활가공식품 X" },
+	    { 5: "여성의류 X" },
+	    { 6: "여성잡화 X" },
+	    { 7: "뷰티/미용 X" },
+	    { 8: "남성패션/잡화 X" },
+	    { 9: "스포츠/레저 X" },
+	    { 10: "게임/취미 X" },
+	    { 11: "도서/티켓/음반 X" },
+	    { 12: "반려동물용품 X" },
+	    { 13: "기타중고물품 X" }
+    */
 	@ApiOperation(value = "게시글 추가")
 	@RequestMapping(value = "/trade/add", method = RequestMethod.POST)
 	public ResponseEntity<Object> addTrade(
@@ -130,7 +145,7 @@ public class TradeController {
 		SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String time = transeFormat.format(date);
 		int uNo = Integer.parseInt(userNo);
-		Trade trade = new Trade(tradeCategory, tradeTitle, tradeArea, productInfo, productPrice, time);
+		Trade trade = new Trade(tradeCategory, tradeTitle, tradeArea, productInfo, Integer.parseInt(productPrice), time);
 		String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
 		for (MultipartFile multipartFile : files) {
 			System.out.println("files : " + multipartFile);
@@ -163,7 +178,7 @@ public class TradeController {
 		if(trade != null) {
 			trade.setTradeTitle(tradeTitle);
 			trade.setTradeCategory(tradeCategory);
-			trade.setProductPrice(productPrice);
+			trade.setProductPrice(Integer.parseInt(productPrice));
 			trade.setProductInfo(productInfo);
 			String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
 			rms = is.uploadFiles(files, imgUploadPath, "trade");
@@ -204,19 +219,12 @@ public class TradeController {
 	// 검색 결과 ( 필요한 항목만 )
 	@RequestMapping(value = "/trade/search", method = RequestMethod.GET)
 	@ApiOperation(value = "로그인 하지 않았을 경우, 전체 목록을 가져옴")
-	public ResponseEntity<Object> getList(@RequestParam int no) {
-		List<Trade> tList = ts.getList(no, 8).getContent();
+	public ResponseEntity<Object> getList(@RequestParam int no,@RequestParam int filter) {
+		List<Trade> tList = ts.getList(no, 8,filter).getContent();
 		return new ResponseEntity<Object>(
 				new ResultMap<List<TradeMapping>>("SUCCESS", "목록 불러오기 완료", mappedFor(tList, "none")), HttpStatus.OK);
 	}
 
-	// 검색 결과 ( 필요한 항목만 => 모든 검색 페이징 기법 )
-//	@RequestMapping(value = "/trade/search2", method = RequestMethod.GET)
-//	public ResponseEntity<Object> getPageList(@RequestParam int no, @RequestParam int size) {
-//		List<Trade> rs = ts.fetPages(no, size).getContent();
-//		return new ResponseEntity<Object>(new ResultMap<Object>("success", "message", ts.fetPages(no, size)),
-//				HttpStatus.OK);
-//	}
 
 	// 검색 결과 ( 사용자의 위치를 기준으로 => )
 	@RequestMapping(value = "/trade/search/area", method = RequestMethod.GET)
@@ -240,12 +248,12 @@ public class TradeController {
 		return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "검색 완료", tm), HttpStatus.OK);
 	}
 
-	// 검색 결과 ( 사용자의 위치를 기준으로 => 지역을 선택하고 => 카테고리를 선택 )
-	@RequestMapping(value = "/trade/search/ac/{area}&{category}", method = RequestMethod.GET)
+	// 검색 결과 ( 사용자의 위치를 기준으로 => 지역을 선택하고 => 카테고리 및 filter 선택 )
+	@RequestMapping(value = "/trade/search/ac/{area}&{category}&{filter}", method = RequestMethod.GET)
 	@ApiOperation(value = "지역을 바꿀 때 마다, 카테고리를 바꿀 때  마다")
 	public ResponseEntity<Object> getPageACList(@PathVariable(name = "area") String area,
-			@PathVariable(name = "category") String category, @RequestParam int no) {
-		List<Trade> rs = ts.fetPageAC(no, 3, area, category).getContent();
+			@PathVariable(name = "category") String category, @RequestParam int no,@PathVariable int filter) {
+		List<Trade> rs = ts.fetPageAC(no, 3, area, category,filter).getContent();
 		System.out.println(rs.size());
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		tm = mappedFor(rs, "none");
@@ -253,9 +261,9 @@ public class TradeController {
 	}
 
 	// 검색 ( 키워드 2개 이상 / 단일 키워드 )
-	@RequestMapping(value = "/trade/search/{keyword}", method = RequestMethod.GET)
+	@RequestMapping(value = "/trade/search/{keyword}&{filter}", method = RequestMethod.GET)
 	public ResponseEntity<Object> searchByKeyword(@PathVariable String keyword,
-			@RequestParam(required = false) String email, @RequestParam int no) {
+			@RequestParam(required = false) String email, @RequestParam int no,@PathVariable int filter) {
  
 		// 입력받은 단어들을 받음
 		List<String> sList = new ArrayList<>();
@@ -269,16 +277,15 @@ public class TradeController {
 		System.out.println("email : " + email);
 		// 현재 로그인이 안되있을 때,
 		if (email.equals("none")) {
-			tm = mappedFor(ts.fetPageTP(no, 8, sList, "none").getContent(), "none");
+			tm = mappedFor(ts.fetPageTP(no, 8, sList, "none",filter).getContent(), "none");
 			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공?", tm), HttpStatus.OK);
 			// 현재 로그인 완료
 		} else {
 			String area = us.searchEmail(email).getUArea().get(0).getAddress();
-			tm = mappedFor(ts.fetPageTP(no, 8, sList, area).getContent(), email);
+			tm = mappedFor(ts.fetPageTP(no, 8, sList, area,filter).getContent(), email);
 			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공?", tm), HttpStatus.OK);
 
 		}
-
 	}
 	
 	@RequestMapping(value = "/trade/myTrade/{type}", method = RequestMethod.GET)
@@ -316,7 +323,7 @@ public class TradeController {
 			System.out.println("uimg : " + mUser.getProfileImg());
 			tm.add(new TradeMapping(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
 					trade.getProductPrice(), trade.getTUser().getUserNo(), mUser.getProfileImg(),
-					trade.getTUser().getNickname(), tmp, booleanC));
+					trade.getTUser().getNickname(), tmp, booleanC,trade.getTradeCategory()));
 			System.out.println();
 		}
 

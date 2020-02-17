@@ -43,7 +43,7 @@ public class MailServiceImpl implements MailService {
 
 	// 메일을 보낼때 저장하는 부분
 	@Override
-	public ResultMap<Mail> addSender(String senderMail,String tradeNo, String receiverMail,String title,String content) {
+	public ResultMap<Mail> addSender(String senderMail,String receiverMail,String tradeNo, String title,String content) {
 		try {
 			User sender = ur.findByEmail(senderMail);
 			User receiver = ur.findByEmail(receiverMail);
@@ -103,34 +103,14 @@ public class MailServiceImpl implements MailService {
 	public Page<Mail> findAllSend(int no, int size, String senderMail) {
 		try {
 			User sender = ur.findByEmail(senderMail);
-			Mail mail = mr.findTop1BySenderUserNoOrderByMailNoDesc(sender.getUserNo());
-			int cnt = mail.getMailNo();
-			if(no == 0) no = cnt+1;
-			PageRequest pr = PageRequest.of(0, size, Sort.by("MailNo").descending());
-			return mr.findAllBySenderUserNoLessThan(no, pr);
+			PageRequest pr = PageRequest.of(no, size, Sort.by("MailNo").descending());
+			return mr.findAllBySenderUserNo(sender.getUserNo(), pr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
 			throw e;
 		}
 	}
-
-//	@Override
-//	public ResultMap<List<Mail>> findAllReceive(String receiverMail) {
-//		try {
-//			User receiver = ur.findByEmail(receiverMail);
-//			List<Mail> mail = mr.findAllByReceiverUserNo(receiver.getUserNo());
-//			if(mail == null) {
-//				return new ResultMap<List<Mail>>("FAIL","해당 유저가 받은 쪽지가 존재하지 않습니다",null);
-//			}else {
-//				return new ResultMap<List<Mail>>("SUCCESS","받은 쪽지 "+mail.size()+"개 검색 성공",mail);
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			System.out.println(e.getMessage());
-//			throw e;
-//		}
-//	}
 
 	@Override
 	public ResultMap<Mail> readReceiver(String receiverMail,String mailNo) {
@@ -155,11 +135,8 @@ public class MailServiceImpl implements MailService {
 	public Page<Mail> findAllReaded(int no,int size,String receiverMail) {
 		try {
 			User receiver = ur.findByEmail(receiverMail);
-			Mail mail = mr.findTop1ByReceiverUserNoOrderByMailNoDesc(receiver.getUserNo());
-			int cnt = mail.getMailNo();
-			if(no == 0) no = cnt+1;
-			PageRequest pr = PageRequest.of(0, size, Sort.by("MailNo").descending());
-			return mr.findAllByReceiverUserNoLessThanAndReadDateIsNotNull(no, pr);
+			PageRequest pr = PageRequest.of(no, size, Sort.by("MailNo").descending());
+			return mr.findAllByReceiverUserNoAndReadDateIsNotNull(receiver.getUserNo(), pr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -172,11 +149,8 @@ public class MailServiceImpl implements MailService {
 	public Page<Mail> findAllUnReaded(int no, int size, String receiverMail) {
 		try {
 			User receiver = ur.findByEmail(receiverMail);
-			Mail mail = mr.findTop1ByReceiverUserNoOrderByMailNoDesc(receiver.getUserNo());
-			int cnt = mail.getMailNo();
-			if( no == 0) no = cnt+1;
-			PageRequest pr = PageRequest.of(0, size, Sort.by("MailNo").descending());
-			return mr.findAllByReceiverUserNoLessThanAndReadDateIsNull(no, pr);
+			PageRequest pr = PageRequest.of(no, size, Sort.by("MailNo").descending());
+			return mr.findAllByReceiverUserNoAndReadDateIsNull(receiver.getUserNo(), pr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -188,11 +162,8 @@ public class MailServiceImpl implements MailService {
 	public Page<Mail> findAllReceive(int no, int size, String receiverMail) {
 		try {
 			User receiver = ur.findByEmail(receiverMail);
-			Mail mail = mr.findTop1ByReceiverUserNoOrderByMailNoDesc(receiver.getUserNo());
-			int cnt = mail.getMailNo();
-			if( no == 0) no =cnt+1;
-			PageRequest pr = PageRequest.of(0, size, Sort.by("MailNo").descending());
-			return mr.findAllByReceiverUserNoLessThan(no, pr);
+			PageRequest pr = PageRequest.of(no, size, Sort.by("MailNo").descending());
+			return mr.findAllByReceiverUserNo(receiver.getUserNo(), pr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

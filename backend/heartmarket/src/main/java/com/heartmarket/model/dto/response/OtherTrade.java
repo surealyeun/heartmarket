@@ -12,7 +12,7 @@ public class OtherTrade {
 	int tradeNo;
 	String tTitle;
 	String tArea;
-	String pPrice;
+	int pPrice;
 
 	String uImg;
 

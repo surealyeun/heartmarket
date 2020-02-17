@@ -17,15 +17,13 @@ public interface MailRepository extends JpaRepository<Mail, Integer> {
 	Mail findByReceiverUserNo(int userNo);
 	List<Mail> findAllByReceiverUserNoAndReadDateIsNull(int userNo);
 	List<Mail> findAllByReceiverUserNoAndReadDateIsNotNull(int userNo);
-	Page<Mail> findAllByReceiverUserNoLessThanAndReadDateIsNull(int userNo,Pageable req);
-	Page<Mail> findAllByReceiverUserNoLessThanAndReadDateIsNotNull(int userNo,Pageable req);
 	Mail findByReceiverUserNoAndMailNo(int userNo,int mailNo);
 	List<Mail> findAllBySenderUserNo(int userNo);
-	Page<Mail> findAllBySenderUserNoLessThan(int userNo,Pageable req);
 	List<Mail> findAllByReceiverUserNo(int userNo);
-	Mail findTop1ByReceiverUserNoOrderByMailNoDesc(int userNo);
-	Mail findTop1BySenderUserNoOrderByMailNoDesc(int userNo);
 	
 	//page 기능
-	Page<Mail> findAllByReceiverUserNoLessThan(int userNo, Pageable req);
+	Page<Mail> findAllBySenderUserNo(int userNo,Pageable req);
+	Page<Mail> findAllByReceiverUserNo(int userNo, Pageable req);
+	Page<Mail> findAllByReceiverUserNoAndReadDateIsNull(int userNo,Pageable req);
+	Page<Mail> findAllByReceiverUserNoAndReadDateIsNotNull(int userNo,Pageable req);
 }

@@ -1,5 +1,6 @@
 package com.heartmarket.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.heartmarket.model.dto.Mail;
+import com.heartmarket.model.dto.Trade;
+import com.heartmarket.model.dto.TradeImg;
+import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.MailMapping;
+import com.heartmarket.model.dto.response.MailTrade;
+import com.heartmarket.model.dto.response.MailTradeImg;
+import com.heartmarket.model.dto.response.MailUser;
+import com.heartmarket.model.dto.response.TradeMapping;
 import com.heartmarket.model.service.MailService;
+import com.heartmarket.model.service.TradeService;
+import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
 
 import io.swagger.annotations.ApiOperation;
@@ -26,6 +37,10 @@ import lombok.extern.slf4j.Slf4j;
 public class MailController {
 	@Autowired
 	MailService ms;
+	@Autowired
+	UserService us;
+	@Autowired
+	TradeService ts;
 	
 	ResultMap<Mail> rm;
 	ResultMap<List<Mail>> rms;
@@ -44,7 +59,7 @@ public class MailController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("state", "SUCCESS");
 		result.put("message", "보낸 쪽지 조회 성공");
-		result.put("data", mList);
+		result.put("data", mappedFor(mList));
 		result.put("total", ms.findAllSendCount(senderMail));
 		return new ResponseEntity<Object>(result, HttpStatus.OK);
 	}
@@ -57,7 +72,7 @@ public class MailController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("state", "SUCCESS");
 		result.put("message", "읽은 쪽지 조회 성공");
-		result.put("data", mList);
+		result.put("data", mappedFor(mList));
 		result.put("total", ms.findReadCount(receiverMail));
 		return new ResponseEntity<Object>(result, HttpStatus.OK);
 	}
@@ -69,7 +84,7 @@ public class MailController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("state", "SUCCESS");
 		result.put("message", "안읽은 쪽지 조회 성공");
-		result.put("data", mList);
+		result.put("data", mappedFor(mList));
 		result.put("total", ms.findUnReadCount(receiverMail));
 		return new ResponseEntity<Object>(result, HttpStatus.OK);
 	}
@@ -81,7 +96,7 @@ public class MailController {
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("state", "SUCCESS");
 		result.put("message", "전체 받은 쪽지 목록 불러오기 완료");
-		result.put("data", mList);
+		result.put("data", mappedFor(mList));
 		result.put("total", ms.findAllReceiveCount(receiverMail));
 		return new ResponseEntity<Object>(result,HttpStatus.OK);
 	}
@@ -102,5 +117,29 @@ public class MailController {
 	public ResponseEntity<Object> readReceiver(@RequestParam String receiverMail,@RequestParam String mailNo){
 		rm = ms.readReceiver(receiverMail, mailNo);
 		return new ResponseEntity<Object>(rm, HttpStatus.OK);
+	}
+	
+	
+	// mail response mapping
+	private List<MailMapping> mappedFor(List<Mail> mList) {
+		List<MailMapping> result = new ArrayList<MailMapping>();
+		
+		for (Mail mail : mList) {
+			User sender = us.findByUser(mail.getSender().getUserNo());
+			User receiver = us.findByUser(mail.getReceiver().getUserNo());
+			Trade trade = ts.findByTradeNo(Integer.toString(mail.getTrade().getTradeNo()));
+			List<TradeImg> timg = trade.gettTradeImg();
+			List<MailTradeImg> tradeImg = new ArrayList<MailTradeImg>();
+			for (TradeImg tmg : timg) {
+				tradeImg.add(new MailTradeImg(tmg.getImgNo(), tmg.getOrgImg()));
+			}
+			MailUser mSender = new MailUser(sender.getUserNo(), sender.getEmail(), sender.getNickname(), sender.getProfileImg());
+			MailUser mReceiver = new MailUser(receiver.getUserNo(), receiver.getEmail(), receiver.getNickname(), receiver.getProfileImg());
+			MailTrade mTrade = new MailTrade(trade.getTradeNo(), trade.getTradeTitle(), trade.getProductInfo(), tradeImg);
+			result.add(new MailMapping(mail.getMailNo(), mTrade, mSender, mReceiver, mail.getTitle(), mail.getContent()
+					,mail.getReadDate(), mail.getSendDate(), mail.getReadDel(), mail.getSendDel()));
+			
+		}
+		return result;
 	}
 }
