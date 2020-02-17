@@ -178,5 +178,31 @@ public class MypageServiceImpl implements MypageService {
 			throw e;
 		}
 	}
+	
+	@Override
+	public List<OtherTrade> findAllByOther2(int userNo){
+		try {
+			User oUser = ur.findByUserNo(userNo);
+			Manner oMr = mr.findBymUserUserNo(oUser.getUserNo());
+			
+
+			List<Trade> tList= new ArrayList<Trade>();
+			System.out.println(tList.size());
+			tList = tr.findAll();
+			List<OtherTrade> oList = new ArrayList<OtherTrade>();
+		
+			for (Trade trade : tList) {
+				System.out.println(trade.toString());
+				oList.add(new OtherTrade(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
+						trade.getProductPrice(), tir.findAllBytiTradeTradeNo(trade.getTradeNo()).get(0).getOrgImg()));
+			}
+			System.out.println(oList.size());
+			
+			return oList;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
 
 }

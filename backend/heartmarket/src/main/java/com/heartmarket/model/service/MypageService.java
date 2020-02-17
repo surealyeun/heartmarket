@@ -23,5 +23,6 @@ public interface MypageService {
 	
 	//리스트 가져옵니다.
 	public List<OtherTrade> findAllByTrade(int no, int userNo);
+	List<OtherTrade> findAllByOther2( int userNo);
 	
 }

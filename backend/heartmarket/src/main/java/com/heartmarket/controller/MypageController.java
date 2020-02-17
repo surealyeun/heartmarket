@@ -76,4 +76,12 @@ public class MypageController {
 			return new ResponseEntity<Object>(mns.evalueUser(tradeNo, userNo, val), HttpStatus.NOT_ACCEPTABLE);
 	}
 
+	@RequestMapping(value = "/mypage/detail2/{userNo}", method = RequestMethod.GET)
+	@ApiOperation(value = "매너평가")
+	public ResponseEntity<Object> findAllByUser2(@PathVariable int userNo){
+		return new ResponseEntity<Object>(
+				new ResultMap<List<OtherTrade>>("SUCCESS", "전체 리스트 가져오기", ms.findAllByOther2( userNo)),
+				HttpStatus.OK);
+		
+	}
 }
