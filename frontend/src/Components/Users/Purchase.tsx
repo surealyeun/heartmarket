@@ -105,6 +105,7 @@ class Purchase extends React.Component {
                                                 productPrice={purchase.productPrice}
                                             />
                                             <button onClick={this.openModal}>modal</button>
+                                            {/* 평가여부 확인해서 모달 버튼 달기 */}
                                             <Modal
                                                 isOpen={this.state.isModalOpen}
                                                 close={this.closeModal}

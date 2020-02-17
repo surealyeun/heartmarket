@@ -49,6 +49,7 @@ class JoinDetail extends Component {
         }
     };
 
+
     handlePW = (password: string) => {
         this.setState({
             password: password
@@ -94,6 +95,7 @@ class JoinDetail extends Component {
     render() {
         return (
             <div className="big">
+                <SessionDelete></SessionDelete>
                 <div className="join-detail">
                     <h1>회원가입</h1>
                     <h3>기본 회원정보를 입력하세요.</h3>

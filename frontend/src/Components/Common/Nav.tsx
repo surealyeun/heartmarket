@@ -75,7 +75,7 @@ function Nav() {
   return (
     <nav className="Nav">
       <div className="div">
-        <Carousel arrows={false} infinite={false} responsive={responsive} swipeable={false}
+        <Carousel arrows={true} infinite={false} responsive={responsive} swipeable={false}
           draggable
           slidesToSlide={1}>
           <Button className="category">

@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from 'react-router-dom';
-import Gauge from '../common/hamburger/Gauge';
+// import Gauge from '../common/hamburger/Gauge';
 import "./Profile.scss";
 import SessionDelete from "../common/SessionDelete";
 
@@ -40,7 +40,7 @@ class Profile extends React.Component {
                         src="https://image.flaticon.com/icons/svg/1584/1584687.svg"
                     ></img>
                 </div>
-                <div>88 BPM</div>
+                <div>{this.user.otherHg} BPM</div>
             </div>
         </div>
     );

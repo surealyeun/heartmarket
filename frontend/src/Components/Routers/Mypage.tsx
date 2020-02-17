@@ -10,36 +10,53 @@ import TopButton from "../common/TopButton";
 import Penbutton from "../common/PenButton";
 import Footer from "../common/Footer";
 import SessionDelete from "../common/SessionDelete";
+import ToLogin from "../users/ToLogin";
+import { connect } from "react-redux";
+import { RootState } from "../../modules";
 
-function Mypage() {
+interface Props {
+  status: string | null;
+}
+
+class Mypage extends React.Component<Props> {
+  render() {
     return (
-        <>
-            <Header/>
+      <>
+        {this.props.status === "true" ? (
+          <>
+            <Header />
             <SessionDelete></SessionDelete>
             <div className="mypage">
-                <Profile />
-                <div className="like-section">
-                    <Like />
+              <Profile />
+              <div className="like-section">
+                <Like />
+              </div>
+              <br />
+              <br />
+              <div className="products-section">
+                <div className="sale-section">
+                  <Sale />
                 </div>
-                <br />
-                <br />
-                <div className="products-section">
-                    <div className="sale-section">
-                        <Sale />
-                    </div>
-                    <div className="purchase-section">
-                        <Purchase />
-                    </div>
+                <div className="purchase-section">
+                  <Purchase />
                 </div>
+              </div>
             </div>
 
             <div>
-                <TopButton />
-                <Penbutton />
-                <Footer />
+              <TopButton />
+              <Penbutton />
+              <Footer />
             </div>
-        </>
+          </>
+        ) : (
+          <ToLogin />
+        )}
+      </>
     );
+  }
 }
 
-export default Mypage;
+export default connect(({ userStatus }: RootState) => ({
+  status: userStatus.status
+}))(Mypage);

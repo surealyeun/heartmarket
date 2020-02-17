@@ -59,7 +59,7 @@ class Sale extends React.Component {
             }
         })
             .then(res => {
-                console.log(res.data.data);
+                // console.log(res.data.data);
                 this.setState({
                     Sales: res.data.data
                 });

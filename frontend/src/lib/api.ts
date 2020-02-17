@@ -21,5 +21,6 @@ export interface PostItem {
   ttitle: string;
   tarea: string;
   uno: number;
-  uimg:string
+  uimg:string;
+  cno:number;
 }
