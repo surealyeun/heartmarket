@@ -11,6 +11,7 @@ import { isCategory } from "../../modules/category";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { RootState } from "../../modules";
+import {Link} from "react-router-dom";
 
 interface Props {
   CategoryAction: typeof isCategory;
@@ -75,11 +76,13 @@ class SearchResult extends Component<Props> {
             {this.filters.map(filter => {
               return <FilterButton key={filter.id} {...filter} />;
             })}
+            <Link to="/map">
             <img
               className="SearchResult_filter_container_img"
               src="https://image.flaticon.com/icons/svg/854/854878.svg"
               alt="map"
             ></img>
+            </Link>
           </div>
 
           <div className="SearchResult_items">

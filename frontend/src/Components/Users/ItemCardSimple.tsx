@@ -1,5 +1,5 @@
 import React from 'react';
-import './ItemCard_simple.scss';
+import './ItemCardSimple.scss';
 
 interface Props{
     image: string;

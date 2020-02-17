@@ -17,7 +17,7 @@
     .detail-l {
         // border: 1px solid;
         // display: inline-block;
-        img{
+        img {
             width: 100%;
             height: 100%;
         }
@@ -33,34 +33,45 @@
             grid-gap: 0;
             grid-auto-rows: minmax(10px, auto);
             background-color: #365367;
+            z-index: 0;
             // border-bottom: 4px solid rgb(255, 255, 255);
-            .tuser-profile{
-                img{
+            .tuser-profile {
+                img {
                     width: 100%;
                     height: 100%;
                     margin: auto;
                 }
             }
-            .tuser-id{
+            .tuser-id {
                 color: white;
             }
-            .tuser-manners{
+            .tuser-manners {
                 margin: auto 0;
                 color: white;
             }
         }
-    
-        .trade{
-            h3{
-                font-size: 25px;
-                text-align: end;
+        .complete-trade {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.651);
+            z-index: 3;
+            width: 100%;
+            text-align: center;  
+            h1{
+                color: white;
                 font-family: 'yg-jalnan';
             }
-            h4{
+        }
+
+        .trade {
+            h3 {
+                font-size: 25px;
+                text-align: end;
+                font-family: "yg-jalnan";
+            }
+            h4 {
                 color: #686868;
             }
         }
-        
     }
 
     .product-info {
@@ -68,13 +79,12 @@
         // border: 1px solid;
         background-color: rgba(177, 177, 177, 0.096);
         margin: 0 auto;
+        word-wrap:break-word;
         h3 {
             font-family: "NanumSquareRound";
         }
-        
     }
 
-    
     @media screen and (max-width: 767px) {
         width: 100%;
         h2 {
@@ -103,17 +113,24 @@
             margin: 0px auto;
             margin-bottom: 0;
             position: relative;
-            .trade{
-                h3{
+            .trade {
+                h3 {
                     font-size: 20px;
                 }
-                h2{
+                h2 {
                     font-size: 25px;
                 }
-                h4{
+                h4 {
                     margin-top: 10px;
                 }
             }
+            .complete-trade {
+                height: 200px;  
+                h1{
+                    margin: 70px auto;
+                }           
+            }
+    
             .tuser-info {
                 .tuser-profile {
                     // border: 1px solid;
@@ -124,7 +141,7 @@
                         border-radius: 25px;
                     }
                 }
-                .tuser-id{
+                .tuser-id {
                     margin: auto 0;
                     h3 {
                         margin: 5px 0;
@@ -134,57 +151,57 @@
                     }
                 }
             }
-            .tuser-btn{
-                .btn-complete{
+            .tuser-btn {
+                .btn-complete {
                     background-color: #f9f4e6;
                     color: #365367;
                 }
-                .btn-delete{
+                .btn-delete {
                     background-color: #f9f4e6;
                     color: #365367;
                 }
-                .btn-update{
+                .btn-update {
                     background-color: #f9f4e6;
                     color: #365367;
                 }
             }
-            .tuser-btn{
+            .tuser-btn {
                 position: absolute;
                 bottom: 0px;
                 width: 100%;
-                button{
+                button {
                     // border: 2px solid;
                     border: 0;
                     // border-top: 4px solid white;
                     // border-bottom: 4px solid white;
-                    font-family: 'NanumSquareRound';
+                    font-family: "NanumSquareRound";
                     font-size: 20px;
                     height: 45px;
                 }
-                .btn-complete{
+                .btn-complete {
                     width: 40%;
                     // border-color: rgb(23, 161, 57);
                     background-color: #f494ab;
                     color: white;
                 }
-                .btn-delete{
+                .btn-delete {
                     width: 30%;
                     // border-color: rgb(221, 33, 33);
                     background-color: #365367;
                     color: white;
                 }
-                .btn-update{
+                .btn-update {
                     width: 30%;
                     // border-color: rgb(255, 150, 29);
                     background-color: white;
                     color: #365367;
                 }
             }
-            .bottom{
+            .bottom {
                 position: absolute;
                 bottom: 0px;
                 width: 100%;
-                .btn-heart{
+                .btn-heart {
                     font-family: "NanumSquareRound";
                     width: 15%;
                     height: 45px;
@@ -193,7 +210,7 @@
                     color: white;
                     font-size: 20px;
                 }
-                .btn-contact{
+                .btn-contact {
                     font-family: "NanumSquareRound";
                     width: 85%;
                     height: 45px;
@@ -207,25 +224,23 @@
         .product-info {
             width: 95%;
             padding: 10px 0;
-            span{
+            span {
                 font-size: 20px;
-                font-family: 'yg-jalnan';
+                font-family: "yg-jalnan";
                 color: #365367;
             }
             h3 {
                 font-size: 17px;
-                white-space: pre-line; 
-
+                white-space: pre-line;
             }
         }
-        
     }
 
     @media screen and (min-width: 768px) {
         width: 960px;
         .detail-grid {
             display: grid;
-            grid-template-columns: [img] 65% [info]35% ;
+            grid-template-columns: [img] 65% [info]35%;
             grid-gap: 0;
             grid-auto-rows: minmax(10px, auto);
             width: 100%;
@@ -236,7 +251,7 @@
             font-family: "yg-jalnan";
             color: #365367;
         }
-        
+
         .detail-l {
             width: 100%;
             height: 620px;
@@ -249,8 +264,8 @@
             // text-align: center;
             position: relative;
             // background-color: #f9f4e6;
-            
-            .tuser-info{
+
+            .tuser-info {
                 .tuser-profile {
                     // border: 1px solid;
                     margin: 10px auto;
@@ -260,7 +275,7 @@
                         border-radius: 30px;
                     }
                 }
-                .tuser-id{
+                .tuser-id {
                     margin: auto 0;
                     h3 {
                         margin: 5px 0;
@@ -270,7 +285,7 @@
                     }
                 }
             }
-            .trade{
+            .trade {
                 margin-top: 10px;
                 h3 {
                     margin: 10px 20px;
@@ -281,43 +296,50 @@
                     margin-left: 20px;
                 }
             }
-            .tuser-btn{
+            .complete-trade {
+                height: 563px;
+                h1{
+                    margin: 200px auto;
+                }
+            }
+    
+            .tuser-btn {
                 position: absolute;
                 bottom: 0px;
                 width: 100%;
-                button{
+                button {
                     // border: 2px solid;
                     border: 0;
                     // border-top: 4px solid white;
                     // border-bottom: 4px solid white;
-                    font-family: 'NanumSquareRound';
+                    font-family: "NanumSquareRound";
                     font-size: 20px;
                     height: 45px;
                 }
-                .btn-complete{
+                .btn-complete {
                     width: 40%;
                     // border-color: rgb(23, 161, 57);
                     background-color: #f494ab;
                     color: white;
                 }
-                .btn-delete{
+                .btn-delete {
                     width: 30%;
                     // border-color: rgb(221, 33, 33);
                     background-color: #365367;
                     color: white;
                 }
-                .btn-update{
+                .btn-update {
                     width: 30%;
                     // border-color: rgb(255, 150, 29);
                     background-color: white;
                     color: #365367;
                 }
             }
-            .bottom{
+            .bottom {
                 position: absolute;
                 bottom: 0px;
                 width: 100%;
-                .btn-heart{
+                .btn-heart {
                     font-family: "NanumSquareRound";
                     width: 15%;
                     height: 45px;
@@ -326,7 +348,7 @@
                     color: white;
                     font-size: 20px;
                 }
-                .btn-contact{
+                .btn-contact {
                     font-family: "NanumSquareRound";
                     width: 85%;
                     height: 45px;
@@ -341,7 +363,7 @@
             // margin: 20px 20px;
             padding: 15px 0;
             span {
-                font-family: 'yg-jalnan';
+                font-family: "yg-jalnan";
                 font-size: 23px;
                 color: #365367;
             }
@@ -350,7 +372,7 @@
                 margin-left: 20px;
                 margin-right: 20px;
                 margin-bottom: 15px;
-                white-space: pre-line; 
+                white-space: pre-line;
             }
         }
     }

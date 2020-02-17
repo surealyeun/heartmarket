@@ -14,7 +14,7 @@ class AlarmModal extends React.Component<Props> {
 
     state = {
         sendText: "",
-        title: ""
+        title: "",
     }
 
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
@@ -36,10 +36,10 @@ class AlarmModal extends React.Component<Props> {
         }
         axios({
             method: "post",
-            url: "http://110.12.73.220:10001/mail/send",
+            url: "http://13.125.55.96:8080/mail/send",
             params: {
                 content: this.state.sendText,
-                tradeNo: this.props.tradeNo,
+                tradeNo: this.props.tradeNo+"",
                 senderMail : this.user.email,
                 receiverMail: this.props.email,
                 title:this.state.title
@@ -47,6 +47,10 @@ class AlarmModal extends React.Component<Props> {
         })
             .then(res => {
                 this.props.close();
+                this.setState({
+                    sendText:"",
+                    title:""
+                })
                 alert("메시지를 전송했습니다.")
             })
             .catch(error => {

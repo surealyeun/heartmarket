@@ -3,53 +3,57 @@ import React, { Component } from "react";
 import "./PreAlarm.scss";
 
 interface Mail {
-    mail_no: number;
-    sender_no: number;
-    receiver_no: number;
+  data: {
+    mailNo: number;
     title: string;
     content: string;
+    sendDate: string;
+    readDate: string;
+    sendDel: number;
+    readDel: number;
     trade: {
-        tradeNo: number;
-        tradeTitle: String;
-        tTradeImg: Array<TtradeImg>;
-    }
+      tradeNo: number;
+      tradeTitle: string;
+      productInfo: string;
+      tTradeImg: Array<TtradeImg>;
+      tuser: {
+        userNo: number;
+        nickname: string;
+      };
+    };
+    sender: {
+      userNo: number;
+      nickname: string;
+      profileImg: string;
+    };
+  };
 }
 
 interface TtradeImg {
-    imgNo: number;
-    tiTrade: number;
-    orgImg: string;
+  imgNo: number;
+  tiTrade: number;
+  orgImg: string;
 }
-
 
 class PreAlarm extends Component<Mail> {
 
-    state = {
-        isModalOpen: false
-    };
-
-    openModal = () => {
-        this.setState({
-            isModalOpen: true
-        });
-    };
-    closeModal = () => {
-        this.setState({
-            isModalOpen: false
-        });
-    };
-
-    render() {
-        return (
-            <div className="PreAlarm">
-                <div className="prealarm_div" onClick={this.openModal}>
-                    <img className="prealarm_img" alt="profile" src="https://image.flaticon.com/icons/svg/660/660611.svg"></img>
-                    <p className="mainTitle">송마으미</p>
-                    <div className="subTitle">상품관심있상품관심있어 연략 드려요 사고상품관심있어 연략 드려요 사고상품관심있어 연략 드려요 사고상품관심있어 연략 드려요 사고상품관심있어 연략 드려요 사고상품관심있어 연략 드려요 사고상품관심있어 연략 드려요 사고어 연략 드려요 사고 ddasdas</div>
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="PreAlarm">
+        <div className="prealarm_div">
+          <img
+            className="prealarm_img"
+            alt="profile"
+            src={this.props.data.sender.profileImg}
+          ></img>
+          <p className="mainTitle">{this.props.data.sender.nickname}</p>
+          <div className="subTitle">
+            {this.props.data.content}
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default PreAlarm;

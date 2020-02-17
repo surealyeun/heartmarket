@@ -75,6 +75,22 @@
       width:100px;
     }
   }
+
+  .plus_btn{
+    position: absolute;
+    border-radius: 10px;
+    margin-top: 20px;
+    right: calc(50% - 100px);
+    width: 200px;
+    height: 40px;
+    background: #365367;
+    padding-top: 8px;
+    text-align: center;
+    font-weight: bolder;
+    color: #f9f4e6;
+    font-size: 20px;
+    cursor: pointer;
+  }
 }
 
 @media screen and (max-width: 767px) {
