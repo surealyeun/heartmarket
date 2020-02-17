@@ -170,7 +170,7 @@ public class TradeServiceImpl implements TradeService {
 		List<Trade> tList = tr.findAll();
 		int cnt = tList.get(tList.size() - 1).getTradeNo();
 		if (no == 0)
-			no = cnt;
+			no = cnt+1;
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
 		return tr.findByTradeNoLessThan(no, pr);
 	}
@@ -212,7 +212,7 @@ public class TradeServiceImpl implements TradeService {
 
 		PageRequest pr = PageRequest.of(0, size, Sort.by("tradeNo").descending());
 		if (no == 0)
-			no = cnt;
+			no = cnt+1;
 		return tr.findByTradeNoLessThanAndTradeAreaAndTradeCategory(no, area, category, pr);
 	}
 
@@ -232,7 +232,7 @@ public class TradeServiceImpl implements TradeService {
 			tList = tr.findAll();
 		}
 //		int cnt = tList.get(tList.size() - 1).getTradeNo();
-		int cnt = tr.countAll();
+		int cnt = tr.countAll()+1;
 		System.out.println("cnt : " + cnt);
 		System.out.println("size : " + tList.size());
 
@@ -292,7 +292,7 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public Page<Trade> findByTradeType(int no, int size, int type, int userno) {
 		if (no == 0)
-			no = tr.countAll();
+			no = tr.countAll()+1;
 
 		final int cnt = no;
 		return tr.findAll(new Specification<Trade>() {
