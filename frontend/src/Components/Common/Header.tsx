@@ -1,4 +1,6 @@
 import React, { ChangeEvent, useState, useEffect } from "react";
+// import { History, LocationState } from "history";
+import { withRouter } from "react-router-dom";
 import "./Header.scss";
 import logo from "../img/두근마켓3.png";
 import logo2 from "../img/두근마켓2.png";
@@ -6,7 +8,11 @@ import logo2 from "../img/두근마켓2.png";
 import { Link } from "react-router-dom";
 import Hamburger from "./hamburger/Hamburger";
 
-function Header() {
+// interface Props {
+//   history: History<LocationState>;
+//  }
+
+function Header(props:any) {
   const [inputText, setInputText] = useState(
     window.sessionStorage.getItem("searchText")
   );
@@ -26,7 +32,13 @@ function Header() {
   const inputClick = () => {
       window.sessionStorage.setItem("searchText", inputText||"");
   };
-
+  const handleKeyPress = (e:any) => {
+    if (e.charCode === 13) {
+      inputClick()
+      props.history.push('/search')
+      window.location.reload()
+    }
+  }
   return (
     <header className="Header">
       <div className="div">
@@ -37,6 +49,7 @@ function Header() {
         </Link>
         <input
           onChange={onChange}
+          onKeyPress={handleKeyPress}
           value={inputText || ""}
           className="input_search"
           id="input_search"
@@ -56,4 +69,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default withRouter(Header);
