@@ -90,6 +90,10 @@ class Detail extends React.Component<Props> {
     };
 
     openModal = () => {
+        if(this.user.email === undefined){
+            alert("로그인을 해주세요")
+            return;
+        }
         this.setState({
             isModalOpen: true
         });
@@ -185,7 +189,7 @@ class Detail extends React.Component<Props> {
                                     </button>
 
                                     <button className="btn-contact" onClick={this.openModal}>
-                                        댓글? 쪽지? 알림? 거래하기
+                                        쪽지 보내기
                                     </button>
                                     <Modal
                                         tradeNo={this.state.all.trade.tradeNo}

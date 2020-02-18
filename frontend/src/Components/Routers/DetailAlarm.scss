@@ -11,6 +11,18 @@
   }
 
   min-height: 63vh;
+
+  .btn{
+    text-align: center;
+  }
+
+  .mail_line{
+    margin-top: 20px;
+    border: none;
+    background: rgba(0, 0, 0, 0.384);
+    width: 100%;
+  }
+
   .display {
     height: 85px;
     width: 100%;
@@ -18,7 +30,7 @@
   }
   .alarm_people {
     position: absolute;
-    font-size: 18px;
+    font-size: 15px;
     margin-top: 5px;
   }
   .rec_pos1 {
@@ -30,12 +42,12 @@
 
   .background {
     position: absolute;
-    font-size: 18px;
-    width: 200px;
-    height: 30px;
+    font-size: 15px;
+    width: 180px;
+    height: 25px;
     background: #facdd9a6;
     border-radius: 4px;
-    margin-left: 90px;
+    margin-left: 70px;
     text-align: left;
     padding-left: 10px;
     padding-top: 10px;
@@ -46,12 +58,15 @@
   .alarm_content {
     word-wrap: break-word;
     white-space: pre-line;
+    min-height: 25vh;
   }
 
   .title{
+    word-wrap: break-word;
+    white-space: pre-line;
     font-size: 25px;
     font-weight: bolder;
-    margin-top: 25px;
+    margin-top: 18px;
     margin-bottom: 20px;
   }
 
@@ -80,7 +95,7 @@
   .trade_div {
     font-family: "NanumSquareRound";
     font-size: medium;
-    width: calc(238px);
+    width: calc(280px);
     height: 45px;
     background: #4242421a;
     border-radius: 4px;
@@ -100,13 +115,19 @@
       position: absolute;
       margin-left: 55px;
       color: rgb(71, 71, 71);
+      width: calc(230px);
+
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .subTitle {
       position: absolute;
       font-size: 15px;
       //width: 65%;
-      width: calc(185px);
+      width: calc(230px);
       height: 20px;
       margin-left: 55px;
       margin-top: 25px;
@@ -127,6 +148,10 @@
     margin-right: 10px;
     margin-top: 10px;
 
+    .mail_line{
+      height:0.5px;
+    }
+
     .detailalarm_btn {
       width: 35%;
     }
@@ -141,6 +166,11 @@
     max-width: 768px;
     margin: 0 auto;
     margin-top: 15px;
+
+    .mail_line{
+      height:1px;
+    }
+
   }
 }
 
@@ -149,5 +179,9 @@
     max-width: 960px;
     margin: 0 auto;
     margin-top: 15px;
+
+    .mail_line{
+      height:1px;
+    }
   }
 }
