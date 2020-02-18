@@ -11,29 +11,37 @@ import SessionDelete from "../common/SessionDelete";
 export interface purchase {
     eval: number;
     btrade: Btrade;
-}
-
-export interface Btrade {
+  }
+  export interface Btrade {
     tradeNo: number;
     tradeCategory: string;
     tradeTitle: string;
     tradeArea: string;
     productInfo: string;
-    productPrice: string;
+    productPrice: number;
+    tradeDate: Date;
+    tuser: number;
+    buser: number;
+    ttradeImg: TtradeImg[];
+  }
+  export interface TtradeImg {
+    imgNo: number;
+    tiTrade: TITrade;
+    orgImg: string;
+  }
+  export interface TITrade {
+    tradeNo: number;
+    tradeCategory: string;
+    tradeTitle: string;
+    tradeArea: string;
+    productInfo: string;
+    productPrice: number;
     tradeDate: Date;
     tTradeImg: TTradeImg[];
-    tuser: Tuser;
-    buser: null;
-    tmanner: null;
-}
-
-export interface TTradeImg {
-    imgNo: number;
-    tiTrade: number;
-    orgImg: string;
-}
-
-export interface Tuser {
+    tuser: User;
+    buser: User;
+  }
+  export interface User {
     userNo: number;
     email: string;
     password: string;
@@ -41,13 +49,17 @@ export interface Tuser {
     nickname: string;
     userPermission: string;
     uarea: Uarea[];
-}
-
-export interface Uarea {
+  }
+  export interface Uarea {
     areaNo: number;
     address: string;
     auser: number;
-}
+  }
+  export interface TTradeImg {
+    imgNo: number;
+    tiTrade: number;
+    orgImg: string;
+  }
 
 class Purchase extends React.Component {
     state = {
@@ -104,9 +116,9 @@ class Purchase extends React.Component {
                                                     to={`/search/detail/${purchase.btrade.tradeNo}`}
                                                 >
                                                     <ItemCard
-                                                        image={purchase.btrade.tTradeImg}
+                                                        image={purchase.btrade.ttradeImg[0].tiTrade.tTradeImg}
                                                         tradeTitle={purchase.btrade.tradeTitle}
-                                                        productPrice={purchase.btrade.productPrice}
+                                                        productPrice={purchase.btrade.productPrice.toString()}
                                                         tradeNo={purchase.btrade.tradeNo}
                                                     />
                                                 </Link>
@@ -124,7 +136,7 @@ class Purchase extends React.Component {
                                             <Modal
                                                 isOpen={this.state.isModalOpen}
                                                 close={this.closeModal}
-                                                userNo={purchase.btrade.tuser.userNo}
+                                                userNo={purchase.btrade.tuser}
                                                 tradeNo={purchase.btrade.tradeNo}
                                             />
                                         </>
