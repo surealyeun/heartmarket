@@ -231,7 +231,7 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	// 검색했을 때, 결과 불러오기
-	public Page<Trade> fetPageTP(int no, int size, List<String> sList, String area,int filter) {
+	public Page<Trade> fetPageTP(int no, int size, List<String> sList, String area,int filter,String category) {
 		// 둘 중 하나 입니당....
 		// 로그인을 안 했을 때,
 //		if()
@@ -248,21 +248,26 @@ public class TradeServiceImpl implements TradeService {
 		int cnt = tr.countAll()+1;
 		System.out.println("cnt : " + cnt);
 		System.out.println("size : " + tList.size());
-
+		System.out.println("널이냐?" + sList==null?1:0);
 		if(filter == 4) 
 		return tr.findAll(new Specification<Trade>() {
 
 			@Override
 			public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				List<Predicate> predicates = new ArrayList<Predicate>();
-				for (String str : sList) {
-					System.out.println(str);
-					predicates.add(criteriaBuilder.or(criteriaBuilder.like(root.get("tradeTitle"), "%" + str + "%"),
-							criteriaBuilder.like(root.get("productInfo"), "%" + str + "%")));
+				if(sList != null) {
+					for (String str : sList) {
+						System.out.println(str);
+						predicates.add(criteriaBuilder.or(criteriaBuilder.like(root.get("tradeTitle"), "%" + str + "%"),
+								criteriaBuilder.like(root.get("productInfo"), "%" + str + "%")));
+					}
 				}
 				System.out.println("area : " + area);
 				if (!area.equals("none"))
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeArea"), area)));
+				if(Integer.parseInt(category) > 0) {
+					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeCategory"), category)));
+				}
 				System.out.println(predicates.size());
 				System.out.println(predicates.get(0).toString());
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
@@ -275,14 +280,19 @@ public class TradeServiceImpl implements TradeService {
 				@Override
 				public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 					List<Predicate> predicates = new ArrayList<Predicate>();
-					for (String str : sList) {
-						System.out.println(str);
-						predicates.add(criteriaBuilder.or(criteriaBuilder.like(root.get("tradeTitle"), "%" + str + "%"),
-								criteriaBuilder.like(root.get("productInfo"), "%" + str + "%")));
+					if(sList != null) {
+						for (String str : sList) {
+							System.out.println(str);
+							predicates.add(criteriaBuilder.or(criteriaBuilder.like(root.get("tradeTitle"), "%" + str + "%"),
+									criteriaBuilder.like(root.get("productInfo"), "%" + str + "%")));
+						}
 					}
 					System.out.println("area : " + area);
 					if (!area.equals("none"))
 						predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeArea"), area)));
+					if(Integer.parseInt(category) > 0) {
+						predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeCategory"), category)));
+					}
 					System.out.println(predicates.size());
 					System.out.println(predicates.get(0).toString());
 					return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

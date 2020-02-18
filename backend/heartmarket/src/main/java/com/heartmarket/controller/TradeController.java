@@ -253,28 +253,32 @@ public class TradeController {
 	}
 
 	// 검색 ( 키워드 2개 이상 / 단일 키워드 )
-	@RequestMapping(value = "/trade/search/{keyword}&{filter}", method = RequestMethod.GET)
-	public ResponseEntity<Object> searchByKeyword(@PathVariable String keyword,
+	@RequestMapping(value = "/trade/search/{category}&{filter}", method = RequestMethod.GET)
+	public ResponseEntity<Object> searchByKeyword(@RequestParam(required = false) String keyword,@PathVariable String category,
 			@RequestParam(required = false) String email, @RequestParam int no,@PathVariable int filter) {
  
 		// 입력받은 단어들을 받음
-		List<String> sList = new ArrayList<>();
+		List<String> sList;
 		SearchUtils s = new SearchUtils();
-		if (!keyword.equals(null))
+		if (keyword == null || keyword.equals("") ) {
+			sList = new ArrayList<>();
+			System.out.println("널 : "+sList.toString());
+		}else {
 			sList = s.fetchKeyword(keyword);
-		if (sList.size() == 0)
-			return new ResponseEntity<Object>(new ResultMap<TradeMapping>("FAIL", "검색 불가", null), HttpStatus.OK);
+		}
+//		if (sList.size() == 0)
+//			return new ResponseEntity<Object>(new ResultMap<TradeMapping>("FAIL", "검색 불가", null), HttpStatus.OK);
 
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		System.out.println("email : " + email);
 		// 현재 로그인이 안되있을 때,
 		if (email.equals("none")) {
-			tm = mappedFor(ts.fetPageTP(no, 8, sList, "none",filter).getContent(), "none");
+			tm = mappedFor(ts.fetPageTP(no, 8, sList, "none",filter,category).getContent(), "none");
 			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공?", tm), HttpStatus.OK);
 			// 현재 로그인 완료
 		} else {
 			String area = us.searchEmail(email).getUArea().get(0).getAddress();
-			tm = mappedFor(ts.fetPageTP(no, 8, sList, area,filter).getContent(), email);
+			tm = mappedFor(ts.fetPageTP(no, 8, sList, area,filter,category).getContent(), email);
 			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공?", tm), HttpStatus.OK);
 
 		}
@@ -292,6 +296,7 @@ public class TradeController {
 
 // 매핑 중...... C
 	private List<TradeMapping> mappedFor(List<Trade> tList, String email) {
+		System.out.println("사이즈는 : "+tList.size());
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		User mUser = new User();
 		String tmp = "";

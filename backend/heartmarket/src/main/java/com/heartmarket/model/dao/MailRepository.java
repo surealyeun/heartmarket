@@ -15,15 +15,15 @@ public interface MailRepository extends JpaRepository<Mail, Integer> {
 	Mail findBySenderUserNo(int userNo);
 	Mail findBySenderUserNoAndMailNo(int userNo,int mailNo);
 	Mail findByReceiverUserNo(int userNo);
-	List<Mail> findAllByReceiverUserNoAndReadDateIsNull(int userNo);
-	List<Mail> findAllByReceiverUserNoAndReadDateIsNotNull(int userNo);
+	List<Mail> findAllByReceiverUserNoAndReadDelAndReadDateIsNull(int userNo,int readDel);
+	List<Mail> findAllByReceiverUserNoAndReadDelAndReadDateIsNotNull(int userNo,int readDel);
 	Mail findByReceiverUserNoAndMailNo(int userNo,int mailNo);
-	List<Mail> findAllBySenderUserNo(int userNo);
-	List<Mail> findAllByReceiverUserNo(int userNo);
+	List<Mail> findAllBySenderUserNoAndSendDel(int userNo,int sendDel);
+	List<Mail> findAllByReceiverUserNoAndReadDel(int userNo,int readDel);
 	
 	//page 기능
-	Page<Mail> findAllBySenderUserNo(int userNo,Pageable req);
-	Page<Mail> findAllByReceiverUserNo(int userNo, Pageable req);
-	Page<Mail> findAllByReceiverUserNoAndReadDateIsNull(int userNo,Pageable req);
-	Page<Mail> findAllByReceiverUserNoAndReadDateIsNotNull(int userNo,Pageable req);
+	Page<Mail> findAllBySenderUserNoAndSendDel(int userNo,int sendDel,Pageable req);
+	Page<Mail> findAllByReceiverUserNoAndReadDel(int userNo,int readDel, Pageable req);
+	Page<Mail> findAllByReceiverUserNoAndReadDelAndReadDateIsNull(int userNo,int readDel,Pageable req);
+	Page<Mail> findAllByReceiverUserNoAndReadDelAndReadDateIsNotNull(int userNo,int readDel,Pageable req);
 }

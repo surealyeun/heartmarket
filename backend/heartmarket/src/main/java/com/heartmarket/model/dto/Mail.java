@@ -47,13 +47,13 @@ public class Mail {
 	String readDate;
 	
 	@Column(name = "send_date")
-	String SendDate;
+	String sendDate;
 	
 	@Column(name = "read_del")
 	int readDel;
 
 	@Column(name = "send_del")
-	int SendDel;
+	int sendDel;
 
 	public Mail(User sender, User receiver,Trade trade,String title, String content, String sendDate, int readDel,
 			int sendDel) {
@@ -63,9 +63,9 @@ public class Mail {
 		this.trade = trade;
 		this.title = title;
 		this.content = content;
-		this.SendDate = sendDate;
+		this.sendDate = sendDate;
 		this.readDel = readDel;
-		this.SendDel = sendDel;
+		this.sendDel = sendDel;
 	}
 
 	

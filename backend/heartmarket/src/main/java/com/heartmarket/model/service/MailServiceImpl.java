@@ -104,7 +104,7 @@ public class MailServiceImpl implements MailService {
 		try {
 			User sender = ur.findByEmail(senderMail);
 			PageRequest pr = PageRequest.of(no, size, Sort.by("MailNo").descending());
-			return mr.findAllBySenderUserNo(sender.getUserNo(), pr);
+			return mr.findAllBySenderUserNoAndSendDel(sender.getUserNo(),0, pr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -136,7 +136,7 @@ public class MailServiceImpl implements MailService {
 		try {
 			User receiver = ur.findByEmail(receiverMail);
 			PageRequest pr = PageRequest.of(no, size, Sort.by("MailNo").descending());
-			return mr.findAllByReceiverUserNoAndReadDateIsNotNull(receiver.getUserNo(), pr);
+			return mr.findAllByReceiverUserNoAndReadDelAndReadDateIsNotNull(receiver.getUserNo(),0, pr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -150,7 +150,7 @@ public class MailServiceImpl implements MailService {
 		try {
 			User receiver = ur.findByEmail(receiverMail);
 			PageRequest pr = PageRequest.of(no, size, Sort.by("MailNo").descending());
-			return mr.findAllByReceiverUserNoAndReadDateIsNull(receiver.getUserNo(), pr);
+			return mr.findAllByReceiverUserNoAndReadDelAndReadDateIsNull(receiver.getUserNo(),0, pr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -163,7 +163,7 @@ public class MailServiceImpl implements MailService {
 		try {
 			User receiver = ur.findByEmail(receiverMail);
 			PageRequest pr = PageRequest.of(no, size, Sort.by("MailNo").descending());
-			return mr.findAllByReceiverUserNo(receiver.getUserNo(), pr);
+			return mr.findAllByReceiverUserNoAndReadDel(receiver.getUserNo(),0, pr);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -174,28 +174,28 @@ public class MailServiceImpl implements MailService {
 	@Override
 	public int findAllReceiveCount(String receiverMail) {
 		User user = ur.findByEmail(receiverMail);
-		List<Mail> result = mr.findAllByReceiverUserNo(user.getUserNo());
+		List<Mail> result = mr.findAllByReceiverUserNoAndReadDel(user.getUserNo(),0);
 		return result.size();
 	}
 
 	@Override
 	public int findAllSendCount(String senderMail) {
 		User user = ur.findByEmail(senderMail);
-		List<Mail> result = mr.findAllBySenderUserNo(user.getUserNo());
+		List<Mail> result = mr.findAllBySenderUserNoAndSendDel(user.getUserNo(),0);
 		return result.size();
 	}
 
 	@Override
 	public int findReadCount(String receiverMail) {
 		User user = ur.findByEmail(receiverMail);
-		List<Mail> result = mr.findAllByReceiverUserNoAndReadDateIsNotNull(user.getUserNo());
+		List<Mail> result = mr.findAllByReceiverUserNoAndReadDelAndReadDateIsNotNull(user.getUserNo(),0);
 		return result.size();
 	}
 
 	@Override
 	public int findUnReadCount(String receiverMail) {
 		User user = ur.findByEmail(receiverMail);
-		List<Mail> result = mr.findAllByReceiverUserNoAndReadDateIsNull(user.getUserNo());
+		List<Mail> result = mr.findAllByReceiverUserNoAndReadDelAndReadDateIsNull(user.getUserNo(),0);
 		return result.size();
 	}
 
