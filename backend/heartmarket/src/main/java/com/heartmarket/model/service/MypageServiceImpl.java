@@ -24,8 +24,10 @@ import com.heartmarket.model.dao.TradeRepository;
 import com.heartmarket.model.dao.UserRepository;
 import com.heartmarket.model.dto.Manner;
 import com.heartmarket.model.dto.Trade;
+import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.model.dto.response.MyBuyList;
+import com.heartmarket.model.dto.response.MyBuyListTrade;
 import com.heartmarket.model.dto.response.MySellList;
 import com.heartmarket.model.dto.response.OtherResponse;
 import com.heartmarket.model.dto.response.OtherTrade;
@@ -91,10 +93,36 @@ public class MypageServiceImpl implements MypageService {
 				
 				List<MyBuyList> mbList = new ArrayList<MyBuyList>();
 				for (Trade trade : sList) {
+					List<TradeImg> tTradeImg = new ArrayList<TradeImg>();
+					tTradeImg.add(new TradeImg(
+							trade.gettTradeImg().get(0).getImgNo(),
+							trade.gettTradeImg().get(0).getTiTrade(),
+							trade.gettTradeImg().get(0).getOrgImg()));
+					
 					if(Objects.isNull(rr.findByrTradeTradeNo(trade.getTradeNo()))) {
-						mbList.add(new MyBuyList(trade, 0));
+						mbList.add(new MyBuyList(new MyBuyListTrade(
+								trade.getTradeNo(),
+								trade.getTradeCategory(),
+								trade.getTradeTitle(),
+								trade.getTradeArea(),
+								trade.getProductInfo(),
+								trade.getProductPrice(),
+								trade.getTradeDate(),
+								trade.getTUser().getUserNo(),
+								trade.getBUser().getUserNo(),
+								tTradeImg) , 0));
 					}else {
-						mbList.add(new MyBuyList(trade, 1));
+						mbList.add(new MyBuyList(new MyBuyListTrade(
+								trade.getTradeNo(),
+								trade.getTradeCategory(),
+								trade.getTradeTitle(),
+								trade.getTradeArea(),
+								trade.getProductInfo(),
+								trade.getProductPrice(),
+								trade.getTradeDate(),
+								trade.getTUser().getUserNo(),
+								trade.getBUser().getUserNo(),
+								tTradeImg) , 1));
 					}
 				}
 				return new ResultMap<Object>("SUCCESS", "구매한 목록 조회 완료", mbList);

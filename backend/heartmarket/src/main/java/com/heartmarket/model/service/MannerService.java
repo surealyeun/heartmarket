@@ -16,6 +16,6 @@ public interface MannerService {
 
 	ResultMap<ReviewResponse> evalueUser(int tradeNo, int userNo, int val);
 
-	ResultMap<Map<String, Double>> findManner(String email);
+	ResultMap<Map<String, Integer>> findManner(String email);
 	
 }
