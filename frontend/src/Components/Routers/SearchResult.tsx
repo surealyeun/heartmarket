@@ -7,7 +7,7 @@ import FilterButton from "../common/FilterButton";
 import ResultContainer from "../../containers/search/ResultContainer";
 import PenButton from "../common/PenButton";
 import TopButton from "../common/TopButton";
-import { isCategory } from "../../modules/category";
+import { isCategory, setCategory } from "../../modules/category";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { RootState } from "../../modules";
@@ -15,9 +15,13 @@ import {Link} from "react-router-dom";
 
 interface Props {
   CategoryAction: typeof isCategory;
+  CategorySetAction: typeof setCategory
 }
 
 class SearchResult extends Component<Props> {
+  state = {
+    area: window.sessionStorage.getItem('user')
+  }
   filters = [
     {
       id: 1,
@@ -25,7 +29,7 @@ class SearchResult extends Component<Props> {
     },
     {
       id: 2,
-      title: "역삼동"
+      title: this.state.area ? JSON.parse(this.state.area).uarea[0].address : "강남구 전체"
     },
     {
       id: 3,
@@ -34,6 +38,14 @@ class SearchResult extends Component<Props> {
     {
       id: 4,
       title: "가격순"
+    },
+    {
+      id: 5,
+      title: "판매 중"
+    },
+    {
+      id: 6,
+      title: "판매 완료"
     }
   ];
 
@@ -64,6 +76,7 @@ class SearchResult extends Component<Props> {
   categoryDelete = () => {
     window.sessionStorage.setItem("searchCategory","0");
     this.props.CategoryAction();
+    this.props.CategorySetAction("0")
   }
 
   openMap = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -82,6 +95,7 @@ class SearchResult extends Component<Props> {
         <div className="SearchResult_main">
           <div className="SearchResult_filter">
             {this.filters.map(filter => {
+              console.log(filter)
               return <FilterButton key={filter.id} {...filter} />;
             })}
             <Link to="/map" onClick={(e) => this.openMap(e)}>
@@ -114,6 +128,7 @@ export default connect(
     status: categoryStatus.status
   }),
   dispatch => ({
-    CategoryAction: bindActionCreators(isCategory, dispatch)
+    CategoryAction: bindActionCreators(isCategory, dispatch),
+    CategorySetAction: bindActionCreators(setCategory, dispatch)
   })
 )(SearchResult);
