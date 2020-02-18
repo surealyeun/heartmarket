@@ -78,9 +78,9 @@ public class TradeServiceImpl implements TradeService {
 			Trade trade = tr.findByTradeNo(tradeNo);
 			Manner manner = mr.findBymUserUserNo(trade.getTUser().getUserNo());
 			if(Objects.isNull(trade.getBUser())) {
-				return new TradeDetail(trade, manner.getHeartGauge(), 0, 0);				
+				return new TradeDetail(trade, (int)manner.getHeartGauge(), 0, 0);				
 			}else {
-				return new TradeDetail(trade,manner.getHeartGauge(), 0, 1);
+				return new TradeDetail(trade,(int)manner.getHeartGauge(), 0, 1);
 			}
 			
 		}catch(Exception e) {
@@ -102,11 +102,11 @@ public class TradeServiceImpl implements TradeService {
 			Manner manner = mr.findBymUserUserNo(trade.getTUser().getUserNo());
 			if(Objects.isNull(cart)) {
 				return Objects.isNull(trade.getBUser()) ?
-					new TradeDetail(trade, manner.getHeartGauge(), 0, 0) :  new TradeDetail(trade, manner.getHeartGauge(),0, 1);
+					new TradeDetail(trade, (int)manner.getHeartGauge(), 0, 0) :  new TradeDetail(trade,(int) manner.getHeartGauge(),0, 1);
 			}
 			else {
 				return Objects.isNull(trade.getBUser()) ?
-						new TradeDetail(trade, manner.getHeartGauge(),1, 0) :  new TradeDetail(trade,manner.getHeartGauge(), 1, 1);
+						new TradeDetail(trade, (int)manner.getHeartGauge(),1, 0) :  new TradeDetail(trade,(int)manner.getHeartGauge(), 1, 1);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -13,6 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MyBuyList {
 
-	Trade bTrade;
+	MyBuyListTrade bTrade;
 	int eval;
 }
