@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import Modal from "../alarm/AlarmModal";
 import { connect } from "react-redux";
 import { RootState } from "../../modules";
+import TopButton from "../common/TopButton";
+import PenButton from "../common/PenButton";
 
 interface Props {
   status: string | null;
@@ -209,7 +211,8 @@ class Detail extends React.Component<Props> {
             <h3>{this.state.all.trade.productInfo}</h3>
           </div>
         </div>
-
+        <TopButton />
+        <PenButton />
         <Footer />
       </div>
     );

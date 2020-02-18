@@ -40,7 +40,7 @@ class SlideImg extends React.Component<Props> {
                         transitionDuration={500}
                         containerClass="container"
                         draggable
-                        infinite
+                        infinite={false}
                         keyBoardControl
                         minimumTouchDrag={80}
                         showDots
