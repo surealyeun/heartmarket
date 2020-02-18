@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import Header from "../common/Header";
 import Footer from "../common/Footer";
 import axios from "axios";
-import ItemCard_simple from "../users/ItemCardSimple";
+import ItemCardSimple from "../users/ItemCardSimple";
 import { Link } from "react-router-dom";
+import { Progress } from "antd";
 
 import "./UserProfile.scss";
 import SessionDelete from "../common/SessionDelete";
@@ -21,14 +22,14 @@ interface Props {
   isReload: boolean;
   sales: userPostItem[];
   pageNum: number;
-  CountAction: typeof userDiffBy
+  CountAction: typeof userDiffBy;
   PostActions: typeof getUserPostThunk;
 }
 
 class UserProfileTest extends Component<Props> {
   state = {
     isLoad: false,
-    user: { otherNo: 0, otherImg: "", otherNickname: "", otherHg: "" }
+    user: { otherNo: 0, otherImg: "", otherNickname: "", otherHg: 0 }
   };
 
   url = window.location.href.split("/");
@@ -55,32 +56,32 @@ class UserProfileTest extends Component<Props> {
       });
     const { PostActions, isReload } = this.props;
     if (!isReload) {
-      PostActions(this.userNo, 0)
+      PostActions(this.userNo, 0);
     }
     window.addEventListener("scroll", this.handleScroll);
   }
   componentWillUnmount() {
     window.removeEventListener("scroll", this.handleScroll);
   }
-    // 인피니트 스크롤링
-    handleScroll = () => {
-      const { innerHeight } = window;
-      const { scrollHeight } = document.body;
-      const scrollTop =
-        (document.documentElement && document.documentElement.scrollTop) ||
-        document.body.scrollTop;
-      // 컴포넌트 생명주기를 이해해야 코드 이해 가능
-      if (scrollHeight - innerHeight - scrollTop < 100) {
-        if (!this.props.loadingPost) {
-          const { PostActions, CountAction, isLast } = this.props;
-          if (!isLast) {
-            const { pageNum } = this.props;
-            CountAction(pageNum+1);
-            PostActions(this.userNo, pageNum+1);
-          }
+  // 인피니트 스크롤링
+  handleScroll = () => {
+    const { innerHeight } = window;
+    const { scrollHeight } = document.body;
+    const scrollTop =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop;
+    // 컴포넌트 생명주기를 이해해야 코드 이해 가능
+    if (scrollHeight - innerHeight - scrollTop < 100) {
+      if (!this.props.loadingPost) {
+        const { PostActions, CountAction, isLast } = this.props;
+        if (!isLast) {
+          const { pageNum } = this.props;
+          CountAction(pageNum + 1);
+          PostActions(this.userNo, pageNum + 1);
         }
       }
-    };
+    }
+  };
   render() {
     const { sales } = this.props;
     return (
@@ -107,13 +108,18 @@ class UserProfileTest extends Component<Props> {
             <div className="attack">
               <div>심쿵 BPM</div>
               <div>
-                <img
-                  className="heart-img"
-                  alt="heart"
-                  src="https://image.flaticon.com/icons/svg/1584/1584687.svg"
-                ></img>
+                <Progress
+                  type="circle"
+                  strokeColor={{
+                    "20%": "#108ee9",
+                    "100%": "#f494ab"
+                  }}
+                  percent={this.state.user.otherHg}
+                  format={percent => `${percent} BPM`}
+                  status="exception"
+                  width={60}
+                />
               </div>
-              <div>{this.state.user.otherHg} BPM</div>
             </div>
           </div>
           <hr className="tophr" />
@@ -122,8 +128,11 @@ class UserProfileTest extends Component<Props> {
             <div className="products">
               {sales.map(sale => {
                 return (
-                  <Link key={sale.tradeNo} to={`/search/detail/${sale.tradeNo}`}>
-                    <ItemCard_simple
+                  <Link
+                    key={sale.tradeNo}
+                    to={`/search/detail/${sale.tradeNo}`}
+                  >
+                    <ItemCardSimple
                       image={sale.uimg}
                       tradeTitle={sale.ttitle}
                       productPrice={sale.pprice}

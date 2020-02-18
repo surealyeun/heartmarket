@@ -38,7 +38,7 @@ function App() {
         <Route path="/sale" component={Sale}/>
         <Route path="/purchase" component={Purchase} />
         <Route path="/like" component={Like} />
-        <Route path="/user/:userNo" component={UserProfile} />
+        <Route path="/user/:userNo" component={UserProfileTest} />
         <Route path="/search/detail/:tradeNo" component={Detail} />
 
         <Route path="/" exact component={Main} ></Route>
