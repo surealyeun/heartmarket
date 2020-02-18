@@ -3,6 +3,7 @@ package com.heartmarket.model.service;
 import java.util.List;
 
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.UserResponse;
 import com.heartmarket.util.ResultMap;
 
 public interface UserService {

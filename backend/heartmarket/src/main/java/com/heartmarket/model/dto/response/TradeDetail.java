@@ -13,6 +13,8 @@ public class TradeDetail {
 
 	// 게시글 정보
 	Trade trade;
+	// 매너 지수
+	double heartguage;
 	// 찜 여부
 	int cno;
 	

@@ -26,8 +26,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.heartmarket.model.dto.Area;
+import com.heartmarket.model.dto.Manner;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.UserResponse;
 import com.heartmarket.model.service.AreaService;
 import com.heartmarket.model.service.EmailService;
 import com.heartmarket.model.service.JwtService;
@@ -66,11 +68,12 @@ public class UserController {
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			if (us.login(email, password)) {
-				User tUser = us.searchEmail(email);
-				tUser.setPassword(password);
-				String token = jwts.makeJwt(tUser);
+				User user = us.searchEmail(email);
+				user.setPassword(password);
+				String token = jwts.makeJwt(user);
+				double heartgauge = ns.findManner(email).getData().get("heartgauge");
 				resultMap.put("state", "OK");
-				resultMap.put("data", tUser);
+				resultMap.put("data", new UserResponse(user, heartgauge));
 				resultMap.put("token", token);
 				return new ResponseEntity<Object>(resultMap, HttpStatus.OK);
 			} else {
