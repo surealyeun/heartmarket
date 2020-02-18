@@ -23,7 +23,7 @@ public class UploadFileUtils {
 		
 		String newFileName = uid + "_" + fileName;  // "랜덤문자_파일명"
 		String imgPath = uploadPath + ymdPath;  // 업로드 경로 + 연월일 경로 = 이미지 저장 경로
-
+		
 		// 이미지 저장 경로에 원본 파일을 저장
 		File target = new File(imgPath, newFileName);
 		FileCopyUtils.copy(fileData, target);

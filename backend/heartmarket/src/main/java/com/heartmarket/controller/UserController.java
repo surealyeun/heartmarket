@@ -1,5 +1,6 @@
 package com.heartmarket.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,11 +26,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.heartmarket.model.dto.Area;
+import com.heartmarket.model.dto.Manner;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.UserResponse;
 import com.heartmarket.model.service.AreaService;
 import com.heartmarket.model.service.EmailService;
 import com.heartmarket.model.service.JwtService;
+import com.heartmarket.model.service.MannerService;
 import com.heartmarket.model.service.ImgService;
 import com.heartmarket.model.service.UserService;
 import com.heartmarket.util.ResultMap;
@@ -53,6 +57,8 @@ public class UserController {
 	JwtService jwts;
 	@Autowired
 	ImgService is;
+	@Autowired
+	MannerService ns;
 	
 	private ResultMap<TradeImg> rm;
 	
@@ -62,11 +68,12 @@ public class UserController {
 		try {
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			if (us.login(email, password)) {
-				User tUser = us.searchEmail(email);
-				tUser.setPassword(password);
-				String token = jwts.makeJwt(tUser);
+				User user = us.searchEmail(email);
+				user.setPassword(password);
+				String token = jwts.makeJwt(user);
+				double heartgauge = ns.findManner(email).getData().get("heartgauge");
 				resultMap.put("state", "OK");
-				resultMap.put("data", tUser);
+				resultMap.put("data", new UserResponse(user, heartgauge));
 				resultMap.put("token", token);
 				return new ResponseEntity<Object>(resultMap, HttpStatus.OK);
 			} else {
@@ -167,7 +174,7 @@ public class UserController {
 	@ApiOperation(value = "회원 수정관련 기능")
 	@RequestMapping(value = "/user/updateUser", method = RequestMethod.PUT)
 	public ResponseEntity<Object> updateUser(@RequestParam String email,
-			@RequestParam String password,
+			@RequestParam(required = false) String password,
 			@RequestParam String nickname,
 			@RequestParam(required = false) MultipartFile profile,
 			@RequestParam String address,
@@ -177,17 +184,22 @@ public class UserController {
 			List<Area> area = user.getUArea();
 			for (Area area2 : area) {
 				if (area2.getAUser().getUserNo() == user.getUserNo()) {
+					area2.setAUser(user);
 					area2.setAddress(address);
 					as.updateArea(area2);
 				}
 			}
-			System.out.println("시작 주소 : " +req.getPathInfo());
+			String imgUploadPath = File.separator + "home"+File.separator+"ubuntu";
 //			rm = is.uploadFile(profile, req.getSession().getServletContext().getRealPath("/"));
-			rm = is.uploadFile(profile, "/home/ubuntu","profile");
-			password = BCrypt.hashpw(password, BCrypt.gensalt());
-			user.setPassword(password);
+			if(profile != null) {
+				rm = is.uploadFile(profile, imgUploadPath,"profile");
+				user.setProfileImg(rm.getData().getOrgImg());
+			}
+			if(password != null) {
+				password = BCrypt.hashpw(password, BCrypt.gensalt());
+				user.setPassword(password);
+			}
 			user.setNickname(nickname);
-			user.setProfileImg(rm.getData().getOrgImg());
 			us.update(user);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			resultMap.put("state", "OK");

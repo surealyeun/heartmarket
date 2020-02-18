@@ -16,6 +16,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	//User findByEmail(@Param("email") String email);
 	User findTop1ByOrderByUserNoDesc();
 	User findByUserNo(int userNo);
+	User findByNickname(String nickname);
 	
 	@Query(value = "alter table user auto_increment=:number",nativeQuery = true)
 	public void resortUserNo(@Param("number") int number);
