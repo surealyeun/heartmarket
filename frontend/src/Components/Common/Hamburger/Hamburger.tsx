@@ -4,7 +4,7 @@ import Gauge from "./Gauge";
 import MainProfile from "./MainProfile";
 import HamZzim from "./HamZzim";
 import PreAlarmList from "../../alarm/PreAlarmList";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
 import { RootState } from "../../../modules";
@@ -95,10 +95,10 @@ class Hamburger extends Component<Props> {
                                   <HamZzim></HamZzim>
                                 </div>
                                 <div className="hambuger_godetail">
-                                  <div></div> <p>판매상품</p>
-                                  <div></div> <p>구매상품</p>
-                                  <div></div> <p>공지하기</p>
-                                  <div></div> <p>건의하기</p>
+                                  <div></div> <Link to="/sale"><p>판매상품</p></Link>
+                                  <div></div> <Link to="/purchase"><p>구매상품</p></Link>
+                                  {/* <div></div> <p>공지하기</p>
+                                  <div></div> <p>건의하기</p> */}
                                   <div></div>
                                 </div>
                               </div>

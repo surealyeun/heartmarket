@@ -15,23 +15,25 @@ interface Mail {
       tradeNo: number;
       tradeTitle: string;
       productInfo: string;
-      tTradeImg: Array<TtradeImg>;
-      tuser: {
-        userNo: number;
-        nickname: string;
-      };
+      ttradeImg: Array<TtradeImg>;
     };
     sender: {
       userNo: number;
+      email:string;
       nickname: string;
       profileImg: string;
     };
+    receiver:{
+        userNo: number;
+        email:string;
+        nickname: string;
+        profileImg: string;
+    }
   };
 }
 
 interface TtradeImg {
   imgNo: number;
-  tiTrade: number;
   orgImg: string;
 }
 

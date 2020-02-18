@@ -1,31 +1,34 @@
 @font-face {
   font-family: "NanumSquareRound";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
-    format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 .DetailAlarm {
-  *{font-family: "NanumSquareRound";}
-  .display{
+  * {
+    font-family: "NanumSquareRound";
+  }
+
+  min-height: 63vh;
+  .display {
     height: 85px;
     width: 100%;
     position: relative;
   }
-  .alarm_people{
+  .alarm_people {
     position: absolute;
     font-size: 18px;
     margin-top: 5px;
   }
-  .rec_pos1{
+  .rec_pos1 {
     margin-top: 55px;
   }
-  .rec_pos2{
+  .rec_pos2 {
     margin-top: 50px;
   }
 
-  .background{
+  .background {
     position: absolute;
     font-size: 18px;
     width: 200px;
@@ -35,17 +38,24 @@
     margin-left: 90px;
     text-align: left;
     padding-left: 10px;
-    padding-top:10px;
+    padding-top: 10px;
     margin-bottom: 10px;
     cursor: pointer;
   }
-  
-  .alarm_content{
+
+  .alarm_content {
     word-wrap: break-word;
-    white-space: pre-line; 
+    white-space: pre-line;
   }
 
-  .detailalarm_btn{
+  .title{
+    font-size: 25px;
+    font-weight: bolder;
+    margin-top: 25px;
+    margin-bottom: 20px;
+  }
+
+  .detailalarm_btn {
     z-index: 5;
     display: inline-block;
     text-align: center;
@@ -63,8 +73,51 @@
     cursor: pointer;
   }
 
-  .pos_left{
+  .pos_left {
     margin-left: 20px;
+  }
+
+  .trade_div {
+    font-family: "NanumSquareRound";
+    font-size: medium;
+    width: calc(238px);
+    height: 45px;
+    background: #4242421a;
+    border-radius: 4px;
+    text-align: left;
+    padding: 10px;
+    cursor: pointer;
+
+    .trade_img {
+      position: absolute;
+      margin-top: 2.5px;
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+    }
+
+    .mainTitle {
+      position: absolute;
+      margin-left: 55px;
+      color: rgb(71, 71, 71);
+    }
+
+    .subTitle {
+      position: absolute;
+      font-size: 15px;
+      //width: 65%;
+      width: calc(185px);
+      height: 20px;
+      margin-left: 55px;
+      margin-top: 25px;
+      color: rgb(102, 102, 102);
+
+      //글자 잘린 부분 ...으로 표시
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }
 
@@ -74,10 +127,10 @@
     margin-right: 10px;
     margin-top: 10px;
 
-    .detailalarm_btn{
+    .detailalarm_btn {
       width: 35%;
     }
-    .pos_left{
+    .pos_left {
       margin-left: 10px;
     }
   }
