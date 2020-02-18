@@ -43,8 +43,8 @@ class Login extends Component<Props> {
       })
         .then(res => {
           console.log(res.data.data);
-          window.sessionStorage.setItem("user", JSON.stringify(res.data.data));
-          window.sessionStorage.setItem("usernickname", res.data.data.nickname);
+          window.sessionStorage.setItem("user", JSON.stringify(res.data.data.tuser));
+          window.sessionStorage.setItem("usernickname", res.data.data.tuser.nickname);
           // window.sessionStorage.setItem("userpw", this.state.password);
           window.sessionStorage.setItem("log", "true");
           this.setState({

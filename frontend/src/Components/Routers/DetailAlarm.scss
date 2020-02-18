@@ -9,6 +9,7 @@
   * {
     font-family: "NanumSquareRound";
   }
+
   min-height: 63vh;
   .display {
     height: 85px;
@@ -45,6 +46,13 @@
   .alarm_content {
     word-wrap: break-word;
     white-space: pre-line;
+  }
+
+  .title{
+    font-size: 25px;
+    font-weight: bolder;
+    margin-top: 25px;
+    margin-bottom: 20px;
   }
 
   .detailalarm_btn {
