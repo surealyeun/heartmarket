@@ -63,4 +63,18 @@
   .size ul {
     padding-left: 20px;
   }
+  .previous {
+    display: flex;
+    // position: absolute;
+    // top: 0;
+    color: #000;
+    background: #FFF;
+    // padding: 8px 12px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: .7rem;
+    transition: padding .25s ease;
+    border-radius: 5px;
+    &:hover { padding:8px 20px; }
+  }
 }

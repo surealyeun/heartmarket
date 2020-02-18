@@ -1,20 +1,24 @@
 import React from "react";
 import "./Footer.scss";
+import Logo from "../img/두근마켓3.png";
 
 function Footer() {
-
-    return(
-        <footer className="Footer">
-            <div className="text_footer">
-                <p>두리번 두리번 근처에 두근 마켓</p>
-                <br></br>
-                <p>FRONT-END : 송다은 이현빈 한수연</p>
-                <p>BACK-END : 이민우 이학진</p>
-                <br></br>
-                <p>©한송이이이</p>
-            </div>
-        </footer>
-    );
+  return (
+    <footer className="Footer">
+      <div className="text_footer">
+          <div>
+          <img className="sns" alt="두근마켓" src="https://image.flaticon.com/icons/svg/2111/2111463.svg"></img>
+          <img className="sns" alt="두근마켓" src="https://image.flaticon.com/icons/svg/1384/1384053.svg"></img>
+        <img className="sns" alt="두근마켓" src="https://image.flaticon.com/icons/svg/733/733579.svg"></img>
+        </div>
+    <p>위 사이트는 학습용으로 제작된 페이지입니다</p>
+        <p>해당 사이트는 당근마켓을 참조하고 데이터는 자체 제작했습니다.</p>
+        <p>Frontend : 송다은 이현빈 한수연 | Backend : 이민우 이학진</p>
+        <br></br>
+        <img className="footer_logo" alt="두근마켓" src={Logo}></img>
+      </div>
+    </footer>
+  );
 }
 
 export default Footer;
