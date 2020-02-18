@@ -3,6 +3,7 @@ package com.heartmarket.model.service;
 import java.util.List;
 
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.UserResponse;
 import com.heartmarket.util.ResultMap;
 
 public interface UserService {
@@ -15,4 +16,5 @@ public interface UserService {
 	public int searchCount();
 	public ResultMap<User> duplicatedByEmail(String email);
 	User findByUser(int userNo);
+	public User findByNickname(String nickname);
 }

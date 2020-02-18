@@ -37,10 +37,6 @@ public class SearchUtils {
 		}
 		
 		System.out.println(words.size());
-		for (String string : words) {
-			System.out.println(string);
-		}
-		
 		if(words.size() == 0)
 			return null;
 		

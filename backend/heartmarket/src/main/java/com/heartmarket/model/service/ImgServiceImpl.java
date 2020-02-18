@@ -33,22 +33,17 @@ public class ImgServiceImpl implements ImgService {
 
 		String fileName = null;
 
-		System.out.println(imgUploadPath);
-		System.out.println(ymdPath);
-
 		TradeImg tmp = new TradeImg();
-		if (!(file == null)) {
+		System.out.println(file);
+		if (file != null) {
 			int fileIndex = file.getOriginalFilename().lastIndexOf('.') + 1;
 			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex,
 					file.getOriginalFilename().length());
-			System.out.println("File name : " + file.getOriginalFilename());
-
-			if (!((fileExtension.equals("jpg") || (fileExtension.equals("gif") || (fileExtension.equals("png")))))) {
+			if (!(fileExtension.equals("jpg") || fileExtension.equals("gif") || fileExtension.equals("png"))) {
 				return null;
 			}
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
 			tmp.setOrgImg(File.separator + deli + ymdPath + File.separator + fileName);
-//			tmp.setStoredImg(File.separator + deli + ymdPath + File.separator + "store" + fileName);
 		} else {
 			fileName = File.separatorChar + deli + File.separator + "none.png";
 			tmp.setOrgImg(fileName);
@@ -84,7 +79,6 @@ public class ImgServiceImpl implements ImgService {
 					}
 				})
 				.collect(Collectors.toList());
-		
 		return new ResultMap<List<TradeImg>>("SUCCESS", "파일 업로드 완료", tList);
 	}
 

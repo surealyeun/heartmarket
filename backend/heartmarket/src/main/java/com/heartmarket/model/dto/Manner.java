@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,14 +32,18 @@ public class Manner implements Serializable{
 	@Column(name = "manner_no")
 	int mannerNo;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_no")
 	@ToString.Exclude
 	User mUser;
 	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	double plusGauge;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	double normalGauge;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	double minusGauge;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	double heartGauge;
 	
 	public Manner(User mUser, double plusGauge, double normalGauge, double minusGauge, double heartGauge) {

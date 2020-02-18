@@ -42,12 +42,12 @@ public class ImageController {
 	private ResultMap<List<TradeImg>> rms;
 	
 //	@Resource(name = "uploadPath")
-	String uploadPath = "C:\\Users\\multicampus\\Desktop\\ssafy\\Sub3-webmobile\\HeartMarket\\backend\\heartmarket\\src\\main\\webapp";
+	String uploadPath = File.separator + "home" + File.separator + "ubuntu";
 	
 	@RequestMapping(value = "/img/upload", method = RequestMethod.POST)
 	public ResponseEntity<Object> uploadFile(@RequestParam(value = "profile") MultipartFile file, HttpServletRequest req) throws IOException, Exception{
 		
-		String imgUploadPath = uploadPath + File.separator + "img";
+		String imgUploadPath = uploadPath + File.separator + "profile";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 
 		String tPath = req.getSession().getServletContext().getRealPath("/");
@@ -67,10 +67,10 @@ public class ImageController {
 		}
 		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 			fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-			tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
+			tmp.setOrgImg(File.separator + "profile" + ymdPath + File.separator + fileName);
 //			tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		}else {
-			fileName = File.separatorChar + "images" + File.separator + "none.png";
+			fileName = File.separatorChar + "profile" + File.separator + "none.png";
 			tmp.setOrgImg(fileName);
 //			tmp.setStoredImg(fileName);
 		}
@@ -81,12 +81,10 @@ public class ImageController {
 	
 	@RequestMapping(value = "/img/uploads", method = RequestMethod.POST)
 	public ResponseEntity<Object> uploadFiles(@RequestParam /*List<MultipartFile>*/MultipartFile[] files,HttpServletRequest req) throws IOException, Exception{
-		String imgUploadPath = uploadPath + File.separator + "img";
+		String imgUploadPath = uploadPath + File.separator + "profile";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 
 		//Context root를 불러오는 부분
-		String tPath = req.getSession().getServletContext().getRealPath("/");
-		System.out.println("tPath : " + tPath);
 		String fileName = null;
 		
 		System.out.println(imgUploadPath);
@@ -110,10 +108,10 @@ public class ImageController {
 			}
 			if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 				fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath);
-				tmp.setOrgImg(File.separator + "img" + ymdPath + File.separator + fileName);
+				tmp.setOrgImg(File.separator + "profile" + ymdPath + File.separator + fileName);
 //				tmp.setStoredImg(File.separator + "img" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 			}else {
-				fileName = File.separatorChar + "images" + File.separator + "none.png";
+				fileName = File.separatorChar + "profile" + File.separator + "none.png";
 				tmp.setOrgImg(fileName);
 //				tmp.setStoredImg(fileName);
 			}
@@ -129,7 +127,7 @@ public class ImageController {
 	
 	@RequestMapping(value = "/file", method = RequestMethod.POST)
 	public ResponseEntity<Object> testUpload(@RequestParam(required = false) MultipartFile file, HttpServletRequest req) throws Exception{
-		String uploadPath = req.getSession().getServletContext().getRealPath("/");
+		String uploadPath = File.separator + "home" + File.separator + "ubuntu";
 		try {
 			rm = is.uploadFile(file, uploadPath,"profile");
 			if(rm.getData() != null) {
@@ -149,7 +147,7 @@ public class ImageController {
 	@RequestMapping(value = "/files", method = RequestMethod.POST, consumes = "multipart/form-data")
 	public ResponseEntity<Object> testUpload(@RequestParam(required = false) MultipartFile[] files, HttpServletRequest req) throws Exception{
 //		String uploadPath = req.getSession().getServletContext().getRealPath("/");
-		String uploadPath = "/home/ubuntu";
+		String uploadPath = File.separator + "home" + File.separator + "ubuntu";
 		try {
 			rms = is.uploadFiles(files, uploadPath, "profile");
 			if(rms.getData() != null) {
