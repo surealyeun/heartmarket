@@ -66,7 +66,7 @@ class PreAlarmList extends Component {
   render() {
     return (
       <span className="PreAlarmList">
-        <p className="prealarm_num">새로운 알림 ({this.state.mail.total})</p>
+        <p className="prealarm_num">새로운 쪽지 ({this.state.mail.total})</p>
         <Link to={{ pathname: "/alarm" }}>
           <p className="prealarm_plus">더보기</p>
         </Link>

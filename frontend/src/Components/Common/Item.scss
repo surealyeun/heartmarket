@@ -10,7 +10,7 @@
   .img_body {
     width: 100%;
     height: $height;
-    object-fit: scale-down;
+    object-fit: fill;
   }
 }
 

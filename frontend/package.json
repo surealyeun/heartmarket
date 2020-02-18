@@ -4,14 +4,18 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.3",
+<<<<<<< HEAD
     "@material-ui/icons": "^4.5.1",
+=======
+    "@material-ui/icons": "^4.9.1",
+>>>>>>> 80ec8a2f7cf1ef9ff99f0f60836a5f4153ebb9b4
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "@types/immutable": "^3.8.7",
-    "@types/jest": "^24.0.0",
-    "@types/node": "^12.0.0",
-    "@types/react-dom": "^16.9.0",
+    "@types/jest": "^24.9.1",
+    "@types/node": "^12.12.27",
+    "@types/react-dom": "^16.9.5",
     "@types/react-loader-spinner": "^3.1.0",
     "@types/react-redux": "^7.1.7",
     "@types/redux": "^3.6.0",
@@ -33,7 +37,11 @@
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
     "react-loader-spinner": "^3.1.5",
+<<<<<<< HEAD
     "react-multi-carousel": "^2.5.0",
+=======
+    "react-multi-carousel": "^2.5.2",
+>>>>>>> 80ec8a2f7cf1ef9ff99f0f60836a5f4153ebb9b4
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
@@ -42,7 +50,7 @@
     "redux-actions": "^2.6.5",
     "redux-logger": "^3.0.6",
     "redux-pender": "^2.0.12",
-    "styled-components": "^5.0.0",
+    "styled-components": "^5.0.1",
     "typesafe-actions": "^5.1.0",
     "typescript": "~3.7.2"
   },
