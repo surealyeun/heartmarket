@@ -4,11 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.9.3",
-<<<<<<< HEAD
-    "@material-ui/icons": "^4.5.1",
-=======
     "@material-ui/icons": "^4.9.1",
->>>>>>> 80ec8a2f7cf1ef9ff99f0f60836a5f4153ebb9b4
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -37,11 +33,7 @@
     "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.12.0",
     "react-loader-spinner": "^3.1.5",
-<<<<<<< HEAD
-    "react-multi-carousel": "^2.5.0",
-=======
     "react-multi-carousel": "^2.5.2",
->>>>>>> 80ec8a2f7cf1ef9ff99f0f60836a5f4153ebb9b4
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
