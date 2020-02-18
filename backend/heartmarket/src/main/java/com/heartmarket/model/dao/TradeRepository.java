@@ -24,6 +24,7 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 	List<Trade> findAllByTradeArea(String tradeArea);
 	
 	List<Trade> findAllBytUserUserNo(int userNo);
+	List<Trade> findAllBytUserUserNoOrderByTradeNoDesc(int userNo);
 
 	List<Trade> findAllBybUserUserNo(int userNo);
 	

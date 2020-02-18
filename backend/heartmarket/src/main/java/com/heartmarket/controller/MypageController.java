@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.heartmarket.model.dto.User;
 import com.heartmarket.model.dto.response.OtherResponse;
 import com.heartmarket.model.dto.response.OtherTrade;
 import com.heartmarket.model.dto.response.ReviewResponse;
@@ -69,19 +70,25 @@ public class MypageController {
 	@RequestMapping(value = "/mypage/evalue/{tradeNo}", method = RequestMethod.POST)
 	@ApiOperation(value = "매너 평가")
 	public ResponseEntity<Object> evalManner(@RequestParam int val, @RequestParam int userNo, @PathVariable int tradeNo) {
-		ResultMap<ReviewResponse> rms = new ResultMap<ReviewResponse>();
-		if(Objects.isNull(mns.evalueUser(tradeNo, userNo, val).getData()))
-			return new ResponseEntity<Object>(mns.evalueUser(tradeNo, userNo, val), HttpStatus.OK);
+		ResultMap<ReviewResponse> rms = mns.evalueUser(tradeNo, userNo, val);
+		if(rms != null)
+			return new ResponseEntity<Object>(rms, HttpStatus.OK);
 		else
-			return new ResponseEntity<Object>(mns.evalueUser(tradeNo, userNo, val), HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<Object>(rms, HttpStatus.NOT_ACCEPTABLE);
 	}
 
 	@RequestMapping(value = "/mypage/detail2/{userNo}", method = RequestMethod.GET)
-	@ApiOperation(value = "매너평가")
+	@ApiOperation(value = "상대방 판매내역 전체 조회")
 	public ResponseEntity<Object> findAllByUser2(@PathVariable int userNo){
 		return new ResponseEntity<Object>(
 				new ResultMap<List<OtherTrade>>("SUCCESS", "전체 리스트 가져오기", ms.findAllByOther2( userNo)),
 				HttpStatus.OK);
 		
+	}
+	
+	@RequestMapping(value = "/mypage/manner", method = RequestMethod.GET)
+	@ApiOperation(value = "심쿵 지수 ")
+	public ResponseEntity<Object> findByManner(@RequestParam String email){
+		return new ResponseEntity<Object>(mns.findManner(email), HttpStatus.OK);
 	}
 }

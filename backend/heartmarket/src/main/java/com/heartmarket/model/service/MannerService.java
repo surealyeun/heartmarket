@@ -1,5 +1,7 @@
 package com.heartmarket.model.service;
 
+import java.util.Map;
+
 import org.springframework.data.domain.Page;
 
 import com.heartmarket.model.dto.Manner;
@@ -13,5 +15,7 @@ public interface MannerService {
 //	public Manner evalueUser(int value, int userNo);
 
 	ResultMap<ReviewResponse> evalueUser(int tradeNo, int userNo, int val);
+
+	ResultMap<Map<String, Double>> findManner(String email);
 	
 }

@@ -20,10 +20,12 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.heartmarket.model.dao.CartRepository;
+import com.heartmarket.model.dao.MannerRepository;
 import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dao.TradeRepository;
 import com.heartmarket.model.dao.UserRepository;
 import com.heartmarket.model.dto.Cart;
+import com.heartmarket.model.dto.Manner;
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
 import com.heartmarket.model.dto.User;
@@ -48,6 +50,9 @@ public class TradeServiceImpl implements TradeService {
 	@Autowired
 	CartRepository cr;
 	
+	@Autowired
+	MannerRepository mr;
+	
 	// 모든 자료 조회
 	@Transactional
 	public List<Trade> findAll() {
@@ -71,11 +76,14 @@ public class TradeServiceImpl implements TradeService {
 	@Transactional
 	@Override
 	public TradeDetail findDetail(int tradeNo) {
+		
 		try {
-			if(Objects.isNull(tr.findByTradeNo(tradeNo).getBUser())) {
-				return new TradeDetail(tr.findByTradeNo(tradeNo), 0, 0);				
+			Trade trade = tr.findByTradeNo(tradeNo);
+			Manner manner = mr.findBymUserUserNo(trade.getTUser().getUserNo());
+			if(Objects.isNull(trade.getBUser())) {
+				return new TradeDetail(trade, manner.getHeartGauge(), 0, 0);				
 			}else {
-				return new TradeDetail(tr.findByTradeNo(tradeNo), 0, 1);
+				return new TradeDetail(trade,manner.getHeartGauge(), 0, 1);
 			}
 			
 		}catch(Exception e) {
@@ -94,13 +102,14 @@ public class TradeServiceImpl implements TradeService {
 			// 게시글 정보를 가져오기
 			Trade trade = tr.findByTradeNo(tradeNo);
 			Cart cart = cr.findBycTradeTradeNoAndcUserUserNo(tradeNo, userNo);
+			Manner manner = mr.findBymUserUserNo(trade.getTUser().getUserNo());
 			if(Objects.isNull(cart)) {
 				return Objects.isNull(trade.getBUser()) ?
-					new TradeDetail(trade, 0, 0) :  new TradeDetail(trade, 0, 1);
+					new TradeDetail(trade, manner.getHeartGauge(), 0, 0) :  new TradeDetail(trade, manner.getHeartGauge(),0, 1);
 			}
 			else {
 				return Objects.isNull(trade.getBUser()) ?
-						new TradeDetail(trade, 1, 0) :  new TradeDetail(trade, 1, 1);
+						new TradeDetail(trade, manner.getHeartGauge(),1, 0) :  new TradeDetail(trade,manner.getHeartGauge(), 1, 1);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

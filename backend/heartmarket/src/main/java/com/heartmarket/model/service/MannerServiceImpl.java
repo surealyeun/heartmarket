@@ -1,5 +1,7 @@
 package com.heartmarket.model.service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +62,7 @@ public class MannerServiceImpl implements MannerService{
 //			else tMnr.setMinusGauge(0);
 		}
 		
-		double calc = hg + (pGauge + nGauge + mGauge)*(0.1)/hg;
+		double calc = hg + (pGauge + nGauge + mGauge)/hg;
 		System.out.println(calc);
 		
 		tMnr.setPlusGauge(pGauge);
@@ -83,11 +85,12 @@ public class MannerServiceImpl implements MannerService{
 //			if(Objects.isNull(tr.findByTradeNo(tradeNo))) {
 //				
 //			}
-			// 리뷰 등록 완료
-			Review rvw = new Review();
-			System.out.println(rr.findByrTradeTradeNo(tradeNo));
-			if(Objects.isNull(rr.findByrTradeTradeNo(tradeNo))){
-				rvw = new Review(tr.findByTradeNo(tradeNo));	
+			// 리뷰 등록 완료 
+			Review rev = rr.findByrTradeTradeNo(tradeNo);
+			System.out.println("review : " + rr.findByrTradeTradeNo(tradeNo));
+			
+			if(rev == null){
+				Review rvw = new Review(tr.findByTradeNo(tradeNo));	
 				Manner rMnr = evalueManner(val, userNo);
 				System.out.println(rMnr);
 				mr.save(rMnr);
@@ -102,4 +105,23 @@ public class MannerServiceImpl implements MannerService{
 			throw e;
 		}
 	}
+	
+	@Override
+	public ResultMap<Map<String, Double>> findManner(String email){
+		try {
+			Manner manner = mr.findBymUserUserNo(ur.findByEmail(email).getUserNo());
+			if(manner != null) {
+				Map<String, Double> rm = new HashMap<String, Double>();
+				rm.put("heartgauge", manner.getHeartGauge());
+				return new ResultMap<Map<String, Double>>("SUCCESS", "매너 불러오기", rm);
+			}else {
+				return new ResultMap<Map<String, Double>>("FAIL", "찾을 수 없는 유저입니다.", null);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	
 }

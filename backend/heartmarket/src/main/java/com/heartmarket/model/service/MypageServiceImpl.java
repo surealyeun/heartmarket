@@ -58,7 +58,7 @@ public class MypageServiceImpl implements MypageService {
 			User tUser = ur.findByEmail(email);
 			int seller = tUser.getUserNo(); // 판매자 정보
 			try {
-				List<Trade> sList = tr.findAllBytUserUserNo(seller);
+				List<Trade> sList = tr.findAllBytUserUserNoOrderByTradeNoDesc(seller);
 				if (sList.size() == 0)
 					return new ResultMap<Object>("SUCCESS", "판매한 내역이 없습니다.", null);			
 				List<MySellList> msList = new ArrayList<MySellList>();
@@ -188,7 +188,7 @@ public class MypageServiceImpl implements MypageService {
 
 			List<Trade> tList= new ArrayList<Trade>();
 			System.out.println(tList.size());
-			tList = tr.findAll();
+			tList = tr.findAllBytUserUserNo(userNo);
 			List<OtherTrade> oList = new ArrayList<OtherTrade>();
 		
 			for (Trade trade : tList) {
