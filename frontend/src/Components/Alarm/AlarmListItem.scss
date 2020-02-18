@@ -2,6 +2,12 @@
   * {
     color: black;
   }
+
+  .mail_line{
+    border: none;
+    background: rgba(0, 0, 0, 0.384);
+    width: 100%;
+  }
   .alarm_item {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -60,7 +66,7 @@
     .time{
       position: absolute;
       text-align: center;
-      width: 130px;
+      width: 110px;
       height: 23px;
       border-radius: 5px;
       background: #4242421a;
@@ -82,6 +88,9 @@
     .time{
       right: 63px;
     }
+    .mail_line{
+      height:0.8px;
+    }
   }
 }
 
@@ -96,6 +105,9 @@
     .time{
       right: calc(50% - 325px);
     }
+    .mail_line{
+      height:1px;
+    }
   }
 }
 @media screen and (min-width: 960px) {
@@ -108,6 +120,9 @@
     }
     .time{
       right: calc(50% - 425px);
+    }
+    .mail_line{
+      height:1px;
     }
   }
 }

@@ -155,7 +155,8 @@ class Alarm extends Component {
     })
       .then(res => {
         const mail = res.data;
-        if(No < this.state.final_num) No=this.state.final_num-2;
+        if(No !== 0 && No < this.state.final_num) No=this.state.final_num-2;
+  
         console.log(No)
         this.setState({
           mail,
