@@ -16,6 +16,11 @@ export async function getUserPost(url:string, userNo:string, page: number) {
   return response.data
 }
 
+export async function getMapPost(url:string) {
+  const response = await axios.get<any>(url+'?no=0')
+  return response.data
+}
+
 export interface Post {
   data: PostItem[];
 }

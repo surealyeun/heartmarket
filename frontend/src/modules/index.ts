@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
   zzimStatus,
   categoryStatus,
   postFilter,
-  userP
+  userP,
 });
 
 export default rootReducer;
