@@ -30,8 +30,13 @@
     }
   }
 
+  .total_num{
+    display: inline-block;
+    margin-bottom: 0px;
+  }
+
   .alarm_check {
-    margin-bottom: 32px;
+    margin-bottom: 7px;
 
     .checkbox {
       position: absolute;
@@ -76,12 +81,11 @@
     }
   }
 
-  .plus_btn{
+  .page_btn{
     position: absolute;
     border-radius: 10px;
     margin-top: 20px;
-    right: calc(50% - 100px);
-    width: 200px;
+    width: 150px;
     height: 40px;
     background: #365367;
     padding-top: 8px;
@@ -104,6 +108,13 @@
       // .alarm_send {
       //   right: 10px;
       // }
+    }
+
+    .plus_btn{
+      right: 10px;
+    }
+    .minus_btn{
+      left: 10px;
     }
   }
 }
@@ -134,6 +145,13 @@
       right: calc(50% - 383px);
       }
     }
+
+    .plus_btn{
+      right: calc(50% - 385px);
+    }
+    .minus_btn{
+      left: calc(50% - 385px);
+    }
   }
 }
 @media screen and (min-width: 960px) {
@@ -161,6 +179,13 @@
       select{
       right: calc(50% - 480px);
       }
+    }
+
+    .plus_btn{
+      right: calc(50% - 480px);
+    }
+    .minus_btn{
+      left: calc(50% - 480px);
     }
   }
 }

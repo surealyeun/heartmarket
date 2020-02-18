@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./AlarmListItem.scss";
-import axios from "axios";
 
 interface Mail {
   data: {
@@ -30,10 +29,7 @@ interface Mail {
       nickname: string;
       profileImg: string;
     };
-    check: boolean;
   };
-  check: boolean;
-  readAlarm: boolean;
 }
 
 interface TtradeImg {
@@ -55,7 +51,7 @@ class AlarmListItem extends React.Component<Mail> {
         tradeNo: 0,
         tradeTitle: "",
         productInfo: "",
-        ttradeImg: [{ imgNo: 0, orgImg: "" }],
+        ttradeImg: [{ imgNo: 0, orgImg: "" }]
       },
       sender: {
         userNo: 0,
@@ -69,9 +65,7 @@ class AlarmListItem extends React.Component<Mail> {
         nickname: "",
         profileImg: ""
       },
-      check: false
     },
-    check: false
   };
 
   user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
@@ -83,63 +77,15 @@ class AlarmListItem extends React.Component<Mail> {
     };
   }
 
-  componentWillReceiveProps(preProps: any) {
-    if (this.props.check !== preProps.check) {
-      this.setState({
-        check: this.props.check
-      });
-    }
-    //여기서 전체 삭제, 읽음 전환 하기
-    if ((this.state.check) && this.props.readAlarm) {
-      if (this.state.data.readDate === null) {
-        //alert("sss");
-        axios({
-          method: "get",
-          url: "http://13.125.55.96:8080/mail/readReceiver",
-          params: {
-            mailNo: this.state.data.mailNo,
-            receiverMail: this.user.email
-          }
-        })
-          .then(res => {
-            //alert("알림이 삭제되었습니다.")
-          })
-          .catch(err => {
-            console.log("err", err);
-            alert("error");
-          });
-
-      }
-    }
-  }
-
-  componentWillUnmount() {
-    this.setState({
-      check: false
-    });
-  }
-
-  Checkbox = () => {
-    this.setState({
-      check: !this.state.check
-    });
-  };
-
   render() {
     return (
       <div className="AlarmList" key={this.state.data.mailNo}>
-        <input
-          type="checkbox"
-          checked={this.state.check}
-          onClick={this.Checkbox}
-          readOnly
-        ></input>
         <div className="alarm_item">
           {this.state.data.readDate === null ? (
             <div className="btn new_btn">new</div>
           ) : (
-              <div className="btn read_btn">Read</div>
-            )}
+            <div className="btn read_btn">Read</div>
+          )}
 
           <span className="time">
             {this.state.data.sendDate.substring(0, 16)}
@@ -156,7 +102,11 @@ class AlarmListItem extends React.Component<Mail> {
               src={this.state.data.sender.profileImg}
             ></img>
             <div>
-              {this.user.userNo !== this.state.data.sender.userNo ? (<p className="nickname">{this.state.data.sender.nickname}</p>) : (<p className="nickname">{this.state.data.receiver.nickname}</p>)}
+              {this.user.userNo !== this.state.data.sender.userNo ? (
+                <p className="nickname">{this.state.data.sender.nickname}</p>
+              ) : (
+                <p className="nickname">{this.state.data.receiver.nickname}</p>
+              )}
               <div className="title">{this.state.data.title}</div>
               <div className="content">{this.state.data.content}</div>
             </div>

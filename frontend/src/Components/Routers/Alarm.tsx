@@ -8,6 +8,23 @@ import TopButton from "../common/TopButton";
 import AlarmList from "../alarm/AlarmListItem";
 import axios from "axios";
 
+interface Mail {
+  mail: any;
+  sendStatus: false;
+  deleteAlarm: false;
+  readAlarm: false;
+  final_num: number;
+  //전체 선택 여부 확인 변수
+  check: false;
+  readcheck: string;
+}
+
+interface TtradeImg {
+  imgNo: number;
+  orgImg: string;
+}
+
+interface Props {}
 class Alarm extends Component {
   state = {
     mail: {
@@ -25,46 +42,34 @@ class Alarm extends Component {
             tradeNo: 0,
             tradeTitle: "",
             productInfo: "",
-            ttradeImg: [{ imgNo: 0, orgImg: "" }],
+            ttradeImg: [{ imgNo: 0, orgImg: "" }]
           },
           sender: {
             userNo: 0,
-            email:"",
+            email: "",
             nickname: "",
             profileImg: ""
           },
           receiver: {
             userNo: 0,
-            email:"",
+            email: "",
             nickname: "",
             profileImg: ""
-          },
-          check: false
+          }
         }
       ]
     },
     //받은 알림(false), 보낸 알림 (true)
     sendStatus: false,
-    deleteAlarm: false,
-    readAlarm:false,
+    final_num: 0,
     //전체 선택 여부 확인 변수
-    check: false,
     readcheck: "notyet"
   };
 
   user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
-  //전체 선택하는 부분
-  CheckedAll = () => {
-    this.state.mail.data.forEach(alarm => (alarm.check = !this.state.check));
-    this.setState({
-      check: !this.state.check
-    });
-  };
-
   changeRead = (e: any) => {
     //읽은 상태 변경시 체크 상태 변경
-    this.state.mail.data.forEach(alarm => (alarm.check = false));
     this.setState({
       readcheck: e.target.value
     });
@@ -75,7 +80,6 @@ class Alarm extends Component {
 
   changeSendStatus = (e: any) => {
     //보낸 상태 변경시 체크 상태 변경
-    this.state.mail.data.forEach(alarm => (alarm.check = false));
     this.setState({ check: false });
     //상태에 따른 이미지 업로드 -> axios 호출로 변경
     if (e.target.value === "false") {
@@ -124,12 +128,6 @@ class Alarm extends Component {
     window.sessionStorage.setItem("readcheck", "notyet");
   };
 
-  setReadAll = () => {
-    this.setState({
-      readAlarm:!this.state.readAlarm
-    })
-  }
-
   //Axois 호출하기
   callAxios = (No: number) => {
     var url = "";
@@ -147,6 +145,7 @@ class Alarm extends Component {
     else {
       url = "/mail/findAllSend?senderMail=" + this.user.email;
     }
+
     axios({
       method: "get",
       url: "http://13.125.55.96:8080" + url,
@@ -156,8 +155,11 @@ class Alarm extends Component {
     })
       .then(res => {
         const mail = res.data;
+        if(No < this.state.final_num) No=this.state.final_num-2;
+        console.log(No)
         this.setState({
-          mail
+          mail,
+          final_num: No + 1
         });
       })
       .catch(err => {
@@ -165,16 +167,19 @@ class Alarm extends Component {
       });
   };
 
+  //더 많은 알람 받아오기
+  getPlusAlarm = () => {
+    this.callAxios(this.state.final_num);
+  };
+
+  getMinusAlarm = () => {
+    this.callAxios(this.state.final_num - 2);
+  };
+
   render() {
     if (this.user.email === undefined) {
       alert("로그인을 해야 가능한 서비스 입니다.");
       return <Redirect to="/"></Redirect>;
-    }
-    if(this.state.readAlarm){
-      this.setState({
-        readAlarm:false
-      })
-      //window.location.reload();
     }
     return (
       <>
@@ -193,15 +198,9 @@ class Alarm extends Component {
             </p>
           </div>
           <div className="alarm_check">
-            <input
-              className="checkbox"
-              checked={this.state.check}
-              type="checkbox"
-              onClick={this.CheckedAll}
-              readOnly
-            ></input>
-            <div className="alarm_deleteall">삭제</div>
-            {this.state.sendStatus===false && <div className="alarm_readall" onClick={this.setReadAll}>읽음 표시</div>}
+            <div className="total_num">
+              총 알림 수 ({this.state.mail.total})
+            </div>
             {this.state.sendStatus === false ? (
               <select onChange={this.changeRead} value={this.state.readcheck}>
                 <option value="notyet">안읽은 알림</option>
@@ -217,16 +216,25 @@ class Alarm extends Component {
           <div>
             <hr></hr>
             {this.state.mail.data.map(alarm => (
-              <AlarmList
-                key={alarm.mailNo}
-                check={this.state.check}
-                readAlarm={this.state.readAlarm}
-                data={alarm}
-              ></AlarmList>
+              <AlarmList key={alarm.mailNo} data={alarm}></AlarmList>
             ))}
           </div>
-          <div className="plus_btn">더 보 기</div>
-          <br></br><br></br><br></br><br></br>
+          {/* 토탈보다 받아온 메일의 수가 적을때만 더보기 표시 */}
+          {this.state.final_num !== 1 && (
+            <div className="page_btn minus_btn" onClick={this.getMinusAlarm}>
+              이전 페이지
+            </div>
+          )}
+          {this.state.mail.total > this.state.final_num * 15 && (
+            <div className="page_btn plus_btn" onClick={this.getPlusAlarm}>
+              다음 페이지
+            </div>
+          )}
+
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
         </div>
         <TopButton></TopButton>
         <Footer></Footer>

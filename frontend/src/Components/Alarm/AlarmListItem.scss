@@ -2,20 +2,11 @@
   * {
     color: black;
   }
-  input[type="checkbox"] {
-    position: absolute;
-    margin-top: 10px;
-
-    width: 15px;
-    height: 15px;
-    background: white;
-    cursor: pointer;
-  }
   .alarm_item {
     padding-top: 5px;
     padding-bottom: 5px;
     cursor: pointer;
-    margin-left: 25px;
+    margin-left: 7px;
     .alarmlist_img {
       position: absolute;
       margin-top: 2.5px;
