@@ -123,7 +123,7 @@ class Like extends React.Component {
                             })}
                         </>
                     ) : (
-                        <div>
+                        <div className="item">
                             <h4>심쿵 상품이 없습니다.</h4>
                         </div>
                     )}

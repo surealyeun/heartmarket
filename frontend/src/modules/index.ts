@@ -1,18 +1,23 @@
 import { combineReducers } from "redux";
 import post from "./post";
-import postPage from "./postPage"
+import postPage, { userPostPage } from "./postPage"
 import search from "./search"
 import userStatus from "./user"
 import zzimStatus from "./zzim"
 import categoryStatus from "./category"
+import postFilter from "./postFilter"
+import userP from "./userPost"
 
 const rootReducer = combineReducers({
   post,
   postPage,
+  userPostPage,
   search,
   userStatus,
   zzimStatus,
-  categoryStatus
+  categoryStatus,
+  postFilter,
+  userP
 });
 
 export default rootReducer;

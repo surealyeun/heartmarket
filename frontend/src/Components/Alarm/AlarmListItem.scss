@@ -2,20 +2,11 @@
   * {
     color: black;
   }
-  input[type="checkbox"] {
-    position: absolute;
-    margin-top: 10px;
-
-    width: 15px;
-    height: 15px;
-    background: white;
-    cursor: pointer;
-  }
   .alarm_item {
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     cursor: pointer;
-    margin-left: 25px;
+    margin-left: 7px;
     .alarmlist_img {
       position: absolute;
       margin-top: 2.5px;
@@ -32,6 +23,11 @@
     }
     .title {
       margin-left: 50px;
+      padding-top: 5px;
+
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
       margin-top: 5px;
     }
     .content {
@@ -46,14 +42,13 @@
       position: absolute;
       text-align: center;
       width: 40px;
-      height: 25px;
+      height: 22px;
       border-radius: 5px;
       background: #f494ab;
       color: #f9f4e6;
       font-weight: bolder;
       font-size: 15px;
-      margin-top: 3px;
-      padding-top: 5px;
+      padding-top: 3.5px;
       padding-right: 2.5px;
       padding-left: 2.5px;
     }
@@ -65,15 +60,14 @@
     .time{
       position: absolute;
       text-align: center;
-      width: 150px;
-      height: 25px;
+      width: 130px;
+      height: 23px;
       border-radius: 5px;
       background: #4242421a;
       color: #365367;
       font-weight: bolder;
-      font-size: 15px;
-      margin-top: 3px;
-      padding-top: 5px;
+      font-size: 14px;
+      padding-top: 2.5px;
       padding-right: 2.5px;
       padding-left: 2.5px;
     }
@@ -86,7 +80,7 @@
       right: 10px;
     }
     .time{
-      right: 65px;
+      right: 63px;
     }
   }
 }

@@ -6,8 +6,12 @@ function Footer() {
     return(
         <footer className="Footer">
             <div className="text_footer">
-                <p>여기는 푸터 입니다!!</p>
-                <p>송다은 이민우 이학진 이현빈 한수연</p>
+                <p>두리번 두리번 근처에 두근 마켓</p>
+                <br></br>
+                <p>FRONT-END : 송다은 이현빈 한수연</p>
+                <p>BACK-END : 이민우 이학진</p>
+                <br></br>
+                <p>©한송이이이</p>
             </div>
         </footer>
     );

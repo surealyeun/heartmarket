@@ -4,7 +4,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import axios from "axios";
 import { Redirect } from "react-router";
-//import { withRouter } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { isZzim } from "../../../modules/zzim";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -140,7 +140,7 @@ class HamZzim extends React.Component<Props> {
       <div className="HamZzim">
         <div className="zzim_info">
           <p className="zzim_title">심쿵목록</p>
-          <p className="zzim_plus">더보기</p>
+          <Link to="/like"><p className="zzim_plus">더보기</p></Link>
         </div>
         {this.state.Likes ? (
           <div className="div_Zzim">

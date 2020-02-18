@@ -22,14 +22,17 @@ class PreAlarmList extends Component {
             tradeNo: 0,
             tradeTitle: "",
             productInfo: "",
-            tTradeImg: [{ imgNo: 0, tiTrade: 0, orgImg: "" }],
-            tuser: {
-              userNo: 0,
-              nickname: ""
-            },
+            ttradeImg: [{ imgNo: 0, orgImg: "" }],
           },
           sender: {
             userNo: 0,
+            email:"",
+            nickname: "",
+            profileImg: ""
+          },
+          receiver:{
+            userNo: 0,
+            email:"",
             nickname: "",
             profileImg: ""
           }

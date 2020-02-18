@@ -57,12 +57,12 @@ class Zzim extends Component<Props> {
               this.setState({
                 check: 1
               });
-              alert("심쿵 상품으로 추가되었습니다.");
+              //alert("심쿵 상품으로 추가되었습니다.");
             } else {
               this.setState({
                 check: 0
               });
-              alert("심쿵 상품을 취소했습니다.");
+              //alert("심쿵 상품을 취소했습니다.");
             }
           })
           .catch(err => {

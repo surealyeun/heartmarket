@@ -32,13 +32,14 @@ import Categorytxt13 from "../img/cate13-txt.png";
 
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
-import { isCategory } from "../../modules/category";
+import { isCategory, setCategory } from "../../modules/category";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { RootState } from "../../modules";
 
 interface Props {
   CategoryAction: typeof isCategory;
+  CategorySetAction: typeof setCategory;
 }
 
 function Nav(props:Props) {
@@ -77,6 +78,7 @@ function Nav(props:Props) {
       //alert(e.target.id); //여기서 클릭
       window.sessionStorage.setItem("searchCategory", e.target.id);
       props.CategoryAction();
+      props.CategorySetAction(e.target.id);
       if(window.sessionStorage.getItem("searchText")!=="false") history.push("/search");
     }
   };
@@ -280,7 +282,8 @@ export default connect(
     status: categoryStatus.status
   }),
   dispatch => ({
-    CategoryAction: bindActionCreators(isCategory, dispatch)
+    CategoryAction: bindActionCreators(isCategory, dispatch),
+    CategorySetAction: bindActionCreators(setCategory, dispatch)
   })
 )(Nav);
 

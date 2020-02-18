@@ -38,6 +38,30 @@
 
         .attack {
             text-align: center;
+            @media screen and (max-width: 767px){
+                height: 90px;
+                .ant-progress-inner, .ant-progress-circle-gradient{
+                    margin: 0 auto;
+                }
+                .ant-progress-text{
+                    position: absolute;
+                    right:20px;
+                    top: 140px;
+                }
+            }
+        
+            @media screen and (min-width: 768px){
+                height: 110px;
+                position: relative;
+                .ant-progress-inner, .ant-progress-circle-gradient{
+                    margin: 0 auto;
+                }
+                .ant-progress-text{
+                    position: absolute;
+                    right: 38%;
+                    top: 45px;
+                }
+            }
         }
     }
     .tophr {

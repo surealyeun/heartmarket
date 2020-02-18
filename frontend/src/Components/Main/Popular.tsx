@@ -12,6 +12,7 @@ interface PostItem {
   uno: number;
   uimg: string;
   cno: number;
+  category:string;
 }
 
 function Popular() {
@@ -19,14 +20,14 @@ function Popular() {
   //axios 호출
   useEffect(() => {
     var user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
-    console.log(user);
+    var email = "none";
+    if(user.email !== undefined) email = user.email;
 
     axios({
       method: "get",
-      url: "http://13.125.55.96:8080/trade/search",
+      url: "http://13.125.55.96:8080/trade/popular",
       params: {
-        email: user.email,
-        no: 0
+        email: email,
       }
     })
       .then(res => {

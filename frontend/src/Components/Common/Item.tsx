@@ -12,7 +12,7 @@ interface PostItem {
   tarea: string;
   uno: number;
   uimg: string;
-  cno:number;
+  cno: number;
 }
 
 function Item(props: PostItem) {
@@ -25,7 +25,7 @@ function Item(props: PostItem) {
         <Zzim cno={item.cno} num={num} uno={item.uno}></Zzim>
       </div>
       <Link to={{ pathname: `/search/detail/${item.tradeNo}` }}>
-        <div key={item.tradeNo} className="Card">
+        <div className="Card">
           <div className="Card_header">
             <img
               className="avatar"
@@ -47,6 +47,7 @@ function Item(props: PostItem) {
           <hr className="line"></hr>
 
           <div className="Card_container">
+            {/* <p>{item.tradeNo}</p> */}
             <p className="title">{item.ttitle}</p>
             <p className="money">#{item.pprice}원</p>
             <p className="address">#{item.tarea}</p>

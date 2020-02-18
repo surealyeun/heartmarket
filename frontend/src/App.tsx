@@ -20,6 +20,7 @@ import Sale from './components/routers/SaleMore';
 import Purchase from './components/routers/PurchaseMore';
 import Like from './components/routers/LikeMore';
 import UserProfile from './components/routers/UserProfile';
+import UserProfileTest from './components/routers/UserProfileTest';
 import Detail from './components/routers/Detail';
 import Map from './components/routers/Map';
 

@@ -1,6 +1,7 @@
 @font-face {
   font-family: "yg-jalnan";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff") format("woff");
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -13,7 +14,9 @@
 }
 
 .AlarmModal {
-  *{font-family: "NanumSquareRound";}
+  * {
+    font-family: "NanumSquareRound";
+  }
   .Modal-overlay {
     z-index: 3000;
     position: fixed;
@@ -47,10 +50,9 @@
       color: #333;
       font-family: "yg-jalnan";
       width: 115px;
+      margin-bottom: 0;
     }
     p.recieveUser {
-      margin-left: 0px;
-      display: inline;
       padding: 8px;
       padding-left: 0px;
       font-size: 12pt;
@@ -58,8 +60,8 @@
     }
     .content {
       border-top: 1px solid #bebebe;
-      margin-top: 16px;
-      input{
+      margin-top: 10px;
+      input {
         width: calc(100% - 10px);
         border: none;
         background: rgba(232, 240, 254, 1);
@@ -94,10 +96,10 @@
           background-color: #607e92;
         }
       }
-      .btn_send{
+      .btn_send {
         border-radius: 0 0 0 10px;
       }
-      .btn_cancel{
+      .btn_cancel {
         border-radius: 0 0 10px 0;
       }
     }
@@ -106,6 +108,24 @@
   @media screen and (min-width: 960px) {
     .Modal {
       width: 700px;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .Modal {
+      p.recieveUser {
+        margin-left: 20px;
+      }
+    }
+  }
+  @media screen and (min-width: 768px) {
+    .Modal {
+      p.recieveUser {
+        display: inline;
+      }
+      .content {
+        margin-top: 16px;
+      }
     }
   }
 }
