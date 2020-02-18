@@ -214,7 +214,7 @@ class Map extends Component<any> {
           <div id="map" style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
                         
             <div className="hAddr">
-            <button onClick={this.handleOnClick}>뒤로가기</button>
+            <button className="previous" onClick={this.handleOnClick}>뒤로가기</button>
                             <span className="hTitle">지역 판매 게시글</span>
                             <span id="centerAddr"></span>
                           
