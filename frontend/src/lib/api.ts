@@ -10,6 +10,12 @@ export async function getPost(
   return response.data;
 }
 
+export async function getUserPost(url:string, userNo:string, page: number) {
+  console.log(url + `${userNo}`)
+  const response = await axios.get<userPost>(url + `${userNo}?no=${page}`)
+  return response.data
+}
+
 export interface Post {
   data: PostItem[];
 }
@@ -23,4 +29,18 @@ export interface PostItem {
   uno: number;
   uimg:string;
   cno:number;
+  category: string;
+}
+
+
+export interface userPost {
+  data: userPostItem[];
+}
+
+export interface userPostItem {
+  tradeNo: number;
+  pprice:  string;
+  uimg:    string;
+  tarea:   string;
+  ttitle:  string;
 }
