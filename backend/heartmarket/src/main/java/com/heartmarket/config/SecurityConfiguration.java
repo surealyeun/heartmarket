@@ -34,8 +34,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt token으로 인증하므로 세션은 필요없으므로 생성안함.
             .and()
                 .authorizeRequests() // 다음 리퀘스트에 대한 사용권한 체크
-                    .antMatchers("/user/signUp", "/", "/file", "/files", "/manner").permitAll() // 가입 및 인증 주소는 누구나 접근가능 
-                    .antMatchers("/user/login", "/img/upload",  "/user/**", "/img/uploads").permitAll() // 가입 및 인증 주소는 누구나 접근가능
+                    .antMatchers("/user/signUp","/user/login").permitAll() // 가입 및 인증 주소는 누구나 접근가능 
+                    .antMatchers( "/", "/file", "/files", "/manner", "/img/upload",  "/user/**", "/img/uploads").permitAll() 
                     .antMatchers("/trade/**", "/mypage/**", "/img/**","/cart/**","/mail/**").permitAll() // hellowworld로 시작하는 GET요청 리소스는 누구나 접근가능
                     .anyRequest().hasRole("USER")
                     .and()

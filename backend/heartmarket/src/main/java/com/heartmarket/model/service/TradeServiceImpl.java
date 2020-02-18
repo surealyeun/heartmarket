@@ -1,10 +1,8 @@
 package com.heartmarket.model.service;
 
-import org.springframework.data.domain.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -32,7 +30,6 @@ import com.heartmarket.model.dto.User;
 import com.heartmarket.model.dto.response.TradeDetail;
 import com.heartmarket.util.ResultMap;
 
-import io.jsonwebtoken.lang.Collections;
 import io.swagger.annotations.ApiOperation;
 
 @Service
@@ -201,7 +198,14 @@ public class TradeServiceImpl implements TradeService {
 		if(filter == 4) {
 			PageRequest pr = PageRequest.of(no, size,Sort.by("productPrice").ascending());
 			return tr.findAll(pr);
-		}else {
+		}else if(filter == 5) { // 판매중
+			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
+			return tr.findBybUserUserNoIsNull(pr);
+		}else if(filter == 6) { // 판매완료
+			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
+			return tr.findBybUserUserNoIsNotNull(pr);
+		}
+		else {
 			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
 			return tr.findAll(pr);
 		}
@@ -224,15 +228,18 @@ public class TradeServiceImpl implements TradeService {
 		System.out.println("no : " + no);
 		if (tList.size() == 0)
 			return null;
-		int cnt = tList.get(tList.size() - 1).getTradeNo();
 
 		if(filter == 4) {
 			PageRequest pr = PageRequest.of(no, size, Sort.by("productPrice").ascending());
 			return tr.findAllByTradeAreaAndTradeCategory(area, category, pr);
+		}else if(filter == 5) { // 판매중
+			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
+			return tr.findAllByTradeAreaAndTradeCategoryAndBUserUserNoIsNull(area, category, pr);
+		}else if(filter == 6) { // 판매완료
+			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
+			return tr.findAllByTradeAreaAndTradeCategoryAndBUserUserNoIsNotNull(area, category, pr);
 		}
 		else {
-			if (no == 0)
-				no = cnt+1;
 			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
 			return tr.findAllByTradeAreaAndTradeCategory( area, category, pr);
 		}
@@ -244,22 +251,7 @@ public class TradeServiceImpl implements TradeService {
 		// 둘 중 하나 입니당....
 		// 로그인을 안 했을 때,
 //		if()
-
-		// 로그인을 했을 때,
-		System.out.println("Area : " + area);
-		List<Trade> tList = new ArrayList<Trade>();
-		if (!area.equals("none"))
-			tList = tr.findAllByTradeArea(area);
-		else {
-			tList = tr.findAll();
-		}
-//		int cnt = tList.get(tList.size() - 1).getTradeNo();
-		int cnt = tr.countAll()+1;
-		System.out.println("cnt : " + cnt);
-		System.out.println("size : " + tList.size());
-		System.out.println("널이냐?" + sList==null?1:0);
-		if(filter == 4) 
-		return tr.findAll(new Specification<Trade>() {
+		Specification<Trade> spec = new Specification<Trade>() {
 
 			@Override
 			public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
@@ -276,38 +268,29 @@ public class TradeServiceImpl implements TradeService {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeArea"), area)));
 				if(Integer.parseInt(category) > 0) {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeCategory"), category)));
+				}if(filter == 5) {
+					predicates.add(criteriaBuilder.and(criteriaBuilder.isNull(root.get("bUser").get("userNo"))));
+				}else if(filter == 6) {
+					predicates.add(criteriaBuilder.and(criteriaBuilder.isNotNull(root.get("bUser").get("userNo"))));
 				}
 				System.out.println(predicates.size());
-				System.out.println(predicates.get(0).toString());
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
 
-		}, PageRequest.of(no, size, Sort.by("productPrice").ascending()));
+		};
+		// 로그인을 했을 때,
+		System.out.println("Area : " + area);
+		List<Trade> tList = new ArrayList<Trade>();
+		if (!area.equals("none"))
+			tList = tr.findAllByTradeArea(area);
 		else {
-			return tr.findAll(new Specification<Trade>() {
-
-				@Override
-				public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-					List<Predicate> predicates = new ArrayList<Predicate>();
-					if(sList != null) {
-						for (String str : sList) {
-							System.out.println(str);
-							predicates.add(criteriaBuilder.or(criteriaBuilder.like(root.get("tradeTitle"), "%" + str + "%"),
-									criteriaBuilder.like(root.get("productInfo"), "%" + str + "%")));
-						}
-					}
-					System.out.println("area : " + area);
-					if (!area.equals("none"))
-						predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeArea"), area)));
-					if(Integer.parseInt(category) > 0) {
-						predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeCategory"), category)));
-					}
-					System.out.println(predicates.size());
-					System.out.println(predicates.get(0).toString());
-					return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
-				}
-
-			}, PageRequest.of(no, size, Sort.by("tradeNo").descending()));
+			tList = tr.findAll();
+		}
+		if(filter == 4) {
+			return tr.findAll(spec, PageRequest.of(no, size, Sort.by("productPrice").ascending()));
+		}
+		else {
+			return tr.findAll(spec, PageRequest.of(no, size, Sort.by("tradeNo").descending()));
 		}
 	}
 
@@ -340,10 +323,6 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	public Page<Trade> findByTradeType(int no, int size, int type, int userno) {
-		if (no == 0)
-			no = tr.countAll()+1;
-
-		final int cnt = no;
 		return tr.findAll(new Specification<Trade>() {
 
 			@Override

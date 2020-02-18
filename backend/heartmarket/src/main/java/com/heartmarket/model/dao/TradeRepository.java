@@ -32,6 +32,8 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 //	List<TradeResponse> findAllBy();
 	
 	Page<Trade> findAllByTradeAreaAndTradeCategory(String tradeArea, String tradeCategory, Pageable req);
+	Page<Trade> findAllByTradeAreaAndTradeCategoryAndBUserUserNoIsNull(String tradeArea, String tradeCategory, Pageable req);
+	Page<Trade> findAllByTradeAreaAndTradeCategoryAndBUserUserNoIsNotNull(String tradeArea, String tradeCategory, Pageable req);
 
 	// 페이지  기능
 	// 가져 옵시다. 구매 목록, 판매 목록
@@ -46,6 +48,9 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 
 	// getList에서 사용되는 전체 조회
 	Page<Trade> findAll(Pageable req);
+	// 판매중
+	Page<Trade> findBybUserUserNoIsNull(Pageable req);
+	Page<Trade> findBybUserUserNoIsNotNull(Pageable req);
 	
 	Page<Trade> findByTradeArea(String area,Pageable req);
 

@@ -3,6 +3,7 @@ package com.heartmarket.model.service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,8 +50,10 @@ public class MailServiceImpl implements MailService {
 			User receiver = ur.findByEmail(receiverMail);
 			Trade trade = tr.findByTradeNo(Integer.parseInt(tradeNo));
 			Date date = new Date();
-			SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String time = transeFormat.format(date);
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
+			transFormat.setTimeZone(tz);
+			String time = transFormat.format(date);
 			Mail mail = new Mail(sender,receiver,trade,title,content,time,0,0);
 			mr.save(mail);
 			return new ResultMap<Mail>("SUCCESS","쪽지 전송 및 저장 성공",mail);
@@ -116,8 +119,10 @@ public class MailServiceImpl implements MailService {
 	public ResultMap<Mail> readReceiver(String receiverMail,String mailNo) {
 		try {
 			Date date = new Date();
-			SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String time = transeFormat.format(date);
+			SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
+			transFormat.setTimeZone(tz);
+			String time = transFormat.format(date);
 			User receiver = ur.findByEmail(receiverMail);
 			Mail mail = mr.findByReceiverUserNoAndMailNo(receiver.getUserNo(), Integer.parseInt(mailNo));
 			mail.setReadDate(time);

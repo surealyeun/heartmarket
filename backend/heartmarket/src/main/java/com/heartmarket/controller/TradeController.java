@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.TimeZone;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
@@ -143,8 +144,10 @@ public class TradeController {
 			System.out.println("파이이이일:"+files[i].getOriginalFilename());
 		}
 		Date date = new Date();
-		SimpleDateFormat transeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String time = transeFormat.format(date);
+		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
+		transFormat.setTimeZone(tz);
+		String time = transFormat.format(date);
 		int uNo = Integer.parseInt(userNo);
 		Trade trade = new Trade(tradeCategory, tradeTitle, tradeArea, productInfo, Integer.parseInt(productPrice), time);
 		String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
