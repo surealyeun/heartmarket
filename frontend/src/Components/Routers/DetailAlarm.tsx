@@ -85,7 +85,7 @@ class DetailAlarm extends Component<Mail> {
   }
 
   componentDidMount() {
-    //읽은 알림 처리해주는 부분
+    //읽은 쪽지 처리해주는 부분
     if (this.user.userNo !== this.state.data.sender.userNo) {
       if (this.state.data.readDate === null) {
         axios({
@@ -97,7 +97,7 @@ class DetailAlarm extends Component<Mail> {
           }
         })
           .then(res => {
-            //alert("알림이 삭제되었습니다.")
+            //alert("쪽지이 삭제되었습니다.")
           })
           .catch(err => {
             console.log("err", err);
@@ -186,8 +186,9 @@ class DetailAlarm extends Component<Mail> {
               </p>
             </Link>
           </div>
+          <div className="mail_line"></div>
           <div>
-            <div className="alarm_content title">{this.state.data.title}</div>
+            <div className="title">{this.state.data.title}</div>
             <p>보낸 시간 : {this.state.data.sendDate.substring(0, 16)}</p>
             <br></br>
           </div>
@@ -216,7 +217,7 @@ class DetailAlarm extends Component<Mail> {
           <br></br>
           <div className="alarm_content">{this.state.data.content}</div>
           <br></br>
-          <div>
+          <div className="btn">
             <br></br>
             <div className="detailalarm_btn" onClick={this.openModal}>
               답장

@@ -59,7 +59,7 @@ class Alarm extends Component {
         }
       ]
     },
-    //받은 알림(false), 보낸 알림 (true)
+    //받은 쪽지(false), 보낸 쪽지 (true)
     sendStatus: false,
     final_num: 0,
     //전체 선택 여부 확인 변수
@@ -155,7 +155,8 @@ class Alarm extends Component {
     })
       .then(res => {
         const mail = res.data;
-        if(No < this.state.final_num) No=this.state.final_num-2;
+        if(No !== 0 && No < this.state.final_num) No=this.state.final_num-2;
+  
         console.log(No)
         this.setState({
           mail,
@@ -190,26 +191,26 @@ class Alarm extends Component {
               onChange={this.changeSendStatus}
               value={this.state.sendStatus + ""}
             >
-              <option value="false">받은 알림</option>
-              <option value="true">보낸 알림</option>
+              <option value="false">받은 쪽지</option>
+              <option value="true">보낸 쪽지</option>
             </select>
             <p className="alarm_text">
-              {this.state.sendStatus !== false ? "보낸 " : "받은 "}알림함
+              {this.state.sendStatus !== false ? "보낸 " : "받은 "}쪽지함
             </p>
           </div>
           <div className="alarm_check">
             <div className="total_num">
-              총 알림 수 ({this.state.mail.total})
+              총 쪽지 수 ({this.state.mail.total})
             </div>
             {this.state.sendStatus === false ? (
               <select onChange={this.changeRead} value={this.state.readcheck}>
-                <option value="notyet">안읽은 알림</option>
-                <option value="read">읽은 알림</option>
-                <option value="all">전체 알림</option>
+                <option value="notyet">안읽은 쪽지</option>
+                <option value="read">읽은 쪽지</option>
+                <option value="all">전체 쪽지</option>
               </select>
             ) : (
               <select onChange={this.changeRead} value={this.state.readcheck}>
-                <option value="all">전체 알림</option>
+                <option value="all">전체 쪽지</option>
               </select>
             )}
           </div>

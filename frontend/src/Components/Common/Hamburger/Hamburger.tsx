@@ -77,7 +77,7 @@ class Hamburger extends Component<Props> {
                         {tab ? ( //채팅을 선택했을때 - 변수 바꾸기
                           <div>
                             <div id="tabmyinfo" className="hambuger_tabbtn hambuger_tapcheck" onClick={e => this.onTabclick(e)}>내정보</div>
-                            <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm" onClick={e => this.onTabclick(e)}>알림</div>
+                            <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm" onClick={e => this.onTabclick(e)}>쪽지</div>
                             <div className="hambuger_prealarm">
                               <PreAlarmList></PreAlarmList>
                             </div>
@@ -85,7 +85,7 @@ class Hamburger extends Component<Props> {
                         ) : (
                             <div>
                               <div id="tabmyinfo" className="hambuger_tabbtn" onClick={e => this.onTabclick(e)}>내정보</div>
-                              <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm hambuger_tapcheck" onClick={e => this.onTabclick(e)}>알림</div>
+                              <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm hambuger_tapcheck" onClick={e => this.onTabclick(e)}>쪽지</div>
 
                               <div className="hambuger_myinfo">
                                 <div className="hambuger_gauge">

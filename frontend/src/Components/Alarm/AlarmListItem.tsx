@@ -88,7 +88,7 @@ class AlarmListItem extends React.Component<Mail> {
           )}
 
           <span className="time">
-            {this.state.data.sendDate.substring(0, 16)}
+            {this.state.data.sendDate.substring(2, 16)}
           </span>
           <Link
             to={{
@@ -112,7 +112,7 @@ class AlarmListItem extends React.Component<Mail> {
             </div>
           </Link>
         </div>
-        <hr></hr>
+        <div className="mail_line"></div>
       </div>
     );
   }
