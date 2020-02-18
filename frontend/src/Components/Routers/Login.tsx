@@ -101,11 +101,14 @@ class Login extends Component<Props> {
                 {sessionStorage.getItem("usernickname")}님<br />
                 안녕하세요.
               </h2>
-              <div>
+              <br/>
+              <div className="after-login">
                 <button onClick={this.logout}>로그아웃</button>
+                <br />
                 <Link to="/">
                   <button>main</button>
                 </Link>
+                <br />
                 <Link to="/mypage">
                   <button>my page</button>
                 </Link>

@@ -52,6 +52,12 @@
 
     @media screen and (max-width: 767px) {
         margin: 130px auto;
+        .after-login{
+            button{
+                width: 85%;
+                margin: 10px 0;
+            }
+        }
 
         input[type="text"],
         input[type="email"],
@@ -87,7 +93,12 @@
     
     @media screen and (min-width: 768px){
         margin: 170px auto;
-
+        .after-login{
+            button{
+                width: 35%;
+                margin: 10px 0;
+            }
+        }
         input[type="text"],
         input[type="email"],
         input[type="password"] {
