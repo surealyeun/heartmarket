@@ -4,6 +4,7 @@ import Footer from "../common/Footer";
 import axios from "axios";
 import ItemCardSimple from "../users/ItemCardSimple";
 import { Link } from "react-router-dom";
+import {Progress} from 'antd';
 
 import "./UserProfile.scss";
 import SessionDelete from "../common/SessionDelete";
@@ -21,7 +22,7 @@ class UserProfile extends Component {
   state = {
     isLoad: false,
     sales: Array<Sale>(),
-    user: { otherNo: 0, otherImg: "", otherNickname: "", otherHg: "" }
+    user: { otherNo: 0, otherImg: "", otherNickname: "", otherHg: 0}
   };
 
   url = window.location.href.split("/");
@@ -29,6 +30,7 @@ class UserProfile extends Component {
 
   componentDidMount() {
     console.log("component did mount");
+    console.log(this.userNo);
     axios({
       method: "get",
       url: "http://13.125.55.96:8080/mypage/{userno}",
@@ -41,31 +43,32 @@ class UserProfile extends Component {
         this.setState({
           user: res.data.data
         });
+        
+        axios({
+          method: "get",
+          url: "http://13.125.55.96:8080/mypage/detail2/" + this.userNo,
+          params: {
+            no: 0
+          }
+        })
+          .then(res => {
+            this.setState({
+              sales: res.data.data
+              // productImg: res.data.data[0]
+            });
+            console.log(res.data.data);
+          })
+          .catch(err => {
+            console.log(err);
+            alert("detail error");
+          });
       })
       .catch(err => {
         console.log(err);
         alert("user error");
       });
+    }
 
-    axios({
-      method: "get",
-      url: "http://13.125.55.96:8080/mypage/detail2/" + this.userNo,
-      params: {
-        no: 0
-      }
-    })
-      .then(res => {
-        this.setState({
-          sales: res.data.data
-          // productImg: res.data.data[0]
-        });
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-        alert("detail error");
-      });
-  }
 
   render() {
     return (
@@ -92,13 +95,18 @@ class UserProfile extends Component {
             <div className="attack">
               <div>심쿵 BPM</div>
               <div>
-                <img
-                  className="heart-img"
-                  alt="heart"
-                  src="https://image.flaticon.com/icons/svg/1584/1584687.svg"
-                ></img>
+              <Progress
+                            type="circle"
+                            strokeColor={{
+                                "20%": "#108ee9",
+                                "100%": "#f494ab"
+                            }}
+                            percent={this.state.user.otherHg}
+                            format={percent => `${percent} BPM`}
+                            status="exception"
+                            width={60}
+                        />
               </div>
-              <div>{this.state.user.otherHg} BPM</div>
             </div>
           </div>
           <hr className="tophr" />
@@ -112,7 +120,7 @@ class UserProfile extends Component {
                       <>
                         <Link to={`/search/detail/${sale.tradeNo}`}>
                           <ItemCardSimple
-                            image={sale.imgarr}
+                            image={sale.uimg}
                             tradeTitle={sale.ttitle}
                             productPrice={sale.pprice}
                           />

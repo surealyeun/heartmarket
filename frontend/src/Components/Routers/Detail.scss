@@ -1,6 +1,8 @@
 .product-detail {
     margin: 0 auto;
-
+    a{
+        color: white;
+    }
     h4,
     h3 {
         font-family: "NanumSquareRound";
@@ -95,7 +97,7 @@
         }
         h3 {
             font-size: 15px;
-            margin: 0 15px;
+            margin: 0 8px;
         }
         h4 {
             font-size: 13px;

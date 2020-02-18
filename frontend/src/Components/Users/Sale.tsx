@@ -97,7 +97,7 @@ class Sale extends React.Component {
                             {this.state.Sales.map((sale, i) => {
                                 if (i < 4) {
                                     return (
-                                        <>
+                                        <div className="purchase-modalbtn">
                                             <Link to={`/search/detail/${sale.strade.tradeNo}`}>
                                                 <ItemCard
                                                     image={sale.strade.tTradeImg}
@@ -106,14 +106,22 @@ class Sale extends React.Component {
                                                     tradeNo={sale.strade.tradeNo}
                                                 />
                                             </Link>
-                                            
-                                        </>
+                                            {sale.complete === 1 ? (
+                                                    <button
+                                                        className="btn-manner-modal" disabled
+                                                    >
+                                                        거래 완료
+                                                    </button>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                        </div>
                                     );
                                 }
                             })}
                         </>
                     ) : (
-                        <div>
+                        <div className="item">
                             <h4>판매 상품이 없습니다.</h4>
                         </div>
                     )}
