@@ -232,7 +232,11 @@ public class TradeServiceImpl implements TradeService {
 		if(filter == 4) {
 			PageRequest pr = PageRequest.of(no, size, Sort.by("productPrice").ascending());
 			return tr.findAllByTradeAreaAndTradeCategory(area, category, pr);
-		}else if(filter == 5) { // 판매중
+		}else if(filter == 1) {
+			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
+			return tr.findAllByTradeCategory(category, pr);
+		}
+		else if(filter == 5) { // 판매중
 			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
 			return tr.findAllByTradeAreaAndTradeCategoryAndBUserUserNoIsNull(area, category, pr);
 		}else if(filter == 6) { // 판매완료
@@ -264,6 +268,7 @@ public class TradeServiceImpl implements TradeService {
 					}
 				}
 				System.out.println("area : " + area);
+				
 				if (!area.equals("none"))
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeArea"), area)));
 				if(Integer.parseInt(category) > 0) {

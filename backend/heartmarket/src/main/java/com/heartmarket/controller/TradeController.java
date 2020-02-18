@@ -280,7 +280,10 @@ public class TradeController {
 			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공?", tm), HttpStatus.OK);
 			// 현재 로그인 완료
 		} else {
-			String area = us.searchEmail(email).getUArea().get(0).getAddress();
+			String area = "none";
+			if(filter != 1) { 
+				area = us.searchEmail(email).getUArea().get(0).getAddress();
+			}
 			tm = mappedFor(ts.fetPageTP(no, 8, sList, area,filter,category).getContent(), email);
 			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공?", tm), HttpStatus.OK);
 

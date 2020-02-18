@@ -32,6 +32,7 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 //	List<TradeResponse> findAllBy();
 	
 	Page<Trade> findAllByTradeAreaAndTradeCategory(String tradeArea, String tradeCategory, Pageable req);
+	Page<Trade> findAllByTradeCategory(String tradeCategory, Pageable req);
 	Page<Trade> findAllByTradeAreaAndTradeCategoryAndBUserUserNoIsNull(String tradeArea, String tradeCategory, Pageable req);
 	Page<Trade> findAllByTradeAreaAndTradeCategoryAndBUserUserNoIsNotNull(String tradeArea, String tradeCategory, Pageable req);
 
