@@ -1,3 +1,5 @@
+
+
 .like-more {
     min-height: 500px;
     text-align: center;
@@ -90,10 +92,19 @@
 
 .sale-more,
 .purchase-more {
+    
     min-height: 500px;
     text-align: center;
     margin: 0 auto;
-
+    a{
+        font-family: "yg-jalnan";
+    }
+    .manner-modal{
+        font-family: 'yg-jalnan';
+        button{
+            font-family: 'NanumSquareRound';
+        }
+    }
     h2 {
         font-family: "yg-jalnan";
         color: #365367;
