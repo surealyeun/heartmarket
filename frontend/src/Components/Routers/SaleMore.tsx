@@ -17,40 +17,45 @@ interface Props {
   status: string | null;
 }
 
-export interface sale {
-  tradeNo: number;
+export interface sale{
+  complete: number;
+  strade: Strade;
+}
+
+export interface Strade {
+  tradeNo:       number;
   tradeCategory: string;
-  tradeTitle: string;
-  tradeArea: string;
-  productInfo: string;
-  productPrice: string;
-  tradeDate: Date;
-  tTradeImg: TTradeImg[];
-  tuser: Tuser;
-  buser: null;
-  tmanner: null;
+  tradeTitle:    string;
+  tradeArea:     string;
+  productInfo:   string;
+  productPrice:  string;
+  tradeDate:     Date;
+  tTradeImg:     TTradeImg[];
+  tuser:         Tuser;
+  buser:         null;
+  tmanner:       null;
 }
 
 export interface TTradeImg {
-  imgNo: number;
+  imgNo:   number;
   tiTrade: number;
-  orgImg: string;
+  orgImg:  string;
 }
 
 export interface Tuser {
-  userNo: number;
-  email: string;
-  password: string;
-  profileImg: string;
-  nickname: string;
+  userNo:         number;
+  email:          string;
+  password:       string;
+  profileImg:     string;
+  nickname:       string;
   userPermission: string;
-  uarea: Uarea[];
+  uarea:          Uarea[];
 }
 
 export interface Uarea {
-  areaNo: number;
+  areaNo:  number;
   address: string;
-  auser: number;
+  auser:   number;
 }
 
 class SaleMore extends Component<Props> {
@@ -96,17 +101,28 @@ class SaleMore extends Component<Props> {
                   <>
                     {this.state.Sales.map((sale, i) => {
                       return (
-                        <Link to={`/search/detail/${sale.tradeNo}`}>
+                        <div className="purchase-modalbtn">
+                        <Link to={`/search/detail/${sale.strade.tradeNo}`}>
                           <ItemCard
-                            image={sale.tTradeImg}
-                            tradeTitle={sale.tradeTitle}
-                            productPrice={sale.productPrice}
-                            tradeNo={sale.tradeNo}
+                            image={sale.strade.tTradeImg}
+                            tradeTitle={sale.strade.tradeTitle}
+                            productPrice={sale.strade.productPrice}
+                            tradeNo={sale.strade.tradeNo}
                           />
                           {/* <div className="item" key={"item" + i}>
                                                 <h3>{sale.tradeTitle}</h3>
                                             </div> */}
                         </Link>
+                        {sale.complete === 1 ? (
+                                                    <button
+                                                        className="btn-manner-modal" disabled
+                                                    >
+                                                        거래 완료
+                                                    </button>
+                                                ) : (
+                                                    <></>
+                                                )}
+                        </div>
                       );
                     })}
                   </>

@@ -54,6 +54,19 @@
         margin: 5px auto;
     }
 
+    select {
+        font-family: "NanumSquareRound";  /* 폰트 상속 */
+        // background-color: #4242421a;
+        background: #4242421a url('https://image.flaticon.com/icons/svg/32/32195.svg') no-repeat 95% 50%/8%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+        // background-size: length($list: 20px);
+        border: 0;
+        border-radius: 4px; /* iOS 둥근모서리 제거 */
+        -webkit-appearance: none; /* 네이티브 외형 감추기 */
+        -moz-appearance: none;
+        appearance: none;
+        color: rgb(71, 71, 71);
+    }
+
     @media screen and (max-width: 767px) {
         margin: 100px auto;
 
@@ -91,6 +104,13 @@
         .btn-joinpage {
             width: 97%;
             background-color: #f494ab;
+        }
+
+        select{
+            width: 99%;
+            padding: 0.7em 1em;
+            font-size: medium;
+
         }
     }
 
@@ -130,6 +150,12 @@
         .btn-joinpage {
             width: 150px;
             background-color: #f494ab;
+        }
+
+        select{
+            padding: 0.7em 1em;
+            width: 43%;
+            font-size: medium;
         }
     }
 

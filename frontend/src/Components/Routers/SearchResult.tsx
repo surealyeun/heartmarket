@@ -66,6 +66,14 @@ class SearchResult extends Component<Props> {
     this.props.CategoryAction();
   }
 
+  openMap = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    if(sessionStorage.getItem('user')){
+
+    }else{
+      e.preventDefault();
+    }
+  }
+
   render() {
     return (
       <>
@@ -76,7 +84,7 @@ class SearchResult extends Component<Props> {
             {this.filters.map(filter => {
               return <FilterButton key={filter.id} {...filter} />;
             })}
-            <Link to="/map">
+            <Link to="/map" onClick={(e) => this.openMap(e)}>
             <img
               className="SearchResult_filter_container_img"
               src="https://image.flaticon.com/icons/svg/854/854878.svg"

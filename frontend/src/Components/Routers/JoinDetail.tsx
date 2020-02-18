@@ -13,6 +13,29 @@ class JoinDetail extends Component {
         confirm: false
     };
 
+    gangnam = ['개포1동',
+        '개포2동',
+        '개포4동',
+        '논현1동',
+        '논현2동',
+        '대치1동',
+        '대치2동',
+        '대치4동',
+        '도곡1동',
+        '도곡2동',
+        '삼성1동',
+        '삼성2동',
+        '세곡동',
+        '수서동',
+        '신사동',
+        '압구정동',
+        '역삼1동',
+        '역삼2동',
+        '일원1동',
+        '일원2동',
+        '일원본동',
+        '청담동']
+
     constructor(props: any) {
         super(props);
         this.state = {
@@ -65,6 +88,7 @@ class JoinDetail extends Component {
         this.setState({
             address: address
         });
+        console.log(this.state.address);
         if (this.state.isnnValid && this.state.password && this.state.address) {
             this.setState({
                 confirm: true
@@ -125,12 +149,18 @@ class JoinDetail extends Component {
                             onChange={e => this.handlePW(e.target.value)}
                         />
                         <br />
-                        <input
+                        {/* <input
                             type="text"
                             className="address"
                             placeholder="주소(예시: 역삼동)"
                             onChange={e => this.handleaddress(e.target.value)}
-                        />
+                        /> */}
+                        <select className="address" onChange={e => this.handleaddress(e.target.value)}>
+                            <option value="" selected>동네 설정하기</option>
+                            {this.gangnam.map((dong) => {
+                                return(<option>{dong}</option>);
+                            })}
+                        </select>
                         <br />
                         <Link to="/joinsuc">
                             <button
