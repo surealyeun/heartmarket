@@ -1,5 +1,7 @@
 package com.heartmarket.model.service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,4 +105,23 @@ public class MannerServiceImpl implements MannerService{
 			throw e;
 		}
 	}
+	
+	@Override
+	public ResultMap<Map<String, Double>> findManner(String email){
+		try {
+			Manner manner = mr.findBymUserUserNo(ur.findByEmail(email).getUserNo());
+			if(manner != null) {
+				Map<String, Double> rm = new HashMap<String, Double>();
+				rm.put("heartgauge", manner.getHeartGauge());
+				return new ResultMap<Map<String, Double>>("SUCCESS", "매너 불러오기", rm);
+			}else {
+				return new ResultMap<Map<String, Double>>("FAIL", "찾을 수 없는 유저입니다.", null);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	
 }

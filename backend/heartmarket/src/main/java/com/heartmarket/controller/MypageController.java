@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.heartmarket.model.dto.User;
 import com.heartmarket.model.dto.response.OtherResponse;
 import com.heartmarket.model.dto.response.OtherTrade;
 import com.heartmarket.model.dto.response.ReviewResponse;
@@ -83,5 +84,11 @@ public class MypageController {
 				new ResultMap<List<OtherTrade>>("SUCCESS", "전체 리스트 가져오기", ms.findAllByOther2( userNo)),
 				HttpStatus.OK);
 		
+	}
+	
+	@RequestMapping(value = "/mypage/manner", method = RequestMethod.GET)
+	@ApiOperation(value = "심쿵 지수 ")
+	public ResponseEntity<Object> findByManner(@RequestParam String email){
+		return new ResponseEntity<Object>(mns.findManner(email), HttpStatus.OK);
 	}
 }
