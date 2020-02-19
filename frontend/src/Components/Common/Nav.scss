@@ -5,6 +5,18 @@
 .Nav {
   background: white;
 
+  .react-multiple-carousel__arrow{
+    //width: 10px;
+    //height: 10px;
+    min-width: 30px;
+    min-height: 30px;
+    background: #f494ab;
+  }
+
+  .react-multiple-carousel__arrow:hover{
+    background: #fd3463;
+  }
+
   .category {
     .img_category1 {
       display: none;

@@ -2,43 +2,60 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import ItemCard from './ItemCard';
+import SessionDelete from "../common/SessionDelete";
 
 export interface like {
+    cTrade: Trade;
     cartNo: number;
-    cuser: User;
-    ctrade: Ctrade;
+    ctrade: Trade;
+    cuser:  User;
 }
 
-export interface Ctrade {
-    tradeNo: number;
+export interface Trade {
+    buser:         User;
+    productInfo:   string;
+    productPrice:  string;
+    tTradeImg:     TTradeImg[];
+    tmanner:       Tmanner;
+    tradeArea:     string;
     tradeCategory: string;
-    tradeTitle: string;
-    productName: string;
-    tradeArea: string;
-    productInfo: string;
-    productPrice: string;
-    tradeDate: Date;
-    ttradeImg: any[];
-    buser: null;
-    tuser: User;
-    tmanner: null;
+    tradeDate:     string;
+    tradeNo:       number;
+    tradeTitle:    string;
+    tuser:         User;
 }
 
 export interface User {
-    userNo: number;
-    email: string;
-    password: string;
-    profileImg: null | string;
-    nickname: string;
+    email:          string;
+    nickname:       string;
+    password:       string;
+    profileImg:     string;
+    uarea:          Uarea[];
+    userNo:         number;
     userPermission: string;
-    uarea: Uarea[];
 }
 
 export interface Uarea {
-    areaNo: number;
     address: string;
-    auser: number;
+    areaNo:  number;
 }
+
+export interface TTradeImg {
+    imgNo:  number;
+    orgImg: string;
+    tiTrade: number;
+}
+
+export interface Tmanner {
+    heartGauge:  number;
+    mannerNo:    number;
+    minusGauge:  number;
+    muser:       User;
+    normalGauge: number;
+    plusGauge:   number;
+}
+
 
 class Like extends React.Component {
     state = {
@@ -50,10 +67,11 @@ class Like extends React.Component {
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
     mouseOver = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        // console.log(e.target);
+        console.log(e.target);
         this.setState({
             isOver: false
         });
+        document.getElementsByClassName('img-back')
     };
 
     mouseOut = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -64,6 +82,7 @@ class Like extends React.Component {
     };
 
     componentDidMount() {
+
         axios({
             method: "get",
             url: "http://13.125.55.96:8080/cart/searchAll",
@@ -75,7 +94,7 @@ class Like extends React.Component {
                 this.setState({
                     Likes: res.data.data
                 });
-                
+                console.log('like 다 가져옴',res.data.data);
             })
             .catch(err => {
                 alert(err);
@@ -86,6 +105,7 @@ class Like extends React.Component {
     render() {
         return (
             <div className="like">
+                <SessionDelete></SessionDelete>
                 <h3>심쿵 상품</h3>
                 <div className="products">
                     {this.state.Likes ? (
@@ -94,25 +114,21 @@ class Like extends React.Component {
                                 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
                                 if (i < 4) {
                                     return (
-                                        <Link
-                                            to={`/search/detail/${like.ctrade.tradeNo}`}
-                                        >
-                                            <div className="item" key={"item" + i}>
-                                                <h1>{like.ctrade.tradeNo}</h1>
-                                                <h3>{like.ctrade.tradeTitle}</h3>
-                                            </div>
+                                        <Link to={`/search/detail/${like.ctrade.tradeNo}`}>
+                                            <ItemCard image={like.ctrade.tTradeImg} tradeTitle={like.ctrade.tradeTitle} 
+                                            productPrice={like.ctrade.productPrice} tradeNo={like.ctrade.tradeNo}/>
                                         </Link>
                                     );
                                 }
                             })}
                         </>
                     ) : (
-                        <div>
-                            <h3>심쿵 상품이 없습니다.</h3>
+                        <div className="item">
+                            <h4>심쿵 상품이 없습니다.</h4>
                         </div>
                     )}
 
-                    <div className="item" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+                    {/* <div className="item" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
                         <img
                             src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/77120318A0EA8BE3F97C131D8758D2B5E452A0D37184FE594F75148386745E8A.jpg?q=82&s=300x300&t=crop"
                             alt="item1"
@@ -120,15 +136,17 @@ class Like extends React.Component {
                         <div className="img-back" hidden={this.state.isOver}>
                             <p>모두가 가지고 싶어하는 에어팟</p>
                         </div>
-                    </div>
+                    </div> */}
 
                     {/* <div className="item">
                         <button className="btn-more"><img src="https://image.flaticon.com/icons/svg/1836/1836226.svg" alt=""></img></button>
                     </div> */}
                 </div>
                 <div className="like-more-wrapper">
-                    <button className="like-more">
-                        <h3>+ 심쿵 상품 더보기</h3>
+                    <button className="btn-like-more">
+                        <Link to="/like">
+                            <h3>+ 심쿵 상품 더보기</h3>
+                        </Link>
                     </button>
                 </div>
                 <br />

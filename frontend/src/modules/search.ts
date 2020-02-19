@@ -1,27 +1,27 @@
 import { ActionType, createAction, createReducer } from "typesafe-actions";
 
 // 액션 타입
-export const KEYWORD_CHANGE = "search/KEYWORD_CHANGE";
+export const SEARCH_CHANGE = "search/SEARCH_CHANGE";
 
 // 액션 객체 생성함수 선언
-export const keywordChange = createAction(KEYWORD_CHANGE)<string>();
+export const searchChange = createAction(SEARCH_CHANGE)<boolean>();
 
 // 액션 객체 타입 준비
-type SearchAction = ActionType<typeof keywordChange>;
+type SearchAction = ActionType<typeof searchChange>;
 
 // Reducer
 // 초기 상태 type 설정
 export type SearchState = {
-  text: string;
+  status: boolean;
 };
 
 const initialState: SearchState = {
-  text: ""
+  status: false
 };
 
 const search = createReducer<SearchState, SearchAction>(initialState, {
-    [KEYWORD_CHANGE]: (state, action) => ({
-        text: action.payload
+    [SEARCH_CHANGE]: (state, action) => ({
+        status: !action.payload
     })
   });
   export default search;

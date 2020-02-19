@@ -1,29 +1,41 @@
 /* eslint-disable array-callback-return */
 import React from "react";
-import {Link} from 'react-router-dom';
-import axios from 'axios';
+import { Link } from "react-router-dom";
+import axios from "axios";
+import ItemCard from "./ItemCard";
 import "./Items.scss";
+import SessionDelete from "../common/SessionDelete";
 
-export interface sale {
+export interface sale{
+    complete: number;
+    strade: Strade;
+}
+
+export interface Strade {
     tradeNo:       number;
     tradeCategory: string;
     tradeTitle:    string;
-    productName:   string;
     tradeArea:     string;
     productInfo:   string;
     productPrice:  string;
     tradeDate:     Date;
-    ttradeImg:     any[];
-    buser:         null;
+    tTradeImg:     TTradeImg[];
     tuser:         Tuser;
+    buser:         null;
     tmanner:       null;
+}
+
+export interface TTradeImg {
+    imgNo:   number;
+    tiTrade: number;
+    orgImg:  string;
 }
 
 export interface Tuser {
     userNo:         number;
     email:          string;
     password:       string;
-    profileImg:     null;
+    profileImg:     string;
     nickname:       string;
     userPermission: string;
     uarea:          Uarea[];
@@ -35,12 +47,13 @@ export interface Uarea {
     auser:   number;
 }
 
+
 class Sale extends React.Component {
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
     state = {
-        Sales: Array<sale>()
-    }
+        Sales: Array<sale>(),
+    };
 
     componentDidMount() {
         axios({
@@ -49,23 +62,26 @@ class Sale extends React.Component {
             params: {
                 email: this.user.email
             }
-        }).then(res => {
-            this.setState({
-                Sales: res.data.data
-            })
-        }).catch(err => {
-            console.log(err);
-            alert('sale error')
         })
+            .then(res => {
+                console.log('sale',res.data.data);
+                this.setState({
+                    Sales: res.data.data
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                alert("sale error");
+            });
     }
 
     render() {
-
         return (
             <div className="sale">
+                <SessionDelete></SessionDelete>
                 <h3>판매 상품</h3>
                 <div className="products">
-                    <div className="item">
+                    {/* <div className="item">
                         <div className="item-manners">
                             <h3>♥♥♥♥♥</h3>
                         </div>
@@ -75,31 +91,50 @@ class Sale extends React.Component {
                                 alt="item1"
                             />
                         </div>
-                    </div>
-                    {this.state.Sales.length > 0 ? 
-                    <>
-                        {this.state.Sales.map((sale, i) => {
-                            if(i < 4){
-                                return (
-                                    <div className="item" key={'item'+i}>
-                                        <h3>{sale.tradeTitle}</h3>
-                                    </div>
-                                )
-                            }
-                        })}
-                    </>
-                    :
-                    <></>
-                    }
+                    </div> */}
+                    {this.state.Sales ? (
+                        <>
+                            {this.state.Sales.map((sale, i) => {
+                                if (i < 4) {
+                                    return (
+                                        <div className="purchase-modalbtn">
+                                            <Link to={`/search/detail/${sale.strade.tradeNo}`}>
+                                                <ItemCard
+                                                    image={sale.strade.tTradeImg}
+                                                    tradeTitle={sale.strade.tradeTitle}
+                                                    productPrice={sale.strade.productPrice}
+                                                    tradeNo={sale.strade.tradeNo}
+                                                />
+                                            </Link>
+                                            {sale.complete === 1 ? (
+                                                    <button
+                                                        className="btn-manner-modal" disabled
+                                                    >
+                                                        거래 완료
+                                                    </button>
+                                                ) : (
+                                                    <></>
+                                                )}
+                                        </div>
+                                    );
+                                }
+                            })}
+                        </>
+                    ) : (
+                        <div className="item">
+                            <h4>판매 상품이 없습니다.</h4>
+                        </div>
+                    )}
                     {/* <div className="item">
                         <button className="btn-more"><h3>더보기</h3></button>
                     </div> */}
                 </div>
                 <div className="product-more-wrapper">
-                    <Link to="/sale"><button className="sale-more">
-                        <h3>+ 판매 상품 더보기</h3>
+                    <button className="btn-sale-more">
+                        <Link to="/sale">
+                            <h3>+ 판매 상품 더보기</h3>
+                        </Link>
                     </button>
-                    </Link>
                 </div>
             </div>
         );
