@@ -4,25 +4,32 @@ import Footer from "../common/Footer";
 import axios from "axios";
 import ItemCardSimple from "../users/ItemCardSimple";
 import { Link } from "react-router-dom";
-import {Progress} from 'antd';
+import { Progress } from "antd";
 
 import "./UserProfile.scss";
 import SessionDelete from "../common/SessionDelete";
 
-export interface Sale {
-  tradeNo: number;
-  pprice: string;
-  uimg: string;
-  ttitle: string;
-  tarea: string;
-  imgarr: string;
+import { userPostItem } from "../../lib/api";
+import { userDiffBy } from "../../modules/postPage";
+import { getUserPostThunk } from "../../modules/userPost";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { RootState } from "../../modules";
+
+interface Props {
+  loadingPost: boolean;
+  isLast: boolean;
+  isReload: boolean;
+  sales: userPostItem[];
+  pageNum: number;
+  CountAction: typeof userDiffBy;
+  PostActions: typeof getUserPostThunk;
 }
 
-class UserProfile extends Component {
+class UserProfile extends Component<Props> {
   state = {
     isLoad: false,
-    sales: Array<Sale>(),
-    user: { otherNo: 0, otherImg: "", otherNickname: "", otherHg: 0}
+    user: { otherNo: 0, otherImg: "", otherNickname: "", otherHg: 0 }
   };
 
   url = window.location.href.split("/");
@@ -30,7 +37,6 @@ class UserProfile extends Component {
 
   componentDidMount() {
     console.log("component did mount");
-    console.log(this.userNo);
     axios({
       method: "get",
       url: "http://13.125.55.96:8080/mypage/{userno}",
@@ -43,34 +49,41 @@ class UserProfile extends Component {
         this.setState({
           user: res.data.data
         });
-        
-        axios({
-          method: "get",
-          url: "http://13.125.55.96:8080/mypage/detail2/" + this.userNo,
-          params: {
-            no: 0
-          }
-        })
-          .then(res => {
-            this.setState({
-              sales: res.data.data
-              // productImg: res.data.data[0]
-            });
-            console.log(res.data.data);
-          })
-          .catch(err => {
-            console.log(err);
-            alert("detail error");
-          });
       })
       .catch(err => {
         console.log(err);
         alert("user error");
       });
+    const { PostActions, isReload } = this.props;
+    if (!isReload) {
+      PostActions(this.userNo, 0);
     }
-
-
+    window.addEventListener("scroll", this.handleScroll);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
+  // 인피니트 스크롤링
+  handleScroll = () => {
+    const { innerHeight } = window;
+    const { scrollHeight } = document.body;
+    const scrollTop =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop;
+    // 컴포넌트 생명주기를 이해해야 코드 이해 가능
+    if (scrollHeight - innerHeight - scrollTop < 100) {
+      if (!this.props.loadingPost) {
+        const { PostActions, CountAction, isLast } = this.props;
+        if (!isLast) {
+          const { pageNum } = this.props;
+          CountAction(pageNum + 1);
+          PostActions(this.userNo, pageNum + 1);
+        }
+      }
+    }
+  };
   render() {
+    const { sales } = this.props;
     return (
       <>
         <SessionDelete></SessionDelete>
@@ -95,17 +108,17 @@ class UserProfile extends Component {
             <div className="attack">
               <div>심쿵 BPM</div>
               <div>
-              <Progress
-                            type="circle"
-                            strokeColor={{
-                                "20%": "#108ee9",
-                                "100%": "#f494ab"
-                            }}
-                            percent={this.state.user.otherHg}
-                            format={percent => `${percent} BPM`}
-                            status="exception"
-                            width={60}
-                        />
+                <Progress
+                  type="circle"
+                  strokeColor={{
+                    "20%": "#108ee9",
+                    "100%": "#f494ab"
+                  }}
+                  percent={this.state.user.otherHg}
+                  format={percent => `${percent} BPM`}
+                  status="exception"
+                  width={60}
+                />
               </div>
             </div>
           </div>
@@ -113,23 +126,21 @@ class UserProfile extends Component {
           <div className="user-sale">
             <h3>판매 상품</h3>
             <div className="products">
-              {this.state.sales ? (
-                <>
-                  {this.state.sales.map((sale, i) => {
-                    return (
-                      <>
-                        <Link to={`/search/detail/${sale.tradeNo}`}>
-                          <ItemCardSimple
-                            image={sale.uimg}
-                            tradeTitle={sale.ttitle}
-                            productPrice={sale.pprice}
-                          />
-                        </Link>
-                      </>
-                    );
-                  })}
-                </>
-              ) : (
+              {sales.map(sale => {
+                return (
+                  <Link
+                    key={sale.tradeNo}
+                    to={`/search/detail/${sale.tradeNo}`}
+                  >
+                    <ItemCardSimple
+                      image={sale.uimg}
+                      tradeTitle={sale.ttitle}
+                      productPrice={sale.pprice}
+                    />
+                  </Link>
+                );
+              })}
+              {sales.length === 0 && (
                 <div>
                   <h4>판매 상품이 없습니다.</h4>
                 </div>
@@ -143,4 +154,16 @@ class UserProfile extends Component {
   }
 }
 
-export default UserProfile;
+export default connect(
+  ({ userP, userPostPage }: RootState) => ({
+    loadingPost: userP.loading.GET_POST,
+    isLast: userP.isLast,
+    isReload: userP.isReload,
+    sales: userP.post,
+    pageNum: userPostPage.counter
+  }),
+  dispatch => ({
+    PostActions: bindActionCreators(getUserPostThunk, dispatch),
+    CountAction: bindActionCreators(userDiffBy, dispatch)
+  })
+)(UserProfile);

@@ -1,14 +1,14 @@
 @font-face {
-  font-family: "NanumSquareRound";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff")
-    format("woff");
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
+    format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 .map {
-  *{
-    font-family: "NanumSquareRound";
+  * {
+    font-family: 'NanumSquareRound';
   }
   .map_wrap {
     position: relative;
@@ -51,30 +51,70 @@
     padding: 2px;
   }
   .info {
-    font-size: 12px;
     padding: 5px;
   }
   .info .title {
     font-weight: bold;
   }
   .size {
+    width: 271px;
+    height: 460px;
+    font-size: 17px;
     padding-right: 15px;
   }
-  .size ul {
-    padding-left: 20px;
+  .Map_title {
+    overflow: hidden;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; //한 줄만 표시
+    -webkit-box-orient: vertical;
   }
-  .previous {
+  .Map_post {
+    display: flex;
+    margin-top: 13px;
+    justify-content: space-between;
+    &_img_container {
+      overflow: auto;
+    }
+    &_img {
+      width: 80px;
+    }
+    &:hover {
+      background-color: #cfcfcf;
+    }
+  }
+  .previous_page {
     display: flex;
     // position: absolute;
     // top: 0;
     color: #000;
-    background: #FFF;
+    background: #fff;
     // padding: 8px 12px;
     font-weight: bold;
     text-decoration: none;
-    font-size: .7rem;
-    transition: padding .25s ease;
+    font-size: 0.7rem;
+    transition: padding 0.25s ease;
     border-radius: 5px;
-    &:hover { padding:8px 20px; }
+    &:hover {
+      padding: 8px 20px;
+    }
+  }
+  .page {
+    display: flex;
+    justify-content: space-evenly;
+    .btn {
+      text-decoration: none;
+      width: 30px;
+      height: 30px;
+      border:none;
+      display: inline-block;
+      border-radius: 50%;
+      background-color: #f1f1f1;
+      color: black;
+      &:hover {
+        background-color: #ddd;
+        color: black;
+      }
+    }
   }
 }
