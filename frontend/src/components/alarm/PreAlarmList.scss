@@ -1,0 +1,21 @@
+.PreAlarmList {
+  .prealarm_num {
+    position: absolute;
+    text-align: left;
+    left: 5%;
+  }
+
+  .prealarm_plus {
+    color: #365367;
+    position: absolute;
+    text-align: right;
+    right: 5%;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+
+  .prealarm_bundle {
+    margin-top: 40px;
+    margin-left: 14px;
+  }
+}

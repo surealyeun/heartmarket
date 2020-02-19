@@ -1,0 +1,8 @@
+.LoadingView_container {
+    display: grid;
+    justify-content: center;
+    grid-area: 2 / auto / auto / span 4;
+  
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
