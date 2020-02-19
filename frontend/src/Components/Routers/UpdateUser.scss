@@ -96,7 +96,9 @@
             background-color: #365367;
             color: white;
         }
-
+        .profile-img{
+            margin: 10px;
+        }
         button {
             font-family: "NanumSquareRound";
             border: none;
@@ -119,10 +121,21 @@
         .btn-updatenick {
             border-radius: 0 4px 4px 0;
             margin-top: 5px;
+            margin-bottom: 5px;;
         }
 
         .btn-updateprofile {
-            margin: 0;
+            margin-top: 10px;
+            margin-bottom: 0;
+            margin-left: 20px;
+            margin-right: 20px;
+            height: 40px;
+            border-radius: 4px;;
+            padding: 0 15px;
+        }
+
+        input[type='file']{
+            width: 200px;
         }
     }
 
@@ -215,6 +228,9 @@
 
         .btn-updateprofile {
             margin: 0;
+            height: 40px;
+            border-radius: 4px;;
+            padding: 0 15px;
         }
     }
 }

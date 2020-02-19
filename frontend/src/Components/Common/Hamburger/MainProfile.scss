@@ -52,6 +52,7 @@
     left:25%;
     height: 35px;
     padding-top: 5px;
+    border-radius: 3px;
   }
 
   .profile_signup {
@@ -61,9 +62,10 @@
   }
 
   .profile_signup:hover, .profile_login:hover{
-    color: #1c3242;
+    color: #1c3242b0;
+    background: #f9f4e6c4;
     border: 2px solid #1c3242; 
-    opacity: 90%;
+    //opacity: 90%;
   }
 
   .profile_name {

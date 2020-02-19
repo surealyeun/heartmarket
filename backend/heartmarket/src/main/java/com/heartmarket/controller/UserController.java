@@ -112,7 +112,6 @@ public class UserController {
 			User user = us.searchEmail(email); 
 			// count는 유저번호를 위한 변수로 Area 삽입시 DB적용이 되지 않기 때문에 필요로한 변수이다.
 			int count = us.searchCount();
-			System.out.println("카운트 : "+count);
 			if(user==null) {
 				password = BCrypt.hashpw(password, BCrypt.gensalt());
 				rm = is.uploadFile(profile, "/home/ubuntu","profile");
@@ -159,7 +158,6 @@ public class UserController {
 			Random r = new Random();
 			int key = r.nextInt(4589362)+49311;
 			ms.sendMail(email,key);
-			System.out.println(key);
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			resultMap.put("state", "OK");
 			resultMap.put("data", key);
@@ -214,5 +212,11 @@ public class UserController {
 	@RequestMapping(value = "/user/delete/{email}", method = RequestMethod.DELETE)
 	public ResponseEntity<Object> delUser(@PathVariable String email){
 		return null;
+	}
+	
+	@RequestMapping(value = "/user/nickname", method = RequestMethod.GET)
+	public ResponseEntity<Object> findByNicknae(@RequestParam int tradeNo, @RequestParam int userNo){
+		ResultMap<Object> result = us.findAllByNickname(tradeNo, userNo);
+				return new ResponseEntity<Object>(result, HttpStatus.OK);
 	}
 }

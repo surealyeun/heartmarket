@@ -90,8 +90,6 @@ public class MypageController {
 	@RequestMapping(value = "/mypage/manner", method = RequestMethod.GET)
 	@ApiOperation(value = "심쿵 지수 ")
 	public ResponseEntity<Object> findByManner(@RequestParam String email){
-		Date date = new Date();
-		System.out.println(date);
 		return new ResponseEntity<Object>(mns.findManner(email), HttpStatus.OK);
 	}
 }

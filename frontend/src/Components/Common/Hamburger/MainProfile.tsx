@@ -1,10 +1,20 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import "./MainProfile.scss";
+import { isLog } from "../../../modules/user";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { RootState } from "../../../modules";
 
-class MainProfile extends Component {
+interface Props {
+  status: string | null;
+  UserAction: typeof isLog;
+}
+
+class MainProfile extends Component<Props> {
   state = {
-    islog: false
+    islog: false,
+    logout: false
   };
 
   //로그인 되어 있는지 확인
@@ -12,21 +22,32 @@ class MainProfile extends Component {
     super(props);
 
     this.state = {
+      ...this.state,
       islog: window.sessionStorage.getItem("log") === "true" ? true : false
     };
   }
 
   logout = () => {
-    window.sessionStorage.clear();
+    const { UserAction } = this.props
+    window.sessionStorage.setItem("log", "");
+    window.sessionStorage.setItem("user", "");
+    UserAction()
     this.setState({
-      islog: false
+      islog: false,
+      logout: true
     })
   }
 
   user = JSON.parse(window.sessionStorage.getItem('user') || '{}');
-
+  
   render() {
     const { islog } = this.state;
+    if(this.state.logout===true){
+      this.setState({
+        logout: false,
+      });
+      return <Redirect to="/"></Redirect>;
+    }
 
     return (
       <div className="Main_Profile">
@@ -45,7 +66,7 @@ class MainProfile extends Component {
               <img
                 className="profile_img"
                 alt="프로필 이미지"
-                src="https://image.flaticon.com/icons/svg/660/660611.svg"
+                src={this.user.profileImg}
               ></img>
               <p className="profile_name">
                 {this.user.nickname}
@@ -64,4 +85,11 @@ class MainProfile extends Component {
   }
 }
 
-export default MainProfile;
+export default connect(
+  ({ userStatus }: RootState) => ({
+    status: userStatus.status
+  }),
+  dispatch => ({
+    UserAction: bindActionCreators(isLog, dispatch)
+  })
+)(MainProfile);

@@ -3,14 +3,20 @@ import "./Hamburger.scss";
 import Gauge from "./Gauge";
 import MainProfile from "./MainProfile";
 import HamZzim from "./HamZzim";
-import PreAlarm from "../../alarm/PreAlarm";
+import PreAlarmList from "../../alarm/PreAlarmList";
 import { Link } from "react-router-dom";
 
-class Hamburger extends Component {
+import { connect } from "react-redux";
+import { RootState } from "../../../modules";
+
+interface Props {
+  status: string | null;
+}
+
+class Hamburger extends Component<Props> {
 
   state = {
     visible: false,
-    login: false,
     tab: false
   };
 
@@ -20,8 +26,6 @@ class Hamburger extends Component {
 
     this.state = {
       visible: false,
-      login: window.sessionStorage.getItem("log") === "true" ? true : false,
-      //login: true,
       tab: false
     };
   }
@@ -49,13 +53,12 @@ class Hamburger extends Component {
   }
 
   render() {
-    const { visible, login, tab } = this.state;
+    const { visible, tab } = this.state;
+    //// console.log(this.props.status)
     return (
       <div className="Hamburger">
         <button type="button" id="menu" onClick={this.onclick}>
-          <span></span>
-          <span></span>
-          <span></span>
+          <span></span> <span></span> <span></span>
         </button>
         <div>
           <div className={`${visible && "hambuger_sub"}`} onClick={this.onclick}></div>
@@ -67,29 +70,22 @@ class Hamburger extends Component {
                   <div className="hambuger_profile">
                     <MainProfile></MainProfile>
                   </div>
-                  {!login ? ( //로그인 했을 때 - 변수 바꾸기
+                  {(this.props.status !== 'true') ? ( //로그인 했을 때 - 변수 바꾸기
                     ""
                   ) : (
                       <div className="hambuger_background">
                         {tab ? ( //채팅을 선택했을때 - 변수 바꾸기
                           <div>
                             <div id="tabmyinfo" className="hambuger_tabbtn hambuger_tapcheck" onClick={e => this.onTabclick(e)}>내정보</div>
-                            <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm" onClick={e => this.onTabclick(e)}>알림</div>
+                            <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm" onClick={e => this.onTabclick(e)}>쪽지</div>
                             <div className="hambuger_prealarm">
-                              <p className="pp1">새로운 알림 (2{visible})</p>
-                              <Link to={{ pathname: "/alarm" } }>
-                                <p className="ppp" onClick={this.onclick}>더보기</p>
-                              </Link>
-                              <div className="prealarm_bundle">
-                                <PreAlarm></PreAlarm>
-                                <PreAlarm></PreAlarm>
-                              </div>
+                              <PreAlarmList></PreAlarmList>
                             </div>
                           </div>
                         ) : (
                             <div>
                               <div id="tabmyinfo" className="hambuger_tabbtn" onClick={e => this.onTabclick(e)}>내정보</div>
-                              <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm hambuger_tapcheck" onClick={e => this.onTabclick(e)}>알림</div>
+                              <div id="tabalarm" className="hambuger_tabbtn hambuger_alarm hambuger_tapcheck" onClick={e => this.onTabclick(e)}>쪽지</div>
 
                               <div className="hambuger_myinfo">
                                 <div className="hambuger_gauge">
@@ -99,13 +95,11 @@ class Hamburger extends Component {
                                   <HamZzim></HamZzim>
                                 </div>
                                 <div className="hambuger_godetail">
-                                  <p>판매상품</p>
-                                  <p>구매상품</p>
-                                  <p>공지하기</p>
-                                  <p>건의하기</p>
-                                </div>
-                                <div>
-                                  <hr className="hr_1"></hr>
+                                  <div></div> <Link to="/sale"><p>판매상품</p></Link>
+                                  <div></div> <Link to="/purchase"><p>구매상품</p></Link>
+                                  {/* <div></div> <p>공지하기</p>
+                                  <div></div> <p>건의하기</p> */}
+                                  <div></div>
                                 </div>
                               </div>
                             </div>
@@ -114,10 +108,7 @@ class Hamburger extends Component {
                     )}
 
                   <button type="button" className="bnt_close" onClick={this.onclick}>
-                    <img
-                      alt="close"
-                      src="https://image.flaticon.com/icons/svg/458/458595.svg"
-                    ></img>
+                    <img alt="close" src="https://image.flaticon.com/icons/svg/458/458595.svg" ></img>
                   </button>
                 </div>
               )}
@@ -128,4 +119,9 @@ class Hamburger extends Component {
   }
 }
 
-export default Hamburger;
+//export default Hamburger;
+export default connect(
+  ({ userStatus }: RootState) => ({
+    status: userStatus.status
+  })
+)(Hamburger);

@@ -1,62 +1,152 @@
-import React, {Component} from 'react';
-import Header from '../common/Header';
-import Footer from '../common/Footer';
-import './More.scss';
+import React, { Component } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import ItemCard from "../users/ItemCard";
+import Header from "../common/Header";
+import Nav from "../common/Nav";
+import TopButton from "../common/TopButton";
+import Penbutton from "../common/PenButton";
+import Footer from "../common/Footer";
+import "./More.scss";
+import SessionDelete from "../common/SessionDelete";
+import ToLogin from "../users/ToLogin";
+import { connect } from "react-redux";
+import { RootState } from "../../modules";
 
-class SaleMore extends Component {
-    render() {
-        return (
-            <div>
-                <Header />
-                <div className="sale-more">
-                    {/* 검색 결과 가져다 쓰기 ㅎㅎ*/}
-                    <h3>내가 판매 중인 상품</h3>
-                    <div className="products">
-                            <div className="item">
-                                <img
-                                    src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/77120318A0EA8BE3F97C131D8758D2B5E452A0D37184FE594F75148386745E8A.jpg?q=82&s=300x300&t=crop"
-                                    alt="item1"
-                                />
-                                {/* <div className="img-back" hidden={this.state.isOver}>
-                            <p>모두가 가지고 싶어하는 에어팟</p>
-                        </div> */}
-                            </div>
-                            <div className="item">
-                                <img
-                                    src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/77120318A0EA8BE3F97C131D8758D2B5E452A0D37184FE594F75148386745E8A.jpg?q=82&s=300x300&t=crop"
-                                    alt="item1"
-                                />
-                            </div>
-                            <div className="item">
-                                <img
-                                    src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/77120318A0EA8BE3F97C131D8758D2B5E452A0D37184FE594F75148386745E8A.jpg?q=82&s=300x300&t=crop"
-                                    alt="item1"
-                                />
-                            </div>
-                            <div className="item">
-                                <img
-                                    src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/77120318A0EA8BE3F97C131D8758D2B5E452A0D37184FE594F75148386745E8A.jpg?q=82&s=300x300&t=crop"
-                                    alt="item1"
-                                />
-                            </div>
-                            <div className="item">
-                                <img
-                                    src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/77120318A0EA8BE3F97C131D8758D2B5E452A0D37184FE594F75148386745E8A.jpg?q=82&s=300x300&t=crop"
-                                    alt="item1"
-                                />
-                            </div>
-                            <div className="item">
-                                <img
-                                    src="https://dnvefa72aowie.cloudfront.net/origin/article/202001/77120318A0EA8BE3F97C131D8758D2B5E452A0D37184FE594F75148386745E8A.jpg?q=82&s=300x300&t=crop"
-                                    alt="item1"
-                                />
-                            </div>
-                        </div>
-                </div>
-                <Footer />
-            </div>
-        );
-    }
+interface Props {
+  status: string | null;
 }
 
-export default SaleMore;
+export interface sale{
+  complete: number;
+  strade: Strade;
+}
+
+export interface Strade {
+  tradeNo:       number;
+  tradeCategory: string;
+  tradeTitle:    string;
+  tradeArea:     string;
+  productInfo:   string;
+  productPrice:  string;
+  tradeDate:     Date;
+  tTradeImg:     TTradeImg[];
+  tuser:         Tuser;
+  buser:         null;
+  tmanner:       null;
+}
+
+export interface TTradeImg {
+  imgNo:   number;
+  tiTrade: number;
+  orgImg:  string;
+}
+
+export interface Tuser {
+  userNo:         number;
+  email:          string;
+  password:       string;
+  profileImg:     string;
+  nickname:       string;
+  userPermission: string;
+  uarea:          Uarea[];
+}
+
+export interface Uarea {
+  areaNo:  number;
+  address: string;
+  auser:   number;
+}
+
+class SaleMore extends Component<Props> {
+  user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
+
+  state = {
+    Sales: Array<sale>()
+  };
+
+  componentDidMount() {
+    window.scrollTo(0,0);
+
+    axios({
+      method: "get",
+      url: "http://13.125.55.96:8080/mypage/sell",
+      params: {
+        email: this.user.email
+      }
+    })
+      .then(res => {
+        this.setState({
+          Sales: res.data.data
+        });
+      })
+      .catch(err => {
+        // console.log(err);
+        alert("sale error");
+      });
+  }
+
+  render() {
+    return (
+      <div>
+        <SessionDelete></SessionDelete>
+        {this.props.status === "true" ? (
+          <>
+            <Header />
+            <Nav />
+            <div className="sale-more">
+              {/* 검색 결과 가져다 쓰기 ㅎㅎ*/}
+              <hr />
+              <h2>판매 상품</h2>
+              <div className="products">
+                {this.state.Sales ? (
+                  <>
+                    {this.state.Sales.map((sale, i) => {
+                      return (
+                        <div className="purchase-modalbtn">
+                        <Link to={`/search/detail/${sale.strade.tradeNo}`}>
+                          <ItemCard
+                            image={sale.strade.tTradeImg}
+                            tradeTitle={sale.strade.tradeTitle}
+                            productPrice={sale.strade.productPrice}
+                            tradeNo={sale.strade.tradeNo}
+                          />
+                          {/* <div className="item" key={"item" + i}>
+                                                <h3>{sale.tradeTitle}</h3>
+                                            </div> */}
+                        </Link>
+                        {sale.complete === 1 ? (
+                                                    <button
+                                                        className="btn-manner-modal" disabled
+                                                    >
+                                                        거래 완료
+                                                    </button>
+                                                ) : (
+                                                    <></>
+                                                )}
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <div>
+                    <h4>판매 상품이 없습니다.</h4>
+                  </div>
+                )}
+              </div>
+            </div>
+            <TopButton />
+            <Penbutton />
+            <Footer />
+          </>
+        ) : (
+          <ToLogin />
+        )}
+      </div>
+    );
+  }
+}
+
+export default connect(({ userStatus }: RootState) => ({
+  status: userStatus.status
+}))(SaleMore);

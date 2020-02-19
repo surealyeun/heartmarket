@@ -1,25 +1,42 @@
+@font-face {
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .FilterButton_btn {
-  background-color: #4caf50; /* Green */
-  border: none;
-  border-radius: 10px;
-  color: white;
-  padding: 16px 32px;
+  display: inline-block;
+  border-radius: 5px;
+  //width: 120px;
+  padding: 5px 10px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 16px;
-  font-family: "yg-jalnan";
-  margin: 4px 2px;
+  font-family: "NanumSquareRound";
+  margin: 4px 3.2px;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
+  
   cursor: pointer;
   &_base {
-    background-color: white;
-    color: black;
-    border: 2px solid #6f86d6;
+    background-color: #365367;
+    color: #f9f4e6;
+    border: 2px solid #365367;
     &:hover {
-      background-color: #6f86d6;
-      color: white;
+      background-color: #f494ab;
+      color: #f9f4e6;
+      border: 2px solid #f494ab;
+    }
+  }
+  &_base2 {
+    background-color: #f494ab;
+    color: #f9f4e6;
+    border: 2px solid #f494ab;
+    &:hover {
+      background-color: #f494ab;
+      color: #f9f4e6;
+      border: 2px solid #f494ab;
     }
   }
 }

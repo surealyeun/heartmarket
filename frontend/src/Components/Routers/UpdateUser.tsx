@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./UpdateUser.scss";
 import axios from "axios";
+import SessionDelete from "../common/SessionDelete";
 
 class UpdateUser extends Component {
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
@@ -13,7 +14,7 @@ class UpdateUser extends Component {
     };
 
     componentDidMount() {
-        console.log(this.user);
+        // // console.log(this.user);
     }
 
     goback = () => {
@@ -22,7 +23,7 @@ class UpdateUser extends Component {
     };
 
     fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // console.log(e.target.files);
+        // // console.log(e.target.files);
         const reader = new FileReader();
 
         reader.onloadend = () => {
@@ -44,23 +45,31 @@ class UpdateUser extends Component {
 
     changeProfile = () => {
         const file = new FormData();
-        // console.log(this.state.profile);
+        const nickname: string = this.user.nickname;
+        const email: string = this.user.email;
+        const address: string = this.user.uarea[0].address;
         file.append("profile", this.state.profile);
-
         axios({
-            method: "post",
-            url: "http://70.12.246.87:8080/img/upload",
-            data: file,
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
+            method: "put",
+            url: "http://13.125.55.96:8080/user/updateUser",
+            headers: { "Content-Type": "multipart/form-data" },
+            params: {
+                address: address,
+                email: email,
+                nickname: nickname,
+            },
+            data: file
         })
             .then(res => {
-                alert("upload image");
+                // console.log(res.data.data.profileImg);
+                this.user.profileImg = res.data.data.profileImg;
+                window.sessionStorage.removeItem("user");
+                window.sessionStorage.setItem("user", JSON.stringify(this.user));
+                alert("프로필 이미지를 수정했어요");
             })
             .catch(err => {
-                console.log(err);
-                alert("upload fail");
+                // console.log(err);
+                alert("이미지 수정 실패");
             });
     };
 
@@ -80,8 +89,6 @@ class UpdateUser extends Component {
                 address: this.user.uarea[0].address,
                 email: this.user.email,
                 nickname: this.state.nickname,
-                password: "1234",
-                profile: this.user.profileImg
             }
         })
             .then(res => {
@@ -95,7 +102,7 @@ class UpdateUser extends Component {
             })
             .catch(err => {
                 alert("닉네임 변경 실패");
-                console.log(err);
+                // console.log(err);
             });
     };
 
@@ -106,8 +113,9 @@ class UpdateUser extends Component {
     };
 
     updateAddr = () => {
-        const file = new FormData();
-        file.append("profile", this.state.profile);
+        // const file = new FormData();
+        // file.append("profile", this.state.profile);
+        // console.log(this.user.profileImg);
         axios({
             method: "put",
             url: "http://13.125.55.96:8080/user/updateUser",
@@ -115,8 +123,6 @@ class UpdateUser extends Component {
                 address: this.state.address,
                 email: this.user.email,
                 nickname: this.user.nickname,
-                password: "1234",
-                profile: this.user.profileImg
             }
         })
             .then(res => {
@@ -130,14 +136,15 @@ class UpdateUser extends Component {
             })
             .catch(err => {
                 alert("주소 변경 실패");
-                console.log(err);
+                // console.log(err);
             });
     };
 
     render() {
-        // console.log(this.user);
+        // // console.log(this.user);
         return (
             <div className="big">
+                <SessionDelete></SessionDelete>
                 <div className="updateuser">
                     <h1>프로필 수정</h1>
                     <div className="profile-img-wrapper">
@@ -146,7 +153,7 @@ class UpdateUser extends Component {
                             <img
                                 className="profile-img"
                                 alt="profile"
-                                src="https://image.flaticon.com/icons/svg/2471/2471392.svg"
+                                src={this.user.profileImg}
                             />
                         ) : (
                             <img className="profile-img" alt="profile" src={this.state.base64} />
@@ -166,7 +173,7 @@ class UpdateUser extends Component {
                             type="button"
                             onClick={this.changeProfile}
                         >
-                            이미지 변경
+                            이미지 수정하기
                         </button>
                     </div>
                     <br />

@@ -1,6 +1,7 @@
 .LoadingView_container {
     display: grid;
-    grid-area: 2 / 3 / auto / span 3;
+    justify-content: center;
+    grid-area: 2 / auto / auto / span 4;
   
     padding-top: 1rem;
     padding-bottom: 1rem;

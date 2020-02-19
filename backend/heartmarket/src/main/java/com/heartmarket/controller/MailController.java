@@ -127,15 +127,23 @@ public class MailController {
 		for (Mail mail : mList) {
 			User sender = us.findByUser(mail.getSender().getUserNo());
 			User receiver = us.findByUser(mail.getReceiver().getUserNo());
-			Trade trade = ts.findByTradeNo(Integer.toString(mail.getTrade().getTradeNo()));
-			List<TradeImg> timg = trade.gettTradeImg();
+			Trade trade;
+			List<TradeImg> timg;
 			List<MailTradeImg> tradeImg = new ArrayList<MailTradeImg>();
-			for (TradeImg tmg : timg) {
-				tradeImg.add(new MailTradeImg(tmg.getImgNo(), tmg.getOrgImg()));
+			MailTrade mTrade;
+			if(mail.getTrade() == null) {
+				trade = new Trade();
+				mTrade = new MailTrade();
+			}else {
+				trade = ts.findByTradeNo(Integer.toString(mail.getTrade().getTradeNo()));
+				timg = trade.gettTradeImg();
+				for (TradeImg tmg : timg) {
+					tradeImg.add(new MailTradeImg(tmg.getImgNo(), tmg.getOrgImg()));
+				}
+				mTrade = new MailTrade(trade.getTradeNo(), trade.getTradeTitle(), trade.getProductInfo(), tradeImg);
 			}
 			MailUser mSender = new MailUser(sender.getUserNo(), sender.getEmail(), sender.getNickname(), sender.getProfileImg());
 			MailUser mReceiver = new MailUser(receiver.getUserNo(), receiver.getEmail(), receiver.getNickname(), receiver.getProfileImg());
-			MailTrade mTrade = new MailTrade(trade.getTradeNo(), trade.getTradeTitle(), trade.getProductInfo(), tradeImg);
 			result.add(new MailMapping(mail.getMailNo(), mTrade, mSender, mReceiver, mail.getTitle(), mail.getContent()
 					,mail.getReadDate(), mail.getSendDate(), mail.getReadDel(), mail.getSendDel()));
 			

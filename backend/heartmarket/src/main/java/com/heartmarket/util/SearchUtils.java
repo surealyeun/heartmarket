@@ -36,7 +36,6 @@ public class SearchUtils {
 			words.add(st.nextToken());
 		}
 		
-		System.out.println(words.size());
 		if(words.size() == 0)
 			return null;
 		
@@ -46,10 +45,8 @@ public class SearchUtils {
 				str = str.replaceAll(exRegExp, "");
 				if(str.length() == 0) continue;
 			}
-			System.out.println(str);
 			result.add(str);
 		}
-		System.out.println(result.size());
 		return result;
 	}
 	

@@ -143,7 +143,6 @@ public class MypageServiceImpl implements MypageService {
 
 			List<OtherTrade> oList = new ArrayList<OtherTrade>();
 			// 1-1. 닉네임으로 정보를 불러왔으면, 유저가 판매한 내역을 가져오기
-			System.out.println("상대방 유저 번호 및 닉네임 : " + oUser.getNickname() + " | " + oUser.getUserNo());
 			List<Trade> tList = tr.findTop4BytUserUserNo(oUser.getUserNo());
 			// 1-2. 가져온 게시물을 otherResponse에 매핑
 			for (Trade trade : tList) {
@@ -170,8 +169,6 @@ public class MypageServiceImpl implements MypageService {
 			int cnt = tr.countAll();
 //			if (no == 0)
 //				no = cnt;
-			System.out.println(no);
-			System.out.println("cnt : " + cnt);
 			
 			List<Trade> tList= new ArrayList<Trade>();
 
@@ -190,15 +187,12 @@ public class MypageServiceImpl implements MypageService {
 				}
 			}, PageRequest.of(no, 8, Sort.by("tradeNo").descending())).getContent();
 			
-			System.out.println(tList.size());
 			List<OtherTrade> oList = new ArrayList<OtherTrade>();
 		
 			for (Trade trade : tList) {
-				System.out.println(trade.toString());
 				oList.add(new OtherTrade(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
 						trade.getProductPrice(), tir.findAllBytiTradeTradeNo(trade.getTradeNo()).get(0).getOrgImg()));
 			}
-			System.out.println(oList.size());
 			
 			return oList;
 		} catch (Exception e) {
@@ -215,16 +209,13 @@ public class MypageServiceImpl implements MypageService {
 			
 
 			List<Trade> tList= new ArrayList<Trade>();
-			System.out.println(tList.size());
 			tList = tr.findAllBytUserUserNo(userNo);
 			List<OtherTrade> oList = new ArrayList<OtherTrade>();
 		
 			for (Trade trade : tList) {
-				System.out.println(trade.toString());
 				oList.add(new OtherTrade(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
 						trade.getProductPrice(), tir.findAllBytiTradeTradeNo(trade.getTradeNo()).get(0).getOrgImg()));
 			}
-			System.out.println(oList.size());
 			
 			return oList;
 		} catch (Exception e) {

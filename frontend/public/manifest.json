@@ -1,0 +1,20 @@
+{
+  "short_name": "두근 마켓",
+  "name": "두리번 두리번 근처에 두근마켓",
+  "icons": [
+    {
+      "src": "Logo2.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "Logo2.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

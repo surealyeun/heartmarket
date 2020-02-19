@@ -31,9 +31,21 @@ import Categorytxt12 from "../img/cate12-txt.png";
 import Categorytxt13 from "../img/cate13-txt.png";
 
 import Button from "@material-ui/core/Button";
+import { useHistory } from "react-router-dom";
+import { isCategory, setCategory } from "../../modules/category";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { RootState } from "../../modules";
 
-function Nav() {
+interface Props {
+  CategoryAction: typeof isCategory;
+  CategorySetAction: typeof setCategory;
+}
+
+function Nav(props:Props) {
   //https://felixblog.tistory.com/50
+
+  let history = useHistory();
 
   const responsive = {
     Desktop: {
@@ -63,14 +75,18 @@ function Nav() {
 
   const mouseup = (e: any) => {
     if (e.clientX === mouse_x && e.clientY === mouse_y) {
-      alert(e.target.id); //여기서 클릭
+      //alert(e.target.id); //여기서 클릭
+      window.sessionStorage.setItem("searchCategory", e.target.id);
+      props.CategoryAction();
+      props.CategorySetAction(e.target.id);
+      if(window.sessionStorage.getItem("searchText")!=="false") history.push("/search");
     }
   };
 
   return (
     <nav className="Nav">
       <div className="div">
-        <Carousel arrows={false} infinite={false} responsive={responsive} swipeable={false}
+        <Carousel arrows={true} infinite={false} responsive={responsive} swipeable={false}
           draggable
           slidesToSlide={1}>
           <Button className="category">
@@ -261,6 +277,15 @@ function Nav() {
   );
 }
 
-export default Nav;
+export default connect(
+  ({ categoryStatus }: RootState) => ({
+    status: categoryStatus.status
+  }),
+  dispatch => ({
+    CategoryAction: bindActionCreators(isCategory, dispatch),
+    CategorySetAction: bindActionCreators(setCategory, dispatch)
+  })
+)(Nav);
+
 
 //https://www.npmjs.com/package/react-multi-carousel

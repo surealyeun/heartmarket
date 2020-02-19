@@ -6,6 +6,7 @@
 }
 
 .Alarm {
+  min-height: 70vh;
   font-family: "NanumSquareRound";
   margin-top: 10px;
 
@@ -29,8 +30,13 @@
     }
   }
 
+  .total_num{
+    display: inline-block;
+    margin-bottom: 0px;
+  }
+
   .alarm_check {
-    margin-bottom: 30px;
+    margin-bottom: 7px;
 
     .checkbox {
       position: absolute;
@@ -69,6 +75,25 @@
       right: 10px;
       cursor: pointer;
     }
+
+    button{
+      width:100px;
+    }
+  }
+
+  .page_btn{
+    position: absolute;
+    border-radius: 10px;
+    margin-top: 20px;
+    width: 150px;
+    height: 40px;
+    background: #365367;
+    padding-top: 8px;
+    text-align: center;
+    font-weight: bolder;
+    color: #f9f4e6;
+    font-size: 20px;
+    cursor: pointer;
   }
 }
 
@@ -78,10 +103,18 @@
     margin-right: 10px;
 
     .alarm_haeder {
-      margin-bottom: 40px;
+      //margin-bottom: 40px;
+      height: 32px;
       // .alarm_send {
       //   right: 10px;
       // }
+    }
+
+    .plus_btn{
+      right: 10px;
+    }
+    .minus_btn{
+      left: 10px;
     }
   }
 }
@@ -112,6 +145,13 @@
       right: calc(50% - 383px);
       }
     }
+
+    .plus_btn{
+      right: calc(50% - 385px);
+    }
+    .minus_btn{
+      left: calc(50% - 385px);
+    }
   }
 }
 @media screen and (min-width: 960px) {
@@ -139,6 +179,13 @@
       select{
       right: calc(50% - 480px);
       }
+    }
+
+    .plus_btn{
+      right: calc(50% - 480px);
+    }
+    .minus_btn{
+      left: calc(50% - 480px);
     }
   }
 }

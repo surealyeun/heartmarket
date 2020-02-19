@@ -6,15 +6,8 @@ import Arrow from "../img/Arrow2.png";
 class TopButton extends Component {
 
     state = {
-        scrollActive: false 
+        scrollActive: false,
     }
-
-    // constructor(props:any){
-    //     super(props);
-    //     this.setState({
-    //         scrollActive:false
-    //     });
-    // }
 
   componentDidMount() {
     // 스크롤링 이벤트 추가
