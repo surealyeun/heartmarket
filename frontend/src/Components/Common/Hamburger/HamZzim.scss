@@ -1,0 +1,74 @@
+@font-face {
+  font-family: "NanumSquareRound";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.HamZzim {
+  margin-top: 12px;
+
+  .zzim_title,
+  .zzim_plus,
+  .zzim_price,
+  .zzim_itemtitle {
+    font-family: "NanumSquareRound";
+    font-weight: bolder;
+    color: #365367;
+  }
+
+  .zzim_title,
+  .zzim_plus,
+  .zzim_price {
+    position: absolute;
+  }
+  .zzim_title {
+    margin-left: 16px;
+  }
+
+  .zzim_plus {
+    margin-left: 220px;
+    cursor: pointer;
+  }
+
+  .zzim_info {
+    height: 1px;
+  }
+
+  .no_item {
+    position: absolute;
+    margin-top: 30px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 50px;
+    padding-right: 50px;
+    background: #4242421a;
+    margin-left: 15px;
+    border-radius: 3px;
+  }
+
+  .div_Zzim {
+    margin-top: 34px;
+    width: calc(100% - 10px);
+    height: 80px;
+    text-align: center;
+    //margin-left: 5px;
+    position: relative;
+
+    .zzim_items {
+      cursor: pointer;
+      .itemCard{
+        margin-top: 0px;
+        width: 130px;
+        height: 155px;
+      }
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .div_Zzim {
+      margin-left: 5px;
+    }
+  }
+
+}

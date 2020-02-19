@@ -1,0 +1,389 @@
+@font-face { font-family: 'yg-jalnan'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff'); font-weight: normal; font-style: normal; }
+.like-section{
+    text-align: center;
+    // width: 80%;
+
+    .item{
+        position: relative;
+        h4{
+            // color: gray;
+            font-family: "NanumSquareRound";
+        }
+    }
+
+    .like{
+        background-color: #f9f4e6;
+        padding-bottom: 10px;
+    }
+
+    h2{
+        font-family: 'NanumSquareRound';
+    }
+
+    h3{
+        color: #365367;
+        font-family: 'yg-jalnan';
+        padding: 5px 0;
+    }
+    
+
+    div{
+        font-family: 'yg-jalnan';
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        position: inherit;
+    }
+
+    .products{
+        margin-top: 5px;
+        
+    }
+
+    .like-more-wrapper{
+        position: relative;
+        margin: 15px 0;
+    }
+
+    .btn-like-more{
+        position: absolute;
+        border: 0;
+        right: 10%;
+        background-color: rgba(255, 255, 255, 0);
+        h3{
+            font-family: 'NanumSquareRound';
+        }
+        a{
+            text-decoration: none;
+        }
+    }
+
+    .btn-more {
+        position: absolute;
+        text-align: center;
+        top: calc(50% - 40px);
+        left: calc(50% - 40px);
+        width: 80px;
+        height: 80px;
+        border: 0;
+        border-radius: 40px;
+        background-color: white;
+        color: white;
+        h3{
+            // font-size: 20px;
+            text-align: center;
+            font-family: 'NanumSquareRound';
+            font-weight: 10;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .item {
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            // border: solid 1px;
+            border-radius: 5%;
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        display: inline-block;
+        width: 100%;
+        height: 180px;
+
+        // .like{
+        //     background-color: #f9f4e6;
+        //     text-align: center;
+        //     width: 100%;
+        //     padding: 10px 0;
+        // }    
+
+        .products {
+            width: 100%;
+            height: 95%;
+        }
+        .item {
+            display: inline-block;
+            width: 190px;
+            height: 190px;
+            margin: 5px 1.4%;
+            border-radius: 5%;
+            // border: solid 1px;
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+.sale{
+    margin-bottom: 20px;
+}
+
+.sale-section, .purchase-section {
+    text-align: center;
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+
+
+    .products{
+        display: inline-block;
+        margin-top: 5px;
+        width: 100%;
+        
+        .purchase-modalbtn{
+            display: inline-block;
+            width: 100%;
+            margin: 3px 7px;
+            text-align: center;
+            vertical-align: middle;
+            a{
+                position: relative;
+
+            }
+        }
+        .sale-complete-trade{
+            display: inline;
+            // position: absolute;
+            background-color: black;
+            color: white;
+        }
+    }
+
+    .item{
+        position: relative;
+        h4{
+            font-family: 'NanumSquareRound';
+        }
+    }
+    
+    h3{
+        color: #365367;
+        font-family: 'yg-jalnan';
+        padding: 5px 0;
+    }
+
+    div{
+        font-family: 'yg-jalnan';
+    }
+
+    .more {
+        display: inline-block;
+    }
+
+    img{
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .btn-more {
+        position: absolute;
+        text-align: center;
+        top: calc(50% - 40px);
+        left: calc(50% - 40px);
+        width: 80px;
+        height: 80px;
+        border: 0;
+        border-radius: 40px;
+        background-color: #365367;
+        color: white;
+        h3{
+            // font-size: 20px;
+            position: absolute;
+            text-align: center;
+            font-family: 'NanumSquareRound';
+            font-weight: 10;
+        }
+    }
+
+    .item-img {
+        // display: none;
+        z-index: 1;
+    }
+
+    .product-more-wrapper{
+        position: relative;
+        height: 40px;
+        width: 100%;
+        display: block;
+        // text-align: center;
+        margin-top: 10px;
+    }
+
+
+    @media screen and (max-width: 767px) {
+        text-align: center;
+        margin: 0 auto;
+
+        .item {
+            display: inline-block;
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            // border: solid 1px;
+            border-radius: 5%;
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-sale-more{
+            position: relative;
+            border: 0;
+            width: 100%;
+            height: 20px;
+            padding: 0;
+            background-color: white;
+            h3{
+                position: absolute;
+                right: 10%;
+                font-family: 'NanumSquareRound';
+            }
+        }
+        .btn-purchase-more{
+            position: relative;
+            border: 0;
+            width: 100%;
+            height: 20px;
+            padding: 0;
+            background-color: white;
+            h3{
+                position: absolute;
+                right: 10%;
+                font-family: 'NanumSquareRound';
+            }
+        }
+
+        .products{
+            .sale-complete-trade{
+                bottom: 0px;
+                left: 10px;
+            }
+            .purchase-modalbtn{
+                display: inline-block;
+                position: relative;
+                width: 150px;
+                height: 150px;
+                .btn-manner-modal{
+                    background-color: #365367;
+                    color: white;
+                    position: absolute;
+                    width: 150px;
+                    bottom: -11px;
+                    right: -10px;
+                    border: 0;
+                    border-radius: 0 0 10px 10px;
+                    padding: 3px;
+                }
+            }
+        }
+
+        .item-manners{
+            background-color: rgba(0, 0, 0, 0.3);
+            position: absolute;
+            width: 100%;
+            height: 15%;
+            bottom: 0;
+            right: 0;
+            z-index: 2;
+            h3{
+                // font-family: 'NanumSquareRound';
+                font-size: 0.9em;
+                color: #f494ab;
+            }
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        display: inline-block;
+        width: 50%;
+        height: 180px;
+        text-align: center;
+
+        .products {
+            width: 100%;
+            height: 95%;
+            display: inline-block;
+
+            .purchase-modalbtn{
+                display: inline-block;
+                position: relative;
+                width: 190px;
+                height: 190px;
+                .btn-manner-modal{
+                    background-color: #365367;
+                    color: white;
+                    position: absolute;
+                    width: 190px;
+                    bottom: -6px;
+                    right: -3px;
+                    border: 0;
+                    border-radius: 0 0 10px 10px;
+                    padding: 5px;
+                }
+            }
+            .sale-complete-trade{
+                bottom: 0px;
+                right: 10px;
+            }
+        }
+        .item {
+            display: inline-block;
+            width: 190px;
+            height: 190px;
+            margin: 5px 1.5%;
+            // border: solid 1px;
+            border-radius: 5%;
+            overflow: hidden;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .item-manners{
+            background-color: rgba(0, 0, 0, 0.3);
+            position: absolute;
+            width: 100%;
+            height: 15%;
+            bottom: 1px;
+            right: 0;
+            z-index: 2;
+            h3{
+                // font-family: 'NanumSquareRound';
+                color: #f494ab;
+            }
+        }
+
+        .btn-sale-more{
+            // position: relative;
+            border: 0;
+            background-color: white;
+            padding: 0;
+            h3{
+                position: absolute;
+                font-family: 'NanumSquareRound';
+                right: 10%;
+            }
+        }
+        .btn-purchase-more{
+            // position: relative;
+            border: 0;
+            background-color: white;
+            padding: 0;
+            
+            h3{
+                position: absolute;
+                font-family: 'NanumSquareRound';
+                right: 10%;
+            }
+        }
+    }
+}

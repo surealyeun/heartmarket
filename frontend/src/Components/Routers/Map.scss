@@ -1,0 +1,120 @@
+@font-face {
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
+    format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.map {
+  * {
+    font-family: 'NanumSquareRound';
+  }
+  .map_wrap {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+  .hTitle {
+    font-weight: bold;
+    display: block;
+  }
+  .hAddr {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    border-radius: 2px;
+    background: #fff;
+    background: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+    padding: 5px;
+  }
+  #centerAddr {
+    display: block;
+    margin-top: 2px;
+    font-weight: normal;
+  }
+  .bAddr {
+    padding: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .area {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #888;
+    border-radius: 3px;
+    font-size: 12px;
+    top: -5px;
+    left: 15px;
+    padding: 2px;
+  }
+  .info {
+    padding: 5px;
+  }
+  .info .title {
+    font-weight: bold;
+  }
+  .size {
+    width: 271px;
+    height: 460px;
+    font-size: 17px;
+    padding-right: 15px;
+  }
+  .Map_title {
+    overflow: hidden;
+    word-wrap: break-word;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; //한 줄만 표시
+    -webkit-box-orient: vertical;
+  }
+  .Map_post {
+    display: flex;
+    margin-top: 13px;
+    justify-content: space-between;
+    &_img_container {
+      overflow: auto;
+    }
+    &_img {
+      width: 80px;
+    }
+    &:hover {
+      background-color: #cfcfcf;
+    }
+  }
+  .previous_page {
+    display: flex;
+    // position: absolute;
+    // top: 0;
+    color: #000;
+    background: #fff;
+    // padding: 8px 12px;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 0.7rem;
+    transition: padding 0.25s ease;
+    border-radius: 5px;
+    &:hover {
+      padding: 8px 20px;
+    }
+  }
+  .page {
+    display: flex;
+    justify-content: space-evenly;
+    .btn {
+      text-decoration: none;
+      width: 30px;
+      height: 30px;
+      border:none;
+      display: inline-block;
+      border-radius: 50%;
+      background-color: #f1f1f1;
+      color: black;
+      &:hover {
+        background-color: #ddd;
+        color: black;
+      }
+    }
+  }
+}
