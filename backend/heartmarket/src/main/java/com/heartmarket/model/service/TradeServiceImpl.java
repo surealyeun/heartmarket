@@ -46,10 +46,10 @@ public class TradeServiceImpl implements TradeService {
 
 	@Autowired
 	CartRepository cr;
-	
+
 	@Autowired
 	MannerRepository mr;
-	
+
 	// 모든 자료 조회
 	@Transactional
 	public List<Trade> findAll() {
@@ -73,22 +73,22 @@ public class TradeServiceImpl implements TradeService {
 	@Transactional
 	@Override
 	public TradeDetail findDetail(int tradeNo) {
-		
+
 		try {
 			Trade trade = tr.findByTradeNo(tradeNo);
 			Manner manner = mr.findBymUserUserNo(trade.getTUser().getUserNo());
-			if(Objects.isNull(trade.getBUser())) {
-				return new TradeDetail(trade, (int)manner.getHeartGauge(), 0, 0);				
-			}else {
-				return new TradeDetail(trade,(int)manner.getHeartGauge(), 0, 1);
+			if (Objects.isNull(trade.getBUser())) {
+				return new TradeDetail(trade, (int) manner.getHeartGauge(), 0, 0);
+			} else {
+				return new TradeDetail(trade, (int) manner.getHeartGauge(), 0, 1);
 			}
-			
-		}catch(Exception e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
-	
+
 	// 로그인 되어있는 상태.
 	// 찜 목록 표현
 	// 거래 완료되었는지 아닌지 확인
@@ -100,20 +100,18 @@ public class TradeServiceImpl implements TradeService {
 			Trade trade = tr.findByTradeNo(tradeNo);
 			Cart cart = cr.findBycTradeTradeNoAndcUserUserNo(tradeNo, userNo);
 			Manner manner = mr.findBymUserUserNo(trade.getTUser().getUserNo());
-			if(Objects.isNull(cart)) {
-				return Objects.isNull(trade.getBUser()) ?
-					new TradeDetail(trade, (int)manner.getHeartGauge(), 0, 0) :  new TradeDetail(trade,(int) manner.getHeartGauge(),0, 1);
+			if (Objects.isNull(cart)) {
+				return Objects.isNull(trade.getBUser()) ? new TradeDetail(trade, (int) manner.getHeartGauge(), 0, 0)
+						: new TradeDetail(trade, (int) manner.getHeartGauge(), 0, 1);
+			} else {
+				return Objects.isNull(trade.getBUser()) ? new TradeDetail(trade, (int) manner.getHeartGauge(), 1, 0)
+						: new TradeDetail(trade, (int) manner.getHeartGauge(), 1, 1);
 			}
-			else {
-				return Objects.isNull(trade.getBUser()) ?
-						new TradeDetail(trade, (int)manner.getHeartGauge(),1, 0) :  new TradeDetail(trade,(int)manner.getHeartGauge(), 1, 1);
-			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
-
 
 	// 게시글 추가
 	@Transactional
@@ -142,23 +140,24 @@ public class TradeServiceImpl implements TradeService {
 		try {
 			List<TradeImg> tradeOrigin = tir.findAllBytiTradeTradeNo(trade.getTradeNo());
 			int oldlen = tradeOrigin.size();
-			System.out.println("올드 :" +oldlen );
+			System.out.println("올드 :" + oldlen);
 			int newlen = fList.size();
-			System.out.println("뉴 :" +newlen );
-			if(oldlen < newlen) {
+			System.out.println("뉴 :" + newlen);
+			if (oldlen < newlen) {
 				for (int i = oldlen; i < newlen; i++) {
-					tradeOrigin.add(new TradeImg(trade,fList.get(i).getOrgImg()));
-					System.out.println("무엇인가요"+tradeOrigin.get(i));
+					tradeOrigin.add(new TradeImg(trade, fList.get(i).getOrgImg()));
+					System.out.println("무엇인가요" + tradeOrigin.get(i));
 				}
-			}else if(oldlen > newlen){
+			} else if (oldlen > newlen) {
 				for (int i = 0; i < oldlen; i++) {
-					if(i>=newlen) tir.delete(tradeOrigin.get(i));
+					if (i >= newlen)
+						tir.delete(tradeOrigin.get(i));
 				}
 				tradeOrigin = tradeOrigin.subList(0, newlen);
-				System.out.println("작을때 크기 : "+ tradeOrigin.size());
+				System.out.println("작을때 크기 : " + tradeOrigin.size());
 			}
 			for (int i = 0; i < tradeOrigin.size(); i++) {
-				if(i<oldlen) {
+				if (i < oldlen) {
 					tradeOrigin.get(i).setOrgImg(fList.get(i).getOrgImg());
 				}
 			}
@@ -178,14 +177,22 @@ public class TradeServiceImpl implements TradeService {
 	public ResultMap<Object> deleteTrade(int no) {
 		try {
 			Trade trade = tr.findById(no).orElse(null);
-			System.out.println(trade.toString());
-			if (trade == null) {
+			List<TradeImg> tradeImg = trade.gettTradeImg();
+
+			if (Objects.isNull(trade)) {
 				return new ResultMap<Object>("FAIL", "게시글 삭제 실패", null);
+			} else {
+				trade.setTUser(null);
+				trade.setBUser(null);
+			
+				tradeImg = tir.findAllBytiTradeTradeNo(no);
+				for (TradeImg ti : tradeImg) {
+//					System.out.println(ti.toString());
+					tir.delete(ti);
+				}
+				tr.delete(trade);
+				return new ResultMap<Object>("SUCCESS", "게시글 삭제 성공", 1);
 			}
-			trade.setTUser(null);
-			trade.setBUser(null);
-			tr.delete(trade);
-			return new ResultMap<Object>("SUCCESS", "게시글 삭제 성공", trade);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -194,23 +201,21 @@ public class TradeServiceImpl implements TradeService {
 
 	// 서울시 전체 목록 가져오기
 	@Override
-	public Page<Trade> getList(int no, int size,int filter) {
-		if(filter == 4) {
-			PageRequest pr = PageRequest.of(no, size,Sort.by("productPrice").ascending());
+	public Page<Trade> getList(int no, int size, int filter) {
+		if (filter == 4) {
+			PageRequest pr = PageRequest.of(no, size, Sort.by("productPrice").ascending());
 			return tr.findAll(pr);
-		}else if(filter == 5) { // 판매중
+		} else if (filter == 5) { // 판매중
 			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
 			return tr.findBybUserUserNoIsNull(pr);
-		}else if(filter == 6) { // 판매완료
+		} else if (filter == 6) { // 판매완료
 			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
 			return tr.findBybUserUserNoIsNotNull(pr);
-		}
-		else {
+		} else {
 			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
 			return tr.findAll(pr);
 		}
 	}
-
 
 	// 사용자가 설정한 지역을 기준으로 페이징
 	@Override
@@ -229,25 +234,24 @@ public class TradeServiceImpl implements TradeService {
 		if (tList.size() == 0)
 			return null;
 
-		if(filter == 4) {
+		if (filter == 4) {
 			PageRequest pr = PageRequest.of(no, size, Sort.by("productPrice").ascending());
 			return tr.findAllByTradeAreaAndTradeCategory(area, category, pr);
-		}else if(filter == 5) { // 판매중
+		} else if (filter == 5) { // 판매중
 			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
 			return tr.findAllByTradeAreaAndTradeCategoryAndBUserUserNoIsNull(area, category, pr);
-		}else if(filter == 6) { // 판매완료
+		} else if (filter == 6) { // 판매완료
 			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
 			return tr.findAllByTradeAreaAndTradeCategoryAndBUserUserNoIsNotNull(area, category, pr);
-		}
-		else {
+		} else {
 			PageRequest pr = PageRequest.of(no, size, Sort.by("tradeNo").descending());
-			return tr.findAllByTradeAreaAndTradeCategory( area, category, pr);
+			return tr.findAllByTradeAreaAndTradeCategory(area, category, pr);
 		}
 	}
 
 	@Override
 	// 검색했을 때, 결과 불러오기
-	public Page<Trade> fetPageTP(int no, int size, List<String> sList, String area,int filter,String category) {
+	public Page<Trade> fetPageTP(int no, int size, List<String> sList, String area, int filter, String category) {
 		// 둘 중 하나 입니당....
 		// 로그인을 안 했을 때,
 //		if()
@@ -256,7 +260,7 @@ public class TradeServiceImpl implements TradeService {
 			@Override
 			public Predicate toPredicate(Root<Trade> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
 				List<Predicate> predicates = new ArrayList<Predicate>();
-				if(sList != null) {
+				if (sList != null) {
 					for (String str : sList) {
 						System.out.println(str);
 						predicates.add(criteriaBuilder.or(criteriaBuilder.like(root.get("tradeTitle"), "%" + str + "%"),
@@ -266,11 +270,12 @@ public class TradeServiceImpl implements TradeService {
 				System.out.println("area : " + area);
 				if (!area.equals("none"))
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeArea"), area)));
-				if(Integer.parseInt(category) > 0) {
+				if (Integer.parseInt(category) > 0) {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeCategory"), category)));
-				}if(filter == 5) {
+				}
+				if (filter == 5) {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.isNull(root.get("bUser").get("userNo"))));
-				}else if(filter == 6) {
+				} else if (filter == 6) {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.isNotNull(root.get("bUser").get("userNo"))));
 				}
 				System.out.println(predicates.size());
@@ -286,10 +291,9 @@ public class TradeServiceImpl implements TradeService {
 		else {
 			tList = tr.findAll();
 		}
-		if(filter == 4) {
+		if (filter == 4) {
 			return tr.findAll(spec, PageRequest.of(no, size, Sort.by("productPrice").ascending()));
-		}
-		else {
+		} else {
 			return tr.findAll(spec, PageRequest.of(no, size, Sort.by("tradeNo").descending()));
 		}
 	}
@@ -303,7 +307,7 @@ public class TradeServiceImpl implements TradeService {
 			User buyer = ur.findByNickname(other);
 			// 2. 게시물에서 구매자 아이디가 null인지 확인
 			Trade checkBuyer = tr.findByTradeNo(tradeNo);
-			
+
 			System.out.println(Objects.isNull(checkBuyer.getBUser()));
 			if (Objects.isNull(checkBuyer.getBUser())) {
 				// 3. null 이라면 구매자 아이디를 검색하여 확인 사살
@@ -351,21 +355,24 @@ public class TradeServiceImpl implements TradeService {
 		try {
 			int no = Integer.parseInt(tradeNo);
 			Trade trade = tr.findByTradeNo(no);
-			if(trade!=null) return trade;
-			else {return null;}
+			if (trade != null)
+				return trade;
+			else {
+				return null;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
-	
+
 	// 인기매물 목록 구하기
 	@Override
-	public List<Trade> getPopularList(){
+	public List<Trade> getPopularList() {
 		try {
-			
+
 			return tr.findTop8All(PageRequest.of(0, 8)).getContent();
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
