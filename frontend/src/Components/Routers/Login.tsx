@@ -107,8 +107,6 @@ class Login extends Component<Props> {
               </h2>
               <br/>
               <div className="after-login">
-                <button onClick={this.logout}>로그아웃</button>
-                <br />
                 <Link to="/">
                   <button>main</button>
                 </Link>
@@ -116,6 +114,8 @@ class Login extends Component<Props> {
                 <Link to="/mypage">
                   <button>my page</button>
                 </Link>
+                <br />
+                <button onClick={this.logout}>로그아웃</button>
               </div>
             </div>
           ) : (

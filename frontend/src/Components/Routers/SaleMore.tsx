@@ -66,6 +66,8 @@ class SaleMore extends Component<Props> {
   };
 
   componentDidMount() {
+    window.scrollTo(0,0);
+
     axios({
       method: "get",
       url: "http://13.125.55.96:8080/mypage/sell",
