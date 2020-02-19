@@ -6,12 +6,14 @@ import Footer from "../common/Footer";
 import axios from "axios";
 import "./Detail.scss";
 import Zzim from "../common/Zzim";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Modal from "../alarm/AlarmModal";
 import { connect } from "react-redux";
 import { RootState } from "../../modules";
 import TopButton from "../common/TopButton";
 import PenButton from "../common/PenButton";
+import TradeModal from "./trade/TradeModal";
+
 
 interface Props {
     status: string | null;
@@ -38,7 +40,9 @@ class Detail extends React.Component<Props> {
             heartguage: 0
         },
         num: "",
-        isModalOpen: false
+        isModalOpen: false,
+        bcandidate: [],
+        success: ''
     };
 
     category = [
@@ -76,24 +80,45 @@ class Detail extends React.Component<Props> {
             }
         })
             .then(res => {
-                console.log('all',res.data);
+                // console.log("all", res.data);
                 const all = res.data;
                 //alert("받아는 옴")
                 this.setState({
                     all
                 });
 
-                console.log("trade", this.state.all);
+                // console.log("trade", this.state.all);
+
+                if (this.user.userNo === this.state.all.trade.tuser.userNo) {
+                    axios({
+                        method: "get",
+                        url: "http://13.125.55.96:8080/user/nickname",
+                        params: {
+                            tradeNo: num,
+                            userNo: this.user.userNo
+                        }
+                    })
+                        .then(res => {
+                            // console.log('bcandi',res.data.data);
+                            this.setState({
+                                bcandidate: res.data.data
+                            });
+                        })
+                        .catch(err => {
+                            alert("후보를 불러오지 못했습니다.");
+                        });
+                }
             })
             .catch(err => {
-                console.log("err", err);
+                // console.log("err", err);
                 alert("error");
             });
+       
     };
 
     openModal = () => {
-        if(this.user.email === undefined){
-            alert("로그인을 해주세요")
+        if (this.user.email === undefined) {
+            alert("로그인을 해주세요");
             return;
         }
         this.setState({
@@ -107,9 +132,9 @@ class Detail extends React.Component<Props> {
     };
 
     componentDidMount() {
+        window.scrollTo(0, 0);
         this.updateUrl();
         window.sessionStorage.setItem("isText", "true");
-        window.scrollTo(0,0);
     }
     componentWillUnmount() {
         window.sessionStorage.setItem("isText", "false");
@@ -118,23 +143,40 @@ class Detail extends React.Component<Props> {
         this.updateUrl();
     }
 
+    completeTrade = () => {
+        this.setState({
+            isModalOpen: true
+        });
+        if(!this.state.bcandidate){
+            alert('구매 대상자가 없어서 거래를 완료할 수 없어요')
+        }
+    };
+
     deleteTrade = () => {
         const url = window.location.href.split("/");
         const num = url[url.length - 1];
         axios({
             method: "delete",
-            url: "http://13.125.55.96:8080/trade/delete/"+num,
-            
-        }).then(res => {
-            console.log(res);
-            alert('게시물이 삭제되었습니다.');
-        }).catch(err => {
-            console.log(err);
-            alert('게시물 삭제에 실패했습니다.');
+            url: "http://13.125.55.96:8080/trade/delete/" + num
         })
-    }
+            .then(res => {
+                // console.log(res);
+                // alert("게시물이 삭제되었습니다.");
+                this.setState({
+                    success: '/'
+                })
+            })
+            .catch(err => {
+                // console.log(err);
+                alert("게시물 삭제에 실패했습니다.");
+            });
+    };
 
     render() {
+        if (this.state.success) {
+            alert("글이 삭제되었습니다");
+            return <Redirect to={this.state.success}></Redirect>;
+          }
         return (
             <div>
                 <Header />
@@ -150,7 +192,10 @@ class Detail extends React.Component<Props> {
                         <div className="detail-r">
                             <div className="tuser-info">
                                 <div className="tuser-profile">
-                                    <img src={this.state.all.trade.tuser.profileImg} alt="profile" />
+                                    <img
+                                        src={this.state.all.trade.tuser.profileImg}
+                                        alt="profile"
+                                    />
                                 </div>
                                 <div className="tuser-id">
                                     <h3>
@@ -161,7 +206,7 @@ class Detail extends React.Component<Props> {
                                     <h4>{this.state.all.trade.tradeArea}</h4>
                                 </div>
                                 <div className="tuser-manners">
-                                    <h3>{this.state.all.heartguage}</h3> 
+                                    <h3>{this.state.all.heartguage}</h3>
                                     <h3>BPM</h3>
                                 </div>
                             </div>
@@ -186,8 +231,12 @@ class Detail extends React.Component<Props> {
                             <br />
                             {this.user.email === this.state.all.trade.tuser.email ? (
                                 <div className="tuser-btn">
-                                    <button className="btn-complete">거래완료</button>
-                                    <button className="btn-delete" onClick={this.deleteTrade}>삭제</button>
+                                    <button className="btn-complete" onClick={this.completeTrade} disabled={this.state.all.complete === 1}>
+                                        거래완료
+                                    </button>
+                                    <button className="btn-delete" onClick={this.deleteTrade}>
+                                        삭제
+                                    </button>
                                     <Link
                                         to={{
                                             pathname: "/write/update",
@@ -196,6 +245,17 @@ class Detail extends React.Component<Props> {
                                     >
                                         <button className="btn-update">수정</button>
                                     </Link>
+                                    {this.state.bcandidate ? (
+                                        <TradeModal
+                                            tradeNo={this.state.all.trade.tradeNo}
+                                            email={this.state.all.trade.tuser.email}
+                                            isOpen={this.state.isModalOpen}
+                                            close={this.closeModal}
+                                            bcandidate={this.state.bcandidate}
+                                        />
+                                    ) : (
+                                        <></>
+                                    )}
                                 </div>
                             ) : (
                                 <div className="bottom">
@@ -228,12 +288,12 @@ class Detail extends React.Component<Props> {
                         <h3>{this.state.all.trade.productInfo}</h3>
                     </div>
                 </div>
-        <TopButton />
-        <PenButton />
-        <Footer />
-      </div>
-    );
-  }
+                <TopButton />
+                <PenButton />
+                <Footer />
+            </div>
+        );
+    }
 }
 
 // export default Detail;

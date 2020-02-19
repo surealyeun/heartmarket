@@ -1,0 +1,96 @@
+.trade-modal {
+    display: inline-block;
+    .Modal-overlay {
+        z-index: 5;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.16);
+    }
+    .Modal {
+        z-index: 10;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 320px;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+        & > * {
+            &:first-child {
+                margin-top: 16px;
+            }
+            margin-left: 16px;
+            margin-right: 16px;
+        }
+        p.title {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #303a41;
+        }
+        .title {
+            font-family: "yg-jalnan";
+        }
+        .content {
+            border-top: 1px solid #bebebe;
+            margin-top: 5px;
+
+            select {
+                font-family: "NanumSquareRound"; /* 폰트 상속 */
+                // background-color: #4242421a;
+                background: #4242421a url("https://image.flaticon.com/icons/svg/32/32195.svg")
+                    no-repeat 95% 50%/8%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+                // background-size: length($list: 20px);
+                border: 0;
+                border-radius: 4px; /* iOS 둥근모서리 제거 */
+                -webkit-appearance: none; /* 네이티브 외형 감추기 */
+                -moz-appearance: none;
+                appearance: none;
+                color: rgb(50, 53, 65);
+                margin: 5px auto;
+                @media screen and (max-width: 767px) {
+                    width: 99%;
+                    padding: 0.7em 1em;
+                    font-size: medium;
+                }
+
+                @media screen and (min-width: 768px) {
+                    padding: 0.7em 1em;
+                    width: 100%;
+                    font-size: medium;
+                }
+            }
+
+            .result{
+                font-family: 'NanumSquareRound';
+                color: #f494ab;
+                text-align: center;
+            }
+        }
+
+        .button-wrap {
+            margin: 0;
+            margin-top: 8px;
+            button {
+                width: 100%;
+                padding: 12px 0;
+                border-radius: 0 0 10px 10px;
+                background-color: #365367;
+                font-family: "NanumSquareRound";
+                font-size: 13pt;
+                color: white;
+                border: 0;
+                cursor: pointer;
+                &:hover {
+                    background-color: #f494ab;
+                }
+                &:active {
+                    background-color: #f494ab;
+                }
+            }
+        }
+    }
+}

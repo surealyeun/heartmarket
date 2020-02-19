@@ -1,6 +1,7 @@
 .manner-modal{
   display: inline-block;
     .Modal-overlay{
+      z-index: 5;
         position: fixed;
         top: 0;
         left: 0;
@@ -9,6 +10,7 @@
         background-color: rgba(0,0,0,0.16);
       }
       .Modal{
+        z-index: 10;
           position: fixed;
           top: 50%;
           left: 50%;
