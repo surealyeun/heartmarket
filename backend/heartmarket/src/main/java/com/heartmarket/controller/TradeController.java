@@ -140,8 +140,6 @@ public class TradeController {
 			@RequestParam String tradeTitle,@RequestParam String tradeCategory,
 			@RequestParam String productPrice,@RequestParam String userNo,
 			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception{
-		for (int i = 0; i < files.length; i++) {
-		}
 		Date date = new Date();
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
@@ -307,7 +305,7 @@ public class TradeController {
 			tmp = trade == null ? "none.png"
 					: tr.findAllBytiTradeTradeNo(trade.getTradeNo()).get(0).getOrgImg();
 			tm.add(new TradeMapping(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
-					trade.getProductPrice(), trade.getTUser().getUserNo(), mUser.getProfileImg(),
+					trade.getProductPrice(), trade.getTUser().getUserNo(),trade.getBUser()==null?0:1, mUser.getProfileImg(),
 					trade.getTUser().getNickname(), tmp, booleanC,trade.getTradeCategory()));
 		}
 
