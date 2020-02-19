@@ -20,7 +20,6 @@ import Sale from './components/routers/SaleMore';
 import Purchase from './components/routers/PurchaseMore';
 import Like from './components/routers/LikeMore';
 import UserProfile from './components/routers/UserProfile';
-import UserProfileTest from './components/routers/UserProfileTest';
 import Detail from './components/routers/Detail';
 import Map from './components/routers/Map';
 
@@ -38,7 +37,7 @@ function App() {
         <Route path="/sale" component={Sale}/>
         <Route path="/purchase" component={Purchase} />
         <Route path="/like" component={Like} />
-        <Route path="/user/:userNo" component={UserProfileTest} />
+        <Route path="/user/:userNo" component={UserProfile} />
         <Route path="/search/detail/:tradeNo" component={Detail} />
 
         <Route path="/" exact component={Main} ></Route>

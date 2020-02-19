@@ -43,9 +43,11 @@ class Login extends Component<Props> {
       })
         .then(res => {
           console.log(res.data.data);
+          console.log(res.data.token);
           window.sessionStorage.setItem("user", JSON.stringify(res.data.data.tuser));
           window.sessionStorage.setItem("usernickname", res.data.data.tuser.nickname);
           window.sessionStorage.setItem("userHG", res.data.data.heartguage);
+          window.sessionStorage.setItem("userJWT", res.data.token);
           window.sessionStorage.setItem("log", "true");
           this.setState({
             islog: true
@@ -92,9 +94,11 @@ class Login extends Component<Props> {
           <h3>
             <span>두</span>리번 <span>두</span>리번 <span>근</span>처에
           </h3>
+            <h1>
           <Link to="/">
-            <h1>두근 마켓</h1>
+              두근 마켓
           </Link>
+              </h1>
           {this.state.islog ? (
             <div>
               <h2>
@@ -103,8 +107,6 @@ class Login extends Component<Props> {
               </h2>
               <br/>
               <div className="after-login">
-                <button onClick={this.logout}>로그아웃</button>
-                <br />
                 <Link to="/">
                   <button>main</button>
                 </Link>
@@ -112,6 +114,8 @@ class Login extends Component<Props> {
                 <Link to="/mypage">
                   <button>my page</button>
                 </Link>
+                <br />
+                <button onClick={this.logout}>로그아웃</button>
               </div>
             </div>
           ) : (

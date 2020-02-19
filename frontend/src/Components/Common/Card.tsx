@@ -20,6 +20,7 @@ class Card extends Component<Item> {
           return <Item key={item.tradeNo} {...item} />;
         })}
         {loadingPost && <LoadingView />}
+        {post.length === 0 && <p className="Card_no_items">해당하는 판매 상품이 없습니다.</p>}
       </div>
     );
   }

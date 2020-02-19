@@ -17,6 +17,13 @@
             right:20px;
             top: 140px;
         }
+        
+        .profile-img{
+            width: 80px;
+            height: 80px;
+            margin-top: 5px;
+            border-radius: 40px;
+        }
     }
 
     @media screen and (min-width: 768px){
@@ -30,25 +37,26 @@
             right: 10.5%;
             top: 45px;
         }
+        
+        .profile-img{
+            width: 100px;
+            height: 100px;
+            margin-top: 5px;
+            border-radius: 50px;
+        }
     }
     
     div{
         font-family: 'yg-jalnan';
     }
 
-    .profile-img{
-        width: 80px;
-        height: 80px;
-        margin-top: 15px;
-        border-radius: 40px;
-    }
+    
     
     .profile-img-wrapper{
         text-align: center;
     }
     
     .info {
-        margin-top: 10px;
         text-align: initial;
         h3{
             margin: 5px 0;

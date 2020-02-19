@@ -123,22 +123,24 @@ class Purchase extends React.Component {
                                                     />
                                                 </Link>
                                                 {purchase.eval === 0 ? (
+                                                    <>
                                                     <button
                                                         className="btn-manner-modal"
                                                         onClick={this.openModal}
                                                     >
                                                         평가하기
                                                     </button>
+                                                    <Modal
+                                                        isOpen={this.state.isModalOpen}
+                                                        close={this.closeModal}
+                                                        userNo={purchase.btrade.tuser}
+                                                        tradeNo={purchase.btrade.tradeNo}
+                                                    />
+                                                    </>
                                                 ) : (
                                                     <></>
                                                 )}
                                             </div>
-                                            <Modal
-                                                isOpen={this.state.isModalOpen}
-                                                close={this.closeModal}
-                                                userNo={purchase.btrade.tuser}
-                                                tradeNo={purchase.btrade.tradeNo}
-                                            />
                                         </>
                                     );
                                 }
