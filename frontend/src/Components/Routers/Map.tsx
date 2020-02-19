@@ -68,11 +68,14 @@ class Map extends Component<any> {
     const trade = this.state.trade;
     console.log('포문안 트레이드', trade);
     console.log('길이', trade.length);
+  
     let content =
       '<div class="info">' +
       '<div class="title">' +
       area +
       '</div><div class="size">';
+    if (trade.length === 0) content += '<p>상품이 더 존재하지 않습니다.</p>'
+    
     for (let i = 0; i < trade.length; i++) {
       console.log(trade[i]);
       const tradeNo = `/search/detail/${trade[i].tradeNo}`;
