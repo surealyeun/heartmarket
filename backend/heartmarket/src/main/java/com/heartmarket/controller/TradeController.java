@@ -305,7 +305,7 @@ public class TradeController {
 			tmp = trade == null ? "none.png"
 					: tr.findAllBytiTradeTradeNo(trade.getTradeNo()).get(0).getOrgImg();
 			tm.add(new TradeMapping(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
-					trade.getProductPrice(), trade.getTUser().getUserNo(), mUser.getProfileImg(),
+					trade.getProductPrice(), trade.getTUser().getUserNo(),trade.getBUser().getUserNo(), mUser.getProfileImg(),
 					trade.getTUser().getNickname(), tmp, booleanC,trade.getTradeCategory()));
 		}
 

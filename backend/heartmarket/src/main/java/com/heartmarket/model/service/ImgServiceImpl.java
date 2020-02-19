@@ -34,7 +34,6 @@ public class ImgServiceImpl implements ImgService {
 		String fileName = null;
 
 		TradeImg tmp = new TradeImg();
-		System.out.println(file);
 		if (file != null) {
 			int fileIndex = file.getOriginalFilename().lastIndexOf('.') + 1;
 			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex,
