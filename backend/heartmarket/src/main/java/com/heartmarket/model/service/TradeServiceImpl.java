@@ -170,7 +170,7 @@ public class TradeServiceImpl implements TradeService {
 			e.printStackTrace();
 			throw e;
 		}
-	}
+	}  
 
 	// 게시글 삭제
 	@Transactional
