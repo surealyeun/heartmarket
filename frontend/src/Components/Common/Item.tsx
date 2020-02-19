@@ -13,6 +13,7 @@ interface PostItem {
   uno: number;
   uimg: string;
   cno: number;
+  bno: number;
 }
 
 function Item(props: PostItem) {
@@ -37,12 +38,18 @@ function Item(props: PostItem) {
           </div>
           <hr className="line"></hr>
           <div className="Card_img">
+            <div className="img_wrapper">
             <img
               className="img_body"
               src={item.tlist || ""}
-              //src="https://dnvefa72aowie.cloudfront.net/origin/article/202002/59CF77DBCA567CD7F48CE8DF791EB9E6278E3EA4499D1FE89144CB3E706B5B78.jpg?q=95&s=1440x1440&t=inside"
+              // src="https://dnvefa72aowie.cloudfront.net/origin/article/202002/59CF77DBCA567CD7F48CE8DF791EB9E6278E3EA4499D1FE89144CB3E706B5B78.jpg?q=95&s=1440x1440&t=inside"
               alt=""
             ></img>
+            {item.bno ? 
+            <div className="complete"><h2>거래완료</h2></div>
+            :
+            <></>}
+            </div>
           </div>
           <hr className="line"></hr>
 

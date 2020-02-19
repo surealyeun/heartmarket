@@ -13,6 +13,7 @@ interface PostItem {
   uimg: string;
   cno: number;
   category:string;
+  bno: number;
 }
 
 function Popular() {
