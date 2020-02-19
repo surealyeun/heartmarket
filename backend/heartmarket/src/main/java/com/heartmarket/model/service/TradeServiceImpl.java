@@ -18,11 +18,13 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.heartmarket.model.dao.CartRepository;
+import com.heartmarket.model.dao.MailRepository;
 import com.heartmarket.model.dao.MannerRepository;
 import com.heartmarket.model.dao.TradeImgRepository;
 import com.heartmarket.model.dao.TradeRepository;
 import com.heartmarket.model.dao.UserRepository;
 import com.heartmarket.model.dto.Cart;
+import com.heartmarket.model.dto.Mail;
 import com.heartmarket.model.dto.Manner;
 import com.heartmarket.model.dto.Trade;
 import com.heartmarket.model.dto.TradeImg;
@@ -49,6 +51,9 @@ public class TradeServiceImpl implements TradeService {
 
 	@Autowired
 	MannerRepository mr;
+	
+	@Autowired
+	MailRepository mailr;
 
 	// 모든 자료 조회
 	@Transactional
@@ -181,6 +186,12 @@ public class TradeServiceImpl implements TradeService {
 				for (TradeImg ti : tradeImg) {
 //					System.out.println(ti.toString());
 					tir.delete(ti);
+				}
+				List<Mail> mail = mailr.findAllByTradeTradeNo(trade.getTradeNo());
+				for (Mail mail2 : mail) {
+					mail2.setTrade(null);
+//					System.out.println(mail2.getMailNo());
+					mailr.save(mail2);
 				}
 				tr.delete(trade);
 				return new ResultMap<Object>("SUCCESS", "게시글 삭제 성공", 1);

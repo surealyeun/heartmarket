@@ -80,7 +80,7 @@ public class Trade implements Serializable {
 //	
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "user_no")
+	@JoinColumn(name = "user_no",referencedColumnName = "user_no")
 	@ToString.Exclude
 	User tUser;
 

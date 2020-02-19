@@ -13,6 +13,7 @@ import com.heartmarket.model.dto.User;
 
 @Repository
 public interface MailRepository extends JpaRepository<Mail, Integer> {
+	List<Mail> findAllByTradeTradeNo(int tradeNo);
 	Mail findBySenderUserNo(int userNo);
 	Mail findBySenderUserNoAndMailNo(int userNo,int mailNo);
 	Mail findByReceiverUserNo(int userNo);
