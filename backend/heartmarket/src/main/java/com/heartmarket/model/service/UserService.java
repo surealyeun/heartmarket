@@ -17,4 +17,5 @@ public interface UserService {
 	public ResultMap<User> duplicatedByEmail(String email);
 	User findByUser(int userNo);
 	public User findByNickname(String nickname);
+	ResultMap<Object> findAllByNickname(int tradeNo, int userNo);
 }
