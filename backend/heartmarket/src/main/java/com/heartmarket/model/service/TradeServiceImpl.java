@@ -120,8 +120,6 @@ public class TradeServiceImpl implements TradeService {
 	public ResultMap<Integer> addTrade(Trade trade, List<TradeImg> fList, int userNo) {
 		try {
 			User user = ur.findByUserNo(userNo);
-			System.out.println("유우저 :" + user.getUserNo());
-			System.out.println("트레이드 :" + trade.toString());
 			for (TradeImg tradeImg : fList) {
 				tradeImg.setTiTrade(trade);
 			}
@@ -142,20 +140,16 @@ public class TradeServiceImpl implements TradeService {
 		try {
 			List<TradeImg> tradeOrigin = tir.findAllBytiTradeTradeNo(trade.getTradeNo());
 			int oldlen = tradeOrigin.size();
-			System.out.println("올드 :" +oldlen );
 			int newlen = fList.size();
-			System.out.println("뉴 :" +newlen );
 			if(oldlen < newlen) {
 				for (int i = oldlen; i < newlen; i++) {
 					tradeOrigin.add(new TradeImg(trade,fList.get(i).getOrgImg()));
-					System.out.println("무엇인가요"+tradeOrigin.get(i));
 				}
 			}else if(oldlen > newlen){
 				for (int i = 0; i < oldlen; i++) {
 					if(i>=newlen) tir.delete(tradeOrigin.get(i));
 				}
 				tradeOrigin = tradeOrigin.subList(0, newlen);
-				System.out.println("작을때 크기 : "+ tradeOrigin.size());
 			}
 			for (int i = 0; i < tradeOrigin.size(); i++) {
 				if(i<oldlen) {
@@ -163,7 +157,6 @@ public class TradeServiceImpl implements TradeService {
 				}
 			}
 			trade.settTradeImg(tradeOrigin);
-			System.out.println("마무리: " + trade.gettTradeImg());
 			tir.saveAll(tradeOrigin);
 			tr.save(trade);
 			return new ResultMap<Object>("SUCCSS", "게시글 수정 완료", trade);
@@ -178,7 +171,6 @@ public class TradeServiceImpl implements TradeService {
 	public ResultMap<Object> deleteTrade(int no) {
 		try {
 			Trade trade = tr.findById(no).orElse(null);
-			System.out.println(trade.toString());
 			if (trade == null) {
 				return new ResultMap<Object>("FAIL", "게시글 삭제 실패", null);
 			}
@@ -224,8 +216,6 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public Page<Trade> fetPageAC(int no, int size, String area, String category, int filter) {
 		List<Trade> tList = tr.findAllByTradeArea(area);
-		System.out.println("t : " + tList.size());
-		System.out.println("no : " + no);
 		if (tList.size() == 0)
 			return null;
 
@@ -262,12 +252,10 @@ public class TradeServiceImpl implements TradeService {
 				List<Predicate> predicates = new ArrayList<Predicate>();
 				if(sList != null) {
 					for (String str : sList) {
-						System.out.println(str);
 						predicates.add(criteriaBuilder.or(criteriaBuilder.like(root.get("tradeTitle"), "%" + str + "%"),
 								criteriaBuilder.like(root.get("productInfo"), "%" + str + "%")));
 					}
 				}
-				System.out.println("area : " + area);
 				
 				if (!area.equals("none"))
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tradeArea"), area)));
@@ -278,13 +266,11 @@ public class TradeServiceImpl implements TradeService {
 				}else if(filter == 6) {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.isNotNull(root.get("bUser").get("userNo"))));
 				}
-				System.out.println(predicates.size());
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
 
 		};
 		// 로그인을 했을 때,
-		System.out.println("Area : " + area);
 		List<Trade> tList = new ArrayList<Trade>();
 		if (!area.equals("none"))
 			tList = tr.findAllByTradeArea(area);
@@ -309,11 +295,9 @@ public class TradeServiceImpl implements TradeService {
 			// 2. 게시물에서 구매자 아이디가 null인지 확인
 			Trade checkBuyer = tr.findByTradeNo(tradeNo);
 			
-			System.out.println(Objects.isNull(checkBuyer.getBUser()));
 			if (Objects.isNull(checkBuyer.getBUser())) {
 				// 3. null 이라면 구매자 아이디를 검색하여 확인 사살
 				checkBuyer.setBUser(buyer);
-				System.out.println(checkBuyer.toString());
 				tr.save(checkBuyer);
 				return new ResultMap<Trade>("SUCCESS", "거래 완료 확정", tmp);
 			} else {
@@ -337,14 +321,12 @@ public class TradeServiceImpl implements TradeService {
 				// 구매
 				if (type == 1) {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("bUser").get("userNo"), userno)));
-					System.out.println(root.get("bUser").get("userNo").toString());
 				}
 				// 판매
 				else if (type == 2) {
 					predicates.add(criteriaBuilder.and(criteriaBuilder.equal(root.get("tUser").get("userNo"), userno)));
 				}
 
-				System.out.println(predicates.size());
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));
 			}
 

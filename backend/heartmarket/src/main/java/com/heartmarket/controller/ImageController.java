@@ -51,15 +51,10 @@ public class ImageController {
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 
 		String tPath = req.getSession().getServletContext().getRealPath("/");
-		System.out.println("tPath : " + tPath);
 		String fileName = null;
 		
-		System.out.println(imgUploadPath);
-		System.out.println("1 : " + ymdPath);
-			
 		int fileIndex = file.getOriginalFilename().lastIndexOf('.')+1;
 		String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex, file.getOriginalFilename().length());
-		System.out.println("fileExtension : " + fileExtension);
 		TradeImg tmp = new TradeImg();
 		
 		if(!((fileExtension.equals("jpg") || (fileExtension.equals("gif")) || (fileExtension.equals("png"))))) {
@@ -87,20 +82,16 @@ public class ImageController {
 		//Context root를 불러오는 부분
 		String fileName = null;
 		
-		System.out.println(imgUploadPath);
-		System.out.println("1 : " + ymdPath);
 		
 //		List<MultipartFile> mList 
 		List<TradeImg> fList = new ArrayList<>();
 		if(files == null) {
 			return new ResponseEntity<Object>(fList, HttpStatus.NOT_ACCEPTABLE);
 		}
-//		System.out.println(files.size());
 		
 		for (MultipartFile file : files) {
 			int fileIndex = file.getOriginalFilename().lastIndexOf('.')+1;
 			String fileExtension = file.getOriginalFilename().toLowerCase().substring(fileIndex, file.getOriginalFilename().length());
-			System.out.println("fileExtension : " + fileExtension);
 			TradeImg tmp = new TradeImg();
 			
 			if(!((fileExtension.equals("jpg") || (fileExtension.equals("gif")) || (fileExtension.equals("png"))))) {
@@ -118,7 +109,6 @@ public class ImageController {
 			
 			fList.add(tmp);
 		}
-		System.out.println("size : " + fList.size());
 		tr.saveAll(fList);
 //		return new ResponseEntity<Object>(new ResultMap<TradeImg>("SUCCESS", "다중 파일 업로드", fList), HttpStatus.OK);
 		return new ResponseEntity<Object>(fList, HttpStatus.OK);
