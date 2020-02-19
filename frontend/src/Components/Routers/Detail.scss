@@ -134,6 +134,7 @@
             }
     
             .tuser-info {
+                height: 50px;
                 .tuser-profile {
                     // border: 1px solid;
                     margin: 1.5px auto;
@@ -141,6 +142,7 @@
                         width: 40px;
                         height: 40px;
                         border-radius: 20px;
+                        padding-top: 3px;
                     }
                 }
                 .tuser-id {
@@ -268,6 +270,8 @@
             // background-color: #f9f4e6;
 
             .tuser-info {
+            height: 60px;
+
                 .tuser-profile {
                     // border: 1px solid;
                     margin: 3px auto;
@@ -275,6 +279,7 @@
                         width: 44px;
                         height: 44px;
                         border-radius: 22px;
+                        padding-top: 5px;
                     }
                 }
                 .tuser-id {
