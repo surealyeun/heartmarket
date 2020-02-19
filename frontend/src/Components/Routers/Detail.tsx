@@ -118,6 +118,22 @@ class Detail extends React.Component<Props> {
         this.updateUrl();
     }
 
+    deleteTrade = () => {
+        const url = window.location.href.split("/");
+        const num = url[url.length - 1];
+        axios({
+            method: "delete",
+            url: "http://13.125.55.96:8080/trade/delete/"+num,
+            
+        }).then(res => {
+            console.log(res);
+            alert('게시물이 삭제되었습니다.');
+        }).catch(err => {
+            console.log(err);
+            alert('게시물 삭제에 실패했습니다.');
+        })
+    }
+
     render() {
         return (
             <div>
@@ -171,7 +187,7 @@ class Detail extends React.Component<Props> {
                             {this.user.email === this.state.all.trade.tuser.email ? (
                                 <div className="tuser-btn">
                                     <button className="btn-complete">거래완료</button>
-                                    <button className="btn-delete">삭제</button>
+                                    <button className="btn-delete" onClick={this.deleteTrade}>삭제</button>
                                     <Link
                                         to={{
                                             pathname: "/write/update",
