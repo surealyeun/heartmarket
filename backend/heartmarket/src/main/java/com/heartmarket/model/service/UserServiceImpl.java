@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		ur.resortUserNo(user.getUserNo());
 		int result = user.getUserNo() + 1;
 		return result;
-	}
+	} 
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
