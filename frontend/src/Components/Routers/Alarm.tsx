@@ -170,10 +170,12 @@ class Alarm extends Component {
 
   //더 많은 알람 받아오기
   getPlusAlarm = () => {
+    window.scrollTo(0,0);
     this.callAxios(this.state.final_num);
   };
 
   getMinusAlarm = () => {
+    window.scrollTo(0,0);
     this.callAxios(this.state.final_num - 2);
   };
 
