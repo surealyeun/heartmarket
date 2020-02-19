@@ -321,9 +321,11 @@ public class TradeController {
 					, HttpStatus.NO_CONTENT);
 		else {
 			tmList = mappedFor(ts.getPopularList(), email);
-			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공", tmList), 
+			for (TradeMapping tradeMapping : tmList) {
+				tradeMapping.setBNo(0);
+			}
+			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공", tmList),
 					HttpStatus.OK);
-			
 		}
 	}
 }
