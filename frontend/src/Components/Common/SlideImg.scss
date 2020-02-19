@@ -32,7 +32,7 @@
                     height: 100%;
                     object-fit: contain;
                     -webkit-user-drag: none;
-                    background: black;
+                    background: white;
                 }
             }
         }
@@ -44,10 +44,10 @@
     .slide-img {
         max-width: 960px;
         width: 80%;
-        height: 600px;
+        height: 620px;
         margin: 0;
         position: absolute;
-        // top: 100px;
+        top: 154px;
 
         .div_carousel {
             height: 100%;
@@ -61,14 +61,14 @@
                     height: 100%;
                     object-fit: contain;
                     -webkit-user-drag: none;
-                    background: black;
+                    background: white;
                 }
             }
         }
     }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 960px) {
     .slide-img {
         max-width: 960px;
         width: 624px;
@@ -91,7 +91,7 @@
                     height: 100%;
                     object-fit: contain;
                     -webkit-user-drag: none;
-                    background: black;
+                    background: white;
                 }
             }
         }

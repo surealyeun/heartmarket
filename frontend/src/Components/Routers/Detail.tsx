@@ -133,7 +133,7 @@ class Detail extends React.Component<Props> {
                         <div className="detail-r">
                             <div className="tuser-info">
                                 <div className="tuser-profile">
-                                    <img src={this.user.profileImg} alt="profile" />
+                                    <img src={this.state.all.trade.tuser.profileImg} alt="profile" />
                                 </div>
                                 <div className="tuser-id">
                                     <h3>
