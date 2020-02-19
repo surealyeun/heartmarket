@@ -63,7 +63,6 @@ public class MannerServiceImpl implements MannerService{
 		}
 		
 		double calc = hg + (pGauge + nGauge + mGauge)/hg;
-		System.out.println(calc);
 		
 		tMnr.setPlusGauge(pGauge);
 		tMnr.setNormalGauge(nGauge);
@@ -87,12 +86,10 @@ public class MannerServiceImpl implements MannerService{
 //			}
 			// 리뷰 등록 완료 
 			Review rev = rr.findByrTradeTradeNo(tradeNo);
-			System.out.println("review : " + rr.findByrTradeTradeNo(tradeNo));
 			
 			if(rev == null){
 				Review rvw = new Review(tr.findByTradeNo(tradeNo));	
 				Manner rMnr = evalueManner(val, userNo);
-				System.out.println(rMnr);
 				mr.save(rMnr);
 				rr.save(rvw);
 				return new ResultMap<ReviewResponse>("SUCCESS", "평가 완료", new ReviewResponse( rvw,rMnr));

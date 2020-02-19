@@ -140,9 +140,6 @@ public class TradeController {
 			@RequestParam String tradeTitle,@RequestParam String tradeCategory,
 			@RequestParam String productPrice,@RequestParam String userNo,
 			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception{
-		for (int i = 0; i < files.length; i++) {
-			System.out.println("파이이이일:"+files[i].getOriginalFilename());
-		}
 		Date date = new Date();
 		SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		TimeZone tz = TimeZone.getTimeZone("Asia/Seoul");
@@ -151,9 +148,6 @@ public class TradeController {
 		int uNo = Integer.parseInt(userNo);
 		Trade trade = new Trade(tradeCategory, tradeTitle, tradeArea, productInfo, Integer.parseInt(productPrice), time);
 		String imgUploadPath = File.separator + "home" + File.separator + "ubuntu";
-		for (MultipartFile multipartFile : files) {
-			System.out.println("files : " + multipartFile);
-		}
 		rms = is.uploadFiles(files, imgUploadPath, "trade");
 		if (rms.getData() != null) {
 			List<TradeImg> fList = rms.getData();
@@ -178,7 +172,6 @@ public class TradeController {
 			@RequestParam String productPrice,@RequestParam(required = false) String userNo,
 			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception {
 		Trade trade = ts.findByTradeNo(tradeNo);
-		System.out.println("트트"+trade.getTradeTitle());
 		if(trade != null) {
 			trade.setTradeTitle(tradeTitle);
 			trade.setTradeCategory(tradeCategory);
@@ -226,7 +219,6 @@ public class TradeController {
 	@ApiOperation(value = "사용자의 기본위치를 기반으로 검색")
 	public ResponseEntity<Object> getPageAList(@RequestParam int no, @RequestParam String email) {
 		String area = us.searchEmail(email).getUArea().get(0).getAddress();
-		System.out.println(area);
 		List<Trade> rs = ts.fetPages(no, 8, area).getContent();
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		tm = mappedFor(rs, email);
@@ -249,7 +241,6 @@ public class TradeController {
 	public ResponseEntity<Object> getPageACList(@PathVariable(name = "area") String area,
 			@PathVariable(name = "category") String category, @RequestParam int no,@PathVariable int filter) {
 		List<Trade> rs = ts.fetPageAC(no, 3, area, category,filter).getContent();
-		System.out.println(rs.size());
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		tm = mappedFor(rs, "none");
 		return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "검색 완료", tm), HttpStatus.OK);
@@ -265,7 +256,6 @@ public class TradeController {
 		SearchUtils s = new SearchUtils();
 		if (keyword == null || keyword.equals("") ) {
 			sList = new ArrayList<>();
-			System.out.println("널 : "+sList.toString());
 		}else {
 			sList = s.fetchKeyword(keyword);
 		}
@@ -273,7 +263,6 @@ public class TradeController {
 //			return new ResponseEntity<Object>(new ResultMap<TradeMapping>("FAIL", "검색 불가", null), HttpStatus.OK);
 
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
-		System.out.println("email : " + email);
 		// 현재 로그인이 안되있을 때,
 		if (email.equals("none")) {
 			tm = mappedFor(ts.fetPageTP(no, 8, sList, "none",filter,category).getContent(), "none");
@@ -302,32 +291,22 @@ public class TradeController {
 
 // 매핑 중...... C
 	private List<TradeMapping> mappedFor(List<Trade> tList, String email) {
-		System.out.println("사이즈는 : "+tList.size());
 		List<TradeMapping> tm = new ArrayList<TradeMapping>();
 		User mUser = new User();
 		String tmp = "";
 		int booleanC = 0;
 
-		System.out.println("email : " + email);
-		System.out.println(tList.size());
 		for (Trade trade : tList) { // dho dksehlwl
 
 			mUser = us.findByUser(trade.getTUser().getUserNo());
-			System.out.println("getUser : " + mUser.getUserNo());
 			if (!email.equals("none"))
 				booleanC = cs.findByTradeNo(email, trade.getTradeNo()) == null ? 0 : 1;
-			System.out.println(booleanC);
 			// 찜이 되있으면 true, 아니면 false
 			tmp = trade == null ? "none.png"
 					: tr.findAllBytiTradeTradeNo(trade.getTradeNo()).get(0).getOrgImg();
-			System.out.println("Userno : " + mUser.getUserNo());
-			System.out.println(mUser.getProfileImg());
-			System.out.println("tradeno ; " + trade.getTradeNo());
-			System.out.println("uimg : " + mUser.getProfileImg());
 			tm.add(new TradeMapping(trade.getTradeNo(), trade.getTradeTitle(), trade.getTradeArea(),
 					trade.getProductPrice(), trade.getTUser().getUserNo(), mUser.getProfileImg(),
 					trade.getTUser().getNickname(), tmp, booleanC,trade.getTradeCategory()));
-			System.out.println();
 		}
 
 		return tm;
