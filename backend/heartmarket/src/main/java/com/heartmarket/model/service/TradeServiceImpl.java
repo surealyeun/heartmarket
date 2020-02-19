@@ -178,7 +178,7 @@ public class TradeServiceImpl implements TradeService {
 		try {
 			Trade trade = tr.findById(no).orElse(null);
 			
-			if (Objects.isNull(trade)) {
+			if (Objects.isNull(trade)) { 
 				return new ResultMap<Object>("FAIL", "게시글 삭제 실패", null);
 			} else {
 				trade.setTUser(null);
