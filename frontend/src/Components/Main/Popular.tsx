@@ -36,7 +36,7 @@ function Popular() {
         setItems(res.data.data);
       })
       .catch(err => {
-        console.log(err);
+        // // console.log(err);
       });
   }, []);
 

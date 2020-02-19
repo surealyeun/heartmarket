@@ -42,8 +42,8 @@ class Login extends Component<Props> {
         }
       })
         .then(res => {
-          console.log(res.data.data);
-          console.log(res.data.token);
+          // console.log(res.data.data);
+          // console.log(res.data.token);
           window.sessionStorage.setItem("user", JSON.stringify(res.data.data.tuser));
           window.sessionStorage.setItem("usernickname", res.data.data.tuser.nickname);
           window.sessionStorage.setItem("userHG", res.data.data.heartguage);
@@ -55,7 +55,7 @@ class Login extends Component<Props> {
           this.props.UserAction();
         })
         .catch(error => {
-          // console.log(error);
+          // // console.log(error);
           this.setState({
             islog: false
           });

@@ -80,14 +80,14 @@ class Detail extends React.Component<Props> {
             }
         })
             .then(res => {
-                // console.log("all", res.data);
+                // // console.log("all", res.data);
                 const all = res.data;
                 //alert("받아는 옴")
                 this.setState({
                     all
                 });
 
-                // console.log("trade", this.state.all);
+                // // console.log("trade", this.state.all);
 
                 if (this.user.userNo === this.state.all.trade.tuser.userNo) {
                     axios({
@@ -99,7 +99,7 @@ class Detail extends React.Component<Props> {
                         }
                     })
                         .then(res => {
-                            // console.log('bcandi',res.data.data);
+                            // // console.log('bcandi',res.data.data);
                             this.setState({
                                 bcandidate: res.data.data
                             });
@@ -110,7 +110,7 @@ class Detail extends React.Component<Props> {
                 }
             })
             .catch(err => {
-                // console.log("err", err);
+                // // console.log("err", err);
                 alert("error");
             });
        
@@ -160,14 +160,14 @@ class Detail extends React.Component<Props> {
             url: "http://13.125.55.96:8080/trade/delete/" + num
         })
             .then(res => {
-                // console.log(res);
+                // // console.log(res);
                 // alert("게시물이 삭제되었습니다.");
                 this.setState({
                     success: '/'
                 })
             })
             .catch(err => {
-                // console.log(err);
+                // // console.log(err);
                 alert("게시물 삭제에 실패했습니다.");
             });
     };

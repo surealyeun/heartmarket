@@ -96,7 +96,7 @@ class SearchResult extends Component<Props> {
         <div className="SearchResult_main">
           <div className="SearchResult_filter">
             {this.filters.map(filter => {
-              console.log(filter)
+              // console.log(filter)
               return <FilterButton key={filter.id} {...filter} />;
             })}
             <Link to="/map" onClick={(e) => this.openMap(e)}>

@@ -17,8 +17,8 @@ class MannerModal extends React.Component<Props> {
     }
 
     good = () => {
-        console.log('modal userno',this.props.userNo);
-        console.log('modal tradeno',this.props.tradeNo);
+        // console.log('modal userno',this.props.userNo);
+        // console.log('modal tradeno',this.props.tradeNo);
 
         this.setState({
             rate: '좋았어요',
@@ -43,7 +43,7 @@ class MannerModal extends React.Component<Props> {
 
     rating = () => {
         // isRate === true 때 axios 평가 추가
-        console.log('modal userno',this.props.userNo);
+        // console.log('modal userno',this.props.userNo);
 
         if(this.state.isRate){
             axios({
@@ -54,11 +54,11 @@ class MannerModal extends React.Component<Props> {
                     val: this.state.val,
                 }
             }).then(res => {
-                console.log(res);
+                // console.log(res);
                 window.location.reload();
                 this.props.close();
             }).catch(err => {
-                console.log(err);
+                // console.log(err);
             })
         }else{
             this.setState({
@@ -76,7 +76,7 @@ class MannerModal extends React.Component<Props> {
         this.props.close();
     }
     componentDidMount() {
-        console.log('modal userno',this.props.userNo);
+        // console.log('modal userno',this.props.userNo);
     }
 
     render() {

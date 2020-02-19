@@ -88,10 +88,10 @@ class PurchaseMore extends Component<Props> {
         this.setState({
           Purchases: res.data.data
         });
-        // console.log(res.data.data);
+        // // console.log(res.data.data);
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         alert("sale error");
       });
   }
@@ -120,7 +120,7 @@ class PurchaseMore extends Component<Props> {
                 {this.state.Purchases ? (
                   <>
                     {this.state.Purchases.map((purchase, i) => {
-                      // console.log("map - userno ", purchase.btrade.tuser);
+                      // // console.log("map - userno ", purchase.btrade.tuser);
                       return (
                         <>
                           <div className="purchase-modalbtn">

@@ -54,7 +54,7 @@ class Hamburger extends Component<Props> {
 
   render() {
     const { visible, tab } = this.state;
-    //console.log(this.props.status)
+    //// console.log(this.props.status)
     return (
       <div className="Hamburger">
         <button type="button" id="menu" onClick={this.onclick}>

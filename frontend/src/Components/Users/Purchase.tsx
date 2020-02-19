@@ -89,13 +89,13 @@ class Purchase extends React.Component {
             }
         })
             .then(res => {
-                console.log("purchase", res.data.data);
+                // console.log("purchase", res.data.data);
                 this.setState({
                     Purchases: res.data.data
                 });
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
             });
     }
 

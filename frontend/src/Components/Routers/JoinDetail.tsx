@@ -88,7 +88,7 @@ class JoinDetail extends Component {
         this.setState({
             address: address
         });
-        console.log(this.state.address);
+        // console.log(this.state.address);
         if (this.state.isnnValid && this.state.password && this.state.address) {
             this.setState({
                 confirm: true
@@ -108,10 +108,10 @@ class JoinDetail extends Component {
             }
         })
             .then(res => {
-                console.log("res", res.data);
+                // console.log("res", res.data);
             })
             .catch(err => {
-                console.log("err", err);
+                // console.log("err", err);
                 alert("회원가입에 문제가 생겼습니다. 다시 시도해주세요.");
             });
     };

@@ -19,13 +19,12 @@ class Gauge extends Component {
       }
     })
       .then(res => {
-        console.log(res.data)
         this.setState({
           BPM:res.data.data.heartgauge
         })
       })
       .catch(err => {
-        console.log("err", err);
+        // // console.log("err", err);
       });
   }
 

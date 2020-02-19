@@ -53,7 +53,7 @@ class AlarmModal extends React.Component<Props> {
         alert("메시지를 전송했습니다.");
       })
       .catch(error => {
-        console.log(error);
+        // // console.log(error);
         alert("전송에 실패했습니다.");
       });
   };

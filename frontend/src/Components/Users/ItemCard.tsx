@@ -20,14 +20,14 @@ class ItemCard extends React.Component<Props> {
     }
 
     mouseOver = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        // console.log(e.target);
+        // // console.log(e.target);
         this.setState({
             isOver: false
         });
     };
 
     mouseOut = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        // console.log(e.target);
+        // // console.log(e.target);
         this.setState({
             isOver: true
         });

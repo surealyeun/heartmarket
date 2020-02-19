@@ -67,7 +67,7 @@ class Like extends React.Component {
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
     mouseOver = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        console.log(e.target);
+        // console.log(e.target);
         this.setState({
             isOver: false
         });
@@ -75,7 +75,7 @@ class Like extends React.Component {
     };
 
     mouseOut = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        // console.log(e.target);
+        // // console.log(e.target);
         this.setState({
             isOver: true
         });
@@ -94,11 +94,11 @@ class Like extends React.Component {
                 this.setState({
                     Likes: res.data.data
                 });
-                console.log('like 다 가져옴',res.data.data);
+                // console.log('like 다 가져옴',res.data.data);
             })
             .catch(err => {
                 alert(err);
-                console.log("err", err);
+                // console.log("err", err);
             });
     }
 

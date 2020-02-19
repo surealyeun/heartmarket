@@ -14,7 +14,7 @@ class UpdateUser extends Component {
     };
 
     componentDidMount() {
-        // console.log(this.user);
+        // // console.log(this.user);
     }
 
     goback = () => {
@@ -23,7 +23,7 @@ class UpdateUser extends Component {
     };
 
     fileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // console.log(e.target.files);
+        // // console.log(e.target.files);
         const reader = new FileReader();
 
         reader.onloadend = () => {
@@ -61,14 +61,14 @@ class UpdateUser extends Component {
             data: file
         })
             .then(res => {
-                console.log(res.data.data.profileImg);
+                // console.log(res.data.data.profileImg);
                 this.user.profileImg = res.data.data.profileImg;
                 window.sessionStorage.removeItem("user");
                 window.sessionStorage.setItem("user", JSON.stringify(this.user));
                 alert("프로필 이미지를 수정했어요");
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 alert("이미지 수정 실패");
             });
     };
@@ -102,7 +102,7 @@ class UpdateUser extends Component {
             })
             .catch(err => {
                 alert("닉네임 변경 실패");
-                console.log(err);
+                // console.log(err);
             });
     };
 
@@ -115,7 +115,7 @@ class UpdateUser extends Component {
     updateAddr = () => {
         // const file = new FormData();
         // file.append("profile", this.state.profile);
-        console.log(this.user.profileImg);
+        // console.log(this.user.profileImg);
         axios({
             method: "put",
             url: "http://13.125.55.96:8080/user/updateUser",
@@ -136,12 +136,12 @@ class UpdateUser extends Component {
             })
             .catch(err => {
                 alert("주소 변경 실패");
-                console.log(err);
+                // console.log(err);
             });
     };
 
     render() {
-        // console.log(this.user);
+        // // console.log(this.user);
         return (
             <div className="big">
                 <SessionDelete></SessionDelete>

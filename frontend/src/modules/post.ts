@@ -42,7 +42,7 @@ export function getPostThunk(id: number, filterType: number): ThunkAction<void, 
       const user = sessionStorage.getItem('user')
       const keyword = sessionStorage.getItem('searchText')
       const category = sessionStorage.getItem('searchCategory')
-      // console.log(category, keyword)
+      // // console.log(category, keyword)
       let url = ""
       let email = "none"
       //70.12.246.87, 13.125.55.96 -- 아마존 

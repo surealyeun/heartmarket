@@ -29,25 +29,25 @@ class ResultContainer extends Component<Props> {
     const { PostActions, isReload, filterType } = this.props;
     // PostActions(0);
     // 새로고침 될때만 실행 (데이터 중복 방지)
-    console.log("DidMount!")
+    // console.log("DidMount!")
     if (!isReload) {
       PostActions(0, filterType);
     }
-    // console.log(filterType)
+    // // console.log(filterType)
     window.addEventListener("scroll", this.handleScroll);
   }
 
   componentDidUpdate() {
     const { filterType, cType, FilterAction, PostActions, CountAction } = this.props;
     if (filterType !== this.state.previousFType) {
-      console.log("filter change!");
+      // console.log("filter change!");
       this.setState({ previousFType: filterType });
       FilterAction();
       CountAction(0);
       PostActions(0, filterType);
     }
     if (cType !== this.state.previousCType) {
-      console.log("category change!")
+      // console.log("category change!")
       this.setState({ previousCType: cType })
       FilterAction();
       CountAction(0);

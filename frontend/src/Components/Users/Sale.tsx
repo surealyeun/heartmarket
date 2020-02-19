@@ -64,13 +64,13 @@ class Sale extends React.Component {
             }
         })
             .then(res => {
-                console.log('sale',res.data.data);
+                // console.log('sale',res.data.data);
                 this.setState({
                     Sales: res.data.data
                 });
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 alert("sale error");
             });
     }

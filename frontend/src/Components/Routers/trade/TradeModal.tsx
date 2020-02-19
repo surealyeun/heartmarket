@@ -69,7 +69,7 @@ class TradeModal extends React.Component<Props> {
         this.props.close();
     };
     componentDidMount() {
-        // console.log('modal userno',this.props.userNo);
+        // // console.log('modal userno',this.props.userNo);
     }
 
     render() {

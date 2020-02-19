@@ -48,7 +48,7 @@ class Join extends Component {
             }
           })
             .then(res => {
-              console.log(res.data.data);
+              // console.log(res.data.data);
               this.setState({
                 isSendemail: true,
                 cert: res.data.data

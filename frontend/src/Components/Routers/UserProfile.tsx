@@ -36,7 +36,7 @@ class UserProfile extends Component<Props> {
   userNo = this.url[this.url.length - 1];
 
   componentDidMount() {
-    console.log("component did mount");
+    // console.log("component did mount");
     axios({
       method: "get",
       url: "http://13.125.55.96:8080/mypage/{userno}",
@@ -45,13 +45,13 @@ class UserProfile extends Component<Props> {
       }
     })
       .then(res => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         this.setState({
           user: res.data.data
         });
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         alert("user error");
       });
     const { PostActions, isReload } = this.props;

@@ -59,7 +59,7 @@ class PreAlarmList extends Component {
         });
       })
       .catch(err => {
-        console.log("err", err);
+        // // console.log("err", err);
       });
   }
 

@@ -5,13 +5,13 @@ export async function getPost(
   url: string,
   email: string
 ) {
-  console.log(url + `no=${id}&email=${email}`);
+  // console.log(url + `no=${id}&email=${email}`);
   const response = await axios.get<Post>(url + `no=${id}&email=${email}`);
   return response.data;
 }
 
 export async function getUserPost(url:string, userNo:string, page: number) {
-  console.log(url + `${userNo}`)
+  // console.log(url + `${userNo}`)
   const response = await axios.get<userPost>(url + `${userNo}?no=${page}`)
   return response.data
 }

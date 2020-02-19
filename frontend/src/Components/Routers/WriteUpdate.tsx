@@ -26,7 +26,7 @@ class WriteUpdate extends Component {
 
   constructor(props: any) {
     super(props);
-    console.log(props.history.location.state.props.tTradeImg);
+    // console.log(props.history.location.state.props.tTradeImg);
     this.state = {
       ...this.state,
       tradeNo:props.history.location.state.props.tradeNo,
@@ -183,7 +183,7 @@ class WriteUpdate extends Component {
       data: formdata
     })
       .then(res => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         this.setState({
           success: "/search/detail/" + this.state.tradeNo
         });

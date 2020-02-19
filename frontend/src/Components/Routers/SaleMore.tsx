@@ -81,7 +81,7 @@ class SaleMore extends Component<Props> {
         });
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         alert("sale error");
       });
   }

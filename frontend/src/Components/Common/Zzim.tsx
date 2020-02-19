@@ -28,7 +28,7 @@ class Zzim extends Component<Props> {
 
   //새로운 Props를 받았을 때 렌더링 다시 해주는 함수
   componentDidUpdate(prevProps: any) {
-    //console.log(this.props.cno);
+    //// console.log(this.props.cno);
     if (this.props.cno !== prevProps.cno) {
       this.setState({
         check: this.props.cno
@@ -66,7 +66,7 @@ class Zzim extends Component<Props> {
             }
           })
           .catch(err => {
-            console.log(err);
+            // // console.log(err);
             alert("심쿵 상품으로 추가되지 않았습니다.");
           });
       }

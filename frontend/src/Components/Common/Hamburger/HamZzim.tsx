@@ -93,7 +93,6 @@ class HamZzim extends React.Component<Props> {
   mouseup = (e: any) => {
     if (e.clientX === this.state.mouse_x && e.clientY === this.state.mouse_y) {
       //this.props.history.push(`/search/detail/${e.target.id}`)
-      console.log(e.target)
       this.setState({
         success: "/search/detail/" + e.target.id
       });
@@ -121,7 +120,7 @@ class HamZzim extends React.Component<Props> {
       })
       .catch(err => {
         alert(err);
-        console.log("err", err);
+        // // console.log("err", err);
       });
   };
 
