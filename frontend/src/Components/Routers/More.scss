@@ -1,0 +1,267 @@
+
+
+.like-more {
+    min-height: 500px;
+    text-align: center;
+    margin: 0 auto;
+
+    h2 {
+        font-family: "yg-jalnan";
+        color: #f494ab;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        font-family: "NanumSquareRound";
+    }
+
+    hr {
+        background-color: #f9f4e6;
+        border: 0;
+        height: 3px;
+        margin-top: 10px;
+    }
+
+    .itemCard {
+        display: inline-block;
+        vertical-align: bottom;
+        overflow: hidden;
+
+        .item-info {
+            padding: 7px;
+
+            h4 {
+                color: #365367;
+            }
+        }
+
+        hr {
+            border: 0;
+            background-color: rgba(185, 185, 185, 0.404);
+            margin: 3px 0;
+            height: 2px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            // position: inherit;
+            z-index: -1;
+        }
+
+        .img-back {
+            z-index: 1;
+            border-radius: 0 5% 0 0;
+            background-color: rgba(228, 220, 208, 0.856);
+        }
+
+        @media screen and (max-width: 767px) {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            // border: 1px solid black;
+            border-radius: 5%;
+            .item-info {
+                h4 {
+                    font-size: smaller;
+                    span {
+                        color: gray;
+                    }
+                }
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            width: 190px;
+            height: 190px;
+            margin: 5px 1.5%;
+            // border: 1px solid black;
+            border-radius: 5%;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+
+    }
+
+    @media screen and (min-width: 768px) {
+        width: 960px;
+    }
+}
+
+.sale-more,
+.purchase-more {
+    
+    min-height: 500px;
+    text-align: center;
+    margin: 0 auto;
+    a{
+        font-family: "yg-jalnan";
+    }
+    .manner-modal{
+        font-family: 'yg-jalnan';
+        button{
+            font-family: 'NanumSquareRound';
+        }
+    }
+    h2 {
+        font-family: "yg-jalnan";
+        color: #365367;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        font-family: "NanumSquareRound";
+    }
+
+    hr {
+        background-color: #f9f4e6;
+        border: 0;
+        height: 3px;
+        margin-top: 10px;
+    }
+
+    .products {
+        display: inline-block;
+        margin-top: 5px;
+
+        .purchase-modalbtn {
+            display: inline-block;
+            // width: 100%;
+            margin: 3px 7px;
+            text-align: center;
+            a {
+                position: relative;
+            }
+            vertical-align: top;
+        }
+        .sale-complete-trade {
+            display: inline;
+            // position: absolute;
+            background-color: black;
+            color: white;
+        }
+
+        @media screen and(max-width: 767px) {
+            width: 100%;
+
+            .sale-complete-trade {
+                bottom: 0px;
+                left: 10px;
+            }
+            .purchase-modalbtn {
+                display: inline-block;
+                position: relative;
+                width: 150px;
+                height: 150px;
+                .btn-manner-modal {
+                    background-color: #365367;
+                    color: white;
+                    position: absolute;
+                    width: 150px;
+                    bottom: -9px;
+                    right: -10px;
+                    border: 0;
+                    border-radius: 0 0 10px 10px;
+                    padding: 3px;
+                }
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            width: 100%;
+            height: 95%;
+            display: inline-block;
+
+            .purchase-modalbtn {
+                display: inline-block;
+                position: relative;
+                width: 190px;
+                height: 190px;
+                .btn-manner-modal {
+                    background-color: #365367;
+                    color: white;
+                    position: absolute;
+                    width: 190px;
+                    bottom: -6px;
+                    right: -3px;
+                    border: 0;
+                    border-radius: 0 0 10px 10px;
+                    padding: 5px;
+                }
+            }
+            .sale-complete-trade {
+                bottom: 0px;
+                right: 10px;
+            }
+        }
+    }
+
+    .itemCard {
+        display: inline-block;
+        vertical-align: bottom;
+        overflow: hidden;
+
+        .item-info {
+            padding: 7px;
+
+            h4 {
+                color: #495169;
+            }
+        }
+
+        hr {
+            border: 0;
+            background-color: rgba(185, 185, 185, 0.404);
+            margin: 3px 0;
+            height: 2px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            // position: inherit;
+            z-index: -1;
+        }
+
+        .img-back {
+            z-index: 1;
+            border-radius: 0 5% 0 0;
+            background-color: rgba(228, 220, 208, 0.856);
+        }
+
+        @media screen and (max-width: 767px) {
+            width: 150px;
+            height: 150px;
+            margin: 10px;
+            // border: 1px solid black;
+            border-radius: 5%;
+            .item-info {
+                h4 {
+                    font-size: smaller;
+                    span {
+                        color: gray;
+                    }
+                }
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            width: 190px;
+            height: 190px;
+            margin: 5px 1.5%;
+            // border: 1px solid black;
+            border-radius: 5%;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+    }
+
+    @media screen and (min-width: 768px) {
+        width: 960px;
+    }
+
+}
