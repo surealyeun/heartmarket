@@ -127,7 +127,7 @@
                 }
             }
             .complete-trade {
-                height: 153px;  
+                height: calc(100% - 95px);
                 h1{
                     margin: 70px auto;
                 }           
@@ -304,7 +304,7 @@
                 }
             }
             .complete-trade {
-                height: 517px;
+                height: 515px;
                 h1{
                     margin: 200px auto;
                 }

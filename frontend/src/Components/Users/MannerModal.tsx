@@ -55,8 +55,8 @@ class MannerModal extends React.Component<Props> {
                 }
             }).then(res => {
                 console.log(res);
+                window.location.reload();
                 this.props.close();
-                
             }).catch(err => {
                 console.log(err);
             })
