@@ -68,11 +68,7 @@
     ]
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@types/jquery": "^3.3.31",
-=======
     "@types/jquery": "^3.3.32",
->>>>>>> dev-front
     "@types/react": "^16.9.20",
     "@types/react-router-dom": "^5.1.3",
     "regenerator-runtime": "^0.13.3"
