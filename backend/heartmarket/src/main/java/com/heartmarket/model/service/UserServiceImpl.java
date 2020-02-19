@@ -28,6 +28,7 @@ import com.heartmarket.model.dto.Area;
 import com.heartmarket.model.dto.Mail;
 import com.heartmarket.model.dto.Manner;
 import com.heartmarket.model.dto.User;
+import com.heartmarket.model.dto.response.UserComplete;
 import com.heartmarket.util.ResultMap;
 
 @Service
@@ -190,11 +191,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		try {
 			List<Mail> mList = mar.findDistinctBySenderNoAndTradeNo(tradeNo, userNo);
 //			System.out.println(mList.si);
-			List<String> nList = new ArrayList<String>();
+			List<UserComplete> nList = new ArrayList<>();
 			for (Mail mail : mList) {
 				User mUser = ur.findByUserNo(mail.getSender().getUserNo());
 				if(Objects.isNull(mUser)) continue;
-				nList.add(mUser.getNickname());
+				nList.add(new UserComplete(mUser.getNickname(), mUser.getEmail()));
 //				System.out.println(mUser.getNickname());
 				}
 			return nList.size() == 0 ? 
