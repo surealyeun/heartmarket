@@ -109,6 +109,7 @@ class Detail extends React.Component<Props> {
     componentDidMount() {
         this.updateUrl();
         window.sessionStorage.setItem("isText", "true");
+        window.scrollTo(0,0);
     }
     componentWillUnmount() {
         window.sessionStorage.setItem("isText", "false");

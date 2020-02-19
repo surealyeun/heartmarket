@@ -85,6 +85,7 @@ class DetailAlarm extends Component<Mail> {
   }
 
   componentDidMount() {
+    window.scrollTo(0,0);
     //읽은 쪽지 처리해주는 부분
     if (this.user.userNo !== this.state.data.sender.userNo) {
       if (this.state.data.readDate === null) {
