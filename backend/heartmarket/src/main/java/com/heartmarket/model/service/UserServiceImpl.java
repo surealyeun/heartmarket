@@ -2,6 +2,7 @@ package com.heartmarket.model.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,9 +21,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.heartmarket.model.dao.AreaRepository;
+import com.heartmarket.model.dao.MailRepository;
 import com.heartmarket.model.dao.MannerRepository;
 import com.heartmarket.model.dao.UserRepository;
 import com.heartmarket.model.dto.Area;
+import com.heartmarket.model.dto.Mail;
 import com.heartmarket.model.dto.Manner;
 import com.heartmarket.model.dto.User;
 import com.heartmarket.util.ResultMap;
@@ -36,6 +39,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	private AreaRepository ar;
 	@Autowired
 	private MannerRepository mr;
+	@Autowired
+	private MailRepository mar;
 
 	// 유저 번호로 유저 찾기
 	@Override
@@ -155,7 +160,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		ur.resortUserNo(user.getUserNo());
 		int result = user.getUserNo() + 1;
 		return result;
-	}
+	} 
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -173,6 +178,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		try {
 			User user = ur.findByNickname(nickname);
 			return user;
+		}catch(Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+	
+	// 판매자와 거래글 기준으로 쪽지를 나눴던 구매대상자들을 검색
+	@Override
+	public ResultMap<Object> findAllByNickname(int tradeNo, int userNo){
+		try {
+			List<Mail> mList = mar.findDistinctBySenderNoAndTradeNo(tradeNo, userNo);
+//			System.out.println(mList.si);
+			List<String> nList = new ArrayList<String>();
+			for (Mail mail : mList) {
+				User mUser = ur.findByUserNo(mail.getSender().getUserNo());
+				if(Objects.isNull(mUser)) continue;
+				nList.add(mUser.getNickname());
+//				System.out.println(mUser.getNickname());
+				}
+			return nList.size() == 0 ? 
+					 new ResultMap<Object>("FAIL", "구매 확정 대상자 없음", null) 
+					: new ResultMap<Object>("SUCCESS", "구매 대상자 목록 출력 완료", nList);
 		}catch(Exception e) {
 			e.printStackTrace();
 			throw e;
