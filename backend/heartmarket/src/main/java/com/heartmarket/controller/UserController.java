@@ -213,4 +213,10 @@ public class UserController {
 	public ResponseEntity<Object> delUser(@PathVariable String email){
 		return null;
 	}
+	
+	@RequestMapping(value = "/user/nickname", method = RequestMethod.GET)
+	public ResponseEntity<Object> findByNicknae(@RequestParam int tradeNo, @RequestParam int userNo){
+		ResultMap<Object> result = us.findAllByNickname(tradeNo, userNo);
+				return new ResponseEntity<Object>(result, HttpStatus.OK);
+	}
 }
