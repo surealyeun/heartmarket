@@ -177,15 +177,14 @@ public class TradeServiceImpl implements TradeService {
 	public ResultMap<Object> deleteTrade(int no) {
 		try {
 			Trade trade = tr.findById(no).orElse(null);
-			List<TradeImg> tradeImg = trade.gettTradeImg();
-
+			
 			if (Objects.isNull(trade)) {
 				return new ResultMap<Object>("FAIL", "게시글 삭제 실패", null);
 			} else {
 				trade.setTUser(null);
 				trade.setBUser(null);
 			
-				tradeImg = tir.findAllBytiTradeTradeNo(no);
+				List<TradeImg>	tradeImg = tir.findAllBytiTradeTradeNo(no);
 				for (TradeImg ti : tradeImg) {
 //					System.out.println(ti.toString());
 					tir.delete(ti);
