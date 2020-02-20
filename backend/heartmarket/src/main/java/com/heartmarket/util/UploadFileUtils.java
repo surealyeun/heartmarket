@@ -19,7 +19,6 @@ import javax.imageio.stream.FileImageOutputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.metadata.Directory;
@@ -34,7 +33,7 @@ public class UploadFileUtils {
 	static final int THUMB_WIDTH = 100;  // 썸네일의 가로 크기
 	static final int THUMB_HEIGHT = 100;  // 썸네일의 세로 크기
 	
-	public static String fileUpload(String uploadPath, 
+	public static String fileUpload(String uploadPath,
 									String fileName, 
 									byte[] fileData, String ymdPath) throws Exception {
 
@@ -45,8 +44,7 @@ public class UploadFileUtils {
 		String imgPath = uploadPath + ymdPath;  // 업로드 경로 + 연월일 경로 = 이미지 저장 경로
 		
 		// 이미지 저장 경로에 원본 파일을 저장
-		File target = new File(fileName);
-		target.createNewFile();
+		File target = new File(imgPath, newFileName);
 		//1. 원본 파일 읽기
 		FileOutputStream fos = new FileOutputStream(target);
 		fos.write(fileData);
