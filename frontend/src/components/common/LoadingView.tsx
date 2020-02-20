@@ -1,7 +1,7 @@
-import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import React from "react";
-import Loader from "react-loader-spinner";
-import "./LoadingView.scss"
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css'
+import React from 'react'
+import Loader from 'react-loader-spinner'
+import './LoadingView.scss'
 
 class LoadingView extends React.Component {
   //other logic
@@ -16,8 +16,8 @@ class LoadingView extends React.Component {
           timeout={3000} //3 secs
         />
       </div>
-    );
+    )
   }
 }
 
-export default LoadingView;
+export default LoadingView
