@@ -90,7 +90,7 @@ class AlarmListItem extends React.Component<Mail> {
               state: { data: this.state.data }
             }}
           >
-            <img className="alarmlist_img" alt="사진" src={this.state.data.sender.profileImg}></img>
+            {this.user.userNo !== this.state.data.sender.userNo ? <img className="alarmlist_img" alt="사진" src={this.state.data.sender.profileImg}></img>: <img className="alarmlist_img" alt="사진" src={this.state.data.receiver.profileImg}></img>}
             <div>
               {this.user.userNo !== this.state.data.sender.userNo ? <p className="nickname">{this.state.data.sender.nickname}</p> : <p className="nickname">{this.state.data.receiver.nickname}</p>}
               <div className="title">{this.state.data.title}</div>
