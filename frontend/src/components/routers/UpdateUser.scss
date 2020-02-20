@@ -1,236 +1,280 @@
 .big {
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
 .updateuser {
-    margin: auto;
-    text-align: center;
+  margin: auto;
+  text-align: center;
 
-    .section, .profile-img-wrapper {
-        display: inline-block;
+  .section,
+  .profile-img-wrapper {
+    display: inline-block;
+  }
+
+  .pro-img {
+    overflow: hidden;
+  }
+
+  input[type='file'] {
+    display: inline-block;
+  }
+
+  h3 {
+    font-family: 'NanumSquareRound';
+  }
+
+  p {
+    font-family: 'NanumSquareRound';
+    font-size: small;
+    color: #6d6d6d;
+  }
+
+  .btn-updatenick {
+    width: 100px;
+    height: 40px;
+  }
+
+  .profile-img {
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+  }
+  select {
+    font-family: 'NanumSquareRound'; /* 폰트 상속 */
+    // background-color: #4242421a;
+    background: #4242421a url('https://image.flaticon.com/icons/svg/32/32195.svg') no-repeat 95% 50%/8%; /* 네이티브 화살표를 커스텀 화살표로 대체 */
+    // background-size: length($list: 20px);
+    border: 0;
+    border-radius: 4px 0 0 4px; /* iOS 둥근모서리 제거 */
+    -webkit-appearance: none; /* 네이티브 외형 감추기 */
+    -moz-appearance: none;
+    appearance: none;
+    color: rgb(71, 71, 71);
+  }
+
+  @media screen and (max-width: 767px) {
+    margin-top: 20px;
+    select {
+      width: 190px;
+      height: 40px;
+      font-size: medium;
+      padding: 0 1em;
     }
 
-    .pro-img{
-        overflow: hidden;
-    }
-    
-    input[type="file"] {
-        display: inline-block;
+    .profile {
+      height: 60px;
     }
 
-    h3 {
-        font-family: "NanumSquareRound";
+    img {
+      width: 120px;
+      height: 120px;
+      border-radius: 60px;
+      border: solid 4px #f494abad;
+      margin: 20px;
     }
 
-    p {
-        font-family: "NanumSquareRound";
-        font-size: small;
-        color: #6d6d6d;
+    h1 {
+      font-family: 'yg-jalnan';
+      font-size: 45px;
+      color: #365367;
+    }
+
+    input[type='text'] {
+      font-family: 'NanumSquareRound';
+      /* color: white; */
+      font-size: medium;
+      height: 40px;
+      color: rgb(71, 71, 71);
+      line-height: normal;
+      padding: 0 1em;
+      // margin-left: 5px;
+      margin-bottom: 10px;
+      background-color: #4242421a;
+      border: none;
+    }
+
+    .input-nickname {
+      width: 160px;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .input-address {
+      width: 160px;
+      border-radius: 4px 0 0 4px;
+    }
+
+    input[type='button'] {
+      font-family: 'NanumSquareRound';
+      border: none;
+      border-radius: 0 4px 4px 0;
+      width: 40px;
+      height: 40px;
+      padding: 0.5em 0.5em;
+      margin-top: 20px;
+      margin-right: 5px;
+      font-size: medium;
+      background-color: #365367;
+      color: white;
+    }
+    .profile-img {
+      margin: 10px;
+    }
+    button {
+      font-family: 'NanumSquareRound';
+      border: none;
+      border-radius: 0 4px 4px 0;
+      height: 40px;
+      // width: 46%;
+      padding: 0.5em 0.5em;
+      margin: 20px 0;
+      font-size: medium;
+      background-color: #365367;
+      color: white;
+    }
+    .btn-update {
+      width: 290px;
+      background-color: #f494ab;
+      border-radius: 4px;
+      margin: 10px 0;
     }
 
     .btn-updatenick {
-        width: 100px;
-        height: 40px;
+      border-radius: 0 4px 4px 0;
+      margin-top: 5px;
+      margin-bottom: 5px;
     }
 
-    .profile-img {
-        position: relative;
-        overflow: hidden;
-        align-items: center;
-        justify-content: center;
-        width: 120px;
-        height: 120px;
+    .btn-updateprofile {
+      margin-top: 10px;
+      margin-bottom: 0;
+      margin-left: 20px;
+      margin-right: 20px;
+      height: 40px;
+      border-radius: 4px;
+      padding: 0 15px;
     }
 
-    @media screen and (max-width: 767px) {
-        margin-top: 20px;
+    input[type='file'] {
+      width: 200px;
+    }
+    .pro-img {
+      height: 140px;
+    }
+  }
 
-        img {
-            width: 120px;
-            height: 120px;
-            border-radius: 60px;
-            border: solid 4px #f494abad;
-            margin: 20px;
-        }
-
-        h1 {
-            font-family: "yg-jalnan";
-            font-size: 45px;
-            color: #365367;
-        }
-
-        input[type="text"] {
-            font-family: "NanumSquareRound";
-            /* color: white; */
-            font-size: medium;
-            height: 40px;
-            color: rgb(71, 71, 71);
-            line-height: normal;
-            padding: 0 1em;
-            // margin-left: 5px;
-            margin-bottom: 10px;
-            background-color: #4242421a;
-            border: none;
-        }
-
-        .input-nickname {
-            width: 160px;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .input-address {
-            width: 160px;
-            border-radius: 4px 0 0 4px;
-        }
-
-        input[type="button"] {
-            font-family: "NanumSquareRound";
-            border: none;
-            border-radius: 0 4px 4px 0;
-            width: 40px;
-            height: 40px;
-            padding: 0.5em 0.5em;
-            margin-top: 20px;
-            margin-right: 5px;
-            font-size: medium;
-            background-color: #365367;
-            color: white;
-        }
-        .profile-img{
-            margin: 10px;
-        }
-        button {
-            font-family: "NanumSquareRound";
-            border: none;
-            border-radius: 0 4px 4px 0;
-            height: 40px;
-            // width: 46%;
-            padding: 0.5em 0.5em;
-            margin: 20px 0;
-            font-size: medium;
-            background-color: #365367;
-            color: white;
-        }
-        .btn-update {
-            width: 290px;
-            background-color: #f494ab;
-            border-radius: 4px;
-            margin: 10px 0;
-        }
-
-        .btn-updatenick {
-            border-radius: 0 4px 4px 0;
-            margin-top: 5px;
-            margin-bottom: 5px;;
-        }
-
-        .btn-updateprofile {
-            margin-top: 10px;
-            margin-bottom: 0;
-            margin-left: 20px;
-            margin-right: 20px;
-            height: 40px;
-            border-radius: 4px;;
-            padding: 0 15px;
-        }
-
-        input[type='file']{
-            width: 200px;
-        }
+  @media screen and (min-width: 768px) {
+    margin-top: 70px;
+    width: 60%;
+    select {
+      height: 40px;
+      font-size: medium;
+      padding: 0 1em;
+      margin-left: 10px;
+      margin-bottom: 10px;
     }
 
-    @media screen and (min-width: 768px) {
-        margin-top: 70px;
-        width: 60%;
-
-        .section {
-            height: 120px;
-        }
-
-        img {
-            width: 180px;
-            height: 180px;
-            border-radius: 90px;
-            border: solid 4px #f494abad;
-            margin: 20px;
-        }
-
-        h1 {
-            font-family: "yg-jalnan";
-            font-size: 60px;
-            color: #365367;
-        }
-
-        input[type="text"] {
-            font-family: "NanumSquareRound";
-            /* color: white; */
-            font-size: medium;
-            height: 40px;
-            color: rgb(71, 71, 71);
-            line-height: normal;
-            padding: 0 1em;
-            margin-left: 10px;
-            margin-bottom: 10px;
-            background-color: #4242421a;
-            border: none;
-        }
-
-        .input-nickname {
-            width: 130px;
-            border-radius: 4px 0 0 4px;
-        }
-
-        .input-address {
-            width: 130px;
-            border-radius: 4px 0 0 4px;
-        }
-
-        input[type="button"] {
-            font-family: "NanumSquareRound";
-            border: none;
-            border-radius: 0 4px 4px 0;
-            width: 40px;
-            height: 40px;
-            padding: 0.5em 0.5em;
-            margin-top: 20px;
-            margin-right: 5px;
-            font-size: medium;
-            background-color: #365367;
-            color: white;
-        }
-
-        button {
-            font-family: "NanumSquareRound";
-            border: none;
-
-            // height: auto;
-            // width: 21%;
-            padding: 0.5em 0.5em;
-            margin: 20px 0;
-            font-size: medium;
-            background-color: #365367;
-            color: white;
-        }
-
-        .btn-update {
-            width: 130px;
-            background-color: #f494ab;
-            border-radius: 4px;
-            // margin-right: 10px;
-            margin: 10px 0;
-        }
-
-        .btn-updatenick {
-            border-radius: 0 4px 4px 0;
-            margin-right: 10px;
-            margin-top: 10px;
-        }
-
-        .btn-updateprofile {
-            margin: 0;
-            height: 40px;
-            border-radius: 4px;;
-            padding: 0 15px;
-        }
+    .address {
+      width: 162px;
     }
+
+    .section {
+      height: 120px;
+    }
+
+    img {
+      width: 180px;
+      height: 180px;
+      border-radius: 90px;
+      border: solid 4px #f494abad;
+      margin: 20px;
+    }
+
+    h1 {
+      font-family: 'yg-jalnan';
+      font-size: 60px;
+      color: #365367;
+    }
+
+    input[type='text'] {
+      font-family: 'NanumSquareRound';
+      /* color: white; */
+      font-size: medium;
+      height: 40px;
+      color: rgb(71, 71, 71);
+      line-height: normal;
+      padding: 0 1em;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      background-color: #4242421a;
+      border: none;
+    }
+
+    .input-nickname {
+      width: 130px;
+      border-radius: 4px 0 0 4px;
+    }
+
+    .input-address {
+      width: 130px;
+      border-radius: 4px 0 0 4px;
+    }
+
+    input[type='button'] {
+      font-family: 'NanumSquareRound';
+      border: none;
+      border-radius: 0 4px 4px 0;
+      width: 40px;
+      height: 40px;
+      padding: 0.5em 0.5em;
+      margin-top: 20px;
+      margin-right: 5px;
+      font-size: medium;
+      background-color: #365367;
+      color: white;
+    }
+
+    button {
+      font-family: 'NanumSquareRound';
+      border: none;
+
+      // height: auto;
+      // width: 21%;
+      padding: 0.5em 0.5em;
+      margin: 20px 0;
+      font-size: medium;
+      background-color: #365367;
+      color: white;
+    }
+
+    .btn-update {
+      width: 260px;
+      background-color: #f494ab;
+      border-radius: 4px;
+      // margin-right: 10px;
+      margin: 10px 0;
+    }
+
+    .btn-updatenick {
+      border-radius: 0 4px 4px 0;
+      margin-right: 10px;
+      margin-top: 10px;
+    }
+
+    .btn-updateprofile {
+      margin: 0;
+      height: 40px;
+      border-radius: 4px;
+      padding: 0 15px;
+    }
+    .pro-img {
+      height: 150px;
+    }
+
+    .profile {
+      height: 60px;
+    }
+  }
 }

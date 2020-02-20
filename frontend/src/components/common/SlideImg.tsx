@@ -1,67 +1,61 @@
-import React from "react";
-import "./SlideImg.scss";
+import React from 'react'
+import './SlideImg.scss'
 
-import Carousel from "react-multi-carousel";
+import Carousel from 'react-multi-carousel'
 
 interface TtradeImg {
-    imgNo: number;
-    tiTrade: number;
-    orgImg: string;
+  imgNo: number
+  tiTrade: number
+  orgImg: string
 }
 
 interface Props {
-    ttradeImg: TtradeImg[];
+  ttradeImg: TtradeImg[]
 }
 
 class SlideImg extends React.Component<Props> {
-    responsive = {
-        Desktop: {
-            breakpoint: { max: 4000, min: 767 },
-            items: 1
-        },
-        tablet: {
-            breakpoint: { max: 768, min: 0 },
-            items: 1
-        },
-        mobile: {
-            breakpoint: { max: 464, min: 0 },
-            items: 1
-        }
-    };
+  responsive = {
+    Desktop: {
+      breakpoint: { max: 4000, min: 767 },
+      items: 1
+    },
+    tablet: {
+      breakpoint: { max: 768, min: 0 },
+      items: 1
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  }
 
-    render() {
-        return (
-            <div className="slide-img">
-                <div className="div_carousel">
-                    <Carousel
-                        additionalTransfrom={0}
-                        arrows
-                        customTransition="all .5"
-                        transitionDuration={500}
-                        containerClass="container"
-                        draggable
-                        infinite={false}
-                        keyBoardControl
-                        minimumTouchDrag={80}
-                        showDots
-                        slidesToSlide={1}
-                        swipeable={false}
-                        removeArrowOnDeviceType={["mobile"]}
-                        responsive={this.responsive}
-                    >
-                        {this.props.ttradeImg.map(img => {
-                            return (
-                                <div className="div_ganji">
-                                    <img
-                                        className="ganji"
-                                        alt={img.orgImg}
-                                        src={img.orgImg}
-                                        key={img.imgNo}
-                                    ></img>
-                                </div>
-                            );
-                        })}
-                        {/* <div className="div_ganji">
+  render() {
+    return (
+      <div className="slide-img">
+        <div className="div_carousel">
+          <Carousel
+            additionalTransfrom={0}
+            arrows
+            customTransition="all .5"
+            transitionDuration={500}
+            containerClass="container"
+            draggable
+            infinite={false}
+            keyBoardControl
+            minimumTouchDrag={80}
+            showDots
+            slidesToSlide={1}
+            swipeable={false}
+            responsive={this.responsive}
+          >
+            {this.props.ttradeImg.map(img => {
+              return (
+                <div className="div_ganji">
+                  <img className="ganji" alt={img.orgImg} src={img.orgImg} key={img.imgNo}></img>
+                </div>
+              )
+            })}
+            {/* <div className="div_ganji">
                             <img
                                 className="ganji"
                                 alt=""
@@ -82,11 +76,11 @@ class SlideImg extends React.Component<Props> {
                                 src="https://images.unsplash.com/photo-1499084732479-de2c02d45fcc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
                             ></img>
                         </div> */}
-                    </Carousel>
-                </div>
-            </div>
-        );
-    }
+          </Carousel>
+        </div>
+      </div>
+    )
+  }
 }
 
-export default SlideImg;
+export default SlideImg

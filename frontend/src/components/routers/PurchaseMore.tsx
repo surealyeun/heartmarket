@@ -72,7 +72,7 @@ class PurchaseMore extends Component<Props> {
   user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
   state = {
     Purchases: Array<purchase>(),
-    isModalOpen: false
+    isModalOpen: []
   };
   componentDidMount() {
     window.scrollTo(0,0);
@@ -86,24 +86,31 @@ class PurchaseMore extends Component<Props> {
     })
       .then(res => {
         this.setState({
-          Purchases: res.data.data
+          Purchases: res.data.data,
+          isModalOpen: res.data.data.map(() => {
+            return false;
+          })
         });
         // // console.log(res.data.data);
       })
       .catch(err => {
         // console.log(err);
-        alert("sale error");
+        alert("purchase error");
       });
   }
-  openModal = () => {
+  openModal = (idx: number) => {
     this.setState({
-      isModalOpen: true
-    });
+      isModalOpen: [...this.state.isModalOpen.slice(0, idx), 
+                    true, 
+                    ...this.state.isModalOpen.slice(idx+1)]
+    })
   };
   closeModal = () => {
     this.setState({
-      isModalOpen: false
-    });
+      isModalOpen: this.state.isModalOpen.map(() => {
+            return false;
+          })
+    })
   };
   render() {
     return (
@@ -120,7 +127,6 @@ class PurchaseMore extends Component<Props> {
                 {this.state.Purchases ? (
                   <>
                     {this.state.Purchases.map((purchase, i) => {
-                      // // console.log("map - userno ", purchase.btrade.tuser);
                       return (
                         <>
                           <div className="purchase-modalbtn">
@@ -140,12 +146,12 @@ class PurchaseMore extends Component<Props> {
                               <>
                                 <button
                                   className="btn-manner-modal"
-                                  onClick={this.openModal}
+                                  onClick={(e) => this.openModal(i)}
                                 >
                                   평가하기
                                 </button>
                                 <Modal
-                                  isOpen={this.state.isModalOpen}
+                                  isOpen={this.state.isModalOpen[i]}
                                   close={this.closeModal}
                                   userNo={purchase.btrade.tuser}
                                   tradeNo={purchase.btrade.tradeNo}

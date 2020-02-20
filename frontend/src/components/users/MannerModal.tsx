@@ -78,6 +78,9 @@ class MannerModal extends React.Component<Props> {
     componentDidMount() {
         // console.log('modal userno',this.props.userNo);
     }
+    componentWillReceiveProps() {
+        // console.log(this.props);
+    }
 
     render() {
         return (

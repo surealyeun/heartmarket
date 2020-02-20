@@ -173,6 +173,7 @@ public class TradeController {
 			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception {
 		Trade trade = ts.findByTradeNo(tradeNo);
 		if(trade != null) {
+			trade.setTradeArea(tradeArea);
 			trade.setTradeTitle(tradeTitle);
 			trade.setTradeCategory(tradeCategory);
 			trade.setProductPrice(Integer.parseInt(productPrice));
@@ -321,9 +322,11 @@ public class TradeController {
 					, HttpStatus.NO_CONTENT);
 		else {
 			tmList = mappedFor(ts.getPopularList(), email);
-			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공", tmList), 
+			for (TradeMapping tradeMapping : tmList) {
+				tradeMapping.setBNo(0);
+			}
+			return new ResponseEntity<Object>(new ResultMap<List<TradeMapping>>("SUCCESS", "성공", tmList),
 					HttpStatus.OK);
-			
 		}
 	}
 }

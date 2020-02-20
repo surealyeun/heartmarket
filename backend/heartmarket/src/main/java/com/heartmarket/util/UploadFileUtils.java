@@ -1,11 +1,30 @@
 package com.heartmarket.util;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.UUID;
 
+import javax.imageio.IIOImage;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
+import javax.imageio.stream.FileImageOutputStream;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.util.FileCopyUtils;
+
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.exif.ExifIFD0Directory;
+import com.drew.metadata.jpeg.JpegDirectory;
 
 import net.coobird.thumbnailator.Thumbnails;
 
@@ -26,7 +45,103 @@ public class UploadFileUtils {
 		
 		// 이미지 저장 경로에 원본 파일을 저장
 		File target = new File(imgPath, newFileName);
-		FileCopyUtils.copy(fileData, target);
+		//1. 원본 파일 읽기
+		FileOutputStream fos = new FileOutputStream(target);
+		fos.write(fileData);
+		fos.close();
+		
+		//2. 원본파일의 Orientation 정보 읽기
+		int orientation = 1;
+		int width = 0;
+		int height = 0;
+		int tempWidth = 0;
+		Metadata metadata;
+		Directory directory;
+		JpegDirectory jpegDirectory;
+		try {
+			metadata = ImageMetadataReader.readMetadata(target);
+			directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
+			jpegDirectory = metadata.getFirstDirectoryOfType(JpegDirectory.class);
+			if(directory != null) {
+				orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
+				width = jpegDirectory.getImageWidth();
+				height = jpegDirectory.getImageHeight();
+			}
+			//3. 변경할 값들을 설정
+			AffineTransform atf = new AffineTransform();
+			switch (orientation) {
+			case 1:
+				break;
+			case 2: // Flip X 
+				atf.scale(-1.0, 1.0);
+				atf.translate(-width, 0);
+				break; 
+			case 3: // PI rotation 
+				atf.translate(width, height); 
+				atf.rotate(Math.PI); 
+				break; 
+			case 4: // Flip Y
+				atf.scale(1.0, -1.0);
+				atf.translate(0, -height);
+				break; 
+			case 5: // - PI/2 and Flip X
+				atf.rotate(-Math.PI / 2);
+				atf.scale(-1.0, 1.0);
+				break; 
+			case 6: // -PI/2 and -width 
+				atf.translate(height, 0); 
+				atf.rotate(Math.PI / 2); 
+				break; 
+			case 7: // PI/2 and Flip 
+				atf.scale(-1.0, 1.0); 
+				atf.translate(-height, 0); 
+				atf.translate(0, width); 
+				atf.rotate( 3 * Math.PI / 2); 
+				break; 
+			case 8: // PI / 2 
+				atf.translate(0, width); 
+				atf.rotate( 3 * Math.PI / 2); 
+				break;
+			}
+			switch (orientation) {
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+				tempWidth = width;
+				width = height;
+				height = tempWidth;
+				break;
+			}
+			
+			BufferedImage image = ImageIO.read(target);
+			final BufferedImage afterImage = new BufferedImage(width, height, image.getType());
+			final AffineTransformOp rotateOp = new AffineTransformOp(atf, AffineTransformOp.TYPE_BILINEAR);
+			final BufferedImage rotatedImage = rotateOp.filter(image, afterImage);
+			Iterator<ImageWriter> iter = ImageIO.getImageWritersByFormatName("jpg");
+			ImageWriter writer = iter.next();
+			ImageWriteParam iwp = writer.getDefaultWriteParam();
+			iwp.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
+			iwp.setCompressionQuality(1.0f);
+
+			// 4. 회전하여 생성할 파일을 만든다.
+			File uploadFile = new File(imgPath, newFileName);
+			FileImageOutputStream fios = new FileImageOutputStream(uploadFile);
+			
+			// 5. 원본파일을 회전하여 파일을 저장한다.
+			writer.setOutput(fios);
+			writer.write(null, new IIOImage(rotatedImage, null, null), iwp);
+			fios.close();
+			writer.dispose();
+			
+			byte[] fileBytes = null;
+			FileInputStream inputStream = new FileInputStream(uploadFile);
+			fileBytes = IOUtils.toByteArray(inputStream);
+			FileCopyUtils.copy(fileBytes, uploadFile);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getMessage());
+		}
 		
 		/*
 		 * String thumbFileName = "s_" + newFileName; // 썸네일 파일명 = "s_파일명" File image =

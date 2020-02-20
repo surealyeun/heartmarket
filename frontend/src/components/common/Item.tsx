@@ -1,24 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Item.scss";
-import Zzim from "../common/Zzim";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './Item.scss'
+import Zzim from '../common/Zzim'
 
 interface PostItem {
-  tradeNo: number;
-  tlist: null;
-  unicname: string;
-  pprice: string;
-  ttitle: string;
-  tarea: string;
-  uno: number;
-  uimg: string;
-  cno: number;
-  bno: number;
+  tradeNo: number
+  tlist: null
+  unicname: string
+  pprice: string
+  ttitle: string
+  tarea: string
+  uno: number
+  uimg: string
+  cno: number
+  bno: number
 }
 
 function Item(props: PostItem) {
-  const item = props;
-  const num = item.tradeNo + "";
+  const item = props
+  const num = item.tradeNo + ''
   return (
     <div className="Item">
       <div className="zzim_item">
@@ -39,16 +39,19 @@ function Item(props: PostItem) {
           <hr className="line"></hr>
           <div className="Card_img">
             <div className="img_wrapper">
-            <img
-              className="img_body"
-              src={item.tlist || ""}
-              // src="https://dnvefa72aowie.cloudfront.net/origin/article/202002/59CF77DBCA567CD7F48CE8DF791EB9E6278E3EA4499D1FE89144CB3E706B5B78.jpg?q=95&s=1440x1440&t=inside"
-              alt=""
-            ></img>
-            {item.bno ? 
-            <div className="complete"><h2>거래완료</h2></div>
-            :
-            <></>}
+              <img
+                className="img_body"
+                src={item.tlist || ''}
+                // src="https://dnvefa72aowie.cloudfront.net/origin/article/202002/59CF77DBCA567CD7F48CE8DF791EB9E6278E3EA4499D1FE89144CB3E706B5B78.jpg?q=95&s=1440x1440&t=inside"
+                alt=""
+              ></img>
+              {item.bno ? (
+                <div className="complete">
+                  <h2>거래완료</h2>
+                </div>
+              ) : (
+                <></>
+              )}
             </div>
           </div>
           <hr className="line"></hr>
@@ -56,13 +59,13 @@ function Item(props: PostItem) {
           <div className="Card_container">
             {/* <p>{item.tradeNo}</p> */}
             <p className="title">{item.ttitle}</p>
-            <p className="money">#{item.pprice}원</p>
+            <p className="money">#{item.pprice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</p>
             <p className="address">#{item.tarea}</p>
           </div>
         </div>
       </Link>
     </div>
-  );
+  )
 }
 
-export default Item;
+export default Item
