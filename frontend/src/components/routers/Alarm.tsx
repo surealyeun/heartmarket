@@ -231,7 +231,7 @@ class Alarm extends Component {
             )}
 
             {/* 메일 내역이 없을 때 */}
-            <div className="no_alarm"> 쪽지 내역이 없습니다.</div>
+            {this.state.mail.data.length === 0 && <div className="no_alarm"> 쪽지 내역이 없습니다.</div>}
           </div>
           {/* 토탈보다 받아온 메일의 수가 적을때만 더보기 표시 */}
           {this.state.final_num !== 1 && (
