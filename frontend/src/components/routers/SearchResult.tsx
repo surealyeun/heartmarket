@@ -95,7 +95,6 @@ class SearchResult extends Component<Props> {
         <div className="SearchResult_main">
           <div className="SearchResult_filter">
             {this.filters.map(filter => {
-              console.log(filter)
               if (sessionStorage.getItem('user')) {
                 return <FilterButton key={filter.id} {...filter} />
               } else {

@@ -78,10 +78,7 @@ function Nav(props: Props) {
       //alert(e.target.id); //여기서 클릭
       window.sessionStorage.setItem('searchCategory', e.target.id)
       props.CategoryAction()
-      if (window.sessionStorage.getItem('isText') === 'true') {
-        history.push('/search')
-        props.CategorySetAction(e.target.id)
-      }
+      props.CategorySetAction(e.target.id)
       history.push('/search')
     }
   }

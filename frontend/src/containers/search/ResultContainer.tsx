@@ -11,6 +11,7 @@ interface Props {
   loadingPost: any
   isLast: boolean
   filterType: number
+  cStatus: boolean
   cType: string
   isReload: boolean
   post: PostItem[]
@@ -26,6 +27,7 @@ class ResultContainer extends Component<Props> {
     previousCType: '0'
   }
   componentDidMount() {
+    console.log("Did Mount!")
     const { PostActions, isReload, filterType, FilterAction, CountAction, cType } = this.props
     // PostActions(0);
     // 새로고침 될때만 실행 (데이터 중복 방지)
@@ -33,18 +35,26 @@ class ResultContainer extends Component<Props> {
     // if (!isReload) {
     //   PostActions(0, filterType)
     // }
-    if (!isReload || cType !== this.state.previousCType) {
-      // console.log("category change!")
+    console.log(isReload, cType, this.state.previousCType)
+    if (!isReload) {
+      // console.log("Did Mount reload!")
+      PostActions(0, filterType)
+    } else {
+      if (cType !== this.state.previousCType) {
+        // console.log("Did Mount category change!")
       this.setState({ previousCType: cType })
+      this.setState({ previousFType: filterType })
       FilterAction()
       CountAction(0)
       PostActions(0, filterType)
+      }
     }
     // // console.log(filterType)
     window.addEventListener('scroll', this.handleScroll)
   }
 
   componentDidUpdate() {
+    // console.log("Did Update!")
     const { filterType, cType, FilterAction, PostActions, CountAction } = this.props
     if (filterType !== this.state.previousFType) {
       // console.log("filter change!");
@@ -97,11 +107,12 @@ export default connect(
     post: post.post,
     pageNum: postPage.counter,
     filterType: postFilter.num,
-    cType: categoryStatus.type
+    cType: categoryStatus.type,
+    cStatus: categoryStatus.status
   }),
   dispatch => ({
     PostActions: bindActionCreators(getPostThunk, dispatch),
     FilterAction: bindActionCreators(statusChange, dispatch),
-    CountAction: bindActionCreators(diffBy, dispatch)
+    CountAction: bindActionCreators(diffBy, dispatch),
   })
 )(ResultContainer)
