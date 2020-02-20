@@ -141,10 +141,10 @@ class Map extends Component<any> {
       // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
       infoOver.close()
     }) // 중심 좌표나 확대 수준이 변경됐을 때 지도 중심 좌표에 대한 주소 정보를 표시하도록 이벤트를 등록합니다 // window.kakao.maps.event.addListener(map, 'idle', function() { //   searchAddrFromCoords(map.getCenter(), displayCenterInfo); // });
-    function searchAddrFromCoords(coords: any, callback: any) {
-      // 좌표로 행정동 주소 정보를 요청합니다
-      geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback)
-    }
+    // function searchAddrFromCoords(coords: any, callback: any) {
+    //   // 좌표로 행정동 주소 정보를 요청합니다
+    //   geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback)
+    // }
     function searchDetailAddrFromCoords(coords: any, callback: any) {
       // 좌표로 법정동 상세 주소 정보를 요청합니다
       geocoder.coord2Address(coords.getLng(), coords.getLat(), callback)
@@ -172,7 +172,6 @@ class Map extends Component<any> {
         fillColor: '#fff', // 채우기 색깔입니다
         fillOpacity: 0.1 // 채우기 불투명도 입니다
       }) // polygon.setMap(map); // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 변경합니다 // 지역명을 표시하는 커스텀오버레이를 지도위에 표시합니다
-      let check: boolean = false
       window.kakao.maps.event.addListener(polygon, 'mouseover', (mouseEvent: any) => {
         // if (check === false) {
         //   my.getTrade(area.dong)
@@ -187,7 +186,6 @@ class Map extends Component<any> {
         customOverlay.setPosition(mouseEvent.latLng) // infowindow.setPosition(mouseEvent.latLng);
       }) // 다각형에 mouseout 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 원래색으로 변경합니다 // 커스텀 오버레이를 지도에서 제거합니다
       window.kakao.maps.event.addListener(polygon, 'mouseout', () => {
-        check = false
         polygon.setOptions({ fillColor: '#fff' })
         customOverlay.setMap(null)
       }) // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다
