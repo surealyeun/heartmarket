@@ -15,23 +15,24 @@ interface Props {
   bcandidate: Array<Bcandidate>
 }
 
+
 class TradeModal extends React.Component<Props> {
   state = {
-    buser: '',
+    buser: {nickname:"", email:""},
     isBuser: false,
     result: ''
   }
 
-  selectbuser = (buser: string) => {
-    if (buser) {
+  selectbuser = (e:React.ChangeEvent<HTMLSelectElement>) => {
+    if (e.target.value) {
       this.setState({
-        buser: buser,
+        buser: this.props.bcandidate[Number(e.target.value)],
         isBuser: true,
         result: ''
       })
     } else {
       this.setState({
-        buser: buser,
+        buser: this.props.bcandidate[Number(e.target.value)],
         isBuser: false,
         result: '구매자를 선택해주세요!'
       })
@@ -45,11 +46,22 @@ class TradeModal extends React.Component<Props> {
         url: 'http://13.125.55.96:8080/trade/complete',
         params: {
           email: this.props.email,
-          other: this.state.buser,
+          other: this.state.buser.nickname,
           tradeNo: this.props.tradeNo
         }
       })
         .then(res => {
+          axios({
+            method: "post",
+            url: "http://13.125.55.96:8080/mail/send",
+            params: {
+              content: "안녕하세요?\n" + this.state.buser.nickname + "님 좋은거래되셨나요?\n판매자와의 거래 평가를 수행해주세요.",
+              tradeNo: this.props.tradeNo + "",
+              senderMail: this.props.email,
+              receiverMail: this.state.buser.email,
+              title: "판매자와의 거래가 확정되었습니다."
+            }
+          })
           this.props.close()
           window.location.reload()
         })
@@ -91,13 +103,13 @@ class TradeModal extends React.Component<Props> {
                   입력해주세요.
                 </p>
                 <div className="content">
-                  <select className="buser" onChange={e => this.selectbuser(e.target.value)}>
+                  <select className="buser" onChange={this.selectbuser}>
                     <option value="" selected>
                       구매자 고르기
                     </option>
 
-                    {this.props.bcandidate.map(candi => {
-                      return <option value={candi.nickname}>{candi.nickname}</option>
+                    {this.props.bcandidate.map((candi, i) => {
+                      return <option value={i}>{candi.nickname}</option>
                     })}
                   </select>
                   <div className="result">{this.state.result}</div>
