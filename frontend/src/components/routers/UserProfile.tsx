@@ -110,7 +110,7 @@ class UserProfile extends Component<Props> {
             </div>
             <div></div>
             <div className="attack">
-              <div>심쿵 BPM</div>
+              <div>두근지수</div>
               <div>
                 <Progress
                   type="circle"
