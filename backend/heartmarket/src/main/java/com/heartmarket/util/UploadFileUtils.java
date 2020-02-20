@@ -140,6 +140,7 @@ public class UploadFileUtils {
 			FileInputStream inputStream = new FileInputStream(uploadFile);
 			fileBytes = IOUtils.toByteArray(inputStream);
 			FileCopyUtils.copy(fileBytes, uploadFile);
+			return newFileName;
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
@@ -159,7 +160,7 @@ public class UploadFileUtils {
 		 * // 썸네일 생성 Thumbnails.of(image).size(THUMB_WIDTH,
 		 * THUMB_HEIGHT).toFile(thumbnail); }
 		 */
-		return newFileName;
+		
 	}
 
 	public static String calcPath(String uploadPath) {
