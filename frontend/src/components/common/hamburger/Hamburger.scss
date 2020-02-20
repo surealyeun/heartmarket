@@ -1,12 +1,12 @@
 @font-face {
-  font-family: "yg-jalnan";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff") format("woff");
+  font-family: 'yg-jalnan';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: "NanumSquareRound";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,7 +24,7 @@
 
   #menu > span {
     display: block;
-    width: 100%;
+    width: 20px;
     height: 4px;
     background: #f494ab;
     margin: 2px 0;
@@ -45,7 +45,7 @@
     transition-delay: 0.2s;
   }
 
-  font-family: "NanumSquareRound";
+  font-family: 'NanumSquareRound';
   color: #365367;
   font-weight: bolder;
 
@@ -135,12 +135,12 @@
       margin-top: 90px;
       margin-left: 5px;
       margin-right: 5px;
-      div{
+      div {
         margin-left: 5px;
         margin-right: 5px;
         height: 1px;
         background: #42424233;
-        border: none
+        border: none;
       }
       p {
         margin-top: 20px;
@@ -153,7 +153,7 @@
     }
   }
 
-  .hambuger_prealarm{
+  .hambuger_prealarm {
     margin-top: 50px;
     height: calc(100% - 40px);
     width: 100%;
@@ -180,7 +180,7 @@
       position: fixed;
       z-index: 1500;
       top: 0;
-      
+
       //스르륵 나오게 하는 속성
       transform: perspective(100%);
       transition: 0.5s;
