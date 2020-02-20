@@ -22,7 +22,7 @@ interface Props {
 
 class ResultContainer extends Component<Props> {
   state = {
-    previousFType: 3,
+    previousFType: 5,
     previousCType: window.sessionStorage.getItem('searchCategory')
   }
   componentDidMount() {
