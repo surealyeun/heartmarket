@@ -208,11 +208,29 @@ class Alarm extends Component {
               </select>
             )}
           </div>
+          <hr className="ahr"></hr>
+          {/* 메일 리스트 보여주는 부분 */}
           <div>
             <hr></hr>
-            {this.state.mail.data.map(alarm => (
-              <AlarmList key={alarm.mailNo} data={alarm}></AlarmList>
-            ))}
+            {this.state.mail.data.length !== 0 && this.state.mail.data[0].mailNo === 0 ? (
+              // 로딩 중일 때
+              <Loader
+                type="Puff"
+                color="#00BFFF"
+                height={100}
+                width={100}
+                timeout={3000} //3 secs
+              />
+            ) : (
+              <>
+                {this.state.mail.data.map(alarm => (
+                  <AlarmList key={alarm.mailNo} data={alarm}></AlarmList>
+                ))}
+              </>
+            )}
+
+            {/* 메일 내역이 없을 때 */}
+            <div className="no_alarm"> 쪽지 내역이 없습니다.</div>
           </div>
           {/* 토탈보다 받아온 메일의 수가 적을때만 더보기 표시 */}
           {this.state.final_num !== 1 && (

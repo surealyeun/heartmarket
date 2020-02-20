@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
+@import url('https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css');
 
 /////////////////////////////////////////////////////////
 //                                                     //
@@ -8,92 +8,96 @@
 /////////////////////////////////////////////////////////
 
 @media screen and (max-width: 767px) {
-    .slide-img {
-        display: block;
-        width: 95%;
+  .slide-img {
+    display: block;
+    width: 95%;
+    height: 300px;
+    margin: 0;
+    position: absolute;
+    top: 187px;
+
+    .div_carousel {
+      height: 100%;
+      .react-multi-carousel-track {
         height: 300px;
-        margin: 0;
-        position: absolute;
-        top: 187px;
+      }
+      .div_ganji {
+        height: 300px;
+        text-align: center;
 
-        .div_carousel {
-            height: 100%;
-            .react-multi-carousel-track{
-              height: 300px;
-            }
-            .div_ganji {
-                height: 300px;
-                text-align: center;
+        //border: 1px solid lightgray;
 
-                //border: 1px solid lightgray;
-
-                .ganji {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                    -webkit-user-drag: none;
-                    background: white;
-                }
-            }
+        .ganji {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          -webkit-user-drag: none;
+          background: white;
         }
+      }
     }
+  }
 }
 
 // https://nuli.navercorp.com/sharing/blog/post/1132728
 @media screen and (min-width: 768px) and (max-width: 959px) {
-    .slide-img {
-        max-width: 960px;
-        width: 80%;
-        height: 620px;
-        margin: 0;
-        position: absolute;
-        top: 154px;
+  .slide-img {
+    max-width: 960px;
+    width: 80%;
+    height: 620px;
+    margin: 0;
+    position: absolute;
+    top: 154px;
 
-        .div_carousel {
+    .div_carousel {
+      height: 100%;
+      .react-multi-carousel-list {
+        width: 624px;
+        height: 620px;
+
+        .div_ganji {
+          height: 100%;
+          text-align: center;
+          //border: 1px solid lightgray;
+          .ganji {
+            width: 100%;
             height: 100%;
-            
-            .div_ganji {
-                height: 100%;
-                text-align: center;
-                //border: 1px solid lightgray;
-                .ganji {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                    -webkit-user-drag: none;
-                    background: white;
-                }
-            }
+            object-fit: contain;
+            -webkit-user-drag: none;
+            background: white;
+          }
         }
+      }
     }
+  }
 }
 
 @media screen and (min-width: 960px) {
-    .slide-img {
-        max-width: 960px;
-        width: 624px;
-        height: 620px;
-        margin: 0;
-        position: absolute;
-        top: 184px;
+  .slide-img {
+    max-width: 960px;
+    width: 624px;
+    height: 620px;
+    margin: 0;
+    position: absolute;
+    top: 184px;
 
-        .div_carousel {
-            height: 100%;
-            .react-multi-carousel-track{
-              height: 620px;
-            }
-            .div_ganji {
-                height: 100%;
-                text-align: center;
-                //border: 1px solid lightgray;
-                .ganji {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: contain;
-                    -webkit-user-drag: none;
-                    background: white;
-                }
-            }
+    .div_carousel {
+      height: 100%;
+      .react-multi-carousel-track {
+        height: 620px;
+      }
+      .div_ganji {
+        height: 100%;
+        text-align: center;
+        //border: 1px solid lightgray;
+        .ganji {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          -webkit-user-drag: none;
+          background: white;
         }
+      }
     }
+  }
 }
