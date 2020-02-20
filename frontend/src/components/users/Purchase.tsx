@@ -64,15 +64,17 @@ export interface purchase {
 class Purchase extends React.Component {
     state = {
         Purchases: Array<purchase>(),
-        isModalOpen: false
+        isModalOpen: []
     };
 
     user = JSON.parse(window.sessionStorage.getItem("user") || "{}");
 
-    openModal = () => {
+    openModal = (idx: number) => {
         this.setState({
-            isModalOpen: true
-        });
+            isModalOpen: [...this.state.isModalOpen.slice(0, idx), 
+                          true, 
+                          ...this.state.isModalOpen.slice(idx+1)]
+          })
     };
     closeModal = () => {
         this.setState({
@@ -91,7 +93,10 @@ class Purchase extends React.Component {
             .then(res => {
                 // console.log("purchase", res.data.data);
                 this.setState({
-                    Purchases: res.data.data
+                    Purchases: res.data.data,
+                    isModalOpen: res.data.data.map(() => {
+                        return false;
+                      })
                 });
             })
             .catch(err => {
@@ -126,12 +131,12 @@ class Purchase extends React.Component {
                                                     <>
                                                     <button
                                                         className="btn-manner-modal"
-                                                        onClick={this.openModal}
+                                                        onClick={(e) => this.openModal(i)}
                                                     >
                                                         평가하기
                                                     </button>
                                                     <Modal
-                                                        isOpen={this.state.isModalOpen}
+                                                        isOpen={this.state.isModalOpen[i]}
                                                         close={this.closeModal}
                                                         userNo={purchase.btrade.tuser}
                                                         tradeNo={purchase.btrade.tradeNo}
