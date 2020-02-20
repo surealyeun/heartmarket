@@ -173,6 +173,7 @@ public class TradeController {
 			@RequestParam String tradeArea,@RequestParam String productInfo,@RequestParam MultipartFile[] files) throws Exception {
 		Trade trade = ts.findByTradeNo(tradeNo);
 		if(trade != null) {
+			trade.setTradeArea(tradeArea);
 			trade.setTradeTitle(tradeTitle);
 			trade.setTradeCategory(tradeCategory);
 			trade.setProductPrice(Integer.parseInt(productPrice));
