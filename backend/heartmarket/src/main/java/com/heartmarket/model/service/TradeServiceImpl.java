@@ -175,7 +175,6 @@ public class TradeServiceImpl implements TradeService {
 	public ResultMap<Object> deleteTrade(int no) {
 		try {
 			Trade trade = tr.findById(no).orElse(null);
-			
 			if (Objects.isNull(trade)) { 
 				return new ResultMap<Object>("FAIL", "게시글 삭제 실패", null);
 			} else {
@@ -186,6 +185,10 @@ public class TradeServiceImpl implements TradeService {
 				for (TradeImg ti : tradeImg) {
 //					System.out.println(ti.toString());
 					tir.delete(ti);
+				}
+				List<Cart> carts = cr.findBycTradeTradeNo(no);
+				for (Cart cart : carts) {
+					cr.delete(cart);
 				}
 				List<Mail> mail = mailr.findAllByTradeTradeNo(trade.getTradeNo());
 				for (Mail mail2 : mail) {
