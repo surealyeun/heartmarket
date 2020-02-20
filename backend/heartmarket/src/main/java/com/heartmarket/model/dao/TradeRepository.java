@@ -63,7 +63,9 @@ public interface TradeRepository extends JpaRepository<Trade, Integer> {
 	
 	// 인기매물 ( 찜한 순서대로 )
 	@Query("select t from Cart c right join Trade t on c.cTrade.tradeNo = t.tradeNo"
+			+ " and t.bUser.userNo is null"
 			+ " group by t.tradeNo "
+			+ " having count(c.cTrade.tradeNo) > 0"
 			+ "order by count(c.cTrade.tradeNo) desc"
 			)
 	Page<Trade> findTop8All(Pageable req);
