@@ -8,6 +8,7 @@ import TopButton from '../common/TopButton'
 import AlarmList from '../alarm/AlarmListItem'
 import Nav from '../common/Nav'
 import axios from 'axios'
+import Loader from 'react-loader-spinner'
 
 interface Mail {
   mail: any

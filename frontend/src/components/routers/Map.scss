@@ -1,11 +1,9 @@
 @font-face {
   font-family: 'NanumSquareRound';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
-    format('woff');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
-
 .map {
   * {
     font-family: 'NanumSquareRound';
@@ -83,6 +81,9 @@
       background-color: #cfcfcf;
     }
   }
+  .Map_trade_status {
+    color: #e02300;
+  }
   .previous_page {
     display: flex;
     // position: absolute;
@@ -106,7 +107,7 @@
       text-decoration: none;
       width: 30px;
       height: 30px;
-      border:none;
+      border: none;
       display: inline-block;
       border-radius: 50%;
       background-color: #f1f1f1;
