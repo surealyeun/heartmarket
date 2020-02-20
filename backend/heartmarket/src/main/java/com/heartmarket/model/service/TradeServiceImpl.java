@@ -143,7 +143,9 @@ public class TradeServiceImpl implements TradeService {
 		try {
 			List<TradeImg> tradeOrigin = tir.findAllBytiTradeTradeNo(trade.getTradeNo());
 			int oldlen = tradeOrigin.size();
+			System.out.println("올드 : " + oldlen);
 			int newlen = fList.size();
+			System.out.println("뉴 : " + newlen);
 			if(oldlen < newlen) {
 				for (int i = oldlen; i < newlen; i++) {
 					tradeOrigin.add(new TradeImg(trade,fList.get(i).getOrgImg()));
@@ -157,6 +159,7 @@ public class TradeServiceImpl implements TradeService {
 			}
 			for (int i = 0; i < tradeOrigin.size(); i++) {
 				if (i < oldlen) {
+					System.out.println("뭔데 : "+fList.get(i).getOrgImg());
 					tradeOrigin.get(i).setOrgImg(fList.get(i).getOrgImg());
 				}
 			}
