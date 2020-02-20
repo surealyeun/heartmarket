@@ -1,11 +1,9 @@
 @font-face {
   font-family: 'NanumSquareRound';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff')
-    format('woff');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
-
 .map {
   * {
     font-family: 'NanumSquareRound';
@@ -59,7 +57,7 @@
   .size {
     width: 271px;
     height: 460px;
-    font-size: 17px;
+    font-size: 14px;
     padding-right: 15px;
   }
   .Map_title {
@@ -70,18 +68,23 @@
     -webkit-box-orient: vertical;
   }
   .Map_post {
+    height: 55px;
     display: flex;
-    margin-top: 13px;
+    margin-top: 5px;
     justify-content: space-between;
     &_img_container {
       overflow: auto;
     }
     &_img {
-      width: 80px;
+      width: 50px;
+      height: 50px;
     }
     &:hover {
       background-color: #cfcfcf;
     }
+  }
+  .Map_trade_status {
+    color: #e02300;
   }
   .previous_page {
     display: flex;
@@ -106,7 +109,7 @@
       text-decoration: none;
       width: 30px;
       height: 30px;
-      border:none;
+      border: none;
       display: inline-block;
       border-radius: 50%;
       background-color: #f1f1f1;

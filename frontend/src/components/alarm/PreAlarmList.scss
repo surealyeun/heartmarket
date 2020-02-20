@@ -18,4 +18,13 @@
     margin-top: 40px;
     margin-left: 14px;
   }
+  .no_item {
+    text-align: center;
+    width: calc(100% - 25px);
+    position: absolute;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    background: #4242421a;
+    border-radius: 3px;
+  }
 }

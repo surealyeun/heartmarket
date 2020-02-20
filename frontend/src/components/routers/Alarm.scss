@@ -1,20 +1,29 @@
 @font-face {
-  font-family: "NanumSquareRound";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff") format("woff");
+  font-family: 'NanumSquareRound';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 .Alarm {
   min-height: 70vh;
-  font-family: "NanumSquareRound";
+  font-family: 'NanumSquareRound';
   margin-top: 10px;
+  .no_alarm {
+    margin-top: 10px;
+    font-weight: bolder;
+  }
 
+  .ahr {
+    border: none;
+    height: 1px;
+    background: rgb(124, 124, 124);
+  }
   .alarm_haeder {
     margin-bottom: 5px;
 
     select {
-      font-family: "NanumSquareRound";
+      font-family: 'NanumSquareRound';
       position: absolute;
       width: 100px;
       height: 30px;
@@ -30,7 +39,7 @@
     }
   }
 
-  .total_num{
+  .total_num {
     display: inline-block;
     margin-bottom: 0px;
   }
@@ -46,7 +55,8 @@
       background: white;
       cursor: pointer;
     }
-    .alarm_readall, .alarm_deleteall {
+    .alarm_readall,
+    .alarm_deleteall {
       position: absolute;
       margin-left: 25px;
       background: #365367;
@@ -61,14 +71,14 @@
       font-size: 14px;
     }
 
-    .alarm_readall{
+    .alarm_readall {
       margin-left: 68px;
       padding-top: 0px;
       height: 23px;
     }
 
     select {
-      font-family: "NanumSquareRound";
+      font-family: 'NanumSquareRound';
       position: absolute;
       width: 100px;
       height: 24px;
@@ -76,19 +86,19 @@
       cursor: pointer;
     }
 
-    button{
-      width:100px;
+    button {
+      width: 100px;
     }
   }
 
-  .page_btn{
+  .page_btn {
     position: absolute;
     border-radius: 10px;
     margin-top: 20px;
     width: 150px;
-    height: 40px;
+    height: 35px;
     background: #365367;
-    padding-top: 8px;
+    padding-top: 5px;
     text-align: center;
     font-weight: bolder;
     color: #f9f4e6;
@@ -110,10 +120,10 @@
       // }
     }
 
-    .plus_btn{
+    .plus_btn {
       right: 10px;
     }
-    .minus_btn{
+    .minus_btn {
       left: 10px;
     }
   }
@@ -140,16 +150,16 @@
       }
     }
 
-    .alarm_check{
-      select{
-      right: calc(50% - 383px);
+    .alarm_check {
+      select {
+        right: calc(50% - 383px);
       }
     }
 
-    .plus_btn{
+    .plus_btn {
       right: calc(50% - 385px);
     }
-    .minus_btn{
+    .minus_btn {
       left: calc(50% - 385px);
     }
   }
@@ -175,16 +185,16 @@
       }
     }
 
-    .alarm_check{
-      select{
-      right: calc(50% - 480px);
+    .alarm_check {
+      select {
+        right: calc(50% - 480px);
       }
     }
 
-    .plus_btn{
+    .plus_btn {
       right: calc(50% - 480px);
     }
-    .minus_btn{
+    .minus_btn {
       left: calc(50% - 480px);
     }
   }
