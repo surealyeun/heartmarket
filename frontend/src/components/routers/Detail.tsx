@@ -219,7 +219,7 @@ class Detail extends React.Component<Props> {
                 <h4>카테고리 > {this.category[Number(this.state.all.trade.tradeCategory)].name}</h4>
                 <h2>{this.state.all.trade.tradeTitle}</h2>
                 <br />
-                <h3>{this.state.all.trade.productPrice}원</h3>
+                <h3>{this.state.all.trade.productPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</h3>
               </div>
               <br />
               <br />

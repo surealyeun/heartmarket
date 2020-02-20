@@ -70,9 +70,11 @@ class Map extends Component<any> {
       const tradeNo = `/search/detail/${trade[i].tradeNo}`
       if (trade[i].ttitle.length > 0) {
         const tradeStatus = trade[i].bno ? '거래가 완료된 물품입니다.' : ''
-        content += `<a href=${tradeNo}><div class="Map_post"><div><span class="Map_title">게시글: ${trade[i].ttitle.substring(0, 20)}</span>가격 : ${
-          trade[i].pprice
-        }<br/><span class="Map_trade_status">${tradeStatus}</span></div><div class="Map_post_container"><img class="Map_post_img" src=${trade[i].tlist}></img></div></div></a>`
+        content += `<a href=${tradeNo}><div class="Map_post"><div><span class="Map_title">게시글: ${trade[i].ttitle.substring(0, 20)}</span>가격 : ${trade[i].pprice
+          .toString()
+          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원<br/><span class="Map_trade_status">${tradeStatus}</span></div><div class="Map_post_container"><img class="Map_post_img" src=${
+          trade[i].tlist
+        }></img></div></div></a>`
       }
     } // +'   <div class="size"> : ' + Math.floor(polygon.getArea()) + ' m<sup>2</sup></area>' + '</div>';
     content += '</div></div>'
