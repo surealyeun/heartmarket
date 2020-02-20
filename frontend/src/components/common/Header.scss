@@ -1,11 +1,11 @@
 @charset "UTF-8";
-@import url("https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css");
+@import url('https://cdn.jsdelivr.net/gh/moonspam/NanumBarunGothic@1.0/nanumbarungothicsubset.css');
 
 *:focus {
   outline: none;
 }
 
-.Header{
+.Header {
   .Logo1 {
     display: none;
   }
@@ -34,7 +34,6 @@
       object-fit: fill;
     }
   }
-
 }
 
 @media screen and (max-width: 767px) {
@@ -79,7 +78,7 @@
   }
 }
 
-@media screen and (min-width: 768px) and (max-width: 959px)  {
+@media screen and (min-width: 768px) and (max-width: 959px) {
   .Header {
     margin-top: 15px;
 
@@ -90,7 +89,7 @@
       margin: 0 auto;
       text-align: center;
     }
-    
+
     .Logo1 {
       display: none;
     }
@@ -117,7 +116,7 @@
 
     .btn_search {
       left: calc(50% + 223px);
-      top:24px;
+      top: 24px;
       width: 30px;
       height: 30px;
       background: #f593ac;
@@ -128,7 +127,6 @@
         filter: invert(100%);
       }
     }
-    
   }
 }
 
@@ -169,7 +167,7 @@
 
     .btn_search {
       left: calc(50% + 255px);
-      top : 31px;
+      top: 31px;
       z-index: 10px;
       width: 35px;
       height: 35px;

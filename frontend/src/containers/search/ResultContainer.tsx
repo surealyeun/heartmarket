@@ -22,18 +22,18 @@ interface Props {
 
 class ResultContainer extends Component<Props> {
   state = {
-    previousFType: 3,
-    previousCType: window.sessionStorage.getItem('searchCategory')
+    previousFType: 5,
+    previousCType: '0'
   }
   componentDidMount() {
     const { PostActions, isReload, filterType, FilterAction, CountAction, cType } = this.props
     // PostActions(0);
     // 새로고침 될때만 실행 (데이터 중복 방지)
     // console.log("DidMount!")
-    if (!isReload) {
-      PostActions(0, filterType)
-    }
-    if (cType !== this.state.previousCType) {
+    // if (!isReload) {
+    //   PostActions(0, filterType)
+    // }
+    if (!isReload || cType !== this.state.previousCType) {
       // console.log("category change!")
       this.setState({ previousCType: cType })
       FilterAction()
