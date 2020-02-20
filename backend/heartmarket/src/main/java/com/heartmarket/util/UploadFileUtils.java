@@ -37,33 +37,33 @@ public class UploadFileUtils {
 	public static String fileUpload(String uploadPath, 
 									String fileName, 
 									byte[] fileData, String ymdPath) throws Exception {
-
-		// 랜덤문자 생성
-		UUID uid = UUID.randomUUID();
-		
-		String newFileName = uid + "_" + fileName;  // "랜덤문자_파일명"
-		String imgPath = uploadPath + ymdPath;  // 업로드 경로 + 연월일 경로 = 이미지 저장 경로
-		
-		// 이미지 저장 경로에 원본 파일을 저장
-		File target = new File(fileName);
-		target.createNewFile();
-		//1. 원본 파일 읽기
-		FileOutputStream fos = new FileOutputStream(target);
-		fos.write(fileData);
-		fos.close();
-		
-		//2. 원본파일의 Orientation 정보 읽기
-		int orientation = 1;
-		int width = 0;
-		int height = 0;
-		int tempWidth = 0;
-		Metadata metadata;
-		Directory directory;
-		JpegDirectory jpegDirectory;
 		try {
+			// 랜덤문자 생성
+			UUID uid = UUID.randomUUID();
+			
+			String newFileName = uid + "_" + fileName;  // "랜덤문자_파일명"
+			String imgPath = uploadPath + ymdPath;  // 업로드 경로 + 연월일 경로 = 이미지 저장 경로
+			
+			// 이미지 저장 경로에 원본 파일을 저장
+			File target = new File(fileName);
+			target.createNewFile();
+			//1. 원본 파일 읽기
+			FileOutputStream fos = new FileOutputStream(target);
+			fos.write(fileData);
+			fos.close();
+			
+			//2. 원본파일의 Orientation 정보 읽기
+			int orientation = 1;
+			int width = 0;
+			int height = 0;
+			int tempWidth = 0;
+			Metadata metadata;
+			Directory directory;
+			JpegDirectory jpegDirectory;
 			metadata = ImageMetadataReader.readMetadata(target);
 			directory = metadata.getFirstDirectoryOfType(ExifIFD0Directory.class);
 			jpegDirectory = metadata.getFirstDirectoryOfType(JpegDirectory.class);
+			
 			if(directory != null) {
 				orientation = directory.getInt(ExifIFD0Directory.TAG_ORIENTATION);
 				width = jpegDirectory.getImageWidth();
@@ -144,6 +144,7 @@ public class UploadFileUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
+			throw e;
 		}
 		
 		/*
