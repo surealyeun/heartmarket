@@ -62,7 +62,7 @@ public class MannerServiceImpl implements MannerService{
 //			else tMnr.setMinusGauge(0);
 		}
 		
-		double calc = hg + (pGauge + nGauge + mGauge)/hg;
+		double calc = hg + (pGauge + nGauge + mGauge);
 		
 		tMnr.setPlusGauge(pGauge);
 		tMnr.setNormalGauge(nGauge);
