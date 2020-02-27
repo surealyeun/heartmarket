@@ -39,6 +39,7 @@ class ResultContainer extends Component<Props> {
     if (!isReload) {
       // console.log("Did Mount reload!")
       PostActions(0, filterType)
+      this.setState({ previousCType: cType })
     } else {
       if (cType !== this.state.previousCType) {
         // console.log("Did Mount category change!")
