@@ -37,11 +37,12 @@ class ResultContainer extends Component<Props> {
     // }
     console.log(isReload, cType, this.state.previousCType)
     if (!isReload) {
-      // console.log("Did Mount reload!")
+      console.log("Did Mount reload!")
       PostActions(0, filterType)
+      this.setState({ previousCType: cType })
     } else {
       if (cType !== this.state.previousCType) {
-        // console.log("Did Mount category change!")
+      // console.log("Did Mount category change!")
       this.setState({ previousCType: cType })
       this.setState({ previousFType: filterType })
       FilterAction()
@@ -54,7 +55,7 @@ class ResultContainer extends Component<Props> {
   }
 
   componentDidUpdate() {
-    // console.log("Did Update!")
+    console.log("Did Update!")
     const { filterType, cType, FilterAction, PostActions, CountAction } = this.props
     if (filterType !== this.state.previousFType) {
       // console.log("filter change!");
@@ -64,7 +65,8 @@ class ResultContainer extends Component<Props> {
       PostActions(0, filterType)
     }
     if (cType !== this.state.previousCType) {
-      // console.log("category change!")
+      console.log(cType, this.state.previousCType)
+      console.log("category change!")
       this.setState({ previousCType: cType })
       FilterAction()
       CountAction(0)
