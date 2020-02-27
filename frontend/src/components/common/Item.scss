@@ -128,10 +128,18 @@ a {
   border: 1px solid lightgrey;
   transition: 0.3s;
   //flex-grow: 1 1 1;
-  //Mobile
+  // Mobile
   @media screen and (max-width: 767px) {
     width: 150px;
     margin-bottom: 20px;
+  }
+  // Web-1
+  @media screen and (min-width: 768px) and (max-width: 959px) {
+    width: 175px;
+  }
+  // Web-2
+  @media screen and (min-width: 960px) {
+    width: 223px;
   }
   .Card_img {
     position: relative;
